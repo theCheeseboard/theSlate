@@ -11,7 +11,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent) : QSyntaxHighlighter
     functionFormat.setForeground(Qt::blue);
 
     controlFormat.setForeground(Qt::blue);
-    controlFormat.setFontWeight(500);
+    controlFormat.setFontWeight(90);
 }
 
 void SyntaxHighlighter::highlightBlock(const QString &text) {

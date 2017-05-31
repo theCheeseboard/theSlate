@@ -17,7 +17,9 @@ TextEditor::TextEditor(QWidget *parent) : QTextEdit(parent)
 }
 
 TextEditor::~TextEditor() {
-
+    if (button != NULL) {
+        button->setVisible(false);
+    }
 }
 
 TabButton* TextEditor::getTabButton() {
