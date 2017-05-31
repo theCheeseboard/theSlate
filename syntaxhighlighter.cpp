@@ -9,6 +9,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent) : QSyntaxHighlighter
     commentFormat.setForeground(Qt::gray);
     quotationFormat.setForeground(Qt::red);
     functionFormat.setForeground(Qt::blue);
+
     controlFormat.setForeground(Qt::blue);
     controlFormat.setFontWeight(500);
 }
@@ -49,14 +50,14 @@ void SyntaxHighlighter::setCodeType(codeType type) {
 
             //Controls
             QStringList controlPatterns;
-            keywordPatterns << "\\bif\\b" << "\\bwhile\\b" << "\\bdo\\b"
-                            << "\\bfor\\b" << "\\bswtich\\b" << "\\bcase\\b";
+            controlPatterns << "\\bif\\b" << "\\bwhile\\b" << "\\bdo\\b"
+                            << "\\bfor\\b" << "\\bswtich\\b" << "\\bcase\\b"
+                            << "\\belse\\b";
             for (QString pattern : controlPatterns) {
                 rule.pattern = QRegularExpression(pattern);
                 rule.format = controlFormat;
                 highlightingRules.append(rule);
             }
-
 
             //Class
             rule.pattern = QRegularExpression("\\b[A-Za-z]+(?=(\\.))\\b");
@@ -97,15 +98,14 @@ void SyntaxHighlighter::setCodeType(codeType type) {
 
             //Controls
             QStringList controlPatterns;
-            keywordPatterns << "\\bif\\b" << "\\bwhile\\b" << "\\bdo\\b"
+            controlPatterns << "\\bif\\b" << "\\bwhile\\b" << "\\bdo\\b"
                             << "\\bfor\\b" << "\\bswtich\\b" << "\\bcase\\b"
-                            << "\\bof\\b";
+                            << "\\bof\\b" << "\\belse\\b";
             for (QString pattern : controlPatterns) {
                 rule.pattern = QRegularExpression(pattern);
                 rule.format = controlFormat;
                 highlightingRules.append(rule);
             }
-
 
             //String
             rule.pattern = QRegularExpression("\".*\"");

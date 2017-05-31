@@ -125,7 +125,7 @@ void MainWindow::on_tabs_currentChanged(int arg1)
 
 void MainWindow::on_actionExit_triggered()
 {
-    QApplication::exit();
+    QApplication::closeAllWindows();
 }
 
 void MainWindow::on_actionOpen_triggered()
