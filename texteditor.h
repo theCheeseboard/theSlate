@@ -16,6 +16,7 @@ public:
     explicit TextEditor(QWidget *parent = nullptr);
 
     QString filename();
+    bool isEdited();
 signals:
 
 public slots:
@@ -25,6 +26,7 @@ public slots:
 private:
     TabButton* button;
     bool active;
+    bool edited = false;
     QString fn;
 };
 

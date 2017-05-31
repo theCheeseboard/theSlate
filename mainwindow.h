@@ -5,6 +5,11 @@
 #include <QToolButton>
 #include "texteditor.h"
 
+#ifdef Q_OS_MAC
+#include <QMacToolBar>
+#include <QMacToolBarItem>
+#endif
+
 namespace Ui {
     class MainWindow;
 }
@@ -24,6 +29,12 @@ private slots:
     void on_actionNew_triggered();
 
     void on_tabs_currentChanged(int arg1);
+
+    void on_actionExit_triggered();
+
+    void on_actionOpen_triggered();
+
+    void on_actionSave_triggered();
 
 private:
     Ui::MainWindow *ui;

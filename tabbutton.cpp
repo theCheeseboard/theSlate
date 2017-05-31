@@ -33,9 +33,9 @@ void TabButton::paintEvent(QPaintEvent *event) {
     QBrush brush;
     QPen textPen;
 
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
     brush = QBrush(pal.color(QPalette::Highlight));
-#elif Q_OS_LINUX
+#else
     brush = QBrush(pal.color(QPalette::Button));
 #endif
 
@@ -48,13 +48,13 @@ void TabButton::paintEvent(QPaintEvent *event) {
     }*/
 
     if (this->active) {
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
         brush = QBrush(pal.color(QPalette::Highlight).darker());
 #elif Q_OS_LINUX
         brush = QBrush(pal.color(QPalette::Button).darker());
 #endif
     }
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
     textPen = pal.color(QPalette::HighlightedText);
 #elif Q_OS_LINUX
     textPen = pal.color(QPalette::ButtonText);
