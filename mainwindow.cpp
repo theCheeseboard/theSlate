@@ -56,6 +56,13 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addAction(ui->actionOpen);
         singleMenu->addAction(ui->actionSave);
         singleMenu->addSeparator();
+        singleMenu->addAction(ui->actionCut);
+        singleMenu->addAction(ui->actionCopy);
+        singleMenu->addAction(ui->actionPaste);
+        singleMenu->addSeparator();
+        singleMenu->addMenu(ui->menuCode);
+        singleMenu->addSeparator();
+        singleMenu->addAction(ui->actionAbout);
         singleMenu->addAction(ui->actionExit);
 
         QToolButton* menuButton = new QToolButton();
@@ -81,8 +88,14 @@ void MainWindow::newTab() {
     ui->tabs->addWidget(view);
     ui->tabs->setCurrentWidget(view);
 
+    connect(view, SIGNAL(editedChanged()), this, SLOT(checkForEdits()));
     connect(view->getTabButton(), &QPushButton::clicked, [=]{
         ui->tabs->setCurrentWidget(view);
+    });
+    connect(view, &TextEditor::fileNameChanged, [=] {
+        if (currentDocument() == view) {
+            this->setWindowFilePath(view->filename());
+        }
     });
     ui->tabButtons->addWidget(view->getTabButton());
 }
@@ -100,8 +113,10 @@ void MainWindow::on_tabs_currentChanged(int arg1)
     }
 
     TextEditor* current = (TextEditor*) ui->tabs->widget(arg1);
-    current->setActive(true);
-    this->setWindowFilePath(current->filename());
+    if (current != NULL) {
+        current->setActive(true);
+        this->setWindowFilePath(current->filename());
+    }
 }
 
 void MainWindow::on_actionExit_triggered()
@@ -111,10 +126,131 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_actionOpen_triggered()
 {
+    QEventLoop* loop = new QEventLoop();
+    QFileDialog* openDialog = new QFileDialog(this, Qt::Sheet);
+    openDialog->setWindowModality(Qt::WindowModal);
+    openDialog->setAcceptMode(QFileDialog::AcceptOpen);
+    connect(openDialog, SIGNAL(finished(int)), openDialog, SLOT(deleteLater()));
+    connect(openDialog, SIGNAL(finished(int)), loop, SLOT(quit()));
+    openDialog->show();
 
+    //Block until dialog is finished
+    loop->exec();
+    loop->deleteLater();
+
+    if (openDialog->result() == QDialog::Accepted) {
+        if (currentDocument()->isEdited() || currentDocument()->filename() != "") {
+            newTab();
+        }
+
+        currentDocument()->openFile(openDialog->selectedFiles().first());
+    }
 }
 
 void MainWindow::on_actionSave_triggered()
 {
+    saveCurrentDocument();
+}
 
+TextEditor* MainWindow::currentDocument() {
+    return (TextEditor*) ui->tabs->widget(ui->tabs->currentIndex());
+}
+
+void MainWindow::checkForEdits() {
+    for (int i = 0; i < ui->tabs->count(); i++) {
+        TextEditor* item = (TextEditor*) ui->tabs->widget(i);
+        if (item->isEdited()) {
+            this->setWindowModified(true);
+            return;
+        }
+    }
+    this->setWindowModified(false);
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) {
+    while (ui->tabs->count() > 0) {
+        if (!closeCurrentTab()) {
+            event->ignore();
+            return;
+        }
+    }
+    event->accept();
+}
+
+bool MainWindow::saveCurrentDocument() {
+    if (currentDocument()->filename() == "") {
+        QEventLoop* loop = new QEventLoop();
+        QFileDialog* saveDialog = new QFileDialog(this, Qt::Sheet);
+        saveDialog->setWindowModality(Qt::WindowModal);
+        saveDialog->setAcceptMode(QFileDialog::AcceptSave);
+        connect(saveDialog, SIGNAL(finished(int)), saveDialog, SLOT(deleteLater()));
+        connect(saveDialog, SIGNAL(finished(int)), loop, SLOT(quit()));
+        saveDialog->show();
+
+        //Block until dialog is finished
+        loop->exec();
+        loop->deleteLater();
+
+        if (saveDialog->result() == QDialog::Accepted) {
+            return currentDocument()->saveFile(saveDialog->selectedFiles().first());
+        } else {
+            return false;
+        }
+    } else {
+        return currentDocument()->saveFile();
+    }
+}
+
+bool MainWindow::closeCurrentTab() {
+    if (currentDocument()->isEdited()) {
+        QMessageBox* messageBox = new QMessageBox(this);
+        messageBox->setWindowTitle("Save Changes?");
+        messageBox->setText("Do you want to save your changes to this document?");
+        messageBox->setIcon(QMessageBox::Warning);
+        messageBox->setWindowFlags(Qt::Sheet);
+        messageBox->setStandardButtons(QMessageBox::Discard | QMessageBox::Save | QMessageBox::Cancel);
+        messageBox->setDefaultButton(QMessageBox::Save);
+        int button = messageBox->exec();
+
+        if (button == QMessageBox::Save) {
+            if (!saveCurrentDocument()) {
+                return false;
+            }
+        } else if (button == QMessageBox::Cancel) {
+            return false;
+        }
+    }
+
+    TextEditor* current = currentDocument();
+    ui->tabButtons->removeWidget(current->getTabButton());
+    ui->tabs->removeWidget(current);
+    current->deleteLater();
+    return true;
+}
+
+
+void MainWindow::on_closeButton_clicked()
+{
+    closeCurrentTab();
+}
+
+void MainWindow::on_actionCopy_triggered()
+{
+    currentDocument()->copy();
+}
+
+void MainWindow::on_actionCut_triggered()
+{
+    currentDocument()->cut();
+}
+
+void MainWindow::on_actionPaste_triggered()
+{
+    currentDocument()->paste();
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    AboutWindow aboutWindow;
+    aboutWindow.exec();
 }

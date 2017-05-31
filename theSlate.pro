@@ -37,15 +37,18 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     tabbutton.cpp \
-    texteditor.cpp
+    texteditor.cpp \
+    aboutwindow.cpp
 
 HEADERS += \
         mainwindow.h \
     tabbutton.h \
-    texteditor.h
+    texteditor.h \
+    aboutwindow.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    aboutwindow.ui
 
 RESOURCES += \
     icons.qrc

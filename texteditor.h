@@ -5,6 +5,8 @@
 #include <QTextEdit>
 #include <QApplication>
 #include <QFontDatabase>
+#include <QFile>
+#include <QFileInfo>
 #include "tabbutton.h"
 
 class TabButton;
@@ -14,14 +16,21 @@ class TextEditor : public QTextEdit
     Q_OBJECT
 public:
     explicit TextEditor(QWidget *parent = nullptr);
+    ~TextEditor();
 
     QString filename();
     bool isEdited();
 signals:
+    void fileNameChanged();
+    void editedChanged();
 
 public slots:
     TabButton* getTabButton();
     void setActive(bool active);
+
+    void openFile(QString file);
+    bool saveFile(QString file);
+    bool saveFile();
 
 private:
     TabButton* button;

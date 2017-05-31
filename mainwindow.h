@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <QToolButton>
+#include <QFileDialog>
+#include <QMessageBox>
+#include "aboutwindow.h"
 #include "texteditor.h"
 
 #ifdef Q_OS_MAC
@@ -24,6 +27,9 @@ public:
 
 public slots:
     void newTab();
+    bool closeCurrentTab();
+
+    TextEditor* currentDocument();
 
 private slots:
     void on_actionNew_triggered();
@@ -36,8 +42,24 @@ private slots:
 
     void on_actionSave_triggered();
 
+    void checkForEdits();
+
+    bool saveCurrentDocument();
+
+    void on_closeButton_clicked();
+
+    void on_actionCopy_triggered();
+
+    void on_actionCut_triggered();
+
+    void on_actionPaste_triggered();
+
+    void on_actionAbout_triggered();
+
 private:
     Ui::MainWindow *ui;
+
+    void closeEvent(QCloseEvent* event);
 };
 
 #endif // MAINWINDOW_H

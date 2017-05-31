@@ -8,7 +8,15 @@ TextEditor::TextEditor(QWidget *parent) : QTextEdit(parent)
 
     connect(this, &TextEditor::textChanged, [=] {
         edited = true;
+        emit editedChanged();
     });
+    connect(this, &TextEditor::fileNameChanged, [=] {
+        button->setText(QFileInfo(this->filename()).fileName());
+    });
+}
+
+TextEditor::~TextEditor() {
+
 }
 
 TabButton* TextEditor::getTabButton() {
@@ -26,4 +34,37 @@ QString TextEditor::filename() {
 
 bool TextEditor::isEdited() {
     return edited;
+}
+
+void TextEditor::openFile(QString file) {
+    QFile f(file);
+    f.open(QFile::ReadOnly);
+    this->setPlainText(f.readAll());
+    f.close();
+
+    edited = false;
+    this->fn = file;
+    emit fileNameChanged();
+    emit editedChanged();
+}
+
+bool TextEditor::saveFile(QString file) {
+    QFile f(file);
+    f.open(QFile::WriteOnly);
+    f.write(this->toPlainText().toUtf8());
+    f.close();
+
+    edited = false;
+    this->fn = file;
+    emit fileNameChanged();
+    emit editedChanged();
+    return true;
+}
+
+bool TextEditor::saveFile() {
+    if (this->filename() == "") {
+        return false;
+    } else {
+        return saveFile(this->filename());
+    }
 }

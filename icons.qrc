@@ -11,5 +11,11 @@
         <file>icons/document-save.svg</file>
         <file>icons/document-share.svg</file>
         <file>icons/icon.svg</file>
+        <file>icons/edit-copy.svg</file>
+        <file>icons/edit-cut.svg</file>
+        <file>icons/edit-paste.svg</file>
+        <file>icons/edit-redo.svg</file>
+        <file>icons/edit-undo.svg</file>
+        <file>icons/help-about.svg</file>
     </qresource>
 </RCC>
