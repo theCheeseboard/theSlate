@@ -8,6 +8,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include "tabbutton.h"
+#include "syntaxhighlighter.h"
 
 class TabButton;
 
@@ -20,6 +21,7 @@ public:
 
     QString filename();
     bool isEdited();
+    SyntaxHighlighter* highlighter();
 signals:
     void fileNameChanged();
     void editedChanged();
@@ -37,6 +39,7 @@ private:
     bool active;
     bool edited = false;
     QString fn;
+    SyntaxHighlighter* hl;
 };
 
 #endif // TEXTEDITOR_H

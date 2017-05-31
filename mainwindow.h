@@ -56,6 +56,8 @@ private slots:
 
     void on_actionAbout_triggered();
 
+    void on_actionNo_Highlighting_triggered();
+
 private:
     Ui::MainWindow *ui;
 

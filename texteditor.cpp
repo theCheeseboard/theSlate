@@ -5,6 +5,7 @@ TextEditor::TextEditor(QWidget *parent) : QTextEdit(parent)
     button = new TabButton(this);
     button->setText("New Document");
     this->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    hl = new SyntaxHighlighter(this->document());
 
     connect(this, &TextEditor::textChanged, [=] {
         edited = true;
@@ -67,4 +68,8 @@ bool TextEditor::saveFile() {
     } else {
         return saveFile(this->filename());
     }
+}
+
+SyntaxHighlighter* TextEditor::highlighter() {
+    return hl;
 }

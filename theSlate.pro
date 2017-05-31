@@ -38,13 +38,15 @@ SOURCES += \
         mainwindow.cpp \
     tabbutton.cpp \
     texteditor.cpp \
-    aboutwindow.cpp
+    aboutwindow.cpp \
+    syntaxhighlighter.cpp
 
 HEADERS += \
         mainwindow.h \
     tabbutton.h \
     texteditor.h \
-    aboutwindow.h
+    aboutwindow.h \
+    syntaxhighlighter.h
 
 FORMS += \
         mainwindow.ui \

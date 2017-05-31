@@ -75,6 +75,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->menuBar->setVisible(false);
 
+    //Set up code highlighting options
+    ui->menuCode->addAction("C++", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::cpp);});
+    ui->menuCode->addAction("JavaScript", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::js);});
+
     newTab();
 }
 
@@ -130,6 +134,8 @@ void MainWindow::on_actionOpen_triggered()
     QFileDialog* openDialog = new QFileDialog(this, Qt::Sheet);
     openDialog->setWindowModality(Qt::WindowModal);
     openDialog->setAcceptMode(QFileDialog::AcceptOpen);
+    openDialog->setDirectory(QDir::home());
+    openDialog->setNameFilter("All Files (*)");
     connect(openDialog, SIGNAL(finished(int)), openDialog, SLOT(deleteLater()));
     connect(openDialog, SIGNAL(finished(int)), loop, SLOT(quit()));
     openDialog->show();
@@ -183,6 +189,9 @@ bool MainWindow::saveCurrentDocument() {
         QFileDialog* saveDialog = new QFileDialog(this, Qt::Sheet);
         saveDialog->setWindowModality(Qt::WindowModal);
         saveDialog->setAcceptMode(QFileDialog::AcceptSave);
+        saveDialog->setDirectory(QDir::home());
+        saveDialog->setNameFilters(QStringList() << "Text File (*.txt)"
+                                                 << "All Files (*)");
         connect(saveDialog, SIGNAL(finished(int)), saveDialog, SLOT(deleteLater()));
         connect(saveDialog, SIGNAL(finished(int)), loop, SLOT(quit()));
         saveDialog->show();
@@ -253,4 +262,9 @@ void MainWindow::on_actionAbout_triggered()
 {
     AboutWindow aboutWindow;
     aboutWindow.exec();
+}
+
+void MainWindow::on_actionNo_Highlighting_triggered()
+{
+    currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::none);
 }
