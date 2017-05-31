@@ -13,11 +13,16 @@ TEMPLATE = app
 
 macx {
     QT += macextras
+    ICON = icon.icns
 }
 
 unix:!macx {
     QT += thelibs
     TARGET = theslate
+}
+
+win32 {
+    RC_FILE = icon.rc
 }
 
 
