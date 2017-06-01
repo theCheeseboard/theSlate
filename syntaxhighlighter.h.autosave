@@ -12,7 +12,8 @@ public:
         none,
         cpp,
         js,
-        xml
+        xml,
+        md
     };
 
     explicit SyntaxHighlighter(QTextDocument *parent = 0);
