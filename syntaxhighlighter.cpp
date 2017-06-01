@@ -139,6 +139,10 @@ void SyntaxHighlighter::setCodeType(codeType type) {
             rule.pattern = QRegularExpression("(?<= ).+?(?=\")");
             rule.format = functionFormat;
             highlightingRules.append(rule);
+            break;
+        }
+        case md: {
+
         }
     }
 
