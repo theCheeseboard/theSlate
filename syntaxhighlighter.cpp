@@ -61,7 +61,7 @@ void SyntaxHighlighter::setCodeType(codeType type) {
             }
 
             //Class
-            rule.pattern = QRegularExpression("\\b[A-Za-z]+(?=(\\.))\\b");
+            rule.pattern = QRegularExpression("\\b[A-Za-z]+(?=(\\.|->))\\b");
             rule.format = classFormat;
             highlightingRules.append(rule);
 

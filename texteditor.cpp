@@ -83,18 +83,27 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
         cursor.insertText("    ");
         handle = true;
     } else if (event->key() == Qt::Key_Backspace) {
-        cursor.movePosition(QTextCursor::StartOfLine, QTextCursor::KeepAnchor);
-        QString text = cursor.selectedText();
-        if (text.endsWith("    ") && text.length() % 4 == 0) {
-            cursor = this->textCursor();
-            cursor.deletePreviousChar();
-            cursor.deletePreviousChar();
-            cursor.deletePreviousChar();
+        cursor.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor);
+        QString leftChar = cursor.selectedText();
+        cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor, 2);
+        QString rightChar = cursor.selectedText();
+        if ((leftChar == "(" && rightChar == ")") || (leftChar == "[" && rightChar == "]") || (leftChar == "{" && rightChar == "}")) {
+            cursor.deleteChar();
             cursor.deletePreviousChar();
             handle = true;
+        } else {
+            cursor.movePosition(QTextCursor::Left);
+            cursor.movePosition(QTextCursor::StartOfLine, QTextCursor::KeepAnchor);
+            QString text = cursor.selectedText();
+            if (text.endsWith("    ") && text.length() % 4 == 0) {
+                cursor = this->textCursor();
+                cursor.deletePreviousChar();
+                cursor.deletePreviousChar();
+                cursor.deletePreviousChar();
+                cursor.deletePreviousChar();
+                handle = true;
+            }
         }
-
-
     } else if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
         int spaces = 0;
         cursor.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor);
@@ -169,6 +178,28 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
             cursor.movePosition(QTextCursor::Right);
             handle = true;
         }
+    } else if (event->text() == "\"") {
+        cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+        if (cursor.selectedText() == "\"") {
+            cursor = this->textCursor();
+            cursor.movePosition(QTextCursor::Right);
+        } else {
+            cursor.insertText("\"");
+            cursor.insertText("\"");
+            cursor.movePosition(QTextCursor::Left);
+        }
+        handle = true;
+    } else if (event->text() == "'") {
+        cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+        if (cursor.selectedText() == "'") {
+            cursor = this->textCursor();
+            cursor.movePosition(QTextCursor::Right);
+        } else {
+            cursor.insertText("'");
+            cursor.insertText("'");
+            cursor.movePosition(QTextCursor::Left);
+        }
+        handle = true;
     }
 
     if (handle) {
