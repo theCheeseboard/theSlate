@@ -4,11 +4,12 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent) : QSyntaxHighlighter
 {
     //Set up colours
 
-    keywordFormat.setForeground(QColor(200, 200, 0));
+    keywordFormat.setForeground(QColor(255, 150, 0));
     classFormat.setForeground(Qt::darkMagenta);
     commentFormat.setForeground(Qt::gray);
     quotationFormat.setForeground(Qt::red);
     functionFormat.setForeground(Qt::blue);
+    preprocessorFormat.setForeground(QColor(150, 0, 0));
 
     controlFormat.setForeground(Qt::blue);
     controlFormat.setFontWeight(90);
@@ -74,6 +75,11 @@ void SyntaxHighlighter::setCodeType(codeType type) {
             rule.format = functionFormat;
             highlightingRules.append(rule);
 
+            //Preprocessor
+            rule.pattern = QRegularExpression("#.+");
+            rule.format = preprocessorFormat;
+            highlightingRules.append(rule);
+
             //Comments
             rule.pattern = QRegularExpression("\\/\\*(\\w|\\s)*\\*\\/");
             rule.format = commentFormat;
@@ -110,6 +116,9 @@ void SyntaxHighlighter::setCodeType(codeType type) {
             //String
             rule.pattern = QRegularExpression("\".*\"");
             rule.format = quotationFormat;
+            highlightingRules.append(rule);
+
+            rule.pattern = QRegularExpression("'.*'");
             highlightingRules.append(rule);
 
             //Function

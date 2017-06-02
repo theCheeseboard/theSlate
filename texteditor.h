@@ -7,6 +7,7 @@
 #include <QFontDatabase>
 #include <QFile>
 #include <QFileInfo>
+#include <QKeyEvent>
 #include "tabbutton.h"
 #include "syntaxhighlighter.h"
 
@@ -40,6 +41,8 @@ private:
     bool edited = false;
     QString fn;
     SyntaxHighlighter* hl;
+
+    void keyPressEvent(QKeyEvent* event);
 };
 
 #endif // TEXTEDITOR_H

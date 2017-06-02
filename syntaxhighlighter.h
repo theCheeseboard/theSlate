@@ -42,6 +42,7 @@ private:
     QTextCharFormat controlFormat;
     QTextCharFormat quotationFormat;
     QTextCharFormat functionFormat;
+    QTextCharFormat preprocessorFormat;
 };
 
 #endif // SYNTAXHIGHLIGHTER_H
