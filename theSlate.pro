@@ -17,7 +17,7 @@ macx {
 }
 
 unix:!macx {
-    QT += thelibs
+    QT += thelib
     TARGET = theslate
 }
 
