@@ -22,7 +22,7 @@
       </font>
      </property>
      <property name="text">
-      <string>theSlate 1.0</string>
+      <string>theSlate 0.2</string>
      </property>
     </widget>
    </item>
@@ -77,7 +77,8 @@
         <string>OK</string>
        </property>
        <property name="icon">
-        <iconset theme="dialog-ok"/>
+        <iconset theme="dialog-ok">
+         <normaloff>.</normaloff>.</iconset>
        </property>
       </widget>
      </item>
