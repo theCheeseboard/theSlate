@@ -78,6 +78,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Set up code highlighting options
     ui->menuCode->addAction("C++", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::cpp);});
     ui->menuCode->addAction("JavaScript", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::js);});
+    ui->menuCode->addAction("Python", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::py);});
     ui->menuCode->addAction("XML", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::xml);});
     ui->menuCode->addAction("Markdown", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::md);});
 

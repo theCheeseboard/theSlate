@@ -52,7 +52,7 @@ void SyntaxHighlighter::setCodeType(codeType type) {
             //Controls
             QStringList controlPatterns;
             controlPatterns << "\\bif\\b" << "\\bwhile\\b" << "\\bdo\\b"
-                            << "\\bfor\\b" << "\\bswtich\\b" << "\\bcase\\b"
+                            << "\\bfor\\b" << "\\bswitch\\b" << "\\bcase\\b"
                             << "\\belse\\b";
             for (QString pattern : controlPatterns) {
                 rule.pattern = QRegularExpression(pattern);
@@ -105,7 +105,7 @@ void SyntaxHighlighter::setCodeType(codeType type) {
             //Controls
             QStringList controlPatterns;
             controlPatterns << "\\bif\\b" << "\\bwhile\\b" << "\\bdo\\b"
-                            << "\\bfor\\b" << "\\bswtich\\b" << "\\bcase\\b"
+                            << "\\bfor\\b" << "\\bswitch\\b" << "\\bcase\\b"
                             << "\\bof\\b" << "\\belse\\b";
             for (QString pattern : controlPatterns) {
                 rule.pattern = QRegularExpression(pattern);
@@ -152,6 +152,53 @@ void SyntaxHighlighter::setCodeType(codeType type) {
         }
         case md: {
 
+        }
+        case py: {
+            //Keywords
+            QStringList keywordPatterns;
+            keywordPatterns << "\\bdef\\b" << "\\bclass\\b" << "\\bglobal\\b";
+            for (QString pattern : keywordPatterns) {
+                rule.pattern = QRegularExpression(pattern);
+                rule.format = keywordFormat;
+                highlightingRules.append(rule);
+            }
+
+            //Controls
+            QStringList controlPatterns;
+            controlPatterns << "\\bif\\b" << "\\bwhile\\b" << "\\belif\\b"
+                            << "\\bfor\\b" << "\\btry\\b" << "\\bexcept\\b"
+                            << "\\belse\\b" << "\\bfinally\\b";
+            for (QString pattern : controlPatterns) {
+                rule.pattern = QRegularExpression(pattern);
+                rule.format = controlFormat;
+                highlightingRules.append(rule);
+            }
+
+            //Class
+            rule.pattern = QRegularExpression("\\b[A-Za-z]+(?=(\\.|:))\\b");
+            rule.format = classFormat;
+            highlightingRules.append(rule);
+
+            //String
+            rule.pattern = QRegularExpression("\".*\"");
+            rule.format = quotationFormat;
+            highlightingRules.append(rule);
+
+            rule.pattern = QRegularExpression("'.*'");
+            highlightingRules.append(rule);
+
+            //Function
+            rule.pattern = QRegularExpression("\\b[A-Za-z0-9_]+(?=\\()");
+            rule.format = functionFormat;
+            highlightingRules.append(rule);
+
+            //Comments
+            rule.pattern = QRegularExpression("#(.)*");
+            rule.format = commentFormat;
+            highlightingRules.append(rule);
+
+            commentStartExpression = QRegularExpression("\"\"\"");
+            commentEndExpression = QRegularExpression("\"\"\"");
         }
     }
 

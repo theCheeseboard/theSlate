@@ -13,7 +13,8 @@ public:
         cpp,
         js,
         xml,
-        md
+        md,
+        py
     };
 
     explicit SyntaxHighlighter(QTextDocument *parent = 0);
