@@ -50,8 +50,8 @@ void TextEditor::openFile(QString file) {
     emit fileNameChanged();
     emit editedChanged();
 
-    if (f.fileName().endsWith(".cpp")) hl->setCodeType(SyntaxHighlighter::cpp);
-    else if (f.fileName().endsWith(".py")) hl->setCodeType(SyntaxHighlighter::py);
+    if (file.endsWith(".cpp")) hl->setCodeType(SyntaxHighlighter::cpp);
+    else if (file.endsWith(".py")) hl->setCodeType(SyntaxHighlighter::py);
 }
 
 bool TextEditor::saveFile(QString file) {
@@ -111,6 +111,9 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
         int spaces = 0;
         cursor.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor);
         if (cursor.selectedText() == "{") {
+            spaces = 4;
+        }
+        if (cursor.selectedText() == ":") {
             spaces = 4;
         }
 
