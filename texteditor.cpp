@@ -49,6 +49,9 @@ void TextEditor::openFile(QString file) {
     this->fn = file;
     emit fileNameChanged();
     emit editedChanged();
+
+    if (f.fileName().endsWith(".cpp")) hl->setCodeType(SyntaxHighlighter::cpp);
+    else if (f.fileName().endsWith(".py")) hl->setCodeType(SyntaxHighlighter::py);
 }
 
 bool TextEditor::saveFile(QString file) {
