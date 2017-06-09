@@ -199,6 +199,7 @@ void SyntaxHighlighter::setCodeType(codeType type) {
 
             commentStartExpression = QRegularExpression("\"\"\"");
             commentEndExpression = QRegularExpression("\"\"\"");
+            break;
         }
     }
 
