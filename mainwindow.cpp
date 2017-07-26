@@ -51,10 +51,10 @@ MainWindow::MainWindow(QWidget *parent) :
     #else
         //Set up single menu except on macOS
         QMenu* singleMenu = new QMenu();
-        singleMenu->addAction(ui->actionNew);
-        singleMenu->addSeparator();
+        singleMenu->addMenu(ui->menuNew);
         singleMenu->addAction(ui->actionOpen);
         singleMenu->addAction(ui->actionSave);
+        singleMenu->addAction(ui->actionSave_All);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionCut);
         singleMenu->addAction(ui->actionCopy);
@@ -75,12 +75,24 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->menuBar->setVisible(false);
 
+    //Hide the project frame
+    ui->projectFrame->setVisible(false);
+    ui->debugFrame->setVisible(false);
+    ui->actionFile_in_Project->setVisible(false);
+    ui->menuSource_Control->setEnabled(false);
+    ui->actionStart->setVisible(false);
+
+    ui->sourceControlOptionsButton->setMenu(ui->menuSource_Control);
+
     //Set up code highlighting options
     ui->menuCode->addAction("C++", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::cpp);});
     ui->menuCode->addAction("JavaScript", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::js);});
     ui->menuCode->addAction("Python", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::py);});
     ui->menuCode->addAction("XML", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::xml);});
     ui->menuCode->addAction("Markdown", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::md);});
+    ui->menuCode->addAction("JavaScript Object Notation (JSON)", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::json);});
+
+    addTerminal();
 
     newTab();
 }
@@ -109,7 +121,12 @@ void MainWindow::newTab() {
 
 void MainWindow::on_actionNew_triggered()
 {
-    newTab();
+    if (currentProjectFile == "") {
+        newTab();
+    } else {
+        MainWindow* newWin = new MainWindow();
+        newWin->show();
+    }
 }
 
 void MainWindow::on_tabs_currentChanged(int arg1)
@@ -137,7 +154,13 @@ void MainWindow::on_actionOpen_triggered()
     QFileDialog* openDialog = new QFileDialog(this, Qt::Sheet);
     openDialog->setWindowModality(Qt::WindowModal);
     openDialog->setAcceptMode(QFileDialog::AcceptOpen);
-    openDialog->setDirectory(QDir::home());
+
+    if (currentProjectFile == "") {
+        openDialog->setDirectory(QDir::home());
+    } else {
+        openDialog->setDirectory(QFileInfo(currentProjectFile).path());
+    }
+
     openDialog->setNameFilter("All Files (*)");
     connect(openDialog, SIGNAL(finished(int)), openDialog, SLOT(deleteLater()));
     connect(openDialog, SIGNAL(finished(int)), loop, SLOT(quit()));
@@ -148,11 +171,15 @@ void MainWindow::on_actionOpen_triggered()
     loop->deleteLater();
 
     if (openDialog->result() == QDialog::Accepted) {
-        if (currentDocument()->isEdited() || currentDocument()->filename() != "") {
-            newTab();
-        }
+        if (QFileInfo(openDialog->selectedFiles().first()).suffix() == "tslprj") {
+            openProject(openDialog->selectedFiles().first());
+        } else {
+            if (currentDocument()->isEdited() || currentDocument()->filename() != "") {
+                newTab();
+            }
 
-        currentDocument()->openFile(openDialog->selectedFiles().first());
+            currentDocument()->openFile(openDialog->selectedFiles().first());
+        }
     }
 }
 
@@ -192,7 +219,13 @@ bool MainWindow::saveCurrentDocument() {
         QFileDialog* saveDialog = new QFileDialog(this, Qt::Sheet);
         saveDialog->setWindowModality(Qt::WindowModal);
         saveDialog->setAcceptMode(QFileDialog::AcceptSave);
-        saveDialog->setDirectory(QDir::home());
+
+        if (currentProjectFile == "") {
+            saveDialog->setDirectory(QDir::home());
+        } else {
+            saveDialog->setDirectory(QFileInfo(currentProjectFile).path());
+        }
+
         saveDialog->setNameFilters(QStringList() << "Text File (*.txt)"
                                                  << "All Files (*)");
         connect(saveDialog, SIGNAL(finished(int)), saveDialog, SLOT(deleteLater()));
@@ -270,4 +303,244 @@ void MainWindow::on_actionAbout_triggered()
 void MainWindow::on_actionNo_Highlighting_triggered()
 {
     currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::none);
+}
+
+void MainWindow::on_actionNew_theSlate_Project_triggered()
+{
+    //Query for filename and location
+    QEventLoop* loop = new QEventLoop();
+    QFileDialog* saveDialog = new QFileDialog(this, Qt::Sheet);
+    saveDialog->setWindowModality(Qt::WindowModal);
+    saveDialog->setAcceptMode(QFileDialog::AcceptSave);
+    saveDialog->setDirectory(QDir::home());
+    saveDialog->setNameFilters(QStringList() << "theSlate Project File (*.tslprj)");
+    saveDialog->setDefaultSuffix("tslprj");
+    connect(saveDialog, SIGNAL(finished(int)), saveDialog, SLOT(deleteLater()));
+    connect(saveDialog, SIGNAL(finished(int)), loop, SLOT(quit()));
+    saveDialog->show();
+
+    //Block until dialog is finished
+    loop->exec();
+    loop->deleteLater();
+
+    if (saveDialog->result() == QDialog::Accepted) {
+        //Initiate a project from files in this folder
+
+        //QFile(":/initialStartupFile").copy(saveDialog->selectedFiles().first());
+        QFile newFile(saveDialog->selectedFiles().first());
+        QFile resourceFile(":/initialStartupFile");
+        newFile.open(QFile::WriteOnly);
+        resourceFile.open(QFile::ReadOnly);
+        newFile.write(resourceFile.readAll());
+        newFile.close();
+        resourceFile.close();
+
+        newTab();
+        currentDocument()->openFile(saveDialog->selectedFiles().first());
+
+        openProject(saveDialog->selectedFiles().first());
+    }
+}
+
+void MainWindow::openProject(QString tslprjPath) {
+    //Open project explorers
+    ui->projectFrame->setVisible(true);
+    ui->debugFrame->setVisible(true);
+    ui->actionFile_in_Project->setVisible(true);
+    ui->actionNew_theSlate_Project->setVisible(false);
+    ui->menuSource_Control->setEnabled(true);
+    ui->actionStart->setVisible(true);
+
+    //Set up Git
+    git = new GitIntegration(QFileInfo(tslprjPath).path());
+    connect(git, SIGNAL(reloadStatusNeeded()), this, SLOT(updateGit()));
+    updateGit();
+
+    //Set File tree root
+    projectModel = new QFileSystemModel();
+    projectModel->setRootPath(QFileInfo(tslprjPath).path());
+
+    ui->projectTree->setModel(projectModel);
+    ui->projectTree->hideColumn(1);
+    ui->projectTree->hideColumn(2);
+    ui->projectTree->hideColumn(3);
+    ui->projectTree->setRootIndex(projectModel->index(QFileInfo(tslprjPath).path()));
+
+    currentProjectFile = tslprjPath;
+    updateProjectConfiguration();
+
+    QFileSystemWatcher* projectWatcher = new QFileSystemWatcher();
+    projectWatcher->addPath(tslprjPath);
+    connect(projectWatcher, SIGNAL(fileChanged(QString)), this, SLOT(updateProjectConfiguration()));
+}
+
+TermWidget* MainWindow::addTerminal() {
+    #ifdef Q_OS_LINUX
+        TerminalWidget* term = new TerminalWidget(QDir::homePath());
+        ui->terminals->addWidget(term);
+        ui->terminalBox->addItem("Terminal");
+        return term;
+    #else
+        return NULL;
+    #endif
+}
+
+void MainWindow::on_projectTree_clicked(const QModelIndex &index)
+{
+    for (int i = 0; i < ui->tabs->count(); i++) {
+        if (projectModel->filePath(index) == ((TextEditor*) ui->tabs->widget(i))->filename()) {
+            ui->tabs->setCurrentIndex(i);
+            return;
+        }
+    }
+
+    newTab();
+    currentDocument()->openFile(projectModel->filePath(index));
+}
+
+void MainWindow::on_terminalBox_currentIndexChanged(int index)
+{
+    ui->terminals->setCurrentIndex(index);
+}
+
+void MainWindow::on_terminals_currentChanged(int arg1)
+{
+    ui->terminalBox->setCurrentIndex(arg1);
+}
+
+void MainWindow::on_newTerminalButton_clicked()
+{
+    addTerminal();
+}
+
+void MainWindow::on_closeTerminal_clicked()
+{
+    int i = ui->terminalBox->currentIndex();
+    ui->terminals->widget(i)->deleteLater();
+    ui->terminalBox->removeItem(i);
+    ui->terminals->removeWidget(ui->terminals->widget(i));
+}
+
+void MainWindow::updateGit() {
+    if (git->needsInit()) {
+        ui->sourceControlPanes->setCurrentIndex(1);
+    } else {
+        ui->sourceControlPanes->setCurrentIndex(0);
+        QStringList changedFiles = git->reloadStatus();
+        ui->modifiedChanges->clear();
+
+        for (QString changedFile : changedFiles) {
+            if (changedFile != "") {
+                QChar flag1 = changedFile.at(0);
+                QChar flag2 = changedFile.at(1);
+                QString fileLocation = changedFile.mid(2);
+
+                QListWidgetItem* item = new QListWidgetItem;
+                item->setText(fileLocation);
+                item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+                if (flag1 == 'A' || flag1 == 'M') {
+                    //Staged change
+                    item->setCheckState(Qt::Checked);
+                } else {
+                    //Unstaged change
+                    item->setCheckState(Qt::Unchecked);
+                }
+
+                ui->modifiedChanges->addItem(item);
+            }
+        }
+    }
+}
+
+void MainWindow::updateProjectConfiguration() {
+    ui->runConfigurations->clear();
+
+    QFile configFile(currentProjectFile);
+    configFile.open(QFile::ReadOnly);
+
+    QByteArray file = configFile.readAll();
+    QJsonParseError* jsonError = new QJsonParseError;
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(file, jsonError);
+    configFile.close();
+
+    if (!jsonDoc.isNull()) {
+        QJsonObject rootObj = jsonDoc.object();
+        projectType = rootObj.value("debuggerType").toString();
+        QJsonArray configurations = rootObj.value("runTypes").toArray();
+
+        for (QJsonValue configuration : configurations) {
+            if (configuration.isObject()) {
+                QJsonObject obj = configuration.toObject();
+                ui->runConfigurations->addItem(obj.value("name").toString(), obj);
+            }
+        }
+    } else {
+        //Configuration error
+    }
+}
+
+void MainWindow::on_modifiedChanges_itemChanged(QListWidgetItem *item)
+{
+    if (item->checkState() == Qt::Checked) {
+        git->add(item->text());
+    } else {
+        git->unstage(item->text());
+    }
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    git->init();
+}
+
+void MainWindow::on_actionStart_triggered()
+{
+    //Save all files
+    ui->actionSave_All->trigger();
+
+    //Run current configuration
+    QJsonObject configurationDetails = ui->runConfigurations->itemData(ui->runConfigurations->currentIndex()).toJsonObject();
+    QString runFile = configurationDetails.value("program").toString();
+    bool debug = configurationDetails.value("debug").toBool();
+
+    TermWidget* term;
+    if (debugTerminal == -1) {
+        //Create a new terminal for debugging
+        term = addTerminal();
+        debugTerminal = ui->terminals->indexOf(term);
+    } else {
+        term = (TermWidget*) ui->terminals->widget(debugTerminal);
+    }
+
+    ui->debugTabs->setCurrentIndex(1);
+    ui->terminals->setCurrentWidget(term);
+    term->changeDir(QFileInfo(currentProjectFile).path());
+
+    if (projectType == "nodejs") {
+        if (debug) {
+            term->runCommand("node --inspect-brk=47392 " + runFile);
+
+            currentDebugger = new NodeJsDebugger(47392);
+            connect(currentDebugger, &Debugger::destroyed, [=] {
+                currentDebugger = NULL;
+            });
+
+            //Wait 5 seconds and then start debugging
+            QTimer::singleShot(1000, [=] {
+                currentDebugger->startDebugging();
+            });
+        } else {
+            term->runCommand("node " + runFile);
+        }
+    }
+}
+
+void MainWindow::on_actionSave_All_triggered()
+{
+    for (int i = 0; i < ui->tabs->count(); i++) {
+        TextEditor* document = (TextEditor*) ui->tabs->widget(i);
+        if (document->filename() != "") {
+            document->saveFile();
+        }
+    }
 }

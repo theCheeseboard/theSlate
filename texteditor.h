@@ -2,7 +2,7 @@
 #define TEXTEDITOR_H
 
 #include <QWidget>
-#include <QTextEdit>
+#include <QPlainTextEdit>
 #include <QApplication>
 #include <QFontDatabase>
 #include <QFile>
@@ -13,7 +13,7 @@
 
 class TabButton;
 
-class TextEditor : public QTextEdit
+class TextEditor : public QPlainTextEdit
 {
     Q_OBJECT
 public:
@@ -39,6 +39,7 @@ private:
     TabButton* button;
     bool active;
     bool edited = false;
+    bool firstEdit = true;
     QString fn;
     SyntaxHighlighter* hl;
 

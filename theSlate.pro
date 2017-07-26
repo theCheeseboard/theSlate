@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui svg
+QT       += core gui svg network websockets
 CONFIG   += c++14
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -20,6 +20,7 @@ macx {
 unix:!macx {
     QT += thelib
     TARGET = theslate
+    LIBS += -lqtermwidget5
 }
 
 win32 {
@@ -45,18 +46,31 @@ SOURCES += \
     tabbutton.cpp \
     texteditor.cpp \
     aboutwindow.cpp \
-    syntaxhighlighter.cpp
+    syntaxhighlighter.cpp \
+    SourceControl/gitintegration.cpp \
+    Debug/debugger.cpp \
+    Debug/nodejsdebugger.cpp
 
 HEADERS += \
         mainwindow.h \
     tabbutton.h \
     texteditor.h \
     aboutwindow.h \
-    syntaxhighlighter.h
+    syntaxhighlighter.h \
+    SourceControl/gitintegration.h \
+    Debug/debugger.h \
+    Debug/nodejsdebugger.h
 
 FORMS += \
         mainwindow.ui \
     aboutwindow.ui
 
 RESOURCES += \
-    icons.qrc
+    icons.qrc \
+    files.qrc
+
+
+unix:!macx {
+    SOURCES += terminalwidget.cpp
+    HEADERS += terminalwidget.h
+}

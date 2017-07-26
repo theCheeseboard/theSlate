@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>initialStartupFile</file>
+    </qresource>
+</RCC>

@@ -17,5 +17,6 @@
         <file>icons/edit-redo.svg</file>
         <file>icons/edit-undo.svg</file>
         <file>icons/help-about.svg</file>
+        <file>icons/commit.svg</file>
     </qresource>
 </RCC>

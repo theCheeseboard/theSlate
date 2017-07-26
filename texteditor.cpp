@@ -1,15 +1,20 @@
 #include "texteditor.h"
 
-TextEditor::TextEditor(QWidget *parent) : QTextEdit(parent)
+TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
+    this->setLineWrapMode(NoWrap);
     button = new TabButton(this);
     button->setText("New Document");
     this->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     hl = new SyntaxHighlighter(this->document());
 
     connect(this, &TextEditor::textChanged, [=] {
-        edited = true;
-        emit editedChanged();
+        if (firstEdit) {
+            firstEdit = false;
+        } else {
+            edited = true;
+            emit editedChanged();
+        }
     });
     connect(this, &TextEditor::fileNameChanged, [=] {
         button->setText(QFileInfo(this->filename()).fileName());
@@ -50,8 +55,18 @@ void TextEditor::openFile(QString file) {
     emit fileNameChanged();
     emit editedChanged();
 
-    if (file.endsWith(".cpp")) hl->setCodeType(SyntaxHighlighter::cpp);
-    else if (file.endsWith(".py")) hl->setCodeType(SyntaxHighlighter::py);
+    QFileInfo fileInfo(file);
+    if (fileInfo.suffix() == "cpp") { //C++ File
+        hl->setCodeType(SyntaxHighlighter::cpp);
+    } else if (fileInfo.suffix() == "py") { //Python File
+        hl->setCodeType(SyntaxHighlighter::py);
+    } else if (fileInfo.suffix() == "js") { //Javascript File
+        hl->setCodeType(SyntaxHighlighter::js);
+    } else if (fileInfo.suffix() == "json") { //JSON File
+        hl->setCodeType(SyntaxHighlighter::json);
+    } else if (fileInfo.suffix() == "tslprj") { //theSlate Project File
+        hl->setCodeType(SyntaxHighlighter::json);
+    }
 }
 
 bool TextEditor::saveFile(QString file) {
@@ -116,6 +131,9 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
         if (cursor.selectedText() == ":") {
             spaces = 4;
         }
+        if (cursor.selectedText() == "[") {
+            spaces = 4;
+        }
 
         cursor.select(QTextCursor::LineUnderCursor);
         QString text = cursor.selectedText();
@@ -138,6 +156,14 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
                     cursor.movePosition(QTextCursor::Left);
                 }
                 cursor.movePosition(QTextCursor::Left);
+            } else if (cursor.selectedText() == "]") {
+                    cursor.movePosition(QTextCursor::Left);
+                    cursor.insertText("\n");
+                    for (int i = 0; i < spaces - 4; i++) {
+                        cursor.insertText(" ");
+                        cursor.movePosition(QTextCursor::Left);
+                    }
+                    cursor.movePosition(QTextCursor::Left);
             } else {
                 cursor.movePosition(QTextCursor::Left);
             }
@@ -224,6 +250,6 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
     if (handle) {
         this->setTextCursor(cursor);
     } else {
-        QTextEdit::keyPressEvent(event);
+        QPlainTextEdit::keyPressEvent(event);
     }
 }

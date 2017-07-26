@@ -3,6 +3,8 @@
 
 #include <QSyntaxHighlighter>
 #include <QRegularExpression>
+#include <QApplication>
+#include <QPalette>
 
 class SyntaxHighlighter : public QSyntaxHighlighter
 {
@@ -14,12 +16,14 @@ public:
         js,
         xml,
         md,
-        py
+        py,
+        json
     };
 
     explicit SyntaxHighlighter(QTextDocument *parent = 0);
 
     void setCodeType(codeType type);
+    codeType currentCodeType();
 signals:
 
 public slots:
@@ -44,6 +48,9 @@ private:
     QTextCharFormat quotationFormat;
     QTextCharFormat functionFormat;
     QTextCharFormat preprocessorFormat;
+    QTextCharFormat numberFormat;
+
+    codeType ct = none;
 };
 
 #endif // SYNTAXHIGHLIGHTER_H

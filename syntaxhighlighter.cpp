@@ -2,16 +2,29 @@
 
 SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent) : QSyntaxHighlighter(parent)
 {
-    //Set up colours
+    //Set up colours depending on palette
 
-    keywordFormat.setForeground(QColor(255, 150, 0));
-    classFormat.setForeground(Qt::darkMagenta);
-    commentFormat.setForeground(Qt::gray);
-    quotationFormat.setForeground(Qt::red);
-    functionFormat.setForeground(Qt::blue);
-    preprocessorFormat.setForeground(QColor(150, 0, 0));
-
-    controlFormat.setForeground(Qt::blue);
+    QColor background = QApplication::palette("TextEditor").color(QPalette::Window);
+    int avg = (background.blue() + background.green() + background.red()) / 3;
+    if (avg > 127) {
+        keywordFormat.setForeground(QColor(255, 150, 0));
+        classFormat.setForeground(Qt::darkMagenta);
+        commentFormat.setForeground(Qt::gray);
+        quotationFormat.setForeground(Qt::red);
+        functionFormat.setForeground(Qt::blue);
+        preprocessorFormat.setForeground(QColor(150, 0, 0));
+        controlFormat.setForeground(Qt::blue);
+        numberFormat.setForeground(QColor(200, 0, 0));
+    } else {
+        keywordFormat.setForeground(QColor(255, 150, 0));
+        classFormat.setForeground(Qt::magenta);
+        commentFormat.setForeground(Qt::gray);
+        quotationFormat.setForeground(QColor(255, 100, 100));
+        functionFormat.setForeground(QColor(0, 100, 255));
+        preprocessorFormat.setForeground(QColor(150, 0, 0));
+        controlFormat.setForeground(QColor(0, 100, 255));
+        numberFormat.setForeground(QColor(255, 0, 0));
+    }
     controlFormat.setFontWeight(90);
 }
 
@@ -106,7 +119,9 @@ void SyntaxHighlighter::setCodeType(codeType type) {
             QStringList controlPatterns;
             controlPatterns << "\\bif\\b" << "\\bwhile\\b" << "\\bdo\\b"
                             << "\\bfor\\b" << "\\bswitch\\b" << "\\bcase\\b"
-                            << "\\bof\\b" << "\\belse\\b";
+                            << "\\bof\\b" << "\\belse\\b" << "\\bconst\\b"
+                            << "\\btry\\b" << "\\bcatch\\b" << "\\bin\\b"
+                            << "\\bbreak\\b";
             for (QString pattern : controlPatterns) {
                 rule.pattern = QRegularExpression(pattern);
                 rule.format = controlFormat;
@@ -199,9 +214,38 @@ void SyntaxHighlighter::setCodeType(codeType type) {
 
             commentStartExpression = QRegularExpression("\"\"\"");
             commentEndExpression = QRegularExpression("\"\"\"");
-            break;
+        }
+        case json: {
+            //String
+            rule.pattern = QRegularExpression("\".*\"");
+            rule.format = quotationFormat;
+            highlightingRules.append(rule);
+
+            rule.pattern = QRegularExpression("'.*'");
+            highlightingRules.append(rule);
+
+            //Key
+            rule.pattern = QRegularExpression("\".*\":");
+            rule.format = classFormat;
+            highlightingRules.append(rule);
+
+            //Comments
+            rule.pattern = QRegularExpression("\\/\\*(\\w|\\s)*\\*\\/");
+            rule.format = commentFormat;
+            highlightingRules.append(rule);
+
+            rule.pattern = QRegularExpression("\\/\\/(.)*");
+            highlightingRules.append(rule);
+
+            commentStartExpression = QRegularExpression("/\\*");
+            commentEndExpression = QRegularExpression("\\*/");
         }
     }
 
     rehighlight();
+    ct = type;
+}
+
+SyntaxHighlighter::codeType SyntaxHighlighter::currentCodeType() {
+    return ct;
 }
