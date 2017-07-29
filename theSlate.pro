@@ -59,7 +59,8 @@ HEADERS += \
     syntaxhighlighter.h \
     SourceControl/gitintegration.h \
     Debug/debugger.h \
-    Debug/nodejsdebugger.h
+    Debug/nodejsdebugger.h \
+    exception.h
 
 FORMS += \
         mainwindow.ui \

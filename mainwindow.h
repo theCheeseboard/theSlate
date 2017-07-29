@@ -19,6 +19,7 @@
 #include <QDebug>
 #include <QMenu>
 #include <QTimer>
+#include <QToolBar>
 #include "aboutwindow.h"
 #include "texteditor.h"
 #include "Debug/nodejsdebugger.h"
@@ -106,6 +107,24 @@ private slots:
     void on_actionStart_triggered();
 
     void on_actionSave_All_triggered();
+
+    void debuggerPaused();
+
+    void on_actionContinue_triggered();
+
+    void debuggerUnpaused();
+
+    void on_actionStep_Into_triggered();
+
+    void on_actionStep_Over_triggered();
+
+    void on_actionStep_Out_triggered();
+
+    void debuggerLineHit(QString file, int line);
+
+    void switchToFile(QString file, QString fakeFileContents = "");
+
+    void setCurrentDocumentHighlighting(SyntaxHighlighter::codeType type);
 
 private:
     Ui::MainWindow *ui;

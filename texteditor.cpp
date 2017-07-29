@@ -3,6 +3,7 @@
 TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
     this->setLineWrapMode(NoWrap);
+
     button = new TabButton(this);
     button->setText("New Document");
     this->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
@@ -252,4 +253,322 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
     } else {
         QPlainTextEdit::keyPressEvent(event);
     }
+}
+
+int TextEditor::leftMarginWidth()
+{
+    int digits = 1;
+    int max = qMax(1, this->blockCount());
+    while (max >= 10) {
+        max /= 10;
+        ++digits;
+    }
+
+    int space = 3 + fontMetrics().height() + fontMetrics().width(QLatin1Char('9')) * digits;
+
+    return space;
+}
+
+void TextEditor::updateLeftMarginAreaWidth(int newBlockCount)
+{
+    setViewportMargins(leftMarginWidth(), 0, 0, 0);
+}
+
+void TextEditor::updateLeftMarginArea(const QRect &rect, int dy)
+{
+    if (dy) {
+        leftMargin->scroll(0, dy);
+    } else {
+        leftMargin->update(0, rect.y(), leftMargin->width(), rect.height());
+    }
+
+    if (rect.contains(viewport()->rect())) {
+        updateLeftMarginAreaWidth(0);
+    }
+
+    if (currentException.errorType != "") {
+        QTextBlock block = this->document()->findBlockByLineNumber(currentException.line);
+        QRect bounding = blockBoundingGeometry(block).translated(contentOffset()).toRect();
+
+        exceptionDialog->move(0, bounding.top());
+    }
+}
+
+void TextEditor::resizeEvent(QResizeEvent *event)
+{
+    QPlainTextEdit::resizeEvent(event);
+
+    if (ideMode) {
+        QRect cr = contentsRect();
+        leftMargin->setGeometry(QRect(cr.left(), cr.top(), leftMarginWidth(), cr.height()));
+        if (currentException.errorType != "") {
+            QTextBlock block = this->document()->findBlockByLineNumber(currentException.line);
+            QRect bounding = blockBoundingGeometry(block).translated(contentOffset()).toRect();
+
+            exceptionDialog->move(0, bounding.top());
+        }
+    }
+}
+
+void TextEditor::highlightCurrentLine()
+{
+    QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
+    if (highlightedLine != -1) {
+        for (int i = 0; i < extraSelections.count(); i++) {
+            if (extraSelections.at(i).format.property(QTextFormat::UserFormat) == "currentHighlight") {
+                extraSelections.removeAt(i);
+            }
+        }
+    }
+
+    highlightedLine = textCursor().block().firstLineNumber();
+
+    if (!this->isReadOnly()) {
+        QTextEdit::ExtraSelection selection;
+
+        QColor lineColor = this->palette().color(QPalette::Window).lighter(160);
+
+        selection.format.setBackground(lineColor);
+        selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+        selection.format.setProperty(QTextFormat::UserFormat, "currentHighlight");
+        selection.cursor = textCursor();
+        selection.cursor.clearSelection();
+        extraSelections.append(selection);
+    }
+
+    setExtraSelections(extraSelections);
+}
+
+void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
+{
+    QPainter painter(leftMargin);
+    painter.fillRect(event->rect(), this->palette().color(QPalette::Window).lighter(120));
+
+    QTextBlock block = firstVisibleBlock();
+    int blockNumber = block.blockNumber();
+    int top = (int) blockBoundingGeometry(block).translated(contentOffset()).top();
+    int bottom = top + (int) blockBoundingRect(block).height();
+
+    while (block.isValid() && top <= event->rect().bottom()) {
+        int lineNo = blockNumber + 1;
+        QString number = QString::number(lineNo);
+        if (block.isVisible() && bottom >= event->rect().top()) {
+            painter.setPen(this->palette().color(QPalette::WindowText));
+            painter.drawText(0, top, leftMargin->width(), fontMetrics().height(), Qt::AlignRight, number);
+        }
+
+        if (breakpoints.contains(block)) {
+            painter.setBrush(Qt::red);
+            painter.drawEllipse(1, top, fontMetrics().height() - 2, fontMetrics().height() - 2);
+        }
+
+        if (lineNo == brokenLine) {
+            painter.setBrush(Qt::yellow);
+            QPolygon polygon;
+            polygon.append(QPoint(1, top));
+            polygon.append(QPoint(1, bottom));
+            polygon.append(QPoint(15, (top + bottom) / 2));
+            painter.drawPolygon(polygon);
+        }
+
+        block = block.next();
+        top = bottom;
+        bottom = top + (int) blockBoundingRect(block).height();
+        blockNumber++;
+    }
+}
+
+void TextEditor::addBreakpoint(int lineNumber) {
+    QTextBlock block = this->document()->findBlockByLineNumber(lineNumber - 1);
+    breakpoints.append(block);
+
+    QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
+
+    QTextEdit::ExtraSelection selection;
+
+    selection.format.setBackground(Qt::red);
+    selection.format.setForeground(Qt::white);
+    selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+    selection.format.setProperty(QTextFormat::UserFormat, "breakpoint");
+    selection.format.setProperty(QTextFormat::UserFormat + 1, lineNumber);
+    selection.cursor = QTextCursor(block);
+    selection.cursor.clearSelection();
+    extraSelections.append(selection);
+
+    setExtraSelections(extraSelections);
+    emit breakpointSet(lineNumber);
+    //reloadBlockHighlighting();
+}
+
+void TextEditor::removeBreakpoint(int lineNumber) {
+    QTextBlock block = this->document()->findBlockByLineNumber(lineNumber - 1);
+    breakpoints.removeAll(block);
+
+    QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
+
+    for (int i = 0; i < extraSelections.count(); i++) {
+        if (extraSelections.at(i).format.property(QTextFormat::UserFormat + 1) == lineNumber) {
+            extraSelections.removeAt(i);
+        }
+    }
+
+    setExtraSelections(extraSelections);
+    emit breakpointRemoved(lineNumber);
+    //reloadBlockHighlighting();
+}
+
+void TextEditor::reloadBlockHighlighting() {
+    QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
+
+    QTextBlock block = firstVisibleBlock();
+    int blockNumber = block.blockNumber();
+    int top = (int) blockBoundingGeometry(block).translated(contentOffset()).top();
+    int bottom = top + (int) blockBoundingRect(block).height();
+
+    while (block.isValid()) {
+        int lineNo = blockNumber + 1;
+        if (brokenLine == lineNo) {
+            QTextEdit::ExtraSelection selection;
+
+            selection.format.setBackground(Qt::yellow);
+            selection.format.setForeground(Qt::black);
+            selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+            selection.format.setProperty(QTextFormat::UserFormat, "breakingLine");
+            selection.cursor = cursorForPosition(QPoint(blockBoundingGeometry(block).top() + 1, 0));
+            selection.cursor.clearSelection();
+            extraSelections.append(selection);
+        } else if (breakpoints.contains(block)) {
+            QTextEdit::ExtraSelection selection;
+
+            selection.format.setBackground(Qt::red);
+            selection.format.setForeground(Qt::white);
+            selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+            selection.format.setProperty(QTextFormat::UserFormat, "breakpoint");
+            selection.cursor = cursorForPosition(QPoint(blockBoundingGeometry(block).top() + 1, 0));
+            selection.cursor.clearSelection();
+            extraSelections.append(selection);
+        }
+
+        block = block.next();
+        top = bottom;
+        bottom = top + (int) blockBoundingRect(block).height();
+        blockNumber++;
+    }
+    setExtraSelections(extraSelections);
+
+    leftMargin->repaint();
+    highlightCurrentLine();
+}
+
+bool TextEditor::hasBreakpoint(int lineNumber) {
+    return breakpoints.contains(this->document()->findBlockByLineNumber(lineNumber - 1));
+}
+
+void TextEditor::setBrokenLine(int lineNumber) {
+    QTextBlock block = this->document()->findBlockByLineNumber(lineNumber - 1);
+
+    QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
+
+    QTextEdit::ExtraSelection selection;
+
+    selection.format.setBackground(Qt::yellow);
+    selection.format.setForeground(Qt::black);
+    selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+    selection.format.setProperty(QTextFormat::UserFormat, "breakingLine");
+    selection.cursor = QTextCursor(block);
+    selection.cursor.clearSelection();
+    extraSelections.append(selection);
+
+    setExtraSelections(extraSelections);
+    emit breakpointSet(lineNumber);
+
+    brokenLine = lineNumber;
+    //reloadBlockHighlighting();
+}
+
+void TextEditor::clearBrokenLine() {
+    QTextBlock block = this->document()->findBlockByLineNumber(brokenLine - 1);
+
+    QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
+
+    for (int i = 0; i < extraSelections.count(); i++) {
+        if (extraSelections.at(i).format.property(QTextFormat::UserFormat) == "breakingLine") {
+            extraSelections.removeAt(i);
+        }
+    }
+
+    setExtraSelections(extraSelections);
+
+    brokenLine = -1;
+    //reloadBlockHighlighting();
+}
+
+void TextEditor::setExtraSelections(const QList<QTextEdit::ExtraSelection> &extraSelections) {
+    leftMargin->repaint();
+    QPlainTextEdit::setExtraSelections(extraSelections);
+}
+
+void TextEditor::exceptionPaintEvent(QPaintEvent *event) {
+    if (currentException.errorType != "") {
+        QPainter painter(exceptionDialog);
+        painter.fillRect(event->rect(), QColor(255, 100, 100));
+
+        QFont font = QApplication::font();
+        QFontMetrics metrics = QApplication::fontMetrics();
+
+        painter.setPen(Qt::white);
+
+        QRect titleRect(9, 9, exceptionDialog->width() - 18, metrics.height());
+
+        font.setBold(true);
+        painter.setFont(font);
+        painter.drawText(titleRect, "Exception: " + currentException.errorType);
+
+        painter.setFont(this->font());
+        QRect descRect(9, titleRect.bottom(), exceptionDialog->width() - 18, exceptionDialog->height() - 18 - metrics.height());
+        painter.drawText(descRect, currentException.description);
+    }
+}
+
+void TextEditor::setException(Exception exception) {
+    currentException = exception;
+
+    exceptionDialog->setVisible(true);
+    QTextBlock block = this->document()->findBlockByLineNumber(currentException.line);
+    QRect bounding = blockBoundingGeometry(block).translated(contentOffset()).toRect();
+
+    exceptionDialog->move(0, bounding.top());
+    exceptionDialog->resize(this->width() - 0, (exception.description.split("\n").count() + 1) * this->fontMetrics().height() + 18);
+}
+
+void TextEditor::clearException() {
+    currentException = Exception();
+    exceptionDialog->setVisible(false);
+}
+
+void TextEditor::enableIDEMode() {
+    ideMode = true;
+
+    leftMargin = new TextEditorLeftMargin(this);
+    exceptionDialog = new ExceptionDialog(this);
+    connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLeftMarginAreaWidth(int)));
+    connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLeftMarginArea(QRect,int)));
+    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
+
+    leftMargin->setVisible(true);
+    updateLeftMarginAreaWidth(0);
+    highlightCurrentLine();
+}
+
+QList<QTextBlock> TextEditor::allBreakpoints() {
+    return breakpoints;
+}
+
+void TextEditor::openFileFake(QString filename, QString contents) {
+    this->setPlainText(contents);
+
+    edited = false;
+    this->fn = filename;
+    emit fileNameChanged();
+    emit editedChanged();
 }

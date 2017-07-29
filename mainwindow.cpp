@@ -81,16 +81,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionFile_in_Project->setVisible(false);
     ui->menuSource_Control->setEnabled(false);
     ui->actionStart->setVisible(false);
+    ui->debugToolbar->setVisible(false);
+    ui->actionContinue->setVisible(false);
+    ui->actionStep_Into->setVisible(false);
+    ui->actionStep_Out->setVisible(false);
+    ui->actionStep_Over->setVisible(false);
+    ui->actionPause->setVisible(false);
 
     ui->sourceControlOptionsButton->setMenu(ui->menuSource_Control);
 
     //Set up code highlighting options
-    ui->menuCode->addAction("C++", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::cpp);});
-    ui->menuCode->addAction("JavaScript", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::js);});
-    ui->menuCode->addAction("Python", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::py);});
-    ui->menuCode->addAction("XML", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::xml);});
-    ui->menuCode->addAction("Markdown", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::md);});
-    ui->menuCode->addAction("JavaScript Object Notation (JSON)", [=] {currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::json);});
+    ui->menuCode->addAction("C++", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::cpp);});
+    ui->menuCode->addAction("JavaScript", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::js);});
+    ui->menuCode->addAction("Python", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::py);});
+    ui->menuCode->addAction("XML", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::xml);});
+    ui->menuCode->addAction("Markdown", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::md);});
+    ui->menuCode->addAction("JavaScript Object Notation (JSON)", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::json);});
 
     addTerminal();
 
@@ -107,6 +113,10 @@ void MainWindow::newTab() {
     ui->tabs->addWidget(view);
     ui->tabs->setCurrentWidget(view);
 
+    if (this->currentProjectFile != "") {
+        view->enableIDEMode();
+    }
+
     connect(view, SIGNAL(editedChanged()), this, SLOT(checkForEdits()));
     connect(view->getTabButton(), &QPushButton::clicked, [=]{
         ui->tabs->setCurrentWidget(view);
@@ -116,7 +126,21 @@ void MainWindow::newTab() {
             this->setWindowFilePath(view->filename());
         }
     });
+    connect(view, &TextEditor::breakpointSet, [=](int lineNumber) {
+        if (currentDebugger != NULL) {
+            currentDebugger->setBreakpoint(view->filename(), lineNumber);
+        }
+    });
+    connect(view, &TextEditor::breakpointRemoved, [=](int lineNumber) {
+        if (currentDebugger != NULL) {
+            currentDebugger->clearBreakpoint(view->filename(), lineNumber);
+        }
+    });
     ui->tabButtons->addWidget(view->getTabButton());
+
+    ui->closeButton->setVisible(true);
+    ui->actionSave->setEnabled(true);
+    ui->menuCode->setEnabled(true);
 }
 
 void MainWindow::on_actionNew_triggered()
@@ -174,7 +198,7 @@ void MainWindow::on_actionOpen_triggered()
         if (QFileInfo(openDialog->selectedFiles().first()).suffix() == "tslprj") {
             openProject(openDialog->selectedFiles().first());
         } else {
-            if (currentDocument()->isEdited() || currentDocument()->filename() != "") {
+            if (currentDocument() == NULL || currentDocument()->isEdited() || currentDocument()->filename() != "") {
                 newTab();
             }
 
@@ -270,6 +294,12 @@ bool MainWindow::closeCurrentTab() {
     ui->tabButtons->removeWidget(current->getTabButton());
     ui->tabs->removeWidget(current);
     current->deleteLater();
+
+    if (ui->tabs->count() == 0) {
+        ui->closeButton->setVisible(false);
+        ui->actionSave->setEnabled(false);
+        ui->menuCode->setEnabled(false);
+    }
     return true;
 }
 
@@ -350,11 +380,17 @@ void MainWindow::openProject(QString tslprjPath) {
     ui->actionNew_theSlate_Project->setVisible(false);
     ui->menuSource_Control->setEnabled(true);
     ui->actionStart->setVisible(true);
+    ui->debugToolbar->setVisible(true);
 
     //Set up Git
     git = new GitIntegration(QFileInfo(tslprjPath).path());
     connect(git, SIGNAL(reloadStatusNeeded()), this, SLOT(updateGit()));
     updateGit();
+
+    //Set all text editors to IDE mode
+    for (int i = 0; i < ui->tabs->count(); i++) {
+        ((TextEditor*) ui->tabs->widget(i))->enableIDEMode();
+    }
 
     //Set File tree root
     projectModel = new QFileSystemModel();
@@ -523,11 +559,32 @@ void MainWindow::on_actionStart_triggered()
             currentDebugger = new NodeJsDebugger(47392);
             connect(currentDebugger, &Debugger::destroyed, [=] {
                 currentDebugger = NULL;
+                ui->actionPause->setVisible(false);
+            });
+            connect(currentDebugger, SIGNAL(paused()), this, SLOT(debuggerPaused()));
+            connect(currentDebugger, SIGNAL(unpaused()), this, SLOT(debuggerUnpaused()));
+            connect(currentDebugger, SIGNAL(lineHit(QString,int)), this, SLOT(debuggerLineHit(QString,int)));
+            connect(currentDebugger, &Debugger::exceptionEncountered, [=](Exception exception, QString file) {
+                switchToFile(file);
+                currentDocument()->setException(exception);
+            });
+            connect(currentDebugger, &Debugger::loadFakeFile, [=](QString filename, QString contents) {
+                switchToFile(filename, contents);
             });
 
-            //Wait 5 seconds and then start debugging
+            //Wait 1 second and then start debugging
             QTimer::singleShot(1000, [=] {
                 currentDebugger->startDebugging();
+
+                //Set all breakpoints
+                for (int i = 0; i < ui->tabs->count(); i++) {
+                    TextEditor* document = (TextEditor*) ui->tabs->widget(i);
+                    for (QTextBlock bp : document->allBreakpoints()) {
+                        currentDebugger->setBreakpoint(document->filename(), bp.firstLineNumber() + 1);
+                    }
+                }
+
+                ui->actionPause->setVisible(true);
             });
         } else {
             term->runCommand("node " + runFile);
@@ -542,5 +599,80 @@ void MainWindow::on_actionSave_All_triggered()
         if (document->filename() != "") {
             document->saveFile();
         }
+    }
+}
+
+void MainWindow::debuggerPaused() {
+    //ui->debugToolbar->setVisible(true);
+    ui->actionContinue->setVisible(true);
+    ui->actionStep_Into->setVisible(true);
+    ui->actionStep_Out->setVisible(true);
+    ui->actionStep_Over->setVisible(true);
+    ui->actionPause->setVisible(false);
+}
+
+void MainWindow::on_actionContinue_triggered()
+{
+    currentDebugger->cont();
+
+    for (int i = 0; i < ui->tabs->count(); i++) {
+        ((TextEditor*) ui->tabs->widget(i))->clearException();
+    }
+}
+
+void MainWindow::debuggerUnpaused() {
+    //ui->debugToolbar->setVisible(false);
+    ui->actionContinue->setVisible(false);
+    ui->actionStep_Into->setVisible(false);
+    ui->actionStep_Out->setVisible(false);
+    ui->actionStep_Over->setVisible(false);
+    ui->actionPause->setVisible(true);
+
+    for (int i = 0; i < ui->tabs->count(); i++) {
+        ((TextEditor*) ui->tabs->widget(i))->clearBrokenLine();
+    }
+}
+
+void MainWindow::on_actionStep_Into_triggered()
+{
+    currentDebugger->stepIn();
+}
+
+void MainWindow::on_actionStep_Over_triggered()
+{
+    currentDebugger->stepOver();
+}
+
+void MainWindow::on_actionStep_Out_triggered()
+{
+    currentDebugger->stepOut();
+}
+
+void MainWindow::switchToFile(QString file, QString fakeFileContents) {
+    for (int i = 0; i < ui->tabs->count(); i++) {
+        if (((TextEditor*) ui->tabs->widget(i))->filename() == file) {
+            ui->tabs->setCurrentIndex(i);
+            return;
+        }
+    }
+
+    newTab();
+    if (fakeFileContents == "") {
+        currentDocument()->openFile(file);
+    } else {
+        currentDocument()->openFileFake(file, fakeFileContents);
+    }
+}
+
+void MainWindow::debuggerLineHit(QString file, int line) {
+    switchToFile(file);
+    currentDocument()->setBrokenLine(line);
+}
+
+void MainWindow::setCurrentDocumentHighlighting(SyntaxHighlighter::codeType type) {
+    if (currentDocument() == NULL) {
+
+    } else {
+        currentDocument()->highlighter()->setCodeType(type);
     }
 }
