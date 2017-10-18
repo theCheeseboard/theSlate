@@ -20,6 +20,11 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
     connect(this, &TextEditor::fileNameChanged, [=] {
         button->setText(QFileInfo(this->filename()).fileName());
     });
+
+    QStringList args = QApplication::instance()->arguments();
+    if (args.count() > 1) {
+        openFile(args[1]);
+    }
 }
 
 TextEditor::~TextEditor() {
