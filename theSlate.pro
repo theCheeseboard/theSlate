@@ -15,12 +15,12 @@ TEMPLATE = app
 macx {
     QT += macextras
     ICON = icon.icns
+    LIBS += -framework CoreFoundation
 }
 
 unix:!macx {
     QT += thelib
     TARGET = theslate
-    LIBS += -lqtermwidget5
 }
 
 win32 {
@@ -47,9 +47,7 @@ SOURCES += \
     texteditor.cpp \
     aboutwindow.cpp \
     syntaxhighlighter.cpp \
-    SourceControl/gitintegration.cpp \
-    Debug/debugger.cpp \
-    Debug/nodejsdebugger.cpp
+    SourceControl/gitintegration.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -58,8 +56,6 @@ HEADERS += \
     aboutwindow.h \
     syntaxhighlighter.h \
     SourceControl/gitintegration.h \
-    Debug/debugger.h \
-    Debug/nodejsdebugger.h \
     exception.h
 
 FORMS += \
@@ -70,8 +66,23 @@ RESOURCES += \
     icons.qrc \
     files.qrc
 
+TRANSLATIONS += translations/vi_VN.ts
 
 unix:!macx {
     SOURCES += terminalwidget.cpp
     HEADERS += terminalwidget.h
+
+    target.path = /usr/bin
+
+    translations.path = /usr/share/theslate/translations
+    translations.files = translations/*
+
+    INSTALLS += target translations
+}
+
+macx {
+    translations.files = translations/
+    translations.path = Contents/translations
+
+    QMAKE_BUNDLE_DATA = translations
 }

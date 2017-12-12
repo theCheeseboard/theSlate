@@ -5,7 +5,7 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
     this->setLineWrapMode(NoWrap);
 
     button = new TabButton(this);
-    button->setText("New Document");
+    button->setText(tr("New Document"));
     this->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     hl = new SyntaxHighlighter(this->document());
 

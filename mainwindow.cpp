@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     #ifdef Q_OS_MACOS
         //Set up Mac toolbar
+        ui->toolBar->setVisible(false);
         ui->mainToolBar->setVisible(false);
 
         QMacToolBar* toolbar = new QMacToolBar();
@@ -24,21 +25,21 @@ MainWindow::MainWindow(QWidget *parent) :
         QList<QMacToolBarItem*> allowedItems;
 
         QMacToolBarItem* newItem = new QMacToolBarItem();
-        newItem->setText("New Document");
+        newItem->setText(tr("New"));
         newItem->setIcon(QIcon(":/icons/document-new.svg"));
         newItem->setProperty("name", "new");
         connect(newItem, SIGNAL(activated()), this, SLOT(on_actionNew_triggered()));
         allowedItems.append(newItem);
 
         QMacToolBarItem* openItem = new QMacToolBarItem();
-        openItem->setText("Open");
+        openItem->setText(tr("Open"));
         openItem->setIcon(QIcon(":/icons/document-open.svg"));
         openItem->setProperty("name", "open");
         connect(openItem, SIGNAL(activated()), this, SLOT(on_actionOpen_triggered()));
         allowedItems.append(openItem);
 
         QMacToolBarItem* saveItem = new QMacToolBarItem();
-        saveItem->setText("Save");
+        saveItem->setText(tr("Save"));
         saveItem->setIcon(QIcon(":/icons/document-save.svg"));
         saveItem->setProperty("name", "save");
         connect(saveItem, SIGNAL(activated()), this, SLOT(on_actionSave_triggered()));
@@ -77,11 +78,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Hide the project frame
     ui->projectFrame->setVisible(false);
-    ui->debugFrame->setVisible(false);
     ui->actionFile_in_Project->setVisible(false);
     ui->menuSource_Control->setEnabled(false);
     ui->actionStart->setVisible(false);
-    ui->debugToolbar->setVisible(false);
     ui->actionContinue->setVisible(false);
     ui->actionStep_Into->setVisible(false);
     ui->actionStep_Out->setVisible(false);
@@ -97,8 +96,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->menuCode->addAction("XML", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::xml);});
     ui->menuCode->addAction("Markdown", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::md);});
     ui->menuCode->addAction("JavaScript Object Notation (JSON)", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::json);});
-
-    addTerminal();
 
     newTab();
 }
@@ -124,16 +121,6 @@ void MainWindow::newTab() {
     connect(view, &TextEditor::fileNameChanged, [=] {
         if (currentDocument() == view) {
             this->setWindowFilePath(view->filename());
-        }
-    });
-    connect(view, &TextEditor::breakpointSet, [=](int lineNumber) {
-        if (currentDebugger != NULL) {
-            currentDebugger->setBreakpoint(view->filename(), lineNumber);
-        }
-    });
-    connect(view, &TextEditor::breakpointRemoved, [=](int lineNumber) {
-        if (currentDebugger != NULL) {
-            currentDebugger->clearBreakpoint(view->filename(), lineNumber);
         }
     });
     ui->tabButtons->addWidget(view->getTabButton());
@@ -273,8 +260,8 @@ bool MainWindow::saveCurrentDocument() {
 bool MainWindow::closeCurrentTab() {
     if (currentDocument()->isEdited()) {
         QMessageBox* messageBox = new QMessageBox(this);
-        messageBox->setWindowTitle("Save Changes?");
-        messageBox->setText("Do you want to save your changes to this document?");
+        messageBox->setWindowTitle(tr("Save Changes?"));
+        messageBox->setText(tr("Do you want to save your changes to this document?"));
         messageBox->setIcon(QMessageBox::Warning);
         messageBox->setWindowFlags(Qt::Sheet);
         messageBox->setStandardButtons(QMessageBox::Discard | QMessageBox::Save | QMessageBox::Cancel);
@@ -375,12 +362,10 @@ void MainWindow::on_actionNew_theSlate_Project_triggered()
 void MainWindow::openProject(QString tslprjPath) {
     //Open project explorers
     ui->projectFrame->setVisible(true);
-    ui->debugFrame->setVisible(true);
     ui->actionFile_in_Project->setVisible(true);
     ui->actionNew_theSlate_Project->setVisible(false);
     ui->menuSource_Control->setEnabled(true);
     ui->actionStart->setVisible(true);
-    ui->debugToolbar->setVisible(true);
 
     //Set up Git
     git = new GitIntegration(QFileInfo(tslprjPath).path());
@@ -403,22 +388,10 @@ void MainWindow::openProject(QString tslprjPath) {
     ui->projectTree->setRootIndex(projectModel->index(QFileInfo(tslprjPath).path()));
 
     currentProjectFile = tslprjPath;
-    updateProjectConfiguration();
 
     QFileSystemWatcher* projectWatcher = new QFileSystemWatcher();
     projectWatcher->addPath(tslprjPath);
     connect(projectWatcher, SIGNAL(fileChanged(QString)), this, SLOT(updateProjectConfiguration()));
-}
-
-TermWidget* MainWindow::addTerminal() {
-    #ifdef Q_OS_LINUX
-        TerminalWidget* term = new TerminalWidget(QDir::homePath());
-        ui->terminals->addWidget(term);
-        ui->terminalBox->addItem("Terminal");
-        return term;
-    #else
-        return NULL;
-    #endif
 }
 
 void MainWindow::on_projectTree_clicked(const QModelIndex &index)
@@ -432,29 +405,6 @@ void MainWindow::on_projectTree_clicked(const QModelIndex &index)
 
     newTab();
     currentDocument()->openFile(projectModel->filePath(index));
-}
-
-void MainWindow::on_terminalBox_currentIndexChanged(int index)
-{
-    ui->terminals->setCurrentIndex(index);
-}
-
-void MainWindow::on_terminals_currentChanged(int arg1)
-{
-    ui->terminalBox->setCurrentIndex(arg1);
-}
-
-void MainWindow::on_newTerminalButton_clicked()
-{
-    addTerminal();
-}
-
-void MainWindow::on_closeTerminal_clicked()
-{
-    int i = ui->terminalBox->currentIndex();
-    ui->terminals->widget(i)->deleteLater();
-    ui->terminalBox->removeItem(i);
-    ui->terminals->removeWidget(ui->terminals->widget(i));
 }
 
 void MainWindow::updateGit() {
@@ -488,33 +438,6 @@ void MainWindow::updateGit() {
     }
 }
 
-void MainWindow::updateProjectConfiguration() {
-    ui->runConfigurations->clear();
-
-    QFile configFile(currentProjectFile);
-    configFile.open(QFile::ReadOnly);
-
-    QByteArray file = configFile.readAll();
-    QJsonParseError* jsonError = new QJsonParseError;
-    QJsonDocument jsonDoc = QJsonDocument::fromJson(file, jsonError);
-    configFile.close();
-
-    if (!jsonDoc.isNull()) {
-        QJsonObject rootObj = jsonDoc.object();
-        projectType = rootObj.value("debuggerType").toString();
-        QJsonArray configurations = rootObj.value("runTypes").toArray();
-
-        for (QJsonValue configuration : configurations) {
-            if (configuration.isObject()) {
-                QJsonObject obj = configuration.toObject();
-                ui->runConfigurations->addItem(obj.value("name").toString(), obj);
-            }
-        }
-    } else {
-        //Configuration error
-    }
-}
-
 void MainWindow::on_modifiedChanges_itemChanged(QListWidgetItem *item)
 {
     if (item->checkState() == Qt::Checked) {
@@ -529,69 +452,6 @@ void MainWindow::on_pushButton_clicked()
     git->init();
 }
 
-void MainWindow::on_actionStart_triggered()
-{
-    //Save all files
-    ui->actionSave_All->trigger();
-
-    //Run current configuration
-    QJsonObject configurationDetails = ui->runConfigurations->itemData(ui->runConfigurations->currentIndex()).toJsonObject();
-    QString runFile = configurationDetails.value("program").toString();
-    bool debug = configurationDetails.value("debug").toBool();
-
-    TermWidget* term;
-    if (debugTerminal == -1) {
-        //Create a new terminal for debugging
-        term = addTerminal();
-        debugTerminal = ui->terminals->indexOf(term);
-    } else {
-        term = (TermWidget*) ui->terminals->widget(debugTerminal);
-    }
-
-    ui->debugTabs->setCurrentIndex(1);
-    ui->terminals->setCurrentWidget(term);
-    term->changeDir(QFileInfo(currentProjectFile).path());
-
-    if (projectType == "nodejs") {
-        if (debug) {
-            term->runCommand("node --inspect-brk=47392 " + runFile);
-
-            currentDebugger = new NodeJsDebugger(47392);
-            connect(currentDebugger, &Debugger::destroyed, [=] {
-                currentDebugger = NULL;
-                ui->actionPause->setVisible(false);
-            });
-            connect(currentDebugger, SIGNAL(paused()), this, SLOT(debuggerPaused()));
-            connect(currentDebugger, SIGNAL(unpaused()), this, SLOT(debuggerUnpaused()));
-            connect(currentDebugger, SIGNAL(lineHit(QString,int)), this, SLOT(debuggerLineHit(QString,int)));
-            connect(currentDebugger, &Debugger::exceptionEncountered, [=](Exception exception, QString file) {
-                switchToFile(file);
-                currentDocument()->setException(exception);
-            });
-            connect(currentDebugger, &Debugger::loadFakeFile, [=](QString filename, QString contents) {
-                switchToFile(filename, contents);
-            });
-
-            //Wait 1 second and then start debugging
-            QTimer::singleShot(1000, [=] {
-                currentDebugger->startDebugging();
-
-                //Set all breakpoints
-                for (int i = 0; i < ui->tabs->count(); i++) {
-                    TextEditor* document = (TextEditor*) ui->tabs->widget(i);
-                    for (QTextBlock bp : document->allBreakpoints()) {
-                        currentDebugger->setBreakpoint(document->filename(), bp.firstLineNumber() + 1);
-                    }
-                }
-
-                ui->actionPause->setVisible(true);
-            });
-        } else {
-            term->runCommand("node " + runFile);
-        }
-    }
-}
-
 void MainWindow::on_actionSave_All_triggered()
 {
     for (int i = 0; i < ui->tabs->count(); i++) {
@@ -600,52 +460,6 @@ void MainWindow::on_actionSave_All_triggered()
             document->saveFile();
         }
     }
-}
-
-void MainWindow::debuggerPaused() {
-    //ui->debugToolbar->setVisible(true);
-    ui->actionContinue->setVisible(true);
-    ui->actionStep_Into->setVisible(true);
-    ui->actionStep_Out->setVisible(true);
-    ui->actionStep_Over->setVisible(true);
-    ui->actionPause->setVisible(false);
-}
-
-void MainWindow::on_actionContinue_triggered()
-{
-    currentDebugger->cont();
-
-    for (int i = 0; i < ui->tabs->count(); i++) {
-        ((TextEditor*) ui->tabs->widget(i))->clearException();
-    }
-}
-
-void MainWindow::debuggerUnpaused() {
-    //ui->debugToolbar->setVisible(false);
-    ui->actionContinue->setVisible(false);
-    ui->actionStep_Into->setVisible(false);
-    ui->actionStep_Out->setVisible(false);
-    ui->actionStep_Over->setVisible(false);
-    ui->actionPause->setVisible(true);
-
-    for (int i = 0; i < ui->tabs->count(); i++) {
-        ((TextEditor*) ui->tabs->widget(i))->clearBrokenLine();
-    }
-}
-
-void MainWindow::on_actionStep_Into_triggered()
-{
-    currentDebugger->stepIn();
-}
-
-void MainWindow::on_actionStep_Over_triggered()
-{
-    currentDebugger->stepOver();
-}
-
-void MainWindow::on_actionStep_Out_triggered()
-{
-    currentDebugger->stepOut();
 }
 
 void MainWindow::switchToFile(QString file, QString fakeFileContents) {
@@ -662,11 +476,6 @@ void MainWindow::switchToFile(QString file, QString fakeFileContents) {
     } else {
         currentDocument()->openFileFake(file, fakeFileContents);
     }
-}
-
-void MainWindow::debuggerLineHit(QString file, int line) {
-    switchToFile(file);
-    currentDocument()->setBrokenLine(line);
 }
 
 void MainWindow::setCurrentDocumentHighlighting(SyntaxHighlighter::codeType type) {

@@ -22,7 +22,6 @@
 #include <QToolBar>
 #include "aboutwindow.h"
 #include "texteditor.h"
-#include "Debug/nodejsdebugger.h"
 #include "SourceControl/gitintegration.h"
 
 #ifdef Q_OS_MAC
@@ -86,41 +85,13 @@ private slots:
 
     void on_projectTree_clicked(const QModelIndex &index);
 
-    TermWidget* addTerminal();
-
-    void on_terminalBox_currentIndexChanged(int index);
-
-    void on_terminals_currentChanged(int arg1);
-
-    void on_newTerminalButton_clicked();
-
-    void on_closeTerminal_clicked();
-
     void updateGit();
-
-    void updateProjectConfiguration();
 
     void on_modifiedChanges_itemChanged(QListWidgetItem *item);
 
     void on_pushButton_clicked();
 
-    void on_actionStart_triggered();
-
     void on_actionSave_All_triggered();
-
-    void debuggerPaused();
-
-    void on_actionContinue_triggered();
-
-    void debuggerUnpaused();
-
-    void on_actionStep_Into_triggered();
-
-    void on_actionStep_Over_triggered();
-
-    void on_actionStep_Out_triggered();
-
-    void debuggerLineHit(QString file, int line);
 
     void switchToFile(QString file, QString fakeFileContents = "");
 
@@ -134,9 +105,6 @@ private:
     QString currentProjectFile = "";
     QString projectType = "";
     GitIntegration* git = NULL;
-    Debugger* currentDebugger = NULL;
-
-    int debugTerminal = -1;
 };
 
 #endif // MAINWINDOW_H
