@@ -67,6 +67,9 @@ RESOURCES += \
 
 TRANSLATIONS += translations/vi_VN.ts
 
+# Turn off stripping as this causes the install to fail :(
+QMAKE_STRIP = echo
+
 unix:!macx {
     target.path = /usr/bin
 
