@@ -49,7 +49,7 @@
    <item>
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>Copyright (c) Victor Tran 2017. Licensed under the terms of the GNU General Public License, version 3 or later.</string>
+      <string>Copyright (c) Victor Tran 2018. Licensed under the terms of the GNU General Public License, version 3 or later.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
