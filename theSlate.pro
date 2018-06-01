@@ -68,15 +68,18 @@ RESOURCES += \
 TRANSLATIONS += translations/vi_VN.ts
 
 unix:!macx {
-    SOURCES +=
-    HEADERS +=
-
     target.path = /usr/bin
 
     translations.path = /usr/share/theslate/translations
     translations.files = translations/*
 
-    INSTALLS += target translations
+    desktop.path = /usr/share/applications
+    desktop.files = theslate.desktop
+
+    icon.path = /usr/share/icons/hicolor/scalable/apps
+    desktop.files = icons/theslate.svg
+
+    INSTALLS += target translations desktop icon
 }
 
 macx {
@@ -85,3 +88,6 @@ macx {
 
     QMAKE_BUNDLE_DATA = translations
 }
+
+DISTFILES += \
+    theslate.desktop
