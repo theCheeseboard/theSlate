@@ -55,8 +55,7 @@ HEADERS += \
     texteditor.h \
     aboutwindow.h \
     syntaxhighlighter.h \
-    SourceControl/gitintegration.h \
-    exception.h
+    SourceControl/gitintegration.h
 
 FORMS += \
         mainwindow.ui \
@@ -69,8 +68,8 @@ RESOURCES += \
 TRANSLATIONS += translations/vi_VN.ts
 
 unix:!macx {
-    SOURCES += terminalwidget.cpp
-    HEADERS += terminalwidget.h
+    SOURCES +=
+    HEADERS +=
 
     target.path = /usr/bin
 

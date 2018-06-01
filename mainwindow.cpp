@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
     #else
         //Set up single menu except on macOS
         QMenu* singleMenu = new QMenu();
-        singleMenu->addMenu(ui->menuNew);
+        singleMenu->addAction(ui->actionNew);
         singleMenu->addAction(ui->actionOpen);
         singleMenu->addAction(ui->actionSave);
         singleMenu->addAction(ui->actionSave_All);
@@ -62,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addAction(ui->actionPaste);
         singleMenu->addSeparator();
         singleMenu->addMenu(ui->menuCode);
+        singleMenu->addAction(ui->actionShowSourceControlWindow);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionAbout);
         singleMenu->addAction(ui->actionExit);
@@ -75,6 +76,10 @@ MainWindow::MainWindow(QWidget *parent) :
     #endif
 
     ui->menuBar->setVisible(false);
+
+    if (settings.contains("window/state")) {
+        this->restoreState(settings.value("window/state").toByteArray());
+    }
 
     //Hide the project frame
     ui->projectFrame->setVisible(false);
@@ -97,6 +102,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->menuCode->addAction("Markdown", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::md);});
     ui->menuCode->addAction("JavaScript Object Notation (JSON)", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::json);});
 
+    fileModel = new QFileSystemModel();
+    fileModel->setRootPath(QDir::rootPath());
+    ui->projectTree->setModel(fileModel);
+    ui->projectTree->hideColumn(1);
+    ui->projectTree->hideColumn(2);
+    ui->projectTree->hideColumn(3);
+    ui->projectTree->setRootIndex(fileModel->index(QDir::rootPath()));
+    ui->projectTree->scrollTo(fileModel->index(QDir::homePath()));
+    ui->projectTree->expand(fileModel->index(QDir::homePath()));
+
     newTab();
 }
 
@@ -110,10 +125,6 @@ void MainWindow::newTab() {
     ui->tabs->addWidget(view);
     ui->tabs->setCurrentWidget(view);
 
-    if (this->currentProjectFile != "") {
-        view->enableIDEMode();
-    }
-
     connect(view, SIGNAL(editedChanged()), this, SLOT(checkForEdits()));
     connect(view->getTabButton(), &QPushButton::clicked, [=]{
         ui->tabs->setCurrentWidget(view);
@@ -121,6 +132,8 @@ void MainWindow::newTab() {
     connect(view, &TextEditor::fileNameChanged, [=] {
         if (currentDocument() == view) {
             this->setWindowFilePath(view->filename());
+            ui->projectTree->scrollTo(fileModel->index(view->filename()));
+            ui->projectTree->expand(fileModel->index(view->filename()));
         }
     });
     ui->tabButtons->addWidget(view->getTabButton());
@@ -151,6 +164,10 @@ void MainWindow::on_tabs_currentChanged(int arg1)
     if (current != NULL) {
         current->setActive(true);
         this->setWindowFilePath(current->filename());
+        ui->projectTree->scrollTo(fileModel->index(current->filename()));
+        ui->projectTree->expand(fileModel->index(current->filename()));
+
+        updateGit();
     }
 }
 
@@ -182,15 +199,12 @@ void MainWindow::on_actionOpen_triggered()
     loop->deleteLater();
 
     if (openDialog->result() == QDialog::Accepted) {
-        if (QFileInfo(openDialog->selectedFiles().first()).suffix() == "tslprj") {
-            openProject(openDialog->selectedFiles().first());
-        } else {
-            if (currentDocument() == NULL || currentDocument()->isEdited() || currentDocument()->filename() != "") {
-                newTab();
-            }
-
-            currentDocument()->openFile(openDialog->selectedFiles().first());
+        if (currentDocument() == NULL || currentDocument()->isEdited() || currentDocument()->filename() != "") {
+            newTab();
         }
+
+        currentDocument()->openFile(openDialog->selectedFiles().first());
+        updateGit();
     }
 }
 
@@ -221,6 +235,8 @@ void MainWindow::closeEvent(QCloseEvent *event) {
             return;
         }
     }
+
+    settings.setValue("window/state", this->saveState());
     event->accept();
 }
 
@@ -248,7 +264,9 @@ bool MainWindow::saveCurrentDocument() {
         loop->deleteLater();
 
         if (saveDialog->result() == QDialog::Accepted) {
-            return currentDocument()->saveFile(saveDialog->selectedFiles().first());
+            bool didSave = currentDocument()->saveFile(saveDialog->selectedFiles().first());
+            updateGit();
+            return didSave;
         } else {
             return false;
         }
@@ -322,117 +340,51 @@ void MainWindow::on_actionNo_Highlighting_triggered()
     currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::none);
 }
 
-void MainWindow::on_actionNew_theSlate_Project_triggered()
-{
-    //Query for filename and location
-    QEventLoop* loop = new QEventLoop();
-    QFileDialog* saveDialog = new QFileDialog(this, Qt::Sheet);
-    saveDialog->setWindowModality(Qt::WindowModal);
-    saveDialog->setAcceptMode(QFileDialog::AcceptSave);
-    saveDialog->setDirectory(QDir::home());
-    saveDialog->setNameFilters(QStringList() << "theSlate Project File (*.tslprj)");
-    saveDialog->setDefaultSuffix("tslprj");
-    connect(saveDialog, SIGNAL(finished(int)), saveDialog, SLOT(deleteLater()));
-    connect(saveDialog, SIGNAL(finished(int)), loop, SLOT(quit()));
-    saveDialog->show();
-
-    //Block until dialog is finished
-    loop->exec();
-    loop->deleteLater();
-
-    if (saveDialog->result() == QDialog::Accepted) {
-        //Initiate a project from files in this folder
-
-        //QFile(":/initialStartupFile").copy(saveDialog->selectedFiles().first());
-        QFile newFile(saveDialog->selectedFiles().first());
-        QFile resourceFile(":/initialStartupFile");
-        newFile.open(QFile::WriteOnly);
-        resourceFile.open(QFile::ReadOnly);
-        newFile.write(resourceFile.readAll());
-        newFile.close();
-        resourceFile.close();
-
-        newTab();
-        currentDocument()->openFile(saveDialog->selectedFiles().first());
-
-        openProject(saveDialog->selectedFiles().first());
-    }
-}
-
-void MainWindow::openProject(QString tslprjPath) {
-    //Open project explorers
-    ui->projectFrame->setVisible(true);
-    ui->actionFile_in_Project->setVisible(true);
-    ui->actionNew_theSlate_Project->setVisible(false);
-    ui->menuSource_Control->setEnabled(true);
-    ui->actionStart->setVisible(true);
-
-    //Set up Git
-    git = new GitIntegration(QFileInfo(tslprjPath).path());
-    connect(git, SIGNAL(reloadStatusNeeded()), this, SLOT(updateGit()));
-    updateGit();
-
-    //Set all text editors to IDE mode
-    for (int i = 0; i < ui->tabs->count(); i++) {
-        ((TextEditor*) ui->tabs->widget(i))->enableIDEMode();
-    }
-
-    //Set File tree root
-    projectModel = new QFileSystemModel();
-    projectModel->setRootPath(QFileInfo(tslprjPath).path());
-
-    ui->projectTree->setModel(projectModel);
-    ui->projectTree->hideColumn(1);
-    ui->projectTree->hideColumn(2);
-    ui->projectTree->hideColumn(3);
-    ui->projectTree->setRootIndex(projectModel->index(QFileInfo(tslprjPath).path()));
-
-    currentProjectFile = tslprjPath;
-
-    QFileSystemWatcher* projectWatcher = new QFileSystemWatcher();
-    projectWatcher->addPath(tslprjPath);
-    connect(projectWatcher, SIGNAL(fileChanged(QString)), this, SLOT(updateProjectConfiguration()));
-}
-
 void MainWindow::on_projectTree_clicked(const QModelIndex &index)
 {
-    for (int i = 0; i < ui->tabs->count(); i++) {
-        if (projectModel->filePath(index) == ((TextEditor*) ui->tabs->widget(i))->filename()) {
-            ui->tabs->setCurrentIndex(i);
-            return;
+    if (!fileModel->isDir(index)) {
+        for (int i = 0; i < ui->tabs->count(); i++) {
+            if (fileModel->filePath(index) == ((TextEditor*) ui->tabs->widget(i))->filename()) {
+                ui->tabs->setCurrentIndex(i);
+                return;
+            }
         }
-    }
 
-    newTab();
-    currentDocument()->openFile(projectModel->filePath(index));
+        newTab();
+        currentDocument()->openFile(fileModel->filePath(index));
+    }
 }
 
 void MainWindow::updateGit() {
-    if (git->needsInit()) {
-        ui->sourceControlPanes->setCurrentIndex(1);
+    if (currentDocument()->git == nullptr) {
+        ui->sourceControlPanes->setCurrentIndex(2);
     } else {
-        ui->sourceControlPanes->setCurrentIndex(0);
-        QStringList changedFiles = git->reloadStatus();
-        ui->modifiedChanges->clear();
+        if (currentDocument()->git->needsInit()) {
+            ui->sourceControlPanes->setCurrentIndex(1);
+        } else {
+            ui->sourceControlPanes->setCurrentIndex(0);
+            QStringList changedFiles = currentDocument()->git->reloadStatus();
+            ui->modifiedChanges->clear();
 
-        for (QString changedFile : changedFiles) {
-            if (changedFile != "") {
-                QChar flag1 = changedFile.at(0);
-                QChar flag2 = changedFile.at(1);
-                QString fileLocation = changedFile.mid(2);
+            for (QString changedFile : changedFiles) {
+                if (changedFile != "") {
+                    QChar flag1 = changedFile.at(0);
+                    QChar flag2 = changedFile.at(1);
+                    QString fileLocation = changedFile.mid(2);
 
-                QListWidgetItem* item = new QListWidgetItem;
-                item->setText(fileLocation);
-                item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-                if (flag1 == 'A' || flag1 == 'M') {
-                    //Staged change
-                    item->setCheckState(Qt::Checked);
-                } else {
-                    //Unstaged change
-                    item->setCheckState(Qt::Unchecked);
+                    QListWidgetItem* item = new QListWidgetItem;
+                    item->setText(fileLocation);
+                    item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+                    if (flag1 == 'A' || flag1 == 'M') {
+                        //Staged change
+                        item->setCheckState(Qt::Checked);
+                    } else {
+                        //Unstaged change
+                        item->setCheckState(Qt::Unchecked);
+                    }
+
+                    ui->modifiedChanges->addItem(item);
                 }
-
-                ui->modifiedChanges->addItem(item);
             }
         }
     }
@@ -441,15 +393,10 @@ void MainWindow::updateGit() {
 void MainWindow::on_modifiedChanges_itemChanged(QListWidgetItem *item)
 {
     if (item->checkState() == Qt::Checked) {
-        git->add(item->text());
+        currentDocument()->git->add(item->text());
     } else {
-        git->unstage(item->text());
+        currentDocument()->git->unstage(item->text());
     }
-}
-
-void MainWindow::on_pushButton_clicked()
-{
-    git->init();
 }
 
 void MainWindow::on_actionSave_All_triggered()
@@ -473,6 +420,7 @@ void MainWindow::switchToFile(QString file, QString fakeFileContents) {
     newTab();
     if (fakeFileContents == "") {
         currentDocument()->openFile(file);
+        updateGit();
     } else {
         currentDocument()->openFileFake(file, fakeFileContents);
     }
@@ -484,4 +432,19 @@ void MainWindow::setCurrentDocumentHighlighting(SyntaxHighlighter::codeType type
     } else {
         currentDocument()->highlighter()->setCodeType(type);
     }
+}
+
+void MainWindow::on_initGitButton_clicked()
+{
+    currentDocument()->git->init();
+}
+
+void MainWindow::on_actionShowSourceControlWindow_triggered()
+{
+    ui->sourceControlDock->setVisible(!ui->sourceControlDock->isVisible());
+}
+
+void MainWindow::on_sourceControlDock_visibilityChanged(bool visible)
+{
+    ui->actionShowSourceControlWindow->setChecked(visible);
 }

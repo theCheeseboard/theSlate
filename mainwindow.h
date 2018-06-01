@@ -20,6 +20,8 @@
 #include <QMenu>
 #include <QTimer>
 #include <QToolBar>
+#include <QSettings>
+#include <QDockWidget>
 #include "aboutwindow.h"
 #include "texteditor.h"
 #include "SourceControl/gitintegration.h"
@@ -27,11 +29,6 @@
 #ifdef Q_OS_MAC
 #include <QMacToolBar>
 #include <QMacToolBarItem>
-#endif
-
-#ifdef Q_OS_LINUX
-#include "terminalwidget.h"
-typedef TerminalWidget TermWidget;
 #endif
 
 namespace Ui {
@@ -79,17 +76,11 @@ private slots:
 
     void on_actionNo_Highlighting_triggered();
 
-    void on_actionNew_theSlate_Project_triggered();
-
-    void openProject(QString tslprjPath);
-
     void on_projectTree_clicked(const QModelIndex &index);
 
     void updateGit();
 
     void on_modifiedChanges_itemChanged(QListWidgetItem *item);
-
-    void on_pushButton_clicked();
 
     void on_actionSave_All_triggered();
 
@@ -97,14 +88,20 @@ private slots:
 
     void setCurrentDocumentHighlighting(SyntaxHighlighter::codeType type);
 
-private:
+    void on_initGitButton_clicked();
+
+    void on_actionShowSourceControlWindow_triggered();
+
+    void on_sourceControlDock_visibilityChanged(bool visible);
+
+    private:
     Ui::MainWindow *ui;
 
     void closeEvent(QCloseEvent* event);
-    QFileSystemModel* projectModel = NULL;
+    QFileSystemModel* fileModel;
     QString currentProjectFile = "";
     QString projectType = "";
-    GitIntegration* git = NULL;
+    QSettings settings;
 };
 
 #endif // MAINWINDOW_H

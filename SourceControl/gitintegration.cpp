@@ -6,6 +6,14 @@ GitIntegration::GitIntegration(QDir rootDir, QObject *parent) : QObject(parent)
     proc = new QProcess();
     proc->setWorkingDirectory(rootDir.path());
 
+    proc->start("git rev-parse --show-toplevel");
+    proc->waitForFinished();
+
+    if (proc->exitCode() == 0) {
+        QString newrootDir = proc->readAll().trimmed();
+        proc->setWorkingDirectory(newrootDir);
+    }
+
     QFileSystemWatcher* watcher = new QFileSystemWatcher;
     watcher->addPath(rootDir.path());
     connect(watcher, SIGNAL(directoryChanged(QString)), this, SIGNAL(reloadStatusNeeded()));
@@ -13,6 +21,14 @@ GitIntegration::GitIntegration(QDir rootDir, QObject *parent) : QObject(parent)
 }
 
 QStringList GitIntegration::reloadStatus() {
+    proc->start("git rev-parse --show-toplevel");
+    proc->waitForFinished();
+
+    if (proc->exitCode() == 0) {
+        QString newrootDir = proc->readAll().trimmed();
+        proc->setWorkingDirectory(newrootDir);
+    }
+
     proc->start("git status --porcelain=1");
     proc->waitForFinished();
 
@@ -42,10 +58,13 @@ void GitIntegration::unstage(QString file) {
 }
 
 bool GitIntegration::needsInit() {
-    if (QDir(rootDir.path() + "/.git").exists()) {
-        return false;
-    } else {
+    proc->start("git rev-parse --show-toplevel");
+    proc->waitForFinished();
+
+    if (proc->exitCode() != 0) {
         return true;
+    } else {
+        return false;
     }
 }
 

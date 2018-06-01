@@ -22,6 +22,9 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
+    <property name="spacing">
+     <number>0</number>
+    </property>
     <property name="leftMargin">
      <number>0</number>
     </property>
@@ -35,363 +38,111 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QSplitter" name="splitter">
+     <widget class="QFrame" name="projectFrame">
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="editorFrame">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>4</verstretch>
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="opaqueResize">
-       <bool>true</bool>
-      </property>
-      <widget class="QFrame" name="projectFrame">
-       <property name="frameShape">
-        <enum>QFrame::NoFrame</enum>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>0</number>
        </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
+       <property name="leftMargin">
+        <number>0</number>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QTabWidget" name="tabWidget">
-          <property name="currentIndex">
-           <number>1</number>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="tabFrame">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="spacing">
+           <number>0</number>
           </property>
-          <widget class="QWidget" name="filesTab">
-           <attribute name="title">
-            <string>Files</string>
-           </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_6">
-            <property name="leftMargin">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <layout class="QHBoxLayout" name="tabButtons">
+            <property name="spacing">
              <number>0</number>
             </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QTreeView" name="projectTree"/>
-            </item>
            </layout>
-          </widget>
-          <widget class="QWidget" name="tab_2">
-           <attribute name="title">
-            <string>Source Control</string>
-           </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_5">
-            <item>
-             <widget class="QStackedWidget" name="sourceControlPanes">
-              <property name="currentIndex">
-               <number>0</number>
-              </property>
-              <widget class="QWidget" name="page">
-               <layout class="QVBoxLayout" name="verticalLayout_8">
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QFrame" name="frame_2">
-                  <property name="frameShape">
-                   <enum>QFrame::NoFrame</enum>
-                  </property>
-                  <property name="frameShadow">
-                   <enum>QFrame::Raised</enum>
-                  </property>
-                  <layout class="QHBoxLayout" name="horizontalLayout_3">
-                   <property name="leftMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="topMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="rightMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="bottomMargin">
-                    <number>0</number>
-                   </property>
-                   <item>
-                    <widget class="QLineEdit" name="lineEdit">
-                     <property name="placeholderText">
-                      <string>Commit Message</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QToolButton" name="commitButton">
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset theme="commit" resource="icons.qrc">
-                       <normaloff>:/icons/commit.svg</normaloff>:/icons/commit.svg</iconset>
-                     </property>
-                     <property name="autoRaise">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QToolButton" name="sourceControlOptionsButton">
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="popupMode">
-                      <enum>QToolButton::InstantPopup</enum>
-                     </property>
-                     <property name="autoRaise">
-                      <bool>true</bool>
-                     </property>
-                     <property name="arrowType">
-                      <enum>Qt::DownArrow</enum>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QListWidget" name="modifiedChanges"/>
-                </item>
-               </layout>
-              </widget>
-              <widget class="QWidget" name="page_2">
-               <layout class="QGridLayout" name="gridLayout_2">
-                <item row="0" column="1">
-                 <spacer name="verticalSpacer_2">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>136</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="1" column="0">
-                 <spacer name="horizontalSpacer_2">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>38</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QFrame" name="frame_3">
-                  <property name="frameShape">
-                   <enum>QFrame::StyledPanel</enum>
-                  </property>
-                  <property name="frameShadow">
-                   <enum>QFrame::Raised</enum>
-                  </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_9">
-                   <item>
-                    <widget class="QLabel" name="label_2">
-                     <property name="font">
-                      <font>
-                       <pointsize>15</pointsize>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Git Repository not found</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_4">
-                     <property name="text">
-                      <string>Initialize an empty Git repository in the root folder of this project?</string>
-                     </property>
-                     <property name="wordWrap">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_4">
-                     <property name="bottomMargin">
-                      <number>0</number>
-                     </property>
-                     <item>
-                      <spacer name="horizontalSpacer_4">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item>
-                      <widget class="QPushButton" name="pushButton">
-                       <property name="text">
-                        <string>Initialize Git Repository</string>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item row="1" column="2">
-                 <spacer name="horizontalSpacer_3">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>38</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="2" column="1">
-                 <spacer name="verticalSpacer">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>135</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
-              </widget>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QFrame" name="editorFrame">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>1</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QFrame" name="tabFrame">
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <property name="leftMargin">
-            <number>0</number>
-           </property>
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <property name="rightMargin">
-            <number>0</number>
-           </property>
-           <property name="bottomMargin">
-            <number>0</number>
-           </property>
-           <item>
-            <layout class="QHBoxLayout" name="tabButtons">
-             <property name="spacing">
-              <number>0</number>
-             </property>
-            </layout>
-           </item>
-           <item>
-            <widget class="QPushButton" name="closeButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset theme="tab-close" resource="icons.qrc">
-               <normaloff>:/icons/tab-close.svg</normaloff>:/icons/tab-close.svg</iconset>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QStackedWidget" name="tabs"/>
-        </item>
-       </layout>
-      </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="closeButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset theme="tab-close" resource="icons.qrc">
+              <normaloff>:/icons/tab-close.svg</normaloff>:/icons/tab-close.svg</iconset>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QStackedWidget" name="tabs"/>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
@@ -412,19 +163,7 @@
     <property name="title">
      <string>Fi&amp;le</string>
     </property>
-    <widget class="QMenu" name="menuNew">
-     <property name="title">
-      <string>&amp;New</string>
-     </property>
-     <property name="icon">
-      <iconset theme="document-new">
-       <normaloff>.</normaloff>.</iconset>
-     </property>
-     <addaction name="actionNew"/>
-     <addaction name="actionNew_theSlate_Project"/>
-     <addaction name="actionFile_in_Project"/>
-    </widget>
-    <addaction name="menuNew"/>
+    <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_All"/>
@@ -461,6 +200,8 @@
     <addaction name="actionPull"/>
     <addaction name="separator"/>
     <addaction name="actionFetch"/>
+    <addaction name="separator"/>
+    <addaction name="actionShowSourceControlWindow"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -500,13 +241,331 @@
    </attribute>
    <addaction name="actionStart"/>
   </widget>
+  <widget class="QDockWidget" name="filesDock">
+   <property name="windowTitle">
+    <string>Files</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QTreeView" name="projectTree"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="sourceControlDock">
+   <property name="windowTitle">
+    <string>Sou&amp;rce Control</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QVBoxLayout" name="verticalLayout_7">
+     <item>
+      <widget class="QStackedWidget" name="sourceControlPanes">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="page">
+        <layout class="QVBoxLayout" name="verticalLayout_8">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QFrame" name="frame_2">
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLineEdit" name="lineEdit">
+              <property name="placeholderText">
+               <string>Commit Message</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="commitButton">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset theme="commit" resource="icons.qrc">
+                <normaloff>:/icons/commit.svg</normaloff>:/icons/commit.svg</iconset>
+              </property>
+              <property name="autoRaise">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="sourceControlOptionsButton">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="popupMode">
+               <enum>QToolButton::InstantPopup</enum>
+              </property>
+              <property name="autoRaise">
+               <bool>true</bool>
+              </property>
+              <property name="arrowType">
+               <enum>Qt::DownArrow</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="modifiedChanges"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="page_2">
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="1">
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>136</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="0">
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>38</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="1">
+          <widget class="QFrame" name="frame_3">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_9">
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="font">
+               <font>
+                <pointsize>15</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Git Repository not found</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>Initialize a Git repository?</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <spacer name="horizontalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="initGitButton">
+                <property name="text">
+                 <string>Initialize Git Repository</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>38</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="2" column="1">
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>135</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="page_3">
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="1">
+          <spacer name="verticalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>124</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="0">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="1">
+          <widget class="QFrame" name="frame">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="font">
+               <font>
+                <pointsize>15</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Git Integration</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Save this file to enable Git integration</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <spacer name="horizontalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="2" column="1">
+          <spacer name="verticalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>124</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <action name="actionNew">
    <property name="icon">
     <iconset theme="document-new" resource="icons.qrc">
      <normaloff>:/icons/document-new.svg</normaloff>:/icons/document-new.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;File</string>
+    <string>&amp;New</string>
    </property>
    <property name="toolTip">
     <string>New</string>
@@ -739,6 +798,14 @@
    </property>
    <property name="text">
     <string>Pause</string>
+   </property>
+  </action>
+  <action name="actionShowSourceControlWindow">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Source Control Window</string>
    </property>
   </action>
  </widget>

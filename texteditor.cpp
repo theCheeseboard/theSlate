@@ -20,6 +20,15 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
     connect(this, &TextEditor::fileNameChanged, [=] {
         button->setText(QFileInfo(this->filename()).fileName());
     });
+
+    leftMargin = new TextEditorLeftMargin(this);
+    connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLeftMarginAreaWidth(int)));
+    connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLeftMarginArea(QRect,int)));
+    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
+
+    leftMargin->setVisible(true);
+    updateLeftMarginAreaWidth(0);
+    highlightCurrentLine();
 }
 
 TextEditor::~TextEditor() {
@@ -68,6 +77,11 @@ void TextEditor::openFile(QString file) {
     } else if (fileInfo.suffix() == "tslprj") { //theSlate Project File
         hl->setCodeType(SyntaxHighlighter::json);
     }
+
+    if (git != nullptr) {
+        git->deleteLater();
+    }
+    git = new GitIntegration(fileInfo.absoluteDir());
 }
 
 bool TextEditor::saveFile(QString file) {
@@ -80,6 +94,9 @@ bool TextEditor::saveFile(QString file) {
     this->fn = file;
     emit fileNameChanged();
     emit editedChanged();
+
+    git = new GitIntegration(QFileInfo(file).absoluteDir());
+
     return true;
 }
 
@@ -212,7 +229,7 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
             cursor.movePosition(QTextCursor::Right);
             handle = true;
         }
-    } else if (event->text() == "\"") {
+    } else if (event->text() == "\"" && highlighter()->currentCodeType() != SyntaxHighlighter::none) {
         cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
         QString right = cursor.selectedText();
         cursor.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor, 2);
@@ -229,7 +246,7 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
             }
             handle = true;
         }
-    } else if (event->text() == "'") {
+    } else if (event->text() == "'" && highlighter()->currentCodeType() != SyntaxHighlighter::none) {
         cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
         QString right = cursor.selectedText();
         cursor.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor, 2);
@@ -285,29 +302,14 @@ void TextEditor::updateLeftMarginArea(const QRect &rect, int dy)
     if (rect.contains(viewport()->rect())) {
         updateLeftMarginAreaWidth(0);
     }
-
-    if (currentException.errorType != "") {
-        QTextBlock block = this->document()->findBlockByLineNumber(currentException.line);
-        QRect bounding = blockBoundingGeometry(block).translated(contentOffset()).toRect();
-
-        exceptionDialog->move(0, bounding.top());
-    }
 }
 
 void TextEditor::resizeEvent(QResizeEvent *event)
 {
     QPlainTextEdit::resizeEvent(event);
 
-    if (ideMode) {
-        QRect cr = contentsRect();
-        leftMargin->setGeometry(QRect(cr.left(), cr.top(), leftMarginWidth(), cr.height()));
-        if (currentException.errorType != "") {
-            QTextBlock block = this->document()->findBlockByLineNumber(currentException.line);
-            QRect bounding = blockBoundingGeometry(block).translated(contentOffset()).toRect();
-
-            exceptionDialog->move(0, bounding.top());
-        }
-    }
+    QRect cr = contentsRect();
+    leftMargin->setGeometry(QRect(cr.left(), cr.top(), leftMarginWidth(), cr.height()));
 }
 
 void TextEditor::highlightCurrentLine()
@@ -357,11 +359,6 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
             painter.drawText(0, top, leftMargin->width(), fontMetrics().height(), Qt::AlignRight, number);
         }
 
-        if (breakpoints.contains(block)) {
-            painter.setBrush(Qt::red);
-            painter.drawEllipse(1, top, fontMetrics().height() - 2, fontMetrics().height() - 2);
-        }
-
         if (lineNo == brokenLine) {
             painter.setBrush(Qt::yellow);
             QPolygon polygon;
@@ -376,45 +373,6 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
         bottom = top + (int) blockBoundingRect(block).height();
         blockNumber++;
     }
-}
-
-void TextEditor::addBreakpoint(int lineNumber) {
-    QTextBlock block = this->document()->findBlockByLineNumber(lineNumber - 1);
-    breakpoints.append(block);
-
-    QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
-
-    QTextEdit::ExtraSelection selection;
-
-    selection.format.setBackground(Qt::red);
-    selection.format.setForeground(Qt::white);
-    selection.format.setProperty(QTextFormat::FullWidthSelection, true);
-    selection.format.setProperty(QTextFormat::UserFormat, "breakpoint");
-    selection.format.setProperty(QTextFormat::UserFormat + 1, lineNumber);
-    selection.cursor = QTextCursor(block);
-    selection.cursor.clearSelection();
-    extraSelections.append(selection);
-
-    setExtraSelections(extraSelections);
-    emit breakpointSet(lineNumber);
-    //reloadBlockHighlighting();
-}
-
-void TextEditor::removeBreakpoint(int lineNumber) {
-    QTextBlock block = this->document()->findBlockByLineNumber(lineNumber - 1);
-    breakpoints.removeAll(block);
-
-    QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
-
-    for (int i = 0; i < extraSelections.count(); i++) {
-        if (extraSelections.at(i).format.property(QTextFormat::UserFormat + 1) == lineNumber) {
-            extraSelections.removeAt(i);
-        }
-    }
-
-    setExtraSelections(extraSelections);
-    emit breakpointRemoved(lineNumber);
-    //reloadBlockHighlighting();
 }
 
 void TextEditor::reloadBlockHighlighting() {
@@ -437,18 +395,7 @@ void TextEditor::reloadBlockHighlighting() {
             selection.cursor = cursorForPosition(QPoint(blockBoundingGeometry(block).top() + 1, 0));
             selection.cursor.clearSelection();
             extraSelections.append(selection);
-        } else if (breakpoints.contains(block)) {
-            QTextEdit::ExtraSelection selection;
-
-            selection.format.setBackground(Qt::red);
-            selection.format.setForeground(Qt::white);
-            selection.format.setProperty(QTextFormat::FullWidthSelection, true);
-            selection.format.setProperty(QTextFormat::UserFormat, "breakpoint");
-            selection.cursor = cursorForPosition(QPoint(blockBoundingGeometry(block).top() + 1, 0));
-            selection.cursor.clearSelection();
-            extraSelections.append(selection);
         }
-
         block = block.next();
         top = bottom;
         bottom = top + (int) blockBoundingRect(block).height();
@@ -460,108 +407,9 @@ void TextEditor::reloadBlockHighlighting() {
     highlightCurrentLine();
 }
 
-bool TextEditor::hasBreakpoint(int lineNumber) {
-    return breakpoints.contains(this->document()->findBlockByLineNumber(lineNumber - 1));
-}
-
-void TextEditor::setBrokenLine(int lineNumber) {
-    QTextBlock block = this->document()->findBlockByLineNumber(lineNumber - 1);
-
-    QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
-
-    QTextEdit::ExtraSelection selection;
-
-    selection.format.setBackground(Qt::yellow);
-    selection.format.setForeground(Qt::black);
-    selection.format.setProperty(QTextFormat::FullWidthSelection, true);
-    selection.format.setProperty(QTextFormat::UserFormat, "breakingLine");
-    selection.cursor = QTextCursor(block);
-    selection.cursor.clearSelection();
-    extraSelections.append(selection);
-
-    setExtraSelections(extraSelections);
-    emit breakpointSet(lineNumber);
-
-    brokenLine = lineNumber;
-    //reloadBlockHighlighting();
-}
-
-void TextEditor::clearBrokenLine() {
-    QTextBlock block = this->document()->findBlockByLineNumber(brokenLine - 1);
-
-    QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
-
-    for (int i = 0; i < extraSelections.count(); i++) {
-        if (extraSelections.at(i).format.property(QTextFormat::UserFormat) == "breakingLine") {
-            extraSelections.removeAt(i);
-        }
-    }
-
-    setExtraSelections(extraSelections);
-
-    brokenLine = -1;
-    //reloadBlockHighlighting();
-}
-
 void TextEditor::setExtraSelections(const QList<QTextEdit::ExtraSelection> &extraSelections) {
     leftMargin->repaint();
     QPlainTextEdit::setExtraSelections(extraSelections);
-}
-
-void TextEditor::exceptionPaintEvent(QPaintEvent *event) {
-    if (currentException.errorType != "") {
-        QPainter painter(exceptionDialog);
-        painter.fillRect(event->rect(), QColor(255, 100, 100));
-
-        QFont font = QApplication::font();
-        QFontMetrics metrics = QApplication::fontMetrics();
-
-        painter.setPen(Qt::white);
-
-        QRect titleRect(9, 9, exceptionDialog->width() - 18, metrics.height());
-
-        font.setBold(true);
-        painter.setFont(font);
-        painter.drawText(titleRect, "Exception: " + currentException.errorType);
-
-        painter.setFont(this->font());
-        QRect descRect(9, titleRect.bottom(), exceptionDialog->width() - 18, exceptionDialog->height() - 18 - metrics.height());
-        painter.drawText(descRect, currentException.description);
-    }
-}
-
-void TextEditor::setException(Exception exception) {
-    currentException = exception;
-
-    exceptionDialog->setVisible(true);
-    QTextBlock block = this->document()->findBlockByLineNumber(currentException.line);
-    QRect bounding = blockBoundingGeometry(block).translated(contentOffset()).toRect();
-
-    exceptionDialog->move(0, bounding.top());
-    exceptionDialog->resize(this->width() - 0, (exception.description.split("\n").count() + 1) * this->fontMetrics().height() + 18);
-}
-
-void TextEditor::clearException() {
-    currentException = Exception();
-    exceptionDialog->setVisible(false);
-}
-
-void TextEditor::enableIDEMode() {
-    ideMode = true;
-
-    leftMargin = new TextEditorLeftMargin(this);
-    exceptionDialog = new ExceptionDialog(this);
-    connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLeftMarginAreaWidth(int)));
-    connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLeftMarginArea(QRect,int)));
-    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
-
-    leftMargin->setVisible(true);
-    updateLeftMarginAreaWidth(0);
-    highlightCurrentLine();
-}
-
-QList<QTextBlock> TextEditor::allBreakpoints() {
-    return breakpoints;
 }
 
 void TextEditor::openFileFake(QString filename, QString contents) {
