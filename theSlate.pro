@@ -79,8 +79,8 @@ unix:!macx {
     desktop.path = /usr/share/applications
     desktop.files = theslate.desktop
 
-    icon.path = /usr/share/icons/hicolor/scalable/apps/theslate.svg
-    icon.files = icons/icon.svg
+    icon.path = /usr/share/icons/hicolor/scalable/apps/
+    icon.files = icons/theslate.svg
 
     INSTALLS += target translations desktop icon
 }
