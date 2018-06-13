@@ -23,6 +23,8 @@ if [ $STAGE = "script" ]; then
     ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage
   else
     echo "[TRAVIS] Building for macOS"
+    qmake
+    make
   fi
 elif [ $STAGE = "before_install" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
@@ -34,6 +36,8 @@ elif [ $STAGE = "before_install" ]; then
     sudo apt-get install qt510-meta-minimal qt510x11extras qt510tools qt510translations qt510svg qt510websockets xorg-dev libxcb-util0-dev libgl1-mesa-dev
   else
     echo "[TRAVIS] Preparing to build for macOS"
+    brew update
+    brew install qt5
   fi
 elif [ $STAGE = "after_success" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
