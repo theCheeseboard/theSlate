@@ -38,7 +38,6 @@ elif [ $STAGE = "before_install" ]; then
 elif [ $STAGE = "after_success" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
     echo "[TRAVIS] Publishing AppImage"
-    find appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
     wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
     bash upload.sh theSlate*.AppImage*
   fi
