@@ -14,7 +14,7 @@
    <string>theSlate</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="theslate" resource="icons.qrc">
+   <iconset theme="theslate" resource="../theShell/shell/resources.qrc">
     <normaloff>:/icons/icon.svg</normaloff>:/icons/icon.svg</iconset>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
@@ -128,7 +128,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset theme="tab-close" resource="icons.qrc">
+             <iconset theme="tab-close">
               <normaloff>:/icons/tab-close.svg</normaloff>:/icons/tab-close.svg</iconset>
             </property>
             <property name="flat">
@@ -250,6 +250,18 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout_4">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
      <item>
       <widget class="QTreeView" name="projectTree"/>
      </item>
@@ -265,6 +277,18 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QVBoxLayout" name="verticalLayout_7">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
      <item>
       <widget class="QStackedWidget" name="sourceControlPanes">
        <property name="currentIndex">
@@ -318,7 +342,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset theme="commit" resource="icons.qrc">
+               <iconset theme="commit">
                 <normaloff>:/icons/commit.svg</normaloff>:/icons/commit.svg</iconset>
               </property>
               <property name="autoRaise">
@@ -561,7 +585,7 @@
   </widget>
   <action name="actionNew">
    <property name="icon">
-    <iconset theme="document-new" resource="icons.qrc">
+    <iconset theme="document-new">
      <normaloff>:/icons/document-new.svg</normaloff>:/icons/document-new.svg</iconset>
    </property>
    <property name="text">
@@ -576,7 +600,7 @@
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset theme="document-save" resource="icons.qrc">
+    <iconset theme="document-save">
      <normaloff>:/icons/document-save.svg</normaloff>:/icons/document-save.svg</iconset>
    </property>
    <property name="text">
@@ -591,7 +615,7 @@
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset theme="document-open" resource="icons.qrc">
+    <iconset theme="document-open">
      <normaloff>:/icons/document-open.svg</normaloff>:/icons/document-open.svg</iconset>
    </property>
    <property name="text">
@@ -606,7 +630,7 @@
   </action>
   <action name="actionExit">
    <property name="icon">
-    <iconset theme="application-exit" resource="icons.qrc">
+    <iconset theme="application-exit">
      <normaloff>:/icons/application-exit.svg</normaloff>:/icons/application-exit.svg</iconset>
    </property>
    <property name="text">
@@ -621,7 +645,7 @@
   </action>
   <action name="actionCopy">
    <property name="icon">
-    <iconset theme="edit-copy" resource="icons.qrc">
+    <iconset theme="edit-copy">
      <normaloff>:/icons/edit-copy.svg</normaloff>:/icons/edit-copy.svg</iconset>
    </property>
    <property name="text">
@@ -636,7 +660,7 @@
   </action>
   <action name="actionCut">
    <property name="icon">
-    <iconset theme="edit-cut" resource="icons.qrc">
+    <iconset theme="edit-cut">
      <normaloff>:/icons/edit-cut.svg</normaloff>:/icons/edit-cut.svg</iconset>
    </property>
    <property name="text">
@@ -651,7 +675,7 @@
   </action>
   <action name="actionPaste">
    <property name="icon">
-    <iconset theme="edit-paste" resource="icons.qrc">
+    <iconset theme="edit-paste">
      <normaloff>:/icons/edit-paste.svg</normaloff>:/icons/edit-paste.svg</iconset>
    </property>
    <property name="text">
@@ -671,7 +695,7 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset theme="help-about" resource="icons.qrc">
+    <iconset theme="help-about">
      <normaloff>:/icons/help-about.svg</normaloff>:/icons/help-about.svg</iconset>
    </property>
    <property name="text">
@@ -680,7 +704,7 @@
   </action>
   <action name="actionNew_theSlate_Project">
    <property name="icon">
-    <iconset theme="document-new" resource="icons.qrc">
+    <iconset theme="document-new">
      <normaloff>:/icons/document-new.svg</normaloff>:/icons/document-new.svg</iconset>
    </property>
    <property name="text">
@@ -709,7 +733,7 @@
   </action>
   <action name="actionFile_in_Project">
    <property name="icon">
-    <iconset theme="document-new" resource="icons.qrc">
+    <iconset theme="document-new">
      <normaloff>:/icons/document-new.svg</normaloff>:/icons/document-new.svg</iconset>
    </property>
    <property name="text">
@@ -810,8 +834,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
