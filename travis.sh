@@ -19,8 +19,8 @@ if [ $STAGE = "script" ]; then
     wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
     chmod a+x linuxdeployqt-continuous-x86_64.AppImage
     echo "[TRAVIS] Building AppImage"
-    "./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -bundle-non-qt-libs"
-    "./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage"
+    ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -bundle-non-qt-libs
+    ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage
   else
     echo "[TRAVIS] Building for macOS"
   fi
