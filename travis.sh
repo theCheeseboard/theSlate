@@ -23,7 +23,8 @@ if [ $STAGE = "script" ]; then
     ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage
   else
     echo "[TRAVIS] Building for macOS"
-    qmake
+    export PATH="/usr/local/opt/qt/bin:$PATH"
+    qmake "INCLUDEPATH += /usr/local/opt/qt/include" "LIBS += -L/usr/local/opt/qt/lib"
     make
   fi
 elif [ $STAGE = "before_install" ]; then
