@@ -15,6 +15,7 @@ after_success:
 compiler:
   - gcc
 dist: xenial
+sudo: required
 
 branches:
   except:
