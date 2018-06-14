@@ -44,4 +44,4 @@ deploy_script:
 - ps: >-
     Start-FileDownload 'https://github.com/probonopd/uploadtool/raw/master/upload.sh'
     
-    sh -c "./upload.sh $env:appveyor_build_folder\theSlate-Windows.zip"
+    sh -c "./upload.sh /c/projects/theslate/theSlate-Windows.zip"
