@@ -40,8 +40,8 @@ before_deploy:
 - ps:
     iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/deploy.ps1'))
     
-    
 deploy_script:
-- sh: >-
+- ps: >-
     curl -O https://github.com/probonopd/uploadtool/raw/master/upload.sh
-    ./upload theSlate-*.zip
+    ./upload.sh theSlate-*.zip
+
