@@ -90,7 +90,11 @@ macx {
     translations.path = Contents/translations
 
     QMAKE_BUNDLE_DATA = translations
+
+    QMAKE_POST_LINK += $$quote(cp $${PWD}/icon.icns $${PWD}/app-dmg-background.png $${PWD}/node-appdmg-config.json $${OUT_PWD})
 }
 
 DISTFILES += \
-    theslate.desktop
+    theslate.desktop \
+    app-dmg-background.png \
+    icon.icns

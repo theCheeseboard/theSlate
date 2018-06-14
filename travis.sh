@@ -24,8 +24,18 @@ if [ $STAGE = "script" ]; then
   else
     echo "[TRAVIS] Building for macOS"
     export PATH="/usr/local/opt/qt/bin:$PATH"
-    qmake "INCLUDEPATH += /usr/local/opt/qt/include" "LIBS += -L/usr/local/opt/qt/lib"
+    cd ..
+    mkdir "build-theslate"
+    cd "build-theslate"
+    echo "[TRAVIS] Running qmake"
+    qmake "INCLUDEPATH += /usr/local/opt/qt/include" "LIBS += -L/usr/local/opt/qt/lib" ../theSlate/theSlate.pro
+    echo "[TRAVIS] Building project"
     make
+    echo "[TRAVIS] Preparing Disk Image creator"
+    brew install node
+    npm install appdmg
+    echo "[TRAVIS] Building Disk Image"
+    ./node_modules/appdmg/bin/appdmg.js ./node-appdmg-config.json ~/theSlate-macOS.dmg
   fi
 elif [ $STAGE = "before_install" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
@@ -45,5 +55,10 @@ elif [ $STAGE = "after_success" ]; then
     echo "[TRAVIS] Publishing AppImage"
     wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
     bash upload.sh theSlate*.AppImage*
+  else
+    echo "[TRAVIS] Publishing Disk Image"
+    cd ~
+    wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+    bash upload.sh theSlate-macOS.dmg
   fi
 fi
