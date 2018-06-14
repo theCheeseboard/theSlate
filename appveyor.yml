@@ -1,0 +1,42 @@
+version: 1.0.{build}
+branches:
+  only:
+  - blueprint
+image: Visual Studio 2017
+
+environment:
+  REPO_SLUG: vicr123/theSlate
+  GITHUB_TOKEN:
+    secure: CsEqLTfxDs+Js449bYVPi3Ngvo4Qi91afQpNSms+U+QEHchdNV6Fa7hWch0u4nbM
+    
+install:
+- cmd: >-
+    set QTDIR=C:\Qt\5.11.0\msvc2017_64
+    set PATH=%PATH%;%QTDIR%\bin
+    "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+    
+build_script:
+- cmd: >-
+    qmake theSlate.pro
+    nmake release
+    mkdir deploy
+    copy release\theslate.exe deploy
+    cd deploy
+    windeployqt theslate.exe
+    
+test: off
+
+artifacts:
+- path: deploy
+  name: theSlate-Windows
+  
+  
+before_deploy:
+- ps:
+    iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/deploy.ps1'))
+    
+    
+deploy_script:
+- sh: >-
+    curl -O https://github.com/probonopd/uploadtool/raw/master/upload.sh
+    ./upload theSlate-Windows.zip
