@@ -8,6 +8,11 @@ environment:
   REPO_SLUG: vicr123/theSlate
   GITHUB_TOKEN:
     secure: CsEqLTfxDs+Js449bYVPi3Ngvo4Qi91afQpNSms+U+QEHchdNV6Fa7hWch0u4nbM
+  api_token:
+    secure: hVbnQbmIi8N/AfopJa7JeE4CGLdb4CoXFHWKMvD9TNg=
+  deploy_project: theslate
+  deploy_version: ''
+  deploy_artifact: ''
     
 install:
 - cmd: >-
@@ -39,4 +44,4 @@ before_deploy:
 deploy_script:
 - sh: >-
     curl -O https://github.com/probonopd/uploadtool/raw/master/upload.sh
-    ./upload theSlate-Windows.zip
+    ./upload theSlate-*.zip
