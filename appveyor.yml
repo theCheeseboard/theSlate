@@ -42,6 +42,6 @@ before_deploy:
     
 deploy_script:
 - ps: >-
-    curl -O https://github.com/probonopd/uploadtool/raw/master/upload.sh
+    iex ((new-object net.webclient).DownloadString('https://github.com/probonopd/uploadtool/raw/master/upload.sh'))
     ./upload.sh theSlate-*.zip
 
