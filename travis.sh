@@ -31,8 +31,9 @@ if [ $STAGE = "script" ]; then
     qmake "INCLUDEPATH += /usr/local/opt/qt/include" "LIBS += -L/usr/local/opt/qt/lib" ../theSlate/theSlate.pro
     echo "[TRAVIS] Building project"
     make
+    echo "[TRAVIS] Deploying Qt Libraries"
+    macdeployqt theSlate.app
     echo "[TRAVIS] Preparing Disk Image creator"
-    brew install node
     npm install appdmg
     echo "[TRAVIS] Building Disk Image"
     ./node_modules/appdmg/bin/appdmg.js ./node-appdmg-config.json ~/theSlate-macOS.dmg
