@@ -44,4 +44,4 @@ deploy_script:
 - ps: >-
     Start-FileDownload 'https://github.com/probonopd/uploadtool/raw/master/upload.sh'
     
-    git-bash -c "./upload.sh ./theSlate-Windows.zip"
+    sh -c "./upload.sh ./theSlate-Windows.zip"
