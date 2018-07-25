@@ -38,6 +38,4 @@ artifacts:
   name: theSlate-Windows
 deploy_script:
 - ps: >-
-    Start-FileDownload 'https://github.com/probonopd/uploadtool/raw/master/upload.sh'
-    
-    sh -c "TRAVIS_BRANCH=$env:APPVEYOR_REPO_BRANCH TRAVIS_COMMIT=$env:APPVEYOR_REPO_COMMIT ./upload.sh /c/projects/theslate/theSlate-Windows.zip 2>/dev/null"
+    Start-FileDownload 'https://github.com/probonopd/uploadtool/raw/master/upload.sh'; sh -c 'TRAVIS_BRANCH=$env:APPVEYOR_REPO_BRANCH TRAVIS_COMMIT=$env:APPVEYOR_REPO_COMMIT ./upload.sh /c/projects/theslate/theSlate-Windows.zip 2>/dev/null"
