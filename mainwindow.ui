@@ -14,7 +14,7 @@
    <string>theSlate</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="theslate" resource="../theShell/shell/resources.qrc">
+   <iconset theme="theslate" resource="icons.qrc">
     <normaloff>:/icons/icon.svg</normaloff>:/icons/icon.svg</iconset>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
@@ -128,7 +128,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset theme="tab-close">
+             <iconset theme="tab-close" resource="icons.qrc">
               <normaloff>:/icons/tab-close.svg</normaloff>:/icons/tab-close.svg</iconset>
             </property>
             <property name="flat">
@@ -153,7 +153,7 @@
      <x>0</x>
      <y>0</y>
      <width>974</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <property name="nativeMenuBar">
@@ -292,7 +292,7 @@
      <item>
       <widget class="QStackedWidget" name="sourceControlPanes">
        <property name="currentIndex">
-        <number>0</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="page">
         <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -342,7 +342,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset theme="commit">
+               <iconset theme="commit" resource="icons.qrc">
                 <normaloff>:/icons/commit.svg</normaloff>:/icons/commit.svg</iconset>
               </property>
               <property name="autoRaise">
@@ -578,6 +578,96 @@
          </item>
         </layout>
        </widget>
+       <widget class="QWidget" name="page_4">
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="1">
+          <spacer name="verticalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>147</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="0">
+          <spacer name="horizontalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>56</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="2">
+          <spacer name="horizontalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>56</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="1">
+          <widget class="QFrame" name="frame_4">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="font">
+               <font>
+                <pointsize>15</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Git not found</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>To use Git integration, you'll need to install Git.</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <spacer name="verticalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>147</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
       </widget>
      </item>
     </layout>
@@ -585,7 +675,7 @@
   </widget>
   <action name="actionNew">
    <property name="icon">
-    <iconset theme="document-new">
+    <iconset theme="document-new" resource="icons.qrc">
      <normaloff>:/icons/document-new.svg</normaloff>:/icons/document-new.svg</iconset>
    </property>
    <property name="text">
@@ -600,7 +690,7 @@
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset theme="document-save">
+    <iconset theme="document-save" resource="icons.qrc">
      <normaloff>:/icons/document-save.svg</normaloff>:/icons/document-save.svg</iconset>
    </property>
    <property name="text">
@@ -615,7 +705,7 @@
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset theme="document-open">
+    <iconset theme="document-open" resource="icons.qrc">
      <normaloff>:/icons/document-open.svg</normaloff>:/icons/document-open.svg</iconset>
    </property>
    <property name="text">
@@ -630,7 +720,7 @@
   </action>
   <action name="actionExit">
    <property name="icon">
-    <iconset theme="application-exit">
+    <iconset theme="application-exit" resource="icons.qrc">
      <normaloff>:/icons/application-exit.svg</normaloff>:/icons/application-exit.svg</iconset>
    </property>
    <property name="text">
@@ -645,7 +735,7 @@
   </action>
   <action name="actionCopy">
    <property name="icon">
-    <iconset theme="edit-copy">
+    <iconset theme="edit-copy" resource="icons.qrc">
      <normaloff>:/icons/edit-copy.svg</normaloff>:/icons/edit-copy.svg</iconset>
    </property>
    <property name="text">
@@ -660,7 +750,7 @@
   </action>
   <action name="actionCut">
    <property name="icon">
-    <iconset theme="edit-cut">
+    <iconset theme="edit-cut" resource="icons.qrc">
      <normaloff>:/icons/edit-cut.svg</normaloff>:/icons/edit-cut.svg</iconset>
    </property>
    <property name="text">
@@ -675,7 +765,7 @@
   </action>
   <action name="actionPaste">
    <property name="icon">
-    <iconset theme="edit-paste">
+    <iconset theme="edit-paste" resource="icons.qrc">
      <normaloff>:/icons/edit-paste.svg</normaloff>:/icons/edit-paste.svg</iconset>
    </property>
    <property name="text">
@@ -695,7 +785,7 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset theme="help-about">
+    <iconset theme="help-about" resource="icons.qrc">
      <normaloff>:/icons/help-about.svg</normaloff>:/icons/help-about.svg</iconset>
    </property>
    <property name="text">
@@ -704,7 +794,7 @@
   </action>
   <action name="actionNew_theSlate_Project">
    <property name="icon">
-    <iconset theme="document-new">
+    <iconset theme="document-new" resource="icons.qrc">
      <normaloff>:/icons/document-new.svg</normaloff>:/icons/document-new.svg</iconset>
    </property>
    <property name="text">
@@ -733,7 +823,7 @@
   </action>
   <action name="actionFile_in_Project">
    <property name="icon">
-    <iconset theme="document-new">
+    <iconset theme="document-new" resource="icons.qrc">
      <normaloff>:/icons/document-new.svg</normaloff>:/icons/document-new.svg</iconset>
    </property>
    <property name="text">
@@ -834,6 +924,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

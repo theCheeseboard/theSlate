@@ -9,25 +9,27 @@
 class GitIntegration : public QObject
 {
     Q_OBJECT
-public:
-    explicit GitIntegration(QDir rootDir, QObject *parent = nullptr);
+    public:
+        explicit GitIntegration(QDir rootDir, QObject *parent = nullptr);
 
-signals:
-    void reloadStatusNeeded();
+        static QStringList findGit();
 
-public slots:
-    QStringList reloadStatus();
+    signals:
+        void reloadStatusNeeded();
 
-    void add(QString file);
-    void rm(QString file, bool cache = false);
-    void unstage(QString file);
+    public slots:
+        QStringList reloadStatus();
 
-    void init();
-    bool needsInit();
+        void add(QString file);
+        void rm(QString file, bool cache = false);
+        void unstage(QString file);
 
-private:
-    QDir rootDir;
-    QProcess* proc;
+        void init();
+        bool needsInit();
+
+    private:
+        QDir rootDir;
+        QProcess* proc;
 };
 
 #endif // GITINTEGRATION_H

@@ -1,5 +1,7 @@
 #include "gitintegration.h"
 
+#include <QSettings>
+
 GitIntegration::GitIntegration(QDir rootDir, QObject *parent) : QObject(parent)
 {
     this->rootDir = rootDir;
@@ -74,4 +76,24 @@ void GitIntegration::init() {
         proc->waitForFinished();
         emit reloadStatusNeeded();
     }
+}
+
+QStringList GitIntegration::findGit() {
+    #ifdef Q_OS_WIN
+        //Search the registry for Git
+        QStringList gitExecutables;
+
+        QStringList hives;
+        hives << "HKEY_LOCAL_MACHINE" << "HKEY_CURRENT_USER";
+        for (QString hive : hives) {
+            QSettings gitSearch(QString("%1\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Git_is1").arg(hive), QSettings::NativeFormat);
+            if (gitSearch.contains("InstallLocation")) {
+                gitExecutables.append(gitSearch.value("InstallLocation").toString().append("bin\\git.exe"));
+            }
+        }
+        return gitExecutables;
+    #else
+        //look in the PATH
+        return QStringList() << "/usr/bin/git";
+    #endif
 }

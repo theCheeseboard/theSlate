@@ -356,7 +356,9 @@ void MainWindow::on_projectTree_clicked(const QModelIndex &index)
 }
 
 void MainWindow::updateGit() {
-    if (currentDocument()->git == nullptr) {
+    if (GitIntegration::findGit().count() == 0) {
+        ui->sourceControlPanes->setCurrentIndex(3);
+    } else if (currentDocument()->git == nullptr) {
         ui->sourceControlPanes->setCurrentIndex(2);
     } else {
         if (currentDocument()->git->needsInit()) {
