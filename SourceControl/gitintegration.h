@@ -29,7 +29,9 @@ class GitIntegration : public QObject
 
     private:
         QDir rootDir;
-        QProcess* proc;
+        QString gitInstance;
+
+        QProcess* git(QString args);
 };
 
 #endif // GITINTEGRATION_H
