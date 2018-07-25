@@ -61,6 +61,8 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addAction(ui->actionCopy);
         singleMenu->addAction(ui->actionPaste);
         singleMenu->addSeparator();
+        singleMenu->addAction(ui->actionFind_and_Replace);
+        singleMenu->addSeparator();
         singleMenu->addMenu(ui->menuCode);
         singleMenu->addAction(ui->actionShowSourceControlWindow);
         singleMenu->addSeparator();
@@ -111,13 +113,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->projectTree->setRootIndex(fileModel->index(QDir::rootPath()));
     ui->projectTree->scrollTo(fileModel->index(QDir::homePath()));
     ui->projectTree->expand(fileModel->index(QDir::homePath()));
-
-    newTab();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::show() {
+    if (ui->tabs->count() == 0) {
+        newTab();
+    }
+    QMainWindow::show();
 }
 
 void MainWindow::newTab() {
@@ -141,6 +148,15 @@ void MainWindow::newTab() {
     ui->closeButton->setVisible(true);
     ui->actionSave->setEnabled(true);
     ui->menuCode->setEnabled(true);
+}
+
+void MainWindow::newTab(QString filename) {
+    if (currentDocument() == NULL || currentDocument()->isEdited() || currentDocument()->filename() != "") {
+        newTab();
+    }
+
+    currentDocument()->openFile(filename);
+    updateGit();
 }
 
 void MainWindow::on_actionNew_triggered()
@@ -199,12 +215,7 @@ void MainWindow::on_actionOpen_triggered()
     loop->deleteLater();
 
     if (openDialog->result() == QDialog::Accepted) {
-        if (currentDocument() == NULL || currentDocument()->isEdited() || currentDocument()->filename() != "") {
-            newTab();
-        }
-
-        currentDocument()->openFile(openDialog->selectedFiles().first());
-        updateGit();
+        newTab(openDialog->selectedFiles().first());
     }
 }
 
@@ -449,4 +460,9 @@ void MainWindow::on_actionShowSourceControlWindow_triggered()
 void MainWindow::on_sourceControlDock_visibilityChanged(bool visible)
 {
     ui->actionShowSourceControlWindow->setChecked(visible);
+}
+
+void MainWindow::on_actionFind_and_Replace_triggered()
+{
+    currentDocument()->toggleFindReplace();
 }

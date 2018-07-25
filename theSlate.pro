@@ -47,7 +47,8 @@ SOURCES += \
     texteditor.cpp \
     aboutwindow.cpp \
     syntaxhighlighter.cpp \
-    SourceControl/gitintegration.cpp
+    SourceControl/gitintegration.cpp \
+    textparts/findreplace.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -55,11 +56,13 @@ HEADERS += \
     texteditor.h \
     aboutwindow.h \
     syntaxhighlighter.h \
-    SourceControl/gitintegration.h
+    SourceControl/gitintegration.h \
+    textparts/findreplace.h
 
 FORMS += \
         mainwindow.ui \
-    aboutwindow.ui
+    aboutwindow.ui \
+    textparts/findreplace.ui
 
 RESOURCES += \
     icons.qrc \

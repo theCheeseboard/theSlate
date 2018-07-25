@@ -18,5 +18,9 @@
         <file>icons/edit-undo.svg</file>
         <file>icons/help-about.svg</file>
         <file>icons/commit.svg</file>
+        <file>icons/go-next.svg</file>
+        <file>icons/go-previous.svg</file>
+        <file>icons/edit-find.svg</file>
+        <file>icons/edit-find-replace.svg</file>
     </qresource>
 </RCC>

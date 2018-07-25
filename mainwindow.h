@@ -39,69 +39,73 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    public:
+        explicit MainWindow(QWidget *parent = 0);
+        ~MainWindow();
 
-public slots:
-    void newTab();
-    bool closeCurrentTab();
+    public slots:
+        void newTab();
+        void newTab(QString filename);
+        bool closeCurrentTab();
+        void show();
 
-    TextEditor* currentDocument();
+        TextEditor* currentDocument();
 
-private slots:
-    void on_actionNew_triggered();
+    private slots:
+        void on_actionNew_triggered();
 
-    void on_tabs_currentChanged(int arg1);
+        void on_tabs_currentChanged(int arg1);
 
-    void on_actionExit_triggered();
+        void on_actionExit_triggered();
 
-    void on_actionOpen_triggered();
+        void on_actionOpen_triggered();
 
-    void on_actionSave_triggered();
+        void on_actionSave_triggered();
 
-    void checkForEdits();
+        void checkForEdits();
 
-    bool saveCurrentDocument();
+        bool saveCurrentDocument();
 
-    void on_closeButton_clicked();
+        void on_closeButton_clicked();
 
-    void on_actionCopy_triggered();
+        void on_actionCopy_triggered();
 
-    void on_actionCut_triggered();
+        void on_actionCut_triggered();
 
-    void on_actionPaste_triggered();
+        void on_actionPaste_triggered();
 
-    void on_actionAbout_triggered();
+        void on_actionAbout_triggered();
 
-    void on_actionNo_Highlighting_triggered();
+        void on_actionNo_Highlighting_triggered();
 
-    void on_projectTree_clicked(const QModelIndex &index);
+        void on_projectTree_clicked(const QModelIndex &index);
 
-    void updateGit();
+        void updateGit();
 
-    void on_modifiedChanges_itemChanged(QListWidgetItem *item);
+        void on_modifiedChanges_itemChanged(QListWidgetItem *item);
 
-    void on_actionSave_All_triggered();
+        void on_actionSave_All_triggered();
 
-    void switchToFile(QString file, QString fakeFileContents = "");
+        void switchToFile(QString file, QString fakeFileContents = "");
 
-    void setCurrentDocumentHighlighting(SyntaxHighlighter::codeType type);
+        void setCurrentDocumentHighlighting(SyntaxHighlighter::codeType type);
 
-    void on_initGitButton_clicked();
+        void on_initGitButton_clicked();
 
-    void on_actionShowSourceControlWindow_triggered();
+        void on_actionShowSourceControlWindow_triggered();
 
-    void on_sourceControlDock_visibilityChanged(bool visible);
+        void on_sourceControlDock_visibilityChanged(bool visible);
+
+        void on_actionFind_and_Replace_triggered();
 
     private:
-    Ui::MainWindow *ui;
+        Ui::MainWindow *ui;
 
-    void closeEvent(QCloseEvent* event);
-    QFileSystemModel* fileModel;
-    QString currentProjectFile = "";
-    QString projectType = "";
-    QSettings settings;
+        void closeEvent(QCloseEvent* event);
+        QFileSystemModel* fileModel;
+        QString currentProjectFile = "";
+        QString projectType = "";
+        QSettings settings;
 };
 
 #endif // MAINWINDOW_H

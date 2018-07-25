@@ -1,8 +1,11 @@
 #include "texteditor.h"
 
+#include <QStyle>
+
 TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
     this->setLineWrapMode(NoWrap);
+    QFont normalFont = this->font();
 
     button = new TabButton(this);
     button->setText(tr("New Document"));
@@ -29,6 +32,10 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
     leftMargin->setVisible(true);
     updateLeftMarginAreaWidth(0);
     highlightCurrentLine();
+
+    findReplaceWidget = new FindReplace(this);
+    findReplaceWidget->setFont(normalFont);
+    findReplaceWidget->show();
 }
 
 TextEditor::~TextEditor() {
@@ -310,18 +317,13 @@ void TextEditor::resizeEvent(QResizeEvent *event)
 
     QRect cr = contentsRect();
     leftMargin->setGeometry(QRect(cr.left(), cr.top(), leftMarginWidth(), cr.height()));
+
+    findReplaceWidget->move(this->width() - findReplaceWidget->width() - 9 - QApplication::style()->pixelMetric(QStyle::PM_ScrollBarExtent), 9);
 }
 
 void TextEditor::highlightCurrentLine()
 {
-    QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
-    if (highlightedLine != -1) {
-        for (int i = 0; i < extraSelections.count(); i++) {
-            if (extraSelections.at(i).format.property(QTextFormat::UserFormat) == "currentHighlight") {
-                extraSelections.removeAt(i);
-            }
-        }
-    }
+    QList<QTextEdit::ExtraSelection> extraSelections;
 
     highlightedLine = textCursor().block().firstLineNumber();
 
@@ -338,7 +340,7 @@ void TextEditor::highlightCurrentLine()
         extraSelections.append(selection);
     }
 
-    setExtraSelections(extraSelections);
+    setExtraSelectionGroup("lineHighlight", extraSelections);
 }
 
 void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
@@ -376,7 +378,7 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
 }
 
 void TextEditor::reloadBlockHighlighting() {
-    QList<QTextEdit::ExtraSelection> extraSelections = this->extraSelections();
+    QList<QTextEdit::ExtraSelection> extraSelections = extraSelectionGroup("blockHighlighting");
 
     QTextBlock block = firstVisibleBlock();
     int blockNumber = block.blockNumber();
@@ -401,10 +403,35 @@ void TextEditor::reloadBlockHighlighting() {
         bottom = top + (int) blockBoundingRect(block).height();
         blockNumber++;
     }
-    setExtraSelections(extraSelections);
+    //setExtraSelections(extraSelections);
+    setExtraSelectionGroup("blockHighlighting", extraSelections);
 
     leftMargin->repaint();
     highlightCurrentLine();
+}
+
+QList<QTextEdit::ExtraSelection> TextEditor::extraSelectionGroup(QString extraSelectionGroup) {
+    return extraSelectionGroups.value(extraSelectionGroup);
+}
+
+void TextEditor::setExtraSelectionGroup(QString extraSelectionGroup, QList<QTextEdit::ExtraSelection> selections) {
+    extraSelectionGroups.insert(extraSelectionGroup, selections);
+    updateExtraSelections();
+}
+
+void TextEditor::clearExtraSelectionGroup(QString extraSelectionGroups) {
+    this->extraSelectionGroups.remove(extraSelectionGroups);
+    updateExtraSelections();
+}
+
+void TextEditor::updateExtraSelections() {
+    QList<QTextEdit::ExtraSelection> extraSelections;
+
+    for (QList<QTextEdit::ExtraSelection> extraSelectionGroup : extraSelectionGroups.values()) {
+        extraSelections.append(extraSelectionGroup);
+    }
+
+    setExtraSelections(extraSelections);
 }
 
 void TextEditor::setExtraSelections(const QList<QTextEdit::ExtraSelection> &extraSelections) {
@@ -419,4 +446,13 @@ void TextEditor::openFileFake(QString filename, QString contents) {
     this->fn = filename;
     emit fileNameChanged();
     emit editedChanged();
+}
+
+void TextEditor::toggleFindReplace() {
+    if (findReplaceWidget->isVisible()) {
+        findReplaceWidget->setVisible(false);
+    } else {
+        findReplaceWidget->setVisible(true);
+        findReplaceWidget->setFocus();
+    }
 }

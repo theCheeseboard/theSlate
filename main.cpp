@@ -42,7 +42,19 @@ int main(int argc, char *argv[])
 
     a.installTranslator(&localTranslator);
 
+    QStringList args = a.arguments();
+    args.takeFirst();
+
     MainWindow w;
+
+    for (QString arg : args) {
+        if (arg.startsWith("--")) {
+
+        } else {
+            w.newTab(arg);
+        }
+    }
+
     w.show();
 
     return a.exec();

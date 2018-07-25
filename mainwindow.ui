@@ -179,6 +179,8 @@
     <addaction name="actionCopy"/>
     <addaction name="actionCut"/>
     <addaction name="actionPaste"/>
+    <addaction name="separator"/>
+    <addaction name="actionFind_and_Replace"/>
    </widget>
    <widget class="QMenu" name="menuCode">
     <property name="title">
@@ -920,6 +922,18 @@
    </property>
    <property name="text">
     <string>Show Source Control Window</string>
+   </property>
+  </action>
+  <action name="actionFind_and_Replace">
+   <property name="icon">
+    <iconset theme="edit-find-replace" resource="icons.qrc">
+     <normaloff>:/icons/edit-find-replace.svg</normaloff>:/icons/edit-find-replace.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Find and Replace...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
   </action>
  </widget>
