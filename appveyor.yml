@@ -41,3 +41,4 @@ deploy_script:
     curl -O https://github.com/probonopd/uploadtool/raw/master/upload.sh
 
     ./upload theSlate-Windows.zip
+    
