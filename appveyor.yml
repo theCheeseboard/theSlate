@@ -5,9 +5,7 @@ branches:
 image: Visual Studio 2017
 init:
 - cmd: >-
-    if "%APPVEYOR_REPO_TAG_NAME%"=="continuous" (
-        exit 1
-    )
+    if "%APPVEYOR_REPO_TAG_NAME%"=="continuous" ( exit 1 )
 environment:
   REPO_SLUG: vicr123/theSlate
   GITHUB_TOKEN:
