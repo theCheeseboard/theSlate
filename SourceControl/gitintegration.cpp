@@ -2,6 +2,10 @@
 
 #include <QSettings>
 
+#ifndef Q_OS_WIN
+#include <the-libs_global.h>
+#endif
+
 GitIntegration::GitIntegration(QDir rootDir, QObject *parent) : QObject(parent)
 {
     this->rootDir = rootDir;
@@ -102,8 +106,8 @@ QStringList GitIntegration::findGit() {
         }
         return gitExecutables;
     #else
-        //look in the PATH
-        return QStringList() << "/usr/bin/git";
+        //Look in the PATH
+        return theLibsGlobal::searchInPath("git");
     #endif
 }
 
