@@ -40,6 +40,13 @@ if [ $STAGE = "script" ]; then
     qmake "INCLUDEPATH += /usr/local/opt/qt/include" "LIBS += -L/usr/local/opt/qt/lib" ../theSlate/theSlate.pro
     echo "[TRAVIS] Building project"
     make
+    echo "[TRAVIS] Embedding the-libs"
+    mkdir theSlate.app/Contents/Libraries
+    cp  /usr/local/lib/libthe-libs*.dylib theSlate.app/Contents/Libraries/
+    install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib theSlate.app/Contents/MacOS/theSlate
+    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtWidgets @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtWidgets theSlate.app/Libraries/libthe-libs.1.dylib
+    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtGui @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtGui theSlate.app/Libraries/libthe-libs.1.dylib
+    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtCore @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtCore theSlate.app/Libraries/libthe-libs.1.dylib
     echo "[TRAVIS] Deploying Qt Libraries"
     macdeployqt theSlate.app
     echo "[TRAVIS] Preparing Disk Image creator"
