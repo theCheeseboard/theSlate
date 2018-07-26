@@ -2,7 +2,7 @@
 
 #include <QSettings>
 
-#ifndef Q_OS_WIN
+#ifndef Q_OS_MAC
 #include <the-libs_global.h>
 #endif
 
