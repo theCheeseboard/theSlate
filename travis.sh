@@ -26,6 +26,14 @@ if [ $STAGE = "script" ]; then
     echo "[TRAVIS] Building for macOS"
     export PATH="/usr/local/opt/qt/bin:$PATH"
     cd ..
+    echo "[TRAVIS] Building and installing the-libs"
+    git clone https://github.com/vicr123/the-libs.git
+    cd the-libs
+    git checkout blueprint
+    qmake
+    make
+    sudo make install INSTALL_ROOT=/
+    cd ..
     mkdir "build-theslate"
     cd "build-theslate"
     echo "[TRAVIS] Running qmake"

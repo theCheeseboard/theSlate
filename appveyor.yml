@@ -2,6 +2,7 @@ version: 1.0.{build}
 branches:
   only:
   - blueprint
+skip_tags: true
 image: Visual Studio 2017
 
 environment:
