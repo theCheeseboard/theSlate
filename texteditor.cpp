@@ -508,7 +508,6 @@ void TextEditor::dragMoveEvent(QDragMoveEvent *event) {
 }
 
 void TextEditor::dropEvent(QDropEvent *event) {
-
     const QMimeData* data = event->mimeData();
     if (data->hasUrls()) {
         for (QUrl url : data->urls()) {

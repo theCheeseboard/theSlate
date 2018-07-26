@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QMimeData>
+#include <QFileIconProvider>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -55,9 +56,9 @@ MainWindow::MainWindow(QWidget *parent) :
         //Set up single menu except on macOS
         QMenu* singleMenu = new QMenu();
         singleMenu->addAction(ui->actionNew);
-        singleMenu->addSeperator();
+        singleMenu->addSeparator();
         singleMenu->addAction(ui->actionOpen);
-        singleMenu->addSeperator();
+        singleMenu->addSeparator();
         singleMenu->addAction(ui->actionSave);
         singleMenu->addAction(ui->actionSave_As);
         singleMenu->addAction(ui->actionSave_All);
@@ -185,7 +186,19 @@ void MainWindow::on_tabs_currentChanged(int arg1)
     TextEditor* current = (TextEditor*) ui->tabs->widget(arg1);
     if (current != NULL) {
         current->setActive(true);
-        this->setWindowFilePath(current->filename());
+        #ifdef Q_OS_MAC
+            if (current->filename() == "") {
+                this->setWindowTitle("theSlate");
+                this->setWindowIcon(QIcon(":/icons/icon.svg"));
+                this->setWindowFilePath("");
+            } else {
+                QFileIconProvider ic;
+                QFileInfo file(current->filename());
+                this->setWindowIcon(ic.icon(file));
+                this->setWindowFilePath(current->filename());
+                this->setWindowTitle(file.fileName());
+            }
+        #endif
         ui->projectTree->scrollTo(fileModel->index(current->filename()));
         ui->projectTree->expand(fileModel->index(current->filename()));
 
