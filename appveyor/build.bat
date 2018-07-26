@@ -1,3 +1,6 @@
+set QTDIR=C:\Qt\5.11\msvc2017_64
+set PATH=%PATH%;%QTDIR%\bin
+"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 git clone https://github.com/vicr123/the-libs.git
 cd the-libs
 qmake the-libs.pro
