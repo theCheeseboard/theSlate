@@ -16,6 +16,7 @@ macx {
     QT += macextras
     ICON = icon.icns
     LIBS += -framework CoreFoundation
+    QMAKE_INFO_PLIST = Info.plist
 }
 
 unix:!macx {
@@ -108,4 +109,5 @@ macx {
 DISTFILES += \
     theslate.desktop \
     app-dmg-background.png \
-    icon.icns
+    icon.icns \
+    Info.plist

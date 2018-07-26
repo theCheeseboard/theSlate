@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include <QApplication>
+#include <tapplication.h>
 #include <QTranslator>
 #include <QLibraryInfo>
 
@@ -9,7 +9,7 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    tApplication a(argc, argv);
 
     a.setOrganizationName("theSuite");
     a.setOrganizationDomain("");
@@ -45,17 +45,21 @@ int main(int argc, char *argv[])
     QStringList args = a.arguments();
     args.takeFirst();
 
-    MainWindow w;
+    MainWindow* w = new MainWindow();
 
     for (QString arg : args) {
         if (arg.startsWith("--")) {
 
         } else {
-            w.newTab(arg);
+            w->newTab(arg);
         }
     }
 
-    w.show();
+    QObject::connect(&a, &tApplication::openFile, [=](QString file) {
+        w->newTab(file);
+    });
+
+    w->show();
 
     return a.exec();
 }

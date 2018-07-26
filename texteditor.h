@@ -17,6 +17,7 @@
 
 class TabButton;
 class FindReplace;
+class MainWindow;
 
 class TextEditor : public QPlainTextEdit
 {
@@ -48,7 +49,7 @@ class TextEditor : public QPlainTextEdit
     };
 
     public:
-        explicit TextEditor(QWidget *parent = nullptr);
+        explicit TextEditor(MainWindow *parent);
         ~TextEditor();
 
         QString filename();
@@ -72,6 +73,7 @@ class TextEditor : public QPlainTextEdit
         void openFileFake(QString filename, QString contents);
         bool saveFile(QString file);
         bool saveFile();
+        void revertFile();
 
         void setExtraSelectionGroup(QString extraSelectionGroup, QList<QTextEdit::ExtraSelection> selections);
         QList<QTextEdit::ExtraSelection> extraSelectionGroup(QString extraSelectionGroup);
@@ -95,9 +97,16 @@ class TextEditor : public QPlainTextEdit
         bool firstEdit = true;
         QString fn;
         SyntaxHighlighter* hl;
+        MainWindow* parentWindow;
 
         void keyPressEvent(QKeyEvent* event);
         void resizeEvent(QResizeEvent* event);
+
+        void dragEnterEvent(QDragEnterEvent* event);
+        void dragLeaveEvent(QDragLeaveEvent* event);
+        void dragMoveEvent(QDragMoveEvent* event);
+        void dropEvent(QDropEvent* event);
+        QTextCursor cursorBeforeDrop;
 
         TextEditorLeftMargin *leftMargin = NULL;
         int brokenLine = -1;

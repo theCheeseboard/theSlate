@@ -100,10 +100,18 @@ class MainWindow : public QMainWindow
 
         void on_actionSave_As_triggered();
 
+        void on_actionRevert_triggered();
+
 private:
         Ui::MainWindow *ui;
 
         void closeEvent(QCloseEvent* event);
+
+        void dragEnterEvent(QDragEnterEvent* event);
+        void dragLeaveEvent(QDragLeaveEvent* event);
+        void dragMoveEvent(QDragMoveEvent* event);
+        void dropEvent(QDropEvent* event);
+
         QFileSystemModel* fileModel;
         QString currentProjectFile = "";
         QString projectType = "";

@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QMimeData>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -53,9 +55,13 @@ MainWindow::MainWindow(QWidget *parent) :
         //Set up single menu except on macOS
         QMenu* singleMenu = new QMenu();
         singleMenu->addAction(ui->actionNew);
+        singleMenu->addSeperator();
         singleMenu->addAction(ui->actionOpen);
+        singleMenu->addSeperator();
         singleMenu->addAction(ui->actionSave);
+        singleMenu->addAction(ui->actionSave_As);
         singleMenu->addAction(ui->actionSave_All);
+        singleMenu->addAction(ui->actionRevert);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionCut);
         singleMenu->addAction(ui->actionCopy);
@@ -128,7 +134,7 @@ void MainWindow::show() {
 }
 
 void MainWindow::newTab() {
-    TextEditor* view = new TextEditor();
+    TextEditor* view = new TextEditor(this);
     ui->tabs->addWidget(view);
     ui->tabs->setCurrentWidget(view);
 
@@ -470,4 +476,38 @@ void MainWindow::on_actionFind_and_Replace_triggered()
 void MainWindow::on_actionSave_As_triggered()
 {
     saveCurrentDocument(true);
+}
+
+void MainWindow::on_actionRevert_triggered()
+{
+    currentDocument()->revertFile();
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent *event) {
+    const QMimeData* data = event->mimeData();
+    if (data->hasUrls()) {
+        event->setDropAction(Qt::CopyAction);
+        event->acceptProposedAction();
+        return;
+    }
+    event->setDropAction(Qt::IgnoreAction);
+}
+
+void MainWindow::dragLeaveEvent(QDragLeaveEvent *event) {
+
+}
+
+void MainWindow::dragMoveEvent(QDragMoveEvent *event) {
+
+}
+
+void MainWindow::dropEvent(QDropEvent *event) {
+    const QMimeData* data = event->mimeData();
+    if (data->hasUrls()) {
+        for (QUrl url : data->urls()) {
+            if (url.isLocalFile()) {
+                newTab(url.toLocalFile());
+            }
+        }
+    }
 }

@@ -1,11 +1,15 @@
 #include "texteditor.h"
 
 #include <QStyle>
+#include <QMessageBox>
+#include <QMimeData>
+#include "mainwindow.h"
 
-TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
+TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
 {
     this->setLineWrapMode(NoWrap);
     QFont normalFont = this->font();
+    this->parentWindow = parent;
 
     button = new TabButton(this);
     button->setText(tr("New Document"));
@@ -64,7 +68,7 @@ bool TextEditor::isEdited() {
 
 void TextEditor::openFile(QString file) {
     QFile f(file);
-    f.open(QFile::ReadOnly);
+    f.open(QFile::ReadOnly | QFile::Text);
     this->setPlainText(f.readAll());
     f.close();
 
@@ -94,7 +98,7 @@ void TextEditor::openFile(QString file) {
 
 bool TextEditor::saveFile(QString file) {
     QFile f(file);
-    f.open(QFile::WriteOnly);
+    f.open(QFile::WriteOnly | QFile::Text);
     f.write(this->toPlainText().toUtf8());
     f.close();
 
@@ -455,5 +459,64 @@ void TextEditor::toggleFindReplace() {
     } else {
         findReplaceWidget->setVisible(true);
         findReplaceWidget->setFocus();
+    }
+}
+
+void TextEditor::revertFile() {
+    if (this->fn != "") {
+        QMessageBox* messageBox = new QMessageBox(this->window());
+        messageBox->setWindowTitle(tr("Revert Changes?"));
+        messageBox->setText(tr("Do you want to revert all the edits made to this document?"));
+        messageBox->setIcon(QMessageBox::Warning);
+        messageBox->setWindowFlags(Qt::Sheet);
+        messageBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        messageBox->setDefaultButton(QMessageBox::Save);
+        int button = messageBox->exec();
+
+        if (button == QMessageBox::Yes) {
+            openFile(this->fn);
+        }
+    }
+}
+
+void TextEditor::dragEnterEvent(QDragEnterEvent *event) {
+    const QMimeData* data = event->mimeData();
+    if (data->hasUrls()) {
+        event->setDropAction(Qt::CopyAction);
+        event->acceptProposedAction();
+        return;
+    } else if (data->hasText()) {
+        event->setDropAction(Qt::CopyAction);
+        event->acceptProposedAction();
+        cursorBeforeDrop = this->textCursor();
+        this->setTextCursor(this->cursorForPosition(event->pos()));
+        return;
+    }
+
+    event->setDropAction(Qt::IgnoreAction);
+}
+
+void TextEditor::dragLeaveEvent(QDragLeaveEvent *event) {
+    this->setTextCursor(cursorBeforeDrop);
+}
+
+void TextEditor::dragMoveEvent(QDragMoveEvent *event) {
+    const QMimeData* data = event->mimeData();
+    if (data->hasText()) {
+        this->setTextCursor(this->cursorForPosition(event->pos()));
+    }
+}
+
+void TextEditor::dropEvent(QDropEvent *event) {
+
+    const QMimeData* data = event->mimeData();
+    if (data->hasUrls()) {
+        for (QUrl url : data->urls()) {
+            if (url.isLocalFile()) {
+                parentWindow->newTab(url.toLocalFile());
+            }
+        }
+    } else if (data->hasText()) {
+        this->cursorForPosition(event->pos()).insertText(data->text());
     }
 }
