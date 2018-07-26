@@ -64,7 +64,7 @@ class MainWindow : public QMainWindow
 
         void checkForEdits();
 
-        bool saveCurrentDocument();
+        bool saveCurrentDocument(bool saveAs = false);
 
         void on_closeButton_clicked();
 
@@ -98,7 +98,9 @@ class MainWindow : public QMainWindow
 
         void on_actionFind_and_Replace_triggered();
 
-    private:
+        void on_actionSave_As_triggered();
+
+private:
         Ui::MainWindow *ui;
 
         void closeEvent(QCloseEvent* event);

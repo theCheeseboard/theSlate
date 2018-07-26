@@ -35,7 +35,8 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
 
     findReplaceWidget = new FindReplace(this);
     findReplaceWidget->setFont(normalFont);
-    findReplaceWidget->show();
+    findReplaceWidget->hide();
+    //findReplaceWidget->show();
 }
 
 TextEditor::~TextEditor() {

@@ -251,8 +251,8 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     event->accept();
 }
 
-bool MainWindow::saveCurrentDocument() {
-    if (currentDocument()->filename() == "") {
+bool MainWindow::saveCurrentDocument(bool saveAs) {
+    if (currentDocument()->filename() == "" || saveAs) {
         QEventLoop* loop = new QEventLoop();
         QFileDialog* saveDialog = new QFileDialog(this, Qt::Sheet);
         saveDialog->setWindowModality(Qt::WindowModal);
@@ -465,4 +465,9 @@ void MainWindow::on_sourceControlDock_visibilityChanged(bool visible)
 void MainWindow::on_actionFind_and_Replace_triggered()
 {
     currentDocument()->toggleFindReplace();
+}
+
+void MainWindow::on_actionSave_As_triggered()
+{
+    saveCurrentDocument(true);
 }
