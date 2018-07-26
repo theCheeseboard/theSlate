@@ -1,10 +1,7 @@
 #include "gitintegration.h"
 
 #include <QSettings>
-
-#ifndef Q_OS_MAC
 #include <the-libs_global.h>
-#endif
 
 GitIntegration::GitIntegration(QDir rootDir, QObject *parent) : QObject(parent)
 {
