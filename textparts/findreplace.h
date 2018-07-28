@@ -25,12 +25,23 @@ class FindReplace : public QWidget
 
         void on_findPrev_clicked();
 
-        void find(QString text, bool backward = false);
+        void find(QString text);
 
-    private:
+        void moveCursor(bool backward = false);
+
+        void reset();
+
+        void on_doneButton_clicked();
+
+private:
         Ui::FindReplace *ui;
 
         TextEditor* editor;
+        QList<int> indices;
+        int textLength;
+
+        void hideEvent(QHideEvent* event);
+        void showEvent(QShowEvent* event);
 };
 
 #endif // FINDREPLACE_H

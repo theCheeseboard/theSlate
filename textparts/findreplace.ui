@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>391</width>
-    <height>107</height>
+    <width>555</width>
+    <height>124</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -41,14 +41,11 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QLabel" name="label">
-          <property name="text">
+         <widget class="QLineEdit" name="findBox">
+          <property name="placeholderText">
            <string>Find</string>
           </property>
          </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="findBox"/>
         </item>
         <item>
          <widget class="QLabel" name="matchesFound">
@@ -63,7 +60,13 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QPushButton" name="findPrev">
+           <widget class="QToolButton" name="findPrev">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -71,13 +74,19 @@
              <iconset theme="go-previous" resource="../icons.qrc">
               <normaloff>:/icons/go-previous.svg</normaloff>:/icons/go-previous.svg</iconset>
             </property>
-            <property name="flat">
+            <property name="autoRaise">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="findNext">
+           <widget class="QToolButton" name="findNext">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -85,7 +94,7 @@
              <iconset theme="go-next" resource="../icons.qrc">
               <normaloff>:/icons/go-next.svg</normaloff>:/icons/go-next.svg</iconset>
             </property>
-            <property name="flat">
+            <property name="autoRaise">
              <bool>true</bool>
             </property>
            </widget>
@@ -97,19 +106,23 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QLabel" name="label_2">
-          <property name="text">
+         <widget class="QLineEdit" name="replaceBox">
+          <property name="placeholderText">
            <string>Replace</string>
           </property>
          </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="replaceBox"/>
         </item>
        </layout>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QPushButton" name="doneButton">
+          <property name="text">
+           <string>Done</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <spacer name="horizontalSpacer">
           <property name="orientation">

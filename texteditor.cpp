@@ -3,6 +3,7 @@
 #include <QStyle>
 #include <QMessageBox>
 #include <QMimeData>
+#include "the-libs_global.h"
 #include "mainwindow.h"
 
 TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
@@ -39,6 +40,8 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
 
     findReplaceWidget = new FindReplace(this);
     findReplaceWidget->setFont(normalFont);
+    findReplaceWidget->setFixedWidth(500 * theLibsGlobal::getDPIScaling());
+    findReplaceWidget->setFixedHeight(findReplaceWidget->sizeHint().height());
     findReplaceWidget->hide();
     //findReplaceWidget->show();
 }
@@ -323,6 +326,7 @@ void TextEditor::resizeEvent(QResizeEvent *event)
     QRect cr = contentsRect();
     leftMargin->setGeometry(QRect(cr.left(), cr.top(), leftMarginWidth(), cr.height()));
 
+    findReplaceWidget->setFixedHeight(findReplaceWidget->sizeHint().height());
     findReplaceWidget->move(this->width() - findReplaceWidget->width() - 9 - QApplication::style()->pixelMetric(QStyle::PM_ScrollBarExtent), 9);
 }
 
