@@ -57,7 +57,8 @@ SOURCES += \
     aboutwindow.cpp \
     syntaxhighlighter.cpp \
     SourceControl/gitintegration.cpp \
-    textparts/findreplace.cpp
+    textparts/findreplace.cpp \
+    exitsavedialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -66,12 +67,14 @@ HEADERS += \
     aboutwindow.h \
     syntaxhighlighter.h \
     SourceControl/gitintegration.h \
-    textparts/findreplace.h
+    textparts/findreplace.h \
+    exitsavedialog.h
 
 FORMS += \
         mainwindow.ui \
     aboutwindow.ui \
-    textparts/findreplace.ui
+    textparts/findreplace.ui \
+    exitsavedialog.ui
 
 RESOURCES += \
     icons.qrc \

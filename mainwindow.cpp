@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "exitsavedialog.h"
 #include <QMimeData>
 #include <QFileIconProvider>
 
@@ -259,11 +260,34 @@ void MainWindow::checkForEdits() {
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
-    while (ui->tabs->count() > 0) {
-        if (!closeCurrentTab()) {
-            event->ignore();
-            return;
+    if (ui->tabs->count() > 0) {
+        QList<TextEditor*> saveNeeded;
+        for (int i = 0; i < ui->tabs->count(); i++) {
+            TextEditor* tab = (TextEditor*) ui->tabs->widget(i);
+            if (tab->isEdited()) saveNeeded.append(tab);
         }
+
+        ExitSaveDialog* dialog = new ExitSaveDialog(saveNeeded, this);
+        dialog->setWindowFlag(Qt::Sheet);
+        dialog->setWindowModality(Qt::WindowModal);
+        connect(dialog, &ExitSaveDialog::closeWindow, [=] {
+            this->close();
+        });
+        connect(dialog, &ExitSaveDialog::closeTab, [=](TextEditor* tab) {
+            ui->tabButtons->removeWidget(tab->getTabButton());
+            ui->tabs->removeWidget(tab);
+            tab->deleteLater();
+
+            if (ui->tabs->count() == 0) {
+                ui->closeButton->setVisible(false);
+                ui->actionSave->setEnabled(false);
+                ui->menuCode->setEnabled(false);
+            }
+        });
+        dialog->show();
+
+        event->ignore();
+        return;
     }
 
     settings.setValue("window/state", this->saveState());
@@ -271,38 +295,8 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 }
 
 bool MainWindow::saveCurrentDocument(bool saveAs) {
-    if (currentDocument()->filename() == "" || saveAs) {
-        QEventLoop* loop = new QEventLoop();
-        QFileDialog* saveDialog = new QFileDialog(this, Qt::Sheet);
-        saveDialog->setWindowModality(Qt::WindowModal);
-        saveDialog->setAcceptMode(QFileDialog::AcceptSave);
-
-        if (currentProjectFile == "") {
-            saveDialog->setDirectory(QDir::home());
-        } else {
-            saveDialog->setDirectory(QFileInfo(currentProjectFile).path());
-        }
-
-        saveDialog->setNameFilters(QStringList() << "Text File (*.txt)"
-                                                 << "All Files (*)");
-        connect(saveDialog, SIGNAL(finished(int)), saveDialog, SLOT(deleteLater()));
-        connect(saveDialog, SIGNAL(finished(int)), loop, SLOT(quit()));
-        saveDialog->show();
-
-        //Block until dialog is finished
-        loop->exec();
-        loop->deleteLater();
-
-        if (saveDialog->result() == QDialog::Accepted) {
-            bool didSave = currentDocument()->saveFile(saveDialog->selectedFiles().first());
-            updateGit();
-            return didSave;
-        } else {
-            return false;
-        }
-    } else {
-        return currentDocument()->saveFile();
-    }
+    return currentDocument()->saveFileAskForFilename(saveAs);
+    updateGit();
 }
 
 bool MainWindow::closeCurrentTab() {

@@ -73,6 +73,7 @@ class TextEditor : public QPlainTextEdit
         void openFileFake(QString filename, QString contents);
         bool saveFile(QString file);
         bool saveFile();
+        bool saveFileAskForFilename(bool saveAs = false);
         void revertFile();
 
         void setExtraSelectionGroup(QString extraSelectionGroup, QList<QTextEdit::ExtraSelection> selections);
