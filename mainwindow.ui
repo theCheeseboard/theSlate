@@ -800,6 +800,9 @@
    <property name="text">
     <string>&amp;About</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
+   </property>
   </action>
   <action name="actionNew_theSlate_Project">
    <property name="icon">
