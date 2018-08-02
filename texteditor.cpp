@@ -47,7 +47,7 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
 }
 
 TextEditor::~TextEditor() {
-    if (button != NULL) {
+    if (button != nullptr) {
         button->setVisible(false);
     }
 }
@@ -97,6 +97,7 @@ void TextEditor::openFile(QString file) {
         git->deleteLater();
     }
     git = new GitIntegration(fileInfo.absoluteDir());
+    connect(git, SIGNAL(reloadStatusNeeded()), parentWindow, SLOT(updateGit()));
 }
 
 bool TextEditor::saveFile(QString file) {
@@ -110,7 +111,11 @@ bool TextEditor::saveFile(QString file) {
     emit fileNameChanged();
     emit editedChanged();
 
+    if (git != nullptr) {
+        git->deleteLater();
+    }
     git = new GitIntegration(QFileInfo(file).absoluteDir());
+    connect(git, SIGNAL(reloadStatusNeeded()), parentWindow, SLOT(updateGit()));
 
     return true;
 }

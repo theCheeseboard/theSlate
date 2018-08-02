@@ -107,7 +107,6 @@ macx {
     QMAKE_BUNDLE_DATA = translations
 
     QMAKE_POST_LINK += $$quote(cp $${PWD}/icon.icns $${PWD}/app-dmg-background.png $${PWD}/node-appdmg-config.json $${OUT_PWD})
-
 }
 
 DISTFILES += \

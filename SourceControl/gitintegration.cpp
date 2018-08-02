@@ -1,25 +1,18 @@
 #include "gitintegration.h"
 
 #include <QSettings>
+#include <QDirIterator>
 #include <the-libs_global.h>
 
 GitIntegration::GitIntegration(QDir rootDir, QObject *parent) : QObject(parent)
 {
     this->rootDir = rootDir;
 
-    QProcess* proc = git("rev-parse --show-toplevel");
-    proc->waitForFinished();
-
-    if (proc->exitCode() == 0) {
-        QString newrootDir = proc->readAll().trimmed();
-        proc->setWorkingDirectory(newrootDir);
-    }
-    proc->deleteLater();
-
-    QFileSystemWatcher* watcher = new QFileSystemWatcher;
-    watcher->addPath(rootDir.path());
+    watcher = new QFileSystemWatcher;
     connect(watcher, SIGNAL(directoryChanged(QString)), this, SIGNAL(reloadStatusNeeded()));
     connect(watcher, SIGNAL(fileChanged(QString)), this, SIGNAL(reloadStatusNeeded()));
+
+    reloadStatus();
 }
 
 QStringList GitIntegration::reloadStatus() {
@@ -36,6 +29,16 @@ QStringList GitIntegration::reloadStatus() {
     proc->waitForFinished();
     QString status = proc->readAll();
     proc->deleteLater();
+
+    QDirIterator iterator(rootDir, QDirIterator::Subdirectories);
+    while (iterator.hasNext()) {
+        iterator.next();
+        if (!watcher->files().contains(iterator.filePath()) && !watcher->directories().contains(iterator.filePath()) &&
+                iterator.fileName() != "." && iterator.fileName() != "..") {
+            watcher->addPath(iterator.filePath());
+        }
+    }
+    watcher->addPath(rootDir.path());
 
     return status.split('\n');
 }
@@ -79,13 +82,41 @@ bool GitIntegration::needsInit() {
     }
 }
 
+void GitIntegration::abortMerge() {
+    QProcess* proc = git("merge --abort");
+    proc->waitForFinished();
+    emit reloadStatusNeeded();
+}
+
 void GitIntegration::init() {
     if (needsInit()) {
-        QProcess* proc = git("git init");
+        QProcess* proc = git("init");
         proc->waitForFinished();
         proc->deleteLater();
         emit reloadStatusNeeded();
     }
+}
+
+GitTask* GitIntegration::pull() {
+    GitTask* task = new GitTask;
+    QProcess* proc = git("pull");
+    connect(proc, &QProcess::readyRead, [=] {
+       QByteArray line = proc->readAll();
+       task->appendToBuffer(line);
+    });
+    connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), [=](int exitCode, QProcess::ExitStatus exitStatus){
+        if (exitCode == 0) {
+            emit task->finished();
+        } else {
+            QString output = task->buffer();
+            if (output.contains("CONFLICT")) {
+                emit task->failed("CONFLICT");
+            }
+        }
+        proc->deleteLater();
+        task->deleteLater();
+    });
+    return task;
 }
 
 QStringList GitIntegration::findGit() {
@@ -122,4 +153,18 @@ QProcess* GitIntegration::git(QString args) {
     proc->start(gitInstance + " " + args);
 
     return proc;
+}
+
+GitTask::GitTask(QObject* parent) : QObject(parent) {
+
+}
+
+void GitTask::appendToBuffer(QByteArray append) {
+    buf.append(append);
+
+    emit output(QString(buf).split("\n", QString::SkipEmptyParts).last());
+}
+
+QByteArray GitTask::buffer() {
+    return buf;
 }

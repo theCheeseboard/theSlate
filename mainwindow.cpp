@@ -4,6 +4,7 @@
 #include "exitsavedialog.h"
 #include <QMimeData>
 #include <QFileIconProvider>
+#include <ttoast.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -103,6 +104,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionPause->setVisible(false);
 
     ui->sourceControlOptionsButton->setMenu(ui->menuSource_Control);
+    ui->menuSource_Control->setEnabled(true);
+    ui->gitProgressFrame->setVisible(false);
 
     //Set up code highlighting options
     ui->menuCode->addAction("C++", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::cpp);});
@@ -392,6 +395,7 @@ void MainWindow::updateGit() {
             QStringList changedFiles = currentDocument()->git->reloadStatus();
             ui->modifiedChanges->clear();
 
+            bool hasConflicts = false;
             for (QString changedFile : changedFiles) {
                 if (changedFile != "") {
                     QChar flag1 = changedFile.at(0);
@@ -409,9 +413,16 @@ void MainWindow::updateGit() {
                         item->setCheckState(Qt::Unchecked);
                     }
 
+                    if (flag1 == 'U' && flag2 == 'U') { //Merge conflict
+                        item->setText(fileLocation + " [CONFLICTING]");
+                        hasConflicts = true;
+                    }
+
                     ui->modifiedChanges->addItem(item);
                 }
             }
+
+            ui->gitMergeConflictsFrame->setVisible(hasConflicts);
         }
     }
 }
@@ -517,4 +528,38 @@ void MainWindow::dropEvent(QDropEvent *event) {
             }
         }
     }
+}
+
+void MainWindow::on_gitAbortMergeButton_clicked()
+{
+    currentDocument()->git->abortMerge();
+}
+
+void MainWindow::on_actionPull_triggered()
+{
+    GitTask* task = currentDocument()->git->pull();
+    ui->gitProgressFrame->setVisible(true);
+    ui->gitProgressTitle->setText(tr("Git Pull"));
+    ui->gitProgressOutput->setText(tr("Pulling from remote repository..."));
+    connect(task, &GitTask::output, [=](QString message) {
+        ui->gitProgressOutput->setText(message);
+    });
+    connect(task, &GitTask::finished, [=](QString message) {
+        tToast* toast = new tToast();
+        toast->setTitle(tr("Git Pull"));
+        toast->setText(tr("Local repository updated"));
+        toast->show(this);
+        connect(toast, SIGNAL(dismissed()), toast, SLOT(deleteLater()));
+        ui->gitProgressFrame->setVisible(false);
+    });
+    connect(task, &GitTask::failed, [=](QString message) {
+        if (message == "CONFLICT") {
+            tToast* toast = new tToast();
+            toast->setTitle(tr("Automatic merging failed"));
+            toast->setText(tr("Conflicting files in working directory need to be resolved."));
+            toast->show(this);
+            connect(toast, SIGNAL(dismissed()), toast, SLOT(deleteLater()));
+        }
+        ui->gitProgressFrame->setVisible(false);
+    });
 }
