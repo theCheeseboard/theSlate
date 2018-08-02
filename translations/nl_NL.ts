@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="vi_VN" sourcelanguage="en">
+<TS version="2.1" language="nl_NL">
 <context>
     <name>AboutWindow</name>
     <message>
@@ -35,42 +35,44 @@
         <location filename="../exitsavedialog.ui" line="14"/>
         <location filename="../exitsavedialog.ui" line="25"/>
         <source>Modified Files</source>
-        <translation>Tệp đã sửa đổi</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="32"/>
         <source>The following files require your attention</source>
-        <translation>Tệp sau đây cần chú ý của bạn</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="44"/>
         <source>Cancel</source>
-        <translation>Hủy</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="64"/>
         <location filename="../exitsavedialog.cpp" line="37"/>
         <source>Save All</source>
-        <translation>Lưu tất cả</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="71"/>
         <location filename="../exitsavedialog.cpp" line="38"/>
         <source>Discard All</source>
-        <translation>Vứt đi tất cả</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
         <location filename="../exitsavedialog.cpp" line="41"/>
         <source>Save %n</source>
-        <translation>
-            <numerusform>Lưu %n</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../exitsavedialog.cpp" line="42"/>
         <source>Discard %n</source>
-        <translation>
-            <numerusform>Vứt %n đi</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -84,33 +86,34 @@
     <message>
         <location filename="../textparts/findreplace.ui" line="46"/>
         <source>Find</source>
-        <translation>Tìm</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="111"/>
         <source>Replace</source>
-        <translation>Thay với</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="122"/>
         <source>Done</source>
-        <translation>Xong</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="142"/>
         <source>Replace All</source>
-        <translation>Thay tất cả</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="73"/>
         <source>No matches</source>
-        <translation>Không tìm</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
         <location filename="../textparts/findreplace.cpp" line="75"/>
         <source>%n matches</source>
-        <translation>
-            <numerusform>%n kết quả</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -124,27 +127,27 @@
     <message>
         <location filename="../mainwindow.ui" line="167"/>
         <source>Fi&amp;le</source>
-        <translation>&amp;Tệp</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="184"/>
         <source>Edit</source>
-        <translation>Sửa</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="194"/>
         <source>&amp;Code</source>
-        <translation>&amp;Mã nguồn</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="200"/>
         <source>Help</source>
-        <translation>Trợ giúp</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="206"/>
         <source>So&amp;urce Control</source>
-        <translation>&amp;Quản lý mã nguồn</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="243"/>
@@ -154,7 +157,7 @@
     <message>
         <location filename="../mainwindow.ui" line="255"/>
         <source>Files</source>
-        <translation>Tệp</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="282"/>
@@ -204,13 +207,13 @@
     <message>
         <location filename="../mainwindow.ui" line="691"/>
         <source>&amp;New</source>
-        <translation>&amp;Mới</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="694"/>
         <location filename="../mainwindow.cpp" line="32"/>
         <source>New</source>
-        <translation>Mới</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="697"/>
@@ -220,13 +223,13 @@
     <message>
         <location filename="../mainwindow.ui" line="706"/>
         <source>&amp;Save</source>
-        <translation>&amp;Lưu</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="709"/>
         <location filename="../mainwindow.cpp" line="46"/>
         <source>Save</source>
-        <translation>Lưu</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="712"/>
@@ -236,13 +239,13 @@
     <message>
         <location filename="../mainwindow.ui" line="721"/>
         <source>&amp;Open</source>
-        <translation>&amp;Mở</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="724"/>
         <location filename="../mainwindow.cpp" line="39"/>
         <source>Open</source>
-        <translation>Mở</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="727"/>
@@ -252,7 +255,7 @@
     <message>
         <location filename="../mainwindow.ui" line="736"/>
         <source>&amp;Exit</source>
-        <translation>&amp;Thoát</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="739"/>
@@ -262,12 +265,12 @@
     <message>
         <location filename="../mainwindow.ui" line="751"/>
         <source>&amp;Copy</source>
-        <translation>&amp;Chép</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="754"/>
         <source>Copy</source>
-        <translation>Chép</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="757"/>
@@ -277,12 +280,12 @@
     <message>
         <location filename="../mainwindow.ui" line="766"/>
         <source>C&amp;ut</source>
-        <translation>Cắ&amp;t</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="769"/>
         <source>Cut</source>
-        <translation>Cắt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="772"/>
@@ -292,12 +295,12 @@
     <message>
         <location filename="../mainwindow.ui" line="781"/>
         <source>&amp;Paste</source>
-        <translation>&amp;Dán</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="784"/>
         <source>Paste</source>
-        <translation>Dán</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="787"/>
@@ -312,7 +315,7 @@
     <message>
         <location filename="../mainwindow.ui" line="801"/>
         <source>&amp;About</source>
-        <translation>&amp;Giới thiệu</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="813"/>
@@ -327,7 +330,7 @@
     <message>
         <location filename="../mainwindow.ui" line="825"/>
         <source>&amp;Print</source>
-        <translation>&amp;In</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="828"/>
@@ -372,7 +375,7 @@
     <message>
         <location filename="../mainwindow.ui" line="878"/>
         <source>Sa&amp;ve All</source>
-        <translation>Lưu tất &amp;cả</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="881"/>
@@ -412,7 +415,7 @@
     <message>
         <location filename="../mainwindow.ui" line="943"/>
         <source>Find and Replace...</source>
-        <translation>Tìm và thay...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="946"/>
@@ -422,7 +425,7 @@
     <message>
         <location filename="../mainwindow.ui" line="951"/>
         <source>Save As...</source>
-        <translation>Lưu thành...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="954"/>
@@ -432,17 +435,17 @@
     <message>
         <location filename="../mainwindow.ui" line="959"/>
         <source>Revert</source>
-        <translation>Hoàn lại</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="311"/>
         <source>Save Changes?</source>
-        <translation>Lưu thay đổi?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="312"/>
         <source>Do you want to save your changes to this document?</source>
-        <translation>Bạn có muốn lưu thay đổi với tệp này không?</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -450,17 +453,17 @@
     <message>
         <location filename="../texteditor.cpp" line="16"/>
         <source>New Document</source>
-        <translation>Tệp mới</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="472"/>
         <source>Revert Changes?</source>
-        <translation>Hoàn lại thay đổi?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="473"/>
         <source>Do you want to revert all the edits made to this document?</source>
-        <translation>Bạn có muốn bỏ thầy đối với tệp này không?</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
