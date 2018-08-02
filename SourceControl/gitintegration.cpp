@@ -101,8 +101,7 @@ GitTask* GitIntegration::pull() {
     GitTask* task = new GitTask;
     QProcess* proc = git("pull");
     connect(proc, &QProcess::readyRead, [=] {
-       QByteArray line = proc->readAll();
-       task->appendToBuffer(line);
+        task->appendToBuffer(proc->readAll());
     });
     connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), [=](int exitCode, QProcess::ExitStatus exitStatus){
         if (exitCode == 0) {
@@ -111,6 +110,27 @@ GitTask* GitIntegration::pull() {
             QString output = task->buffer();
             if (output.contains("CONFLICT")) {
                 emit task->failed("CONFLICT");
+            }
+        }
+        proc->deleteLater();
+        task->deleteLater();
+    });
+    return task;
+}
+
+GitTask* GitIntegration::push() {
+    GitTask* task = new GitTask;
+    QProcess* proc = git("push");
+    connect(proc, &QProcess::readyRead, [=] {
+        task->appendToBuffer(proc->readAll());
+    });
+    connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), [=](int exitCode, QProcess::ExitStatus exitStatus){
+        if (exitCode == 0) {
+            emit task->finished();
+        } else {
+            QString output = task->buffer();
+            if (output.contains("(fetch first)") || output.contains("(non-fast-forward)")) {
+                emit task->failed("UPDATE");
             }
         }
         proc->deleteLater();
@@ -148,8 +168,8 @@ QProcess* GitIntegration::git(QString args) {
     }
 
     QProcess* proc = new QProcess();
+    proc->setProcessChannelMode(QProcess::MergedChannels);
     proc->setWorkingDirectory(rootDir.path());
-
     proc->start(gitInstance + " " + args);
 
     return proc;
@@ -162,7 +182,10 @@ GitTask::GitTask(QObject* parent) : QObject(parent) {
 void GitTask::appendToBuffer(QByteArray append) {
     buf.append(append);
 
-    emit output(QString(buf).split("\n", QString::SkipEmptyParts).last());
+    QStringList lines = QString(buf).split("\n", QString::SkipEmptyParts);
+    if (lines.length() > 0) {
+        emit output(lines.last());
+    }
 }
 
 QByteArray GitTask::buffer() {

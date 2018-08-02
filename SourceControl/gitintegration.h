@@ -48,6 +48,7 @@ class GitIntegration : public QObject
         void abortMerge();
 
         GitTask* pull();
+        GitTask* push();
 
         void init();
         bool needsInit();

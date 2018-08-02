@@ -563,3 +563,42 @@ void MainWindow::on_actionPull_triggered()
         ui->gitProgressFrame->setVisible(false);
     });
 }
+
+void MainWindow::on_actionPush_triggered()
+{
+    GitTask* task = currentDocument()->git->push();
+    ui->gitProgressFrame->setVisible(true);
+    ui->gitProgressTitle->setText(tr("Git Push"));
+    ui->gitProgressOutput->setText(tr("Pushing to remote repository..."));
+    connect(task, &GitTask::output, [=](QString message) {
+        ui->gitProgressOutput->setText(message);
+    });
+    connect(task, &GitTask::finished, [=](QString message) {
+        tToast* toast = new tToast();
+        toast->setTitle(tr("Git Push"));
+        toast->setText(tr("Files were pushed to the remote repository"));
+        toast->show(this);
+        connect(toast, SIGNAL(dismissed()), toast, SLOT(deleteLater()));
+        ui->gitProgressFrame->setVisible(false);
+    });
+    connect(task, &GitTask::failed, [=](QString message) {
+        if (message == "UPDATE") {
+            QMap<QString, QString> actions;
+            actions.insert("pull", "Git Pull");
+
+            tToast* toast = new tToast();
+            toast->setTitle(tr("Push Rejected"));
+            toast->setText(tr("Your local Git repository is not up to date. You'll need to pull from the remote repository before you can push."));
+            toast->setActions(actions);
+            toast->show(this);
+            connect(toast, SIGNAL(dismissed()), toast, SLOT(deleteLater()));
+            connect(toast, &tToast::actionClicked, [=](QString key) {
+                if (key == "pull") {
+                    toast->announceAction("Pulling from remote repository");
+                    on_actionPull_triggered();
+                }
+            });
+        }
+        ui->gitProgressFrame->setVisible(false);
+    });
+}
