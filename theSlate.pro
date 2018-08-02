@@ -104,7 +104,10 @@ macx {
     translations.files = translations/
     translations.path = Contents/translations
 
-    QMAKE_BUNDLE_DATA = translations
+    locversion.files = localisedresources/
+    locversion.path = Contents/Resources
+
+    QMAKE_BUNDLE_DATA = translations locversion
 
     QMAKE_POST_LINK += $$quote(cp $${PWD}/icon.icns $${PWD}/app-dmg-background.png $${PWD}/node-appdmg-config.json $${OUT_PWD})
 }
