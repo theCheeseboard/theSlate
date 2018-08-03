@@ -12,6 +12,11 @@ GitIntegration::GitIntegration(QDir rootDir, QObject *parent) : QObject(parent)
     connect(watcher, SIGNAL(directoryChanged(QString)), this, SIGNAL(reloadStatusNeeded()));
     connect(watcher, SIGNAL(fileChanged(QString)), this, SIGNAL(reloadStatusNeeded()));
 
+    QTimer* timer = new QTimer(this);
+    timer->setInterval(5000);
+    connect(timer, SIGNAL(timeout()), this, SIGNAL(reloadStatusNeeded()));
+    timer->start();
+
     reloadStatus();
 }
 
@@ -30,19 +35,35 @@ QStringList GitIntegration::reloadStatus() {
     QString status = proc->readAll();
     proc->deleteLater();
 
-    if (!needsInit()) {
-        QDirIterator iterator(rootDir, QDirIterator::Subdirectories);
-        while (iterator.hasNext()) {
-            iterator.next();
-            if (!watcher->files().contains(iterator.filePath()) && !watcher->directories().contains(iterator.filePath()) &&
-                    iterator.fileName() != "." && iterator.fileName() != "..") {
-                watcher->addPath(iterator.filePath());
-            }
-        }
-        watcher->addPath(rootDir.path());
-    }
+    updateWatcher();
 
     return status.split('\n');
+}
+
+void GitIntegration::updateWatcher() {
+    /*if (!needsInit()) {
+        QFuture<QStringList> future = QtConcurrent::run([=] {
+            QStringList paths;
+
+            QDirIterator iterator(rootDir, QDirIterator::Subdirectories);
+            while (iterator.hasNext()) {
+                iterator.next();
+                if (!watcher->files().contains(iterator.filePath()) && !watcher->directories().contains(iterator.filePath()) &&
+                        iterator.fileName() != "." && iterator.fileName() != "..") {
+                    paths.append(iterator.filePath());
+                }
+            }
+            paths.append(rootDir.path());
+
+            return paths;
+        });
+
+        QFutureWatcher<QStringList>* watcher = new QFutureWatcher<QStringList>();
+        watcher->setFuture(future);
+        connect(watcher, &QFutureWatcher<QStringList>::finished, [=] {
+            this->watcher->addPaths(future.result());
+        });
+    }*/
 }
 
 void GitIntegration::add(QString file) {

@@ -5,6 +5,9 @@
 #include <QDir>
 #include <QFileSystemWatcher>
 #include <QProcess>
+#include <QMutex>
+#include <QFutureWatcher>
+#include <QtConcurrent/QtConcurrent>
 
 class GitTask : public QObject
 {
@@ -48,6 +51,8 @@ class GitIntegration : public QObject
         void abortMerge();
         QString commit(QString message);
 
+        void updateWatcher();
+
         GitTask* pull();
         GitTask* push();
 
@@ -60,6 +65,7 @@ class GitIntegration : public QObject
 
         QProcess* git(QString args);
         QFileSystemWatcher* watcher;
+        QMutex watcherLocker;
 };
 
 #endif // GITINTEGRATION_H
