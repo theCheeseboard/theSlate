@@ -218,6 +218,7 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_actionOpen_triggered()
 {
+    this->menuBar()->setEnabled(false);
     QEventLoop* loop = new QEventLoop();
     QFileDialog* openDialog = new QFileDialog(this, Qt::Sheet);
     openDialog->setWindowModality(Qt::WindowModal);
@@ -241,6 +242,7 @@ void MainWindow::on_actionOpen_triggered()
     if (openDialog->result() == QDialog::Accepted) {
         newTab(openDialog->selectedFiles().first());
     }
+    this->menuBar()->setEnabled(true);
 }
 
 void MainWindow::on_actionSave_triggered()

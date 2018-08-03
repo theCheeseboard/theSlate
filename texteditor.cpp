@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QMimeData>
 #include <QScrollBar>
+#include <QMenuBar>
 #include "the-libs_global.h"
 #include "mainwindow.h"
 
@@ -67,10 +68,14 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
             tool->setWindowFlag(Qt::Sheet);
             tool->setModal(Qt::WindowModal);
             tool->show();
+            parentWindow->menuBar()->setEnabled(false);
 
             connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
                 this->setPlainText(revisedFile);
                 removeTopPanel(mergeConflictsNotification);
+            });
+            connect(tool, &MergeTool::finished, [=] {
+                parentWindow->menuBar()->setEnabled(true);
             });
         });;
         mergeConflictsNotification->addButton(fixMergeButton);

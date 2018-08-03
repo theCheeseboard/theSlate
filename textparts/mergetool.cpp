@@ -9,6 +9,15 @@ MergeTool::MergeTool(QString unmergedFile, MainWindow* mainWindow, QWidget *pare
 {
     ui->setupUi(this);
 
+    #ifdef Q_OS_MAC
+        ui->cancelButton->setVisible(false);
+        ui->acceptButton->setVisible(false);
+    #else
+        ui->windowControlsMac->setVisible(false);
+    #endif
+
+    this->resize(mainWindow->width() - 20, mainWindow->height() - 50);
+
     source = new TextEditor(mainWindow);
     remote = new TextEditor(mainWindow);
     endFile = new TextEditor(mainWindow);
@@ -23,7 +32,7 @@ MergeTool::MergeTool(QString unmergedFile, MainWindow* mainWindow, QWidget *pare
 
     ui->differenceLayout->addWidget(source);
     ui->differenceLayout->addWidget(remote);
-    this->layout()->addWidget(endFile);
+    ((QBoxLayout*) this->layout())->insertWidget(5, endFile);
 
     //Parse the file line by line
     int state = 0;
@@ -154,8 +163,13 @@ void MergeTool::on_acceptButton_clicked()
     QString finalFile = endFile->toPlainText();
     if (finalFile.contains(tr("[Awaiting merge decision]"))) {
         QMessageBox* messageBox = new QMessageBox(this);
-        messageBox->setWindowTitle(tr("Unmerged Files"));
-        messageBox->setText(tr("You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?"));
+        #ifdef Q_OS_MAC
+            messageBox->setText(tr("Unresolved Merge Conflicts"));
+            messageBox->setInformativeText(tr("You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?"));
+        #else
+            messageBox->setWindowTitle(tr("Unresolved Merge Conflicts"));
+            messageBox->setText(tr("You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?"));
+        #endif
         messageBox->setIcon(QMessageBox::Warning);
         messageBox->setWindowFlags(Qt::Sheet);
         messageBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
