@@ -143,6 +143,20 @@ GitTask* GitIntegration::push() {
     return task;
 }
 
+QString GitIntegration::commit(QString message) {
+    QProcess* proc = git("commit -m \"" + message + "\"");
+    proc->waitForFinished();
+    proc->deleteLater();
+
+    proc = git("rev-parse --short HEAD");
+    proc->waitForFinished();
+    QString retval = proc->readAll().trimmed();
+    proc->deleteLater();
+
+    emit reloadStatusNeeded();
+    return retval;
+}
+
 QStringList GitIntegration::findGit() {
     #ifdef Q_OS_WIN
         //Search the registry for Git

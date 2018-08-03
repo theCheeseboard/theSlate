@@ -46,6 +46,7 @@ class GitIntegration : public QObject
         void rm(QString file, bool cache = false);
         void unstage(QString file);
         void abortMerge();
+        QString commit(QString message);
 
         GitTask* pull();
         GitTask* push();

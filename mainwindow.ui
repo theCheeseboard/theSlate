@@ -339,7 +339,7 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QLineEdit" name="lineEdit">
+             <widget class="QLineEdit" name="commitMessage">
               <property name="placeholderText">
                <string>Commit Message</string>
               </property>
@@ -474,7 +474,8 @@
                  <string>Abort Merge</string>
                 </property>
                 <property name="icon">
-                 <iconset theme="dialog-cancel"/>
+                 <iconset theme="dialog-cancel">
+                  <normaloff>.</normaloff>.</iconset>
                 </property>
                </widget>
               </item>

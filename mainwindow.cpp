@@ -4,6 +4,7 @@
 #include "exitsavedialog.h"
 #include <QMimeData>
 #include <QFileIconProvider>
+#include <QLineEdit>
 #include <ttoast.h>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -611,4 +612,35 @@ void MainWindow::on_actionPush_triggered()
         }
         ui->gitProgressFrame->setVisible(false);
     });
+}
+
+void MainWindow::on_commitButton_clicked()
+{
+    if (ui->commitMessage->text() == "") {
+        tToast* toast = new tToast();
+        toast->setTitle(tr("Git Commit"));
+        toast->setText(tr("A commit message is required."));
+        toast->show(this);
+        connect(toast, SIGNAL(dismissed()), toast, SLOT(deleteLater()));
+        ui->gitProgressFrame->setVisible(false);
+    } else {
+        QString commit = currentDocument()->git->commit(ui->commitMessage->text());
+
+        QMap<QString, QString> actions;
+        actions.insert("push", "Git Push");
+
+        tToast* toast = new tToast();
+        toast->setTitle(tr("Git Commit"));
+        toast->setText(tr("Your local files have been committed. Your HEAD now points to %1").arg(commit + " " + ui->commitMessage->text()));
+        toast->setActions(actions);
+        toast->show(this);
+        connect(toast, SIGNAL(dismissed()), toast, SLOT(deleteLater()));
+        connect(toast, &tToast::actionClicked, [=](QString key) {
+            if (key == "push") {
+                toast->announceAction("Pushing to remote repository");
+                on_actionPush_triggered();
+            }
+        });
+        ui->commitMessage->setText("");
+    }
 }

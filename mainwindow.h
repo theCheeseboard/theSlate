@@ -108,6 +108,8 @@ class MainWindow : public QMainWindow
 
         void on_actionPush_triggered();
 
+        void on_commitButton_clicked();
+
     private:
         Ui::MainWindow *ui;
 
