@@ -80,7 +80,8 @@ RESOURCES += \
     icons.qrc \
     files.qrc
 
-TRANSLATIONS += translations/vi_VN.ts
+TRANSLATIONS += translations/vi_VN.ts \
+    translations/nl_NL.ts
 
 # Turn off stripping as this causes the install to fail :(
 QMAKE_STRIP = echo

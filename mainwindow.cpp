@@ -185,7 +185,7 @@ void MainWindow::on_tabs_currentChanged(int arg1)
     }
 
     TextEditor* current = (TextEditor*) ui->tabs->widget(arg1);
-    if (current != NULL) {
+    if (current != nullptr) {
         current->setActive(true);
         #ifdef Q_OS_MAC
             if (current->filename() == "") {
@@ -267,27 +267,29 @@ void MainWindow::closeEvent(QCloseEvent *event) {
             if (tab->isEdited()) saveNeeded.append(tab);
         }
 
-        ExitSaveDialog* dialog = new ExitSaveDialog(saveNeeded, this);
-        dialog->setWindowFlag(Qt::Sheet);
-        dialog->setWindowModality(Qt::WindowModal);
-        connect(dialog, &ExitSaveDialog::closeWindow, [=] {
-            this->close();
-        });
-        connect(dialog, &ExitSaveDialog::closeTab, [=](TextEditor* tab) {
-            ui->tabButtons->removeWidget(tab->getTabButton());
-            ui->tabs->removeWidget(tab);
-            tab->deleteLater();
+        if (saveNeeded.count() != 0) {
+            ExitSaveDialog* dialog = new ExitSaveDialog(saveNeeded, this);
+            dialog->setWindowFlag(Qt::Sheet);
+            dialog->setWindowModality(Qt::WindowModal);
+            connect(dialog, &ExitSaveDialog::closeWindow, [=] {
+                this->close();
+            });
+            connect(dialog, &ExitSaveDialog::closeTab, [=](TextEditor* tab) {
+                ui->tabButtons->removeWidget(tab->getTabButton());
+                ui->tabs->removeWidget(tab);
+                tab->deleteLater();
 
-            if (ui->tabs->count() == 0) {
-                ui->closeButton->setVisible(false);
-                ui->actionSave->setEnabled(false);
-                ui->menuCode->setEnabled(false);
-            }
-        });
-        dialog->show();
+                if (ui->tabs->count() == 0) {
+                    ui->closeButton->setVisible(false);
+                    ui->actionSave->setEnabled(false);
+                    ui->menuCode->setEnabled(false);
+                }
+            });
+            dialog->show();
 
-        event->ignore();
-        return;
+            event->ignore();
+            return;
+        }
     }
 
     settings.setValue("window/state", this->saveState());
@@ -295,8 +297,12 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 }
 
 bool MainWindow::saveCurrentDocument(bool saveAs) {
-    return currentDocument()->saveFileAskForFilename(saveAs);
-    updateGit();
+    if (currentDocument()->saveFileAskForFilename(saveAs)) {
+        updateGit();
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool MainWindow::closeCurrentTab() {
@@ -453,7 +459,7 @@ void MainWindow::switchToFile(QString file, QString fakeFileContents) {
 }
 
 void MainWindow::setCurrentDocumentHighlighting(SyntaxHighlighter::codeType type) {
-    if (currentDocument() == NULL) {
+    if (currentDocument() == nullptr) {
 
     } else {
         currentDocument()->highlighter()->setCodeType(type);
