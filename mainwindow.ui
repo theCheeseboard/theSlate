@@ -301,7 +301,7 @@
      <item>
       <widget class="QStackedWidget" name="sourceControlPanes">
        <property name="currentIndex">
-        <number>3</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="page">
         <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -339,7 +339,7 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QLineEdit" name="lineEdit">
+             <widget class="QLineEdit" name="commitMessage">
               <property name="placeholderText">
                <string>Commit Message</string>
               </property>
@@ -374,6 +374,112 @@
                <enum>Qt::DownArrow</enum>
               </property>
              </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="gitProgressFrame">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_11">
+            <item>
+             <widget class="QLabel" name="gitProgressTitle">
+              <property name="font">
+               <font>
+                <pointsize>15</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Git Task</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="gitProgressOutput">
+              <property name="text">
+               <string>Git Output</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QProgressBar" name="gitProgressBar">
+              <property name="maximum">
+               <number>0</number>
+              </property>
+              <property name="value">
+               <number>-1</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="gitMergeConflictsFrame">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_10">
+            <item>
+             <widget class="QLabel" name="label_7">
+              <property name="font">
+               <font>
+                <pointsize>15</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Merge Conflicts</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>There are merge conflicts that need to be resolved in this repository</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <spacer name="horizontalSpacer_8">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="gitAbortMergeButton">
+                <property name="text">
+                 <string>Abort Merge</string>
+                </property>
+                <property name="icon">
+                 <iconset theme="dialog-cancel">
+                  <normaloff>.</normaloff>.</iconset>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
@@ -848,6 +954,9 @@
    </property>
   </action>
   <action name="actionPull">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>P&amp;ull</string>
    </property>
@@ -931,7 +1040,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Show Source Control Window</string>
+    <string>&amp;Show Source Control Window</string>
    </property>
   </action>
   <action name="actionFind_and_Replace">
@@ -940,7 +1049,7 @@
      <normaloff>:/icons/edit-find-replace.svg</normaloff>:/icons/edit-find-replace.svg</iconset>
    </property>
    <property name="text">
-    <string>Find and Replace...</string>
+    <string>&amp;Find and Replace...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
@@ -956,7 +1065,7 @@
   </action>
   <action name="actionRevert">
    <property name="text">
-    <string>Revert</string>
+    <string>&amp;Revert</string>
    </property>
   </action>
  </widget>

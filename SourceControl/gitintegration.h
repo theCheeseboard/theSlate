@@ -6,6 +6,28 @@
 #include <QFileSystemWatcher>
 #include <QProcess>
 
+class GitTask : public QObject
+{
+    Q_OBJECT
+
+    public:
+        explicit GitTask(QObject* parent = nullptr);
+
+    signals:
+        void finished(QString message = "");
+        void failed(QString message);
+        void message(QString message);
+        void progress(int progress, int maximum);
+        void output(QString line);
+
+    public slots:
+        void appendToBuffer(QByteArray append);
+        QByteArray buffer();
+
+    private:
+        QByteArray buf;
+};
+
 class GitIntegration : public QObject
 {
     Q_OBJECT
@@ -23,6 +45,11 @@ class GitIntegration : public QObject
         void add(QString file);
         void rm(QString file, bool cache = false);
         void unstage(QString file);
+        void abortMerge();
+        QString commit(QString message);
+
+        GitTask* pull();
+        GitTask* push();
 
         void init();
         bool needsInit();
@@ -32,6 +59,7 @@ class GitIntegration : public QObject
         QString gitInstance;
 
         QProcess* git(QString args);
+        QFileSystemWatcher* watcher;
 };
 
 #endif // GITINTEGRATION_H

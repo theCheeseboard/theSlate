@@ -10,14 +10,19 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QDebug>
+#include <QBoxLayout>
+#include <QFileSystemWatcher>
 #include "tabbutton.h"
 #include "syntaxhighlighter.h"
 #include "SourceControl/gitintegration.h"
 #include "textparts/findreplace.h"
+#include "textparts/topnotification.h"
+#include "textparts/mergetool.h"
 
 class TabButton;
 class FindReplace;
 class MainWindow;
+struct MergeLines;
 
 class TextEditor : public QPlainTextEdit
 {
@@ -43,6 +48,7 @@ class TextEditor : public QPlainTextEdit
         private:
             void mousePressEvent(QMouseEvent* event) override {
                 int lineNo = editor->cursorForPosition(event->pos()).block().firstLineNumber() + 1;
+                editor->toggleMergedLines(lineNo);
             }
 
             TextEditor *editor;
@@ -64,6 +70,7 @@ class TextEditor : public QPlainTextEdit
     signals:
         void fileNameChanged();
         void editedChanged();
+        void mergeDecision(MergeLines lines, bool on);
 
     public slots:
         TabButton* getTabButton();
@@ -81,15 +88,24 @@ class TextEditor : public QPlainTextEdit
         void clearExtraSelectionGroup(QString extraSelectionGroups);
 
         void toggleFindReplace();
+        void lockScrolling(TextEditor* other);
+        void setMergedLines(QList<MergeLines> mergedLines);
+        bool mergedLineIsAccepted(MergeLines mergedLine);
+        void toggleMergedLines(int line);
 
     private slots:
-        void updateLeftMarginAreaWidth(int newBlockCount);
+        void updateLeftMarginAreaWidth();
         void highlightCurrentLine();
         void updateLeftMarginArea(const QRect &, int);
         void reloadBlockHighlighting();
 
         void updateExtraSelections();
         void setExtraSelections(const QList<QTextEdit::ExtraSelection> &extraSelections);
+
+        void addTopPanel(QWidget* panel);
+        void removeTopPanel(QWidget* panel);
+
+        void fileOnDiskChanged();
 
     private:
         TabButton* button;
@@ -115,7 +131,18 @@ class TextEditor : public QPlainTextEdit
         FindReplace* findReplaceWidget;
         QMap<QString, QList<QTextEdit::ExtraSelection>> extraSelectionGroups;
 
+        QList<QWidget*> topPanels;
+        QWidget* topPanelWidget;
+        QBoxLayout* topPanelLayout;
+
+        TopNotification *mergeConflictsNotification, *onDiskChanged;
+        QFileSystemWatcher* fileWatcher;
+
+        TextEditor* scrollingLock = nullptr;
+
         int highlightedLine = -1;
+        QList<MergeLines> mergedLines;
+        QMap<MergeLines, bool> mergeDecisions;
 };
 
 #endif // TEXTEDITOR_H

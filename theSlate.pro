@@ -58,7 +58,9 @@ SOURCES += \
     syntaxhighlighter.cpp \
     SourceControl/gitintegration.cpp \
     textparts/findreplace.cpp \
-    exitsavedialog.cpp
+    exitsavedialog.cpp \
+    textparts/topnotification.cpp \
+    textparts/mergetool.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -68,13 +70,17 @@ HEADERS += \
     syntaxhighlighter.h \
     SourceControl/gitintegration.h \
     textparts/findreplace.h \
-    exitsavedialog.h
+    exitsavedialog.h \
+    textparts/topnotification.h \
+    textparts/mergetool.h
 
 FORMS += \
         mainwindow.ui \
     aboutwindow.ui \
     textparts/findreplace.ui \
-    exitsavedialog.ui
+    exitsavedialog.ui \
+    textparts/topnotification.ui \
+    textparts/mergetool.ui
 
 RESOURCES += \
     icons.qrc \
@@ -111,7 +117,6 @@ macx {
     QMAKE_BUNDLE_DATA = translations locversion
 
     QMAKE_POST_LINK += $$quote(cp $${PWD}/icon.icns $${PWD}/app-dmg-background.png $${PWD}/node-appdmg-config.json $${OUT_PWD})
-
 }
 
 DISTFILES += \

@@ -4,6 +4,8 @@
 #include "exitsavedialog.h"
 #include <QMimeData>
 #include <QFileIconProvider>
+#include <QLineEdit>
+#include <ttoast.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -103,6 +105,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionPause->setVisible(false);
 
     ui->sourceControlOptionsButton->setMenu(ui->menuSource_Control);
+    ui->menuSource_Control->setEnabled(true);
+    ui->gitProgressFrame->setVisible(false);
 
     //Set up code highlighting options
     ui->menuCode->addAction("C++", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::cpp);});
@@ -159,7 +163,7 @@ void MainWindow::newTab() {
 }
 
 void MainWindow::newTab(QString filename) {
-    if (currentDocument() == NULL || currentDocument()->isEdited() || currentDocument()->filename() != "") {
+    if (currentDocument() == nullptr || currentDocument()->isEdited() || currentDocument()->filename() != "") {
         newTab();
     }
 
@@ -267,7 +271,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
             if (tab->isEdited()) saveNeeded.append(tab);
         }
 
-        if (saveNeeded.count() != 0) {
+        if (saveNeeded.count() > 0) {
             ExitSaveDialog* dialog = new ExitSaveDialog(saveNeeded, this);
             dialog->setWindowFlag(Qt::Sheet);
             dialog->setWindowModality(Qt::WindowModal);
@@ -382,6 +386,7 @@ void MainWindow::on_projectTree_clicked(const QModelIndex &index)
 
         newTab();
         currentDocument()->openFile(fileModel->filePath(index));
+        updateGit();
     }
 }
 
@@ -398,6 +403,7 @@ void MainWindow::updateGit() {
             QStringList changedFiles = currentDocument()->git->reloadStatus();
             ui->modifiedChanges->clear();
 
+            bool hasConflicts = false;
             for (QString changedFile : changedFiles) {
                 if (changedFile != "") {
                     QChar flag1 = changedFile.at(0);
@@ -415,9 +421,17 @@ void MainWindow::updateGit() {
                         item->setCheckState(Qt::Unchecked);
                     }
 
+                    if (flag1 == 'U' && flag2 == 'U') { //Merge conflict
+                        item->setText(fileLocation + " [CONFLICTING]");
+                        hasConflicts = true;
+                    }
+                    item->setData(Qt::UserRole, fileLocation);
+
                     ui->modifiedChanges->addItem(item);
                 }
             }
+
+            ui->gitMergeConflictsFrame->setVisible(hasConflicts);
         }
     }
 }
@@ -425,9 +439,9 @@ void MainWindow::updateGit() {
 void MainWindow::on_modifiedChanges_itemChanged(QListWidgetItem *item)
 {
     if (item->checkState() == Qt::Checked) {
-        currentDocument()->git->add(item->text());
+        currentDocument()->git->add(item->data(Qt::UserRole).toString());
     } else {
-        currentDocument()->git->unstage(item->text());
+        currentDocument()->git->unstage(item->data(Qt::UserRole).toString());
     }
 }
 
@@ -522,5 +536,115 @@ void MainWindow::dropEvent(QDropEvent *event) {
                 newTab(url.toLocalFile());
             }
         }
+    }
+}
+
+void MainWindow::on_gitAbortMergeButton_clicked()
+{
+    currentDocument()->git->abortMerge();
+}
+
+void MainWindow::on_actionPull_triggered()
+{
+    GitTask* task = currentDocument()->git->pull();
+    ui->gitProgressFrame->setVisible(true);
+    ui->gitProgressTitle->setText(tr("Git Pull"));
+    ui->gitProgressOutput->setText(tr("Pulling from remote repository..."));
+    connect(task, &GitTask::output, [=](QString message) {
+        ui->gitProgressOutput->setText(message);
+    });
+    connect(task, &GitTask::finished, [=](QString message) {
+        tToast* toast = new tToast();
+        toast->setTitle(tr("Git Pull"));
+        toast->setText(tr("Local repository updated"));
+        toast->show(this);
+        connect(toast, SIGNAL(dismissed()), toast, SLOT(deleteLater()));
+        ui->gitProgressFrame->setVisible(false);
+    });
+    connect(task, &GitTask::failed, [=](QString message) {
+        if (message == "CONFLICT") {
+            tToast* toast = new tToast();
+            toast->setTitle(tr("Automatic merging failed"));
+            toast->setText(tr("Conflicting files in working directory need to be resolved."));
+            toast->show(this);
+            connect(toast, SIGNAL(dismissed()), toast, SLOT(deleteLater()));
+        } else if (message == "UNCLEAN") {
+            tToast* toast = new tToast();
+            toast->setTitle(tr("Merging failed"));
+            toast->setText(tr("Your working directory is not clean. Commit your changes before you pull."));
+            toast->show(this);
+            connect(toast, SIGNAL(dismissed()), toast, SLOT(deleteLater()));
+        }
+        ui->gitProgressFrame->setVisible(false);
+    });
+}
+
+void MainWindow::on_actionPush_triggered()
+{
+    GitTask* task = currentDocument()->git->push();
+    ui->gitProgressFrame->setVisible(true);
+    ui->gitProgressTitle->setText(tr("Git Push"));
+    ui->gitProgressOutput->setText(tr("Pushing to remote repository..."));
+    connect(task, &GitTask::output, [=](QString message) {
+        ui->gitProgressOutput->setText(message);
+    });
+    connect(task, &GitTask::finished, [=](QString message) {
+        tToast* toast = new tToast();
+        toast->setTitle(tr("Git Push"));
+        toast->setText(tr("Files were pushed to the remote repository"));
+        toast->show(this);
+        connect(toast, SIGNAL(dismissed()), toast, SLOT(deleteLater()));
+        ui->gitProgressFrame->setVisible(false);
+    });
+    connect(task, &GitTask::failed, [=](QString message) {
+        if (message == "UPDATE") {
+            QMap<QString, QString> actions;
+            actions.insert("pull", "Git Pull");
+
+            tToast* toast = new tToast();
+            toast->setTitle(tr("Push Rejected"));
+            toast->setText(tr("Your local Git repository is not up to date. You'll need to pull from the remote repository before you can push."));
+            toast->setActions(actions);
+            toast->show(this);
+            connect(toast, SIGNAL(dismissed()), toast, SLOT(deleteLater()));
+            connect(toast, &tToast::actionClicked, [=](QString key) {
+                if (key == "pull") {
+                    toast->announceAction("Pulling from remote repository");
+                    on_actionPull_triggered();
+                }
+            });
+        }
+        ui->gitProgressFrame->setVisible(false);
+    });
+}
+
+void MainWindow::on_commitButton_clicked()
+{
+    if (ui->commitMessage->text() == "") {
+        tToast* toast = new tToast();
+        toast->setTitle(tr("Git Commit"));
+        toast->setText(tr("A commit message is required."));
+        toast->show(this);
+        connect(toast, SIGNAL(dismissed()), toast, SLOT(deleteLater()));
+        ui->gitProgressFrame->setVisible(false);
+    } else {
+        QString commit = currentDocument()->git->commit(ui->commitMessage->text());
+
+        QMap<QString, QString> actions;
+        actions.insert("push", "Git Push");
+
+        tToast* toast = new tToast();
+        toast->setTitle(tr("Git Commit"));
+        toast->setText(tr("Your local files have been committed. Your HEAD now points to %1").arg(commit + " " + ui->commitMessage->text()));
+        toast->setActions(actions);
+        toast->show(this);
+        connect(toast, SIGNAL(dismissed()), toast, SLOT(deleteLater()));
+        connect(toast, &tToast::actionClicked, [=](QString key) {
+            if (key == "push") {
+                toast->announceAction("Pushing to remote repository");
+                on_actionPush_triggered();
+            }
+        });
+        ui->commitMessage->setText("");
     }
 }

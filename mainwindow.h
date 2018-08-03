@@ -102,7 +102,15 @@ class MainWindow : public QMainWindow
 
         void on_actionRevert_triggered();
 
-private:
+        void on_gitAbortMergeButton_clicked();
+
+        void on_actionPull_triggered();
+
+        void on_actionPush_triggered();
+
+        void on_commitButton_clicked();
+
+    private:
         Ui::MainWindow *ui;
 
         void closeEvent(QCloseEvent* event);
