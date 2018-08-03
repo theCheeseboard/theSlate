@@ -30,15 +30,17 @@ QStringList GitIntegration::reloadStatus() {
     QString status = proc->readAll();
     proc->deleteLater();
 
-    QDirIterator iterator(rootDir, QDirIterator::Subdirectories);
-    while (iterator.hasNext()) {
-        iterator.next();
-        if (!watcher->files().contains(iterator.filePath()) && !watcher->directories().contains(iterator.filePath()) &&
-                iterator.fileName() != "." && iterator.fileName() != "..") {
-            watcher->addPath(iterator.filePath());
+    if (!needsInit()) {
+        QDirIterator iterator(rootDir, QDirIterator::Subdirectories);
+        while (iterator.hasNext()) {
+            iterator.next();
+            if (!watcher->files().contains(iterator.filePath()) && !watcher->directories().contains(iterator.filePath()) &&
+                    iterator.fileName() != "." && iterator.fileName() != "..") {
+                watcher->addPath(iterator.filePath());
+            }
         }
+        watcher->addPath(rootDir.path());
     }
-    watcher->addPath(rootDir.path());
 
     return status.split('\n');
 }
@@ -110,6 +112,8 @@ GitTask* GitIntegration::pull() {
             QString output = task->buffer();
             if (output.contains("CONFLICT")) {
                 emit task->failed("CONFLICT");
+            } else if (output.contains("Please commit")) {
+                emit task->failed("UNCLEAN");
             }
         }
         proc->deleteLater();

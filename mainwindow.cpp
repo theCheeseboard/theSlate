@@ -162,7 +162,7 @@ void MainWindow::newTab() {
 }
 
 void MainWindow::newTab(QString filename) {
-    if (currentDocument() == NULL || currentDocument()->isEdited() || currentDocument()->filename() != "") {
+    if (currentDocument() == nullptr || currentDocument()->isEdited() || currentDocument()->filename() != "") {
         newTab();
     }
 
@@ -188,7 +188,7 @@ void MainWindow::on_tabs_currentChanged(int arg1)
     }
 
     TextEditor* current = (TextEditor*) ui->tabs->widget(arg1);
-    if (current != NULL) {
+    if (current != nullptr) {
         current->setActive(true);
         #ifdef Q_OS_MAC
             if (current->filename() == "") {
@@ -270,27 +270,29 @@ void MainWindow::closeEvent(QCloseEvent *event) {
             if (tab->isEdited()) saveNeeded.append(tab);
         }
 
-        ExitSaveDialog* dialog = new ExitSaveDialog(saveNeeded, this);
-        dialog->setWindowFlag(Qt::Sheet);
-        dialog->setWindowModality(Qt::WindowModal);
-        connect(dialog, &ExitSaveDialog::closeWindow, [=] {
-            this->close();
-        });
-        connect(dialog, &ExitSaveDialog::closeTab, [=](TextEditor* tab) {
-            ui->tabButtons->removeWidget(tab->getTabButton());
-            ui->tabs->removeWidget(tab);
-            tab->deleteLater();
+        if (saveNeeded.count() > 0) {
+            ExitSaveDialog* dialog = new ExitSaveDialog(saveNeeded, this);
+            dialog->setWindowFlag(Qt::Sheet);
+            dialog->setWindowModality(Qt::WindowModal);
+            connect(dialog, &ExitSaveDialog::closeWindow, [=] {
+                this->close();
+            });
+            connect(dialog, &ExitSaveDialog::closeTab, [=](TextEditor* tab) {
+                ui->tabButtons->removeWidget(tab->getTabButton());
+                ui->tabs->removeWidget(tab);
+                tab->deleteLater();
 
-            if (ui->tabs->count() == 0) {
-                ui->closeButton->setVisible(false);
-                ui->actionSave->setEnabled(false);
-                ui->menuCode->setEnabled(false);
-            }
-        });
-        dialog->show();
+                if (ui->tabs->count() == 0) {
+                    ui->closeButton->setVisible(false);
+                    ui->actionSave->setEnabled(false);
+                    ui->menuCode->setEnabled(false);
+                }
+            });
+            dialog->show();
 
-        event->ignore();
-        return;
+            event->ignore();
+            return;
+        }
     }
 
     settings.setValue("window/state", this->saveState());
@@ -379,6 +381,7 @@ void MainWindow::on_projectTree_clicked(const QModelIndex &index)
 
         newTab();
         currentDocument()->openFile(fileModel->filePath(index));
+        updateGit();
     }
 }
 
@@ -417,6 +420,7 @@ void MainWindow::updateGit() {
                         item->setText(fileLocation + " [CONFLICTING]");
                         hasConflicts = true;
                     }
+                    item->setData(Qt::UserRole, fileLocation);
 
                     ui->modifiedChanges->addItem(item);
                 }
@@ -430,9 +434,9 @@ void MainWindow::updateGit() {
 void MainWindow::on_modifiedChanges_itemChanged(QListWidgetItem *item)
 {
     if (item->checkState() == Qt::Checked) {
-        currentDocument()->git->add(item->text());
+        currentDocument()->git->add(item->data(Qt::UserRole).toString());
     } else {
-        currentDocument()->git->unstage(item->text());
+        currentDocument()->git->unstage(item->data(Qt::UserRole).toString());
     }
 }
 
@@ -557,6 +561,12 @@ void MainWindow::on_actionPull_triggered()
             tToast* toast = new tToast();
             toast->setTitle(tr("Automatic merging failed"));
             toast->setText(tr("Conflicting files in working directory need to be resolved."));
+            toast->show(this);
+            connect(toast, SIGNAL(dismissed()), toast, SLOT(deleteLater()));
+        } else if (message == "UNCLEAN") {
+            tToast* toast = new tToast();
+            toast->setTitle(tr("Merging failed"));
+            toast->setText(tr("Your working directory is not clean. Commit your changes before you pull."));
             toast->show(this);
             connect(toast, SIGNAL(dismissed()), toast, SLOT(deleteLater()));
         }
