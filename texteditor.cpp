@@ -710,13 +710,13 @@ void TextEditor::updateMergedLinesColour() {
         } else {
             lineColor = QColor(150, 150, 150, 100);
         }
-        QColor textColor = QColor(0, 0, 0);
+        //QColor textColor = QColor(0, 0, 0);
         cur.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, mergeBlock.startLine);
 
         for (int i = 0; i < mergeBlock.length; i++) {
             QTextEdit::ExtraSelection selection;
             selection.format.setBackground(lineColor);
-            selection.format.setForeground(textColor);
+            //selection.format.setForeground(textColor);
             selection.format.setProperty(QTextFormat::FullWidthSelection, true);
             selection.format.setProperty(QTextFormat::UserFormat, "currentHighlight");
             selection.cursor = cur;

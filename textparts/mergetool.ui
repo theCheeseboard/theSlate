@@ -141,6 +141,9 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="differenceLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <item>
       <layout class="QVBoxLayout" name="localChangesLayout">
        <property name="spacing">
