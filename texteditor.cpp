@@ -459,7 +459,7 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
                     if (mergeDecisions.value(mergeBlock)) {
                         painter.setBrush(QColor(0, 150, 0));
                     } else {
-                        painter.setBrush(QColor(150, 0, 0));
+                        painter.setBrush(QColor(100, 100, 100));
                     }
                     painter.drawRect(0, top, leftMargin->width(), bottom - top);
                 }
@@ -678,24 +678,10 @@ void TextEditor::lockScrolling(TextEditor *other) {
 
 void TextEditor::setMergedLines(QList<MergeLines> mergedLines) {
     this->mergedLines = mergedLines;
-    QList<QTextEdit::ExtraSelection> extraSelections;
     for (MergeLines mergeBlock : mergedLines) {
-        QTextCursor cur(this->document());
-        QColor lineColor = QColor(255, 0, 0, 100);
-        cur.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, mergeBlock.startLine);
-
-        for (int i = 0; i < mergeBlock.length; i++) {
-            QTextEdit::ExtraSelection selection;
-            selection.format.setBackground(lineColor);
-            selection.format.setProperty(QTextFormat::FullWidthSelection, true);
-            selection.format.setProperty(QTextFormat::UserFormat, "currentHighlight");
-            selection.cursor = cur;
-            extraSelections.append(selection);
-            cur.movePosition(QTextCursor::NextBlock);
-        }
         mergeDecisions.insert(mergeBlock, false);
     }
-    setExtraSelectionGroup("mergeConflictResolution", extraSelections);
+    updateMergedLinesColour();
 }
 
 void TextEditor::toggleMergedLines(int line) {
@@ -705,12 +691,40 @@ void TextEditor::toggleMergedLines(int line) {
             if (mergeLine == line - 1) {
                 bool currentDecision = mergeDecisions.value(mergeBlock);
                 mergeDecisions.insert(mergeBlock, !currentDecision);
+                updateMergedLinesColour();
                 emit mergeDecision(mergeBlock, !currentDecision);
                 leftMargin->update();
                 return;
             }
         }
     }
+}
+
+void TextEditor::updateMergedLinesColour() {
+    QList<QTextEdit::ExtraSelection> extraSelections;
+    for (MergeLines mergeBlock : mergedLines) {
+        QTextCursor cur(this->document());
+        QBrush lineColor;
+        if (mergeDecisions.value(mergeBlock)) {
+            lineColor = QColor(0, 200, 0, 100);
+        } else {
+            lineColor = QColor(150, 150, 150, 100);
+        }
+        QColor textColor = QColor(0, 0, 0);
+        cur.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, mergeBlock.startLine);
+
+        for (int i = 0; i < mergeBlock.length; i++) {
+            QTextEdit::ExtraSelection selection;
+            selection.format.setBackground(lineColor);
+            selection.format.setForeground(textColor);
+            selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+            selection.format.setProperty(QTextFormat::UserFormat, "currentHighlight");
+            selection.cursor = cur;
+            extraSelections.append(selection);
+            cur.movePosition(QTextCursor::NextBlock);
+        }
+    }
+    setExtraSelectionGroup("mergeConflictResolution", extraSelections);
 }
 
 bool TextEditor::mergedLineIsAccepted(MergeLines mergedLine) {

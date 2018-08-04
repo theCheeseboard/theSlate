@@ -92,6 +92,7 @@ class TextEditor : public QPlainTextEdit
         void setMergedLines(QList<MergeLines> mergedLines);
         bool mergedLineIsAccepted(MergeLines mergedLine);
         void toggleMergedLines(int line);
+        void updateMergedLinesColour();
 
     private slots:
         void updateLeftMarginAreaWidth();

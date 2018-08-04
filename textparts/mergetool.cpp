@@ -22,6 +22,7 @@ MergeTool::MergeTool(QString unmergedFile, MainWindow* mainWindow, QWidget *pare
     remote = new TextEditor(mainWindow);
     endFile = new TextEditor(mainWindow);
     source->lockScrolling(remote);
+    source->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     source->setReadOnly(true);
     remote->setReadOnly(true);
@@ -30,8 +31,8 @@ MergeTool::MergeTool(QString unmergedFile, MainWindow* mainWindow, QWidget *pare
     remote->setFrameStyle(QFrame::NoFrame);
     endFile->setFrameStyle(QFrame::NoFrame);
 
-    ui->differenceLayout->addWidget(source);
-    ui->differenceLayout->addWidget(remote);
+    ui->localChangesLayout->addWidget(source);
+    ui->remoteChangesLayout->addWidget(remote);
     ((QBoxLayout*) this->layout())->insertWidget(5, endFile);
 
     //Parse the file line by line
@@ -57,6 +58,7 @@ MergeTool::MergeTool(QString unmergedFile, MainWindow* mainWindow, QWidget *pare
                 if (line.startsWith("<<<<<<<")) {
                     state = 1;
                     mergedStr.append(QString("======= %1\n").arg(mergeLines.count() + 1));
+                    ui->localChangesTitle->setText(tr("%1 (Current changes)").arg(line.mid(8).trimmed()));
                     remoteMergeContents.clear();
                     sourceMergeContents.clear();
                     currentMergeMetadata.startLine = currentLine;
@@ -81,6 +83,7 @@ MergeTool::MergeTool(QString unmergedFile, MainWindow* mainWindow, QWidget *pare
             case 2: {
                 if (line.startsWith(">>>>>>>")) {
                     state = 0;
+                    ui->remoteChangesTitle->setText(tr("%1 (Incoming changes)").arg(line.mid(8).trimmed()));
 
                     int linesChanged = qMax(linesInSource, linesInRemote);
                     currentMergeMetadata.length = linesChanged;
