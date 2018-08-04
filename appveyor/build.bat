@@ -15,7 +15,7 @@ cd ..
 qmake theSlate.pro
 nmake release
 mkdir deploy
-copy release\theslate.exe deploy
+copy slate\release\theslate.exe deploy
 copy "C:\Program Files\thelibs\lib\the-libs.dll" deploy
 cd deploy
 windeployqt theslate.exe
