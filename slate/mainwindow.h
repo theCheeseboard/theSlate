@@ -25,6 +25,7 @@
 #include "aboutwindow.h"
 #include "texteditor.h"
 #include "SourceControl/gitintegration.h"
+#include "syntaxhighlighting/syntaxhighlighting.h"
 
 #ifdef Q_OS_MAC
 #include <QMacToolBar>
@@ -88,7 +89,7 @@ class MainWindow : public QMainWindow
 
         void switchToFile(QString file, QString fakeFileContents = "");
 
-        void setCurrentDocumentHighlighting(SyntaxHighlighter::codeType type);
+        void setCurrentDocumentHighlighting(QSyntaxHighlighter* highlighter);
 
         void on_initGitButton_clicked();
 

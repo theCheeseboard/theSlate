@@ -12,6 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = theSlate
 TEMPLATE = app
 
+
 macx {
     QT += macextras
     ICON = icon.icns
@@ -22,12 +23,16 @@ macx {
 unix:!macx {
     QT += thelib
     TARGET = theslate
+    LIBS +=  -L../SyntaxHighlightingPlugins/ -lSyntaxHighlightingPlugins
 }
 
 win32 {
     QT += thelib
     INCLUDEPATH += "C:/Program Files/thelibs/include"
     LIBS += -L"C:/Program Files/thelibs/lib" -lthe-libs
+    CONFIG(debug, debug|release): LIBS += -L../SyntaxHighlightingPlugins/debug/
+    else: LIBS += -L../SyntaxHighlightingPlugins/release/
+    LIBS += -lSyntaxHighlightingPlugins
     RC_FILE = icon.rc
 }
 
@@ -72,7 +77,8 @@ HEADERS += \
     textparts/findreplace.h \
     exitsavedialog.h \
     textparts/topnotification.h \
-    textparts/mergetool.h
+    textparts/mergetool.h \
+    syntaxhighlighting/syntaxhighlighting.h
 
 FORMS += \
         mainwindow.ui \
@@ -104,7 +110,10 @@ unix:!macx {
     icon.path = /usr/share/icons/hicolor/scalable/apps/
     icon.files = icons/theslate.svg
 
-    INSTALLS += target translations desktop icon
+    headers.path = /usr/include/theslate
+    header.files = syntaxhighlighting/syntaxhighlighting.h
+
+    INSTALLS += target translations desktop icon headers
 }
 
 macx {
@@ -116,7 +125,7 @@ macx {
 
     QMAKE_BUNDLE_DATA = translations locversion
 
-    QMAKE_POST_LINK += $$quote(cp $${PWD}/icon.icns $${PWD}/app-dmg-background.png $${PWD}/node-appdmg-config.json $${OUT_PWD})
+    QMAKE_POST_LINK += $$quote(cp $${PWD}/icon.icns $${PWD}/app-dmg-background.png $${PWD}/node-appdmg-config.json $${OUT_PWD}/..)
 }
 
 DISTFILES += \

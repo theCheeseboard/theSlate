@@ -17,7 +17,6 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
     button = new TabButton(this);
     button->setText(tr("New Document"));
     this->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
-    hl = new SyntaxHighlighter(this->document());
 
     connect(this, &TextEditor::textChanged, [=] {
         if (firstEdit) {
@@ -143,7 +142,7 @@ void TextEditor::openFile(QString file) {
     emit editedChanged();
 
     QFileInfo fileInfo(file);
-    if (fileInfo.suffix() == "cpp") { //C++ File
+    /*if (fileInfo.suffix() == "cpp") { //C++ File
         hl->setCodeType(SyntaxHighlighter::cpp);
     } else if (fileInfo.suffix() == "py") { //Python File
         hl->setCodeType(SyntaxHighlighter::py);
@@ -153,7 +152,7 @@ void TextEditor::openFile(QString file) {
         hl->setCodeType(SyntaxHighlighter::json);
     } else if (fileInfo.suffix() == "tslprj") { //theSlate Project File
         hl->setCodeType(SyntaxHighlighter::json);
-    }
+    }*/
 
     if (git != nullptr) {
         git->deleteLater();
@@ -204,7 +203,7 @@ bool TextEditor::saveFile() {
     }
 }
 
-SyntaxHighlighter* TextEditor::highlighter() {
+QSyntaxHighlighter* TextEditor::highlighter() {
     return hl;
 }
 
@@ -325,7 +324,7 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
             cursor.movePosition(QTextCursor::Right);
             handle = true;
         }
-    } else if (event->text() == "\"" && highlighter()->currentCodeType() != SyntaxHighlighter::none) {
+    /*} else if (event->text() == "\"" && highlighter()->currentCodeType() != SyntaxHighlighter::none) {
         cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
         QString right = cursor.selectedText();
         cursor.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor, 2);
@@ -358,7 +357,7 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
                 cursor.movePosition(QTextCursor::Left);
             }
             handle = true;
-        }
+        }*/
     }
 
     if (handle) {
@@ -729,4 +728,15 @@ void TextEditor::updateMergedLinesColour() {
 
 bool TextEditor::mergedLineIsAccepted(MergeLines mergedLine) {
     return mergeDecisions.value(mergedLine);
+}
+
+void TextEditor::setHighlighter(QSyntaxHighlighter *hl) {
+    if (this->hl != nullptr) {
+        this->hl->deleteLater();
+    }
+    this->hl = hl;
+    if (hl != nullptr) {
+        hl->setDocument(this->document());
+        hl->rehighlight();
+    }
 }

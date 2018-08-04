@@ -1,3 +1,7 @@
 TEMPLATE = subdirs
 
-SUBDIRS = slate
+slateDir.depends = SyntaxHighlightingPlugins
+slateDir.subdir = slate
+
+SUBDIRS = slateDir \
+    SyntaxHighlightingPlugins

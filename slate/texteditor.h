@@ -12,8 +12,8 @@
 #include <QDebug>
 #include <QBoxLayout>
 #include <QFileSystemWatcher>
+#include <QSyntaxHighlighter>
 #include "tabbutton.h"
-#include "syntaxhighlighter.h"
 #include "SourceControl/gitintegration.h"
 #include "textparts/findreplace.h"
 #include "textparts/topnotification.h"
@@ -60,7 +60,7 @@ class TextEditor : public QPlainTextEdit
 
         QString filename();
         bool isEdited();
-        SyntaxHighlighter* highlighter();
+        QSyntaxHighlighter* highlighter();
 
         void leftMarginPaintEvent(QPaintEvent *event);
         int leftMarginWidth();
@@ -82,6 +82,8 @@ class TextEditor : public QPlainTextEdit
         bool saveFile();
         bool saveFileAskForFilename(bool saveAs = false);
         void revertFile();
+
+        void setHighlighter(QSyntaxHighlighter* hl);
 
         void setExtraSelectionGroup(QString extraSelectionGroup, QList<QTextEdit::ExtraSelection> selections);
         QList<QTextEdit::ExtraSelection> extraSelectionGroup(QString extraSelectionGroup);
@@ -114,7 +116,7 @@ class TextEditor : public QPlainTextEdit
         bool edited = false;
         bool firstEdit = true;
         QString fn;
-        SyntaxHighlighter* hl;
+        QSyntaxHighlighter* hl = nullptr;
         MainWindow* parentWindow;
 
         void keyPressEvent(QKeyEvent* event);

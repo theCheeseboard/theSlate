@@ -109,12 +109,50 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->gitProgressFrame->setVisible(false);
 
     //Set up code highlighting options
-    ui->menuCode->addAction("C++", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::cpp);});
+    /*ui->menuCode->addAction("C++", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::cpp);});
     ui->menuCode->addAction("JavaScript", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::js);});
     ui->menuCode->addAction("Python", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::py);});
     ui->menuCode->addAction("XML", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::xml);});
     ui->menuCode->addAction("Markdown", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::md);});
-    ui->menuCode->addAction("JavaScript Object Notation (JSON)", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::json);});
+    ui->menuCode->addAction("JavaScript Object Notation (JSON)", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::json);});*/
+
+    QObjectList availablePlugins;
+    availablePlugins.append(QPluginLoader::staticInstances());
+
+    QStringList pluginSearchPaths;
+    #if defined(Q_OS_WIN)
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../../SyntaxHighlightingPlugins/");
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "/syntaxhighlighting/");
+    #elif defined(Q_OS_MAC)
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "../syntaxhighlighting/");
+    #elif (defined Q_OS_UNIX)
+        pluginSearchPaths.append("/usr/share/theslate/syntaxhighlighting/");
+    #endif
+
+
+    for (QString path : pluginSearchPaths) {
+        QDirIterator it(path, QDirIterator::Subdirectories);
+        while (it.hasNext()) {
+            it.next();
+            QPluginLoader loader(it.filePath());
+            QObject* plugin = loader.instance();
+            if (plugin) {
+                availablePlugins.append(plugin);
+            }
+        }
+    }
+
+    for (QObject* obj : availablePlugins) {
+        SyntaxHighlighting* highlighter = qobject_cast<SyntaxHighlighting*>(obj);
+        if (highlighter) {
+            for (QString name : highlighter->availableHighlighters()) {
+                ui->menuCode->addAction(name, [=] {
+                    //highlighter->makeHighlighter(name);
+                    setCurrentDocumentHighlighting(highlighter->makeHighlighter(name));
+                });
+            }
+        }
+    }
 
     fileModel = new QFileSystemModel();
     fileModel->setRootPath(QDir::rootPath());
@@ -373,7 +411,7 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionNo_Highlighting_triggered()
 {
-    currentDocument()->highlighter()->setCodeType(SyntaxHighlighter::none);
+    setCurrentDocumentHighlighting(nullptr);
 }
 
 void MainWindow::on_projectTree_clicked(const QModelIndex &index)
@@ -474,11 +512,11 @@ void MainWindow::switchToFile(QString file, QString fakeFileContents) {
     }
 }
 
-void MainWindow::setCurrentDocumentHighlighting(SyntaxHighlighter::codeType type) {
+void MainWindow::setCurrentDocumentHighlighting(QSyntaxHighlighter* highlighting) {
     if (currentDocument() == nullptr) {
 
     } else {
-        currentDocument()->highlighter()->setCodeType(type);
+        currentDocument()->setHighlighter(highlighting);
     }
 }
 
