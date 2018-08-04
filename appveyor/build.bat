@@ -15,7 +15,9 @@ cd ..
 qmake theSlate.pro
 nmake release
 mkdir deploy
+mkdir deploy\syntaxhighlighting
 copy slate\release\theslate.exe deploy
+copy SyntaxHighlightingPlugins\release\SyntaxHighlightingPlugins.dll deploy\syntaxhighlighting
 copy "C:\Program Files\thelibs\lib\the-libs.dll" deploy
 cd deploy
 windeployqt theslate.exe
