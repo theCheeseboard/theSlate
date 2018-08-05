@@ -130,6 +130,7 @@ MainWindow::MainWindow(QWidget *parent) :
         pluginSearchPaths.append(QApplication::applicationDirPath() + "../syntaxhighlighting/");
     #elif (defined Q_OS_UNIX)
         pluginSearchPaths.append("/usr/share/theslate/syntaxhighlighting/");
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "../share/theslate/syntaxhighlighting/");
     #endif
 
 
