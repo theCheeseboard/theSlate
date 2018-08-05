@@ -74,7 +74,7 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addAction(ui->actionFind_and_Replace);
         singleMenu->addSeparator();
         singleMenu->addMenu(ui->menuCode);
-        singleMenu->addAction(ui->actionShowSourceControlWindow);
+        singleMenu->addMenu(ui->menuWindow);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionAbout);
         singleMenu->addAction(ui->actionExit);
@@ -92,6 +92,9 @@ MainWindow::MainWindow(QWidget *parent) :
     if (settings.contains("window/state")) {
         this->restoreState(settings.value("window/state").toByteArray());
     }
+
+    ui->menuWindow->addAction(ui->filesDock->toggleViewAction());
+    ui->menuWindow->addAction(ui->sourceControlDock->toggleViewAction());
 
     //Hide the project frame
     ui->projectFrame->setVisible(false);
@@ -137,6 +140,7 @@ MainWindow::MainWindow(QWidget *parent) :
             QPluginLoader loader(it.filePath());
             QObject* plugin = loader.instance();
             if (plugin) {
+                qDebug() << "Syntax Highlighting Plugin found at" << it.filePath();
                 availablePlugins.append(plugin);
             }
         }
@@ -523,16 +527,6 @@ void MainWindow::setCurrentDocumentHighlighting(QSyntaxHighlighter* highlighting
 void MainWindow::on_initGitButton_clicked()
 {
     currentDocument()->git->init();
-}
-
-void MainWindow::on_actionShowSourceControlWindow_triggered()
-{
-    ui->sourceControlDock->setVisible(!ui->sourceControlDock->isVisible());
-}
-
-void MainWindow::on_sourceControlDock_visibilityChanged(bool visible)
-{
-    ui->actionShowSourceControlWindow->setChecked(visible);
 }
 
 void MainWindow::on_actionFind_and_Replace_triggered()

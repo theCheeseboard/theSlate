@@ -93,10 +93,6 @@ class MainWindow : public QMainWindow
 
         void on_initGitButton_clicked();
 
-        void on_actionShowSourceControlWindow_triggered();
-
-        void on_sourceControlDock_visibilityChanged(bool visible);
-
         void on_actionFind_and_Replace_triggered();
 
         void on_actionSave_As_triggered();
@@ -110,6 +106,7 @@ class MainWindow : public QMainWindow
         void on_actionPush_triggered();
 
         void on_commitButton_clicked();
+
 
     private:
         Ui::MainWindow *ui;
