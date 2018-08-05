@@ -23,7 +23,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     #ifdef Q_OS_MACOS
         //Set up Mac toolbar
-        ui->toolBar->setVisible(false);
         ui->mainToolBar->setVisible(false);
 
         QMacToolBar* toolbar = new QMacToolBar();
