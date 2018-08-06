@@ -8,10 +8,6 @@ GitIntegration::GitIntegration(QDir rootDir, QObject *parent) : QObject(parent)
 {
     this->rootDir = rootDir;
 
-    watcher = new QFileSystemWatcher;
-    connect(watcher, SIGNAL(directoryChanged(QString)), this, SIGNAL(reloadStatusNeeded()));
-    connect(watcher, SIGNAL(fileChanged(QString)), this, SIGNAL(reloadStatusNeeded()));
-
     QTimer* timer = new QTimer(this);
     timer->setInterval(5000);
     connect(timer, SIGNAL(timeout()), this, SIGNAL(reloadStatusNeeded()));
@@ -20,50 +16,22 @@ GitIntegration::GitIntegration(QDir rootDir, QObject *parent) : QObject(parent)
     reloadStatus();
 }
 
-QStringList GitIntegration::reloadStatus() {
-    QProcess* proc = git("rev-parse --show-toplevel");
-    proc->waitForFinished();
+tPromise<QStringList>* GitIntegration::reloadStatus() {
+    return new tPromise<QStringList>([=](QString& error) {
+        QProcess* proc = git("rev-parse --show-toplevel");
 
-    if (proc->exitCode() == 0) {
-        QString newrootDir = proc->readAll().trimmed();
-        proc->setWorkingDirectory(newrootDir);
-    }
-    proc->deleteLater();
+        if (proc->exitCode() == 0) {
+            TPROMISE_CALL("setRootDir", Q_ARG(QString, proc->readAll().trimmed()));
+        }
+        proc->deleteLater();
 
-    proc = git("status --porcelain=1");
-    proc->waitForFinished();
-    QString status = proc->readAll();
-    proc->deleteLater();
+        proc = git("status --porcelain=1");
+        proc->waitForFinished();
+        QString status = proc->readAll();
+        proc->deleteLater();
 
-    updateWatcher();
-
-    return status.split('\n');
-}
-
-void GitIntegration::updateWatcher() {
-    /*if (!needsInit()) {
-        QFuture<QStringList> future = QtConcurrent::run([=] {
-            QStringList paths;
-
-            QDirIterator iterator(rootDir, QDirIterator::Subdirectories);
-            while (iterator.hasNext()) {
-                iterator.next();
-                if (!watcher->files().contains(iterator.filePath()) && !watcher->directories().contains(iterator.filePath()) &&
-                        iterator.fileName() != "." && iterator.fileName() != "..") {
-                    paths.append(iterator.filePath());
-                }
-            }
-            paths.append(rootDir.path());
-
-            return paths;
-        });
-
-        QFutureWatcher<QStringList>* watcher = new QFutureWatcher<QStringList>();
-        watcher->setFuture(future);
-        connect(watcher, &QFutureWatcher<QStringList>::finished, [=] {
-            this->watcher->addPaths(future.result());
-        });
-    }*/
+        return status.split('\n');
+    });
 }
 
 void GitIntegration::add(QString file) {
@@ -212,6 +180,10 @@ QProcess* GitIntegration::git(QString args) {
     proc->start(gitInstance + " " + args);
 
     return proc;
+}
+
+void GitIntegration::setRootDir(QDir rootDir) {
+    this->rootDir = rootDir;
 }
 
 GitTask::GitTask(QObject* parent) : QObject(parent) {

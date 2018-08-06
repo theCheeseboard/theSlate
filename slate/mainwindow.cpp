@@ -444,38 +444,39 @@ void MainWindow::updateGit() {
             ui->sourceControlPanes->setCurrentIndex(1);
         } else {
             ui->sourceControlPanes->setCurrentIndex(0);
-            QStringList changedFiles = currentDocument()->git->reloadStatus();
-            ui->modifiedChanges->clear();
+            currentDocument()->git->reloadStatus()->then([=](QStringList changedFiles) {
+                ui->modifiedChanges->clear();
 
-            bool hasConflicts = false;
-            for (QString changedFile : changedFiles) {
-                if (changedFile != "") {
-                    QChar flag1 = changedFile.at(0);
-                    QChar flag2 = changedFile.at(1);
-                    QString fileLocation = changedFile.mid(2);
+                bool hasConflicts = false;
+                for (QString changedFile : changedFiles) {
+                    if (changedFile != "") {
+                        QChar flag1 = changedFile.at(0);
+                        QChar flag2 = changedFile.at(1);
+                        QString fileLocation = changedFile.mid(2);
 
-                    QListWidgetItem* item = new QListWidgetItem;
-                    item->setText(fileLocation);
-                    item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-                    if (flag1 == 'A' || flag1 == 'M') {
-                        //Staged change
-                        item->setCheckState(Qt::Checked);
-                    } else {
-                        //Unstaged change
-                        item->setCheckState(Qt::Unchecked);
+                        QListWidgetItem* item = new QListWidgetItem;
+                        item->setText(fileLocation);
+                        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+                        if (flag1 == 'A' || flag1 == 'M') {
+                            //Staged change
+                            item->setCheckState(Qt::Checked);
+                        } else {
+                            //Unstaged change
+                            item->setCheckState(Qt::Unchecked);
+                        }
+
+                        if (flag1 == 'U' && flag2 == 'U') { //Merge conflict
+                            item->setText(fileLocation + " [CONFLICTING]");
+                            hasConflicts = true;
+                        }
+                        item->setData(Qt::UserRole, fileLocation);
+
+                        ui->modifiedChanges->addItem(item);
                     }
-
-                    if (flag1 == 'U' && flag2 == 'U') { //Merge conflict
-                        item->setText(fileLocation + " [CONFLICTING]");
-                        hasConflicts = true;
-                    }
-                    item->setData(Qt::UserRole, fileLocation);
-
-                    ui->modifiedChanges->addItem(item);
                 }
-            }
 
-            ui->gitMergeConflictsFrame->setVisible(hasConflicts);
+                ui->gitMergeConflictsFrame->setVisible(hasConflicts);
+            });
         }
     }
 }

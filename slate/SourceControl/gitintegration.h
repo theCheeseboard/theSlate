@@ -3,11 +3,11 @@
 
 #include <QObject>
 #include <QDir>
-#include <QFileSystemWatcher>
 #include <QProcess>
 #include <QMutex>
 #include <QFutureWatcher>
 #include <QtConcurrent/QtConcurrent>
+#include <tpromise.h>
 
 class GitTask : public QObject
 {
@@ -43,7 +43,7 @@ class GitIntegration : public QObject
         void reloadStatusNeeded();
 
     public slots:
-        QStringList reloadStatus();
+        tPromise<QStringList>* reloadStatus();
 
         void add(QString file);
         void rm(QString file, bool cache = false);
@@ -51,20 +51,19 @@ class GitIntegration : public QObject
         void abortMerge();
         QString commit(QString message);
 
-        void updateWatcher();
-
         GitTask* pull();
         GitTask* push();
 
         void init();
         bool needsInit();
 
+        void setRootDir(QDir rootDir);
+
     private:
         QDir rootDir;
         QString gitInstance;
 
         QProcess* git(QString args);
-        QFileSystemWatcher* watcher;
         QMutex watcherLocker;
 };
 
