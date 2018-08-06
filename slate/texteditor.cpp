@@ -159,7 +159,7 @@ void TextEditor::openFile(QString file) {
     }
     fileWatcher->removePaths(fileWatcher->files());
     fileWatcher->addPath(file);
-    git = new GitIntegration(fileInfo.absoluteDir());
+    git = new GitIntegration(fileInfo.absoluteDir().path());
     connect(git, SIGNAL(reloadStatusNeeded()), parentWindow, SLOT(updateGit()));
 
     if (this->toPlainText().contains("======")) {
@@ -188,7 +188,7 @@ bool TextEditor::saveFile(QString file) {
     }
     fileWatcher->removePaths(fileWatcher->files());
     fileWatcher->addPath(file);
-    git = new GitIntegration(QFileInfo(file).absoluteDir());
+    git = new GitIntegration(QFileInfo(file).absoluteDir().path());
     connect(git, SIGNAL(reloadStatusNeeded()), parentWindow, SLOT(updateGit()));
 
     fileWatcher->blockSignals(false);

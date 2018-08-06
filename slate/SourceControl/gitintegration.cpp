@@ -4,7 +4,7 @@
 #include <QDirIterator>
 #include <the-libs_global.h>
 
-GitIntegration::GitIntegration(QDir rootDir, QObject *parent) : QObject(parent)
+GitIntegration::GitIntegration(QString rootDir, QObject *parent) : QObject(parent)
 {
     this->rootDir = rootDir;
 
@@ -19,18 +19,25 @@ GitIntegration::GitIntegration(QDir rootDir, QObject *parent) : QObject(parent)
 tPromise<QStringList>* GitIntegration::reloadStatus() {
     return new tPromise<QStringList>([=](QString& error) {
         QProcess* proc = git("rev-parse --show-toplevel");
+        proc->waitForFinished();
 
         if (proc->exitCode() == 0) {
-            TPROMISE_CALL("setRootDir", Q_ARG(QString, proc->readAll().trimmed()));
+            QString rootDir = proc->readAll().trimmed();
+            if (this->rootDir != rootDir) {
+                this->setRootDir(rootDir);
+            }
+            proc->deleteLater();
+
+            proc = git("status --porcelain=1");
+            proc->waitForFinished();
+            QString status = proc->readAll();
+            proc->deleteLater();
+
+            return status.split('\n');
+        } else {
+            proc->deleteLater();
+            return QStringList();
         }
-        proc->deleteLater();
-
-        proc = git("status --porcelain=1");
-        proc->waitForFinished();
-        QString status = proc->readAll();
-        proc->deleteLater();
-
-        return status.split('\n');
     });
 }
 
@@ -176,14 +183,16 @@ QProcess* GitIntegration::git(QString args) {
 
     QProcess* proc = new QProcess();
     proc->setProcessChannelMode(QProcess::MergedChannels);
-    proc->setWorkingDirectory(rootDir.path());
+    proc->setWorkingDirectory(rootDir);
     proc->start(gitInstance + " " + args);
 
     return proc;
 }
 
-void GitIntegration::setRootDir(QDir rootDir) {
-    this->rootDir = rootDir;
+void GitIntegration::setRootDir(QString rootDir) {
+    QMutexLocker locker(&instanceLocker);
+    this->rootDir.clear();
+    this->rootDir.append(rootDir);
 }
 
 GitTask::GitTask(QObject* parent) : QObject(parent) {

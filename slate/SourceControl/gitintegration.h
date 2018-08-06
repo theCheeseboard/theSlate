@@ -35,7 +35,7 @@ class GitIntegration : public QObject
 {
     Q_OBJECT
     public:
-        explicit GitIntegration(QDir rootDir, QObject *parent = nullptr);
+        explicit GitIntegration(QString rootDir, QObject *parent = nullptr);
 
         static QStringList findGit();
 
@@ -57,14 +57,14 @@ class GitIntegration : public QObject
         void init();
         bool needsInit();
 
-        void setRootDir(QDir rootDir);
+        void setRootDir(QString rootDir);
 
     private:
-        QDir rootDir;
+        QString rootDir;
         QString gitInstance;
 
         QProcess* git(QString args);
-        QMutex watcherLocker;
+        QMutex instanceLocker;
 };
 
 #endif // GITINTEGRATION_H
