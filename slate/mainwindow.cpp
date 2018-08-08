@@ -70,6 +70,7 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addAction(ui->actionCopy);
         singleMenu->addAction(ui->actionPaste);
         singleMenu->addSeparator();
+        singleMenu->addAction(ui->actionPrint);
         singleMenu->addAction(ui->actionFind_and_Replace);
         singleMenu->addSeparator();
         singleMenu->addMenu(ui->menuCode);
@@ -128,6 +129,7 @@ MainWindow::MainWindow(QWidget *parent) :
     #elif defined(Q_OS_MAC)
         pluginSearchPaths.append(QApplication::applicationDirPath() + "../syntaxhighlighting/");
     #elif (defined Q_OS_UNIX)
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../SyntaxHighlightingPlugins/");
         pluginSearchPaths.append("/usr/share/theslate/syntaxhighlighting/");
         pluginSearchPaths.append(QApplication::applicationDirPath() + "../share/theslate/syntaxhighlighting/");
     #endif
@@ -682,4 +684,11 @@ void MainWindow::on_commitButton_clicked()
         });
         ui->commitMessage->setText("");
     }
+}
+
+void MainWindow::on_actionPrint_triggered()
+{
+    PrintDialog* d = new PrintDialog(currentDocument(), this);
+    d->setWindowModality(Qt::WindowModal);
+    d->show();
 }

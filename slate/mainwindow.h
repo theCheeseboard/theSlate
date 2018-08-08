@@ -26,6 +26,7 @@
 #include "texteditor.h"
 #include "SourceControl/gitintegration.h"
 #include "syntaxhighlighting/syntaxhighlighting.h"
+#include "textparts/printdialog.h"
 
 #ifdef Q_OS_MAC
 #include <QMacToolBar>
@@ -107,6 +108,8 @@ class MainWindow : public QMainWindow
 
         void on_commitButton_clicked();
 
+
+        void on_actionPrint_triggered();
 
     private:
         Ui::MainWindow *ui;

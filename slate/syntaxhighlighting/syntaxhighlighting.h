@@ -31,6 +31,7 @@ class SyntaxHighlighter : public QSyntaxHighlighter {
             } else if (color == "keyword") {
                 return QColor(255, 150, 0);
             }
+            return QColor();
         }
 
     private:

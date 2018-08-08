@@ -156,7 +156,7 @@
      <x>0</x>
      <y>0</y>
      <width>974</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
    <property name="nativeMenuBar">
@@ -213,7 +213,7 @@
    </widget>
    <widget class="QMenu" name="menuWindow">
     <property name="title">
-     <string>Window</string>
+     <string>Wi&amp;ndow</string>
     </property>
    </widget>
    <addaction name="menuFile"/>
@@ -272,7 +272,7 @@
   </widget>
   <widget class="QDockWidget" name="sourceControlDock">
    <property name="windowTitle">
-    <string>Source Control</string>
+    <string>Sou&amp;rce Control</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>

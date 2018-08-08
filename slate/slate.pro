@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui svg network concurrent
+QT       += core gui svg network concurrent printsupport
 CONFIG   += c++14
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -65,7 +65,8 @@ SOURCES += \
     textparts/findreplace.cpp \
     exitsavedialog.cpp \
     textparts/topnotification.cpp \
-    textparts/mergetool.cpp
+    textparts/mergetool.cpp \
+    textparts/printdialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -78,7 +79,8 @@ HEADERS += \
     exitsavedialog.h \
     textparts/topnotification.h \
     textparts/mergetool.h \
-    syntaxhighlighting/syntaxhighlighting.h
+    syntaxhighlighting/syntaxhighlighting.h \
+    textparts/printdialog.h
 
 FORMS += \
         mainwindow.ui \
@@ -86,7 +88,8 @@ FORMS += \
     textparts/findreplace.ui \
     exitsavedialog.ui \
     textparts/topnotification.ui \
-    textparts/mergetool.ui
+    textparts/mergetool.ui \
+    textparts/printdialog.ui
 
 RESOURCES += \
     icons.qrc \
