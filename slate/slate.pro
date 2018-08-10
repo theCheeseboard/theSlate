@@ -12,7 +12,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = theSlate
 TEMPLATE = app
 
-
 macx {
     QT += macextras
     ICON = icon.icns
@@ -126,7 +125,10 @@ macx {
     locversion.files = localisedresources/
     locversion.path = Contents/Resources
 
-    QMAKE_BUNDLE_DATA = translations locversion
+    syntax.files = ../SyntaxHighlightingPlugins/libSyntaxHighlightingPlugins.dylib
+    syntax.path = Contents/syntaxhighlighting/
+
+    QMAKE_BUNDLE_DATA = translations locversion syntax
 
     QMAKE_POST_LINK += $$quote(cp $${PWD}/icon.icns $${PWD}/app-dmg-background.png $${PWD}/node-appdmg-config.json $${OUT_PWD}/..)
 }

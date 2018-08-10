@@ -5,6 +5,7 @@
 
 #ifdef Q_OS_MAC
     #include <CoreFoundation/CFBundle.h>
+    QString bundlePath;
 #endif
 
 int main(int argc, char *argv[])
@@ -27,7 +28,8 @@ int main(int argc, char *argv[])
     CFStringRef macPath = CFURLCopyFileSystemPath(appUrlRef, kCFURLPOSIXPathStyle);
     const char *pathPtr = CFStringGetCStringPtr(macPath, CFStringGetSystemEncoding());
 
-    localTranslator.load(QLocale::system().name(), QString::fromLocal8Bit(pathPtr) + "/Contents/translations/");
+    bundlePath = QString::fromLocal8Bit(pathPtr);
+    localTranslator.load(QLocale::system().name(), bundlePath + "/Contents/translations/");
 
     CFRelease(appUrlRef);
     CFRelease(macPath);

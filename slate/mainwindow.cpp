@@ -7,6 +7,10 @@
 #include <QLineEdit>
 #include <ttoast.h>
 
+#ifdef Q_OS_MAC
+    extern QString bundlePath;
+#endif
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -127,7 +131,7 @@ MainWindow::MainWindow(QWidget *parent) :
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/../../SyntaxHighlightingPlugins/");
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/syntaxhighlighting/");
     #elif defined(Q_OS_MAC)
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "../syntaxhighlighting/");
+        pluginSearchPaths.append(bundlePath + "/Contents/syntaxhighlighting/");
     #elif (defined Q_OS_UNIX)
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/../SyntaxHighlightingPlugins/");
         pluginSearchPaths.append("/usr/share/theslate/syntaxhighlighting/");
