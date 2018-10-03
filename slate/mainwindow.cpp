@@ -6,6 +6,7 @@
 #include <QFileIconProvider>
 #include <QLineEdit>
 #include <ttoast.h>
+#include <QDesktopServices>
 
 #ifdef Q_OS_MAC
     extern QString bundlePath;
@@ -695,4 +696,14 @@ void MainWindow::on_actionPrint_triggered()
     PrintDialog* d = new PrintDialog(currentDocument(), this);
     d->setWindowModality(Qt::WindowModal);
     d->show();
+}
+
+void MainWindow::on_actionFile_Bug_triggered()
+{
+    QDesktopServices::openUrl(QUrl("https://github.com/vicr123/theslate/issues"));
+}
+
+void MainWindow::on_actionSources_triggered()
+{
+    QDesktopServices::openUrl(QUrl("https://github.com/vicr123/theslate"));
 }

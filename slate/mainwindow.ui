@@ -199,6 +199,9 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionFile_Bug"/>
+    <addaction name="actionSources"/>
+    <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuSource_Control">
@@ -1054,6 +1057,22 @@
   <action name="actionRevert">
    <property name="text">
     <string>&amp;Revert</string>
+   </property>
+  </action>
+  <action name="actionFile_Bug">
+   <property name="icon">
+    <iconset theme="tools-report-bug"/>
+   </property>
+   <property name="text">
+    <string>File Bug</string>
+   </property>
+  </action>
+  <action name="actionSources">
+   <property name="icon">
+    <iconset theme="commit"/>
+   </property>
+   <property name="text">
+    <string>Sources</string>
    </property>
   </action>
  </widget>

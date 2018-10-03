@@ -111,7 +111,11 @@ class MainWindow : public QMainWindow
 
         void on_actionPrint_triggered();
 
-    private:
+        void on_actionFile_Bug_triggered();
+
+        void on_actionSources_triggered();
+
+private:
         Ui::MainWindow *ui;
 
         void closeEvent(QCloseEvent* event);

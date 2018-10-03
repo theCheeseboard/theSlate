@@ -84,7 +84,7 @@
         </sizepolicy>
        </property>
        <property name="toolTip">
-        <string>Accept and Merge</string>
+        <string>Print</string>
        </property>
        <property name="text">
         <string/>
