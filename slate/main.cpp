@@ -50,6 +50,10 @@ int main(int argc, char *argv[])
     localTranslator.load(QLocale::system().name(), "/usr/share/theslate/translations");
 #endif
 
+#ifdef Q_OS_WIN
+    localTranslator.load(QLocale::system().name(), a.applicationDirPath() + "\\translations");
+#endif
+
     a.installTranslator(&localTranslator);
 
     QStringList args = a.arguments();
