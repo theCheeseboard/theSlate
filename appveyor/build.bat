@@ -1,6 +1,9 @@
-if "%APPVEYOR_REPO_TAG_NAME%"=="continuous" (
-    exit 1
-)
+if "%APPVEYOR_REPO_TAG_NAME%"=="continuous" (
+
+    exit 1
+
+)
+
 
 set QTDIR=C:\Qt\5.11\msvc2017_64
 set PATH=%PATH%;%QTDIR%\bin
@@ -15,8 +18,10 @@ cd ..
 qmake theSlate.pro
 nmake release
 mkdir deploy
-mkdir deploy\syntaxhighlightingmkdir deploy\translations
-copy slate\release\theslate.exe deploycopy slate\translations\*.qm deploy\translations
+mkdir deploy\syntaxhighlighting
+mkdir deploy\translations
+copy slate\release\theslate.exe deploy
+copy slate\translations\*.qm deploy\translations
 copy SyntaxHighlightingPlugins\release\SyntaxHighlightingPlugins.dll deploy\syntaxhighlighting
 copy "C:\Program Files\thelibs\lib\the-libs.dll" deploy
 cd deploy
