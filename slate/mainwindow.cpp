@@ -85,6 +85,7 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addMenu(ui->menuCode);
         singleMenu->addMenu(ui->menuWindow);
         singleMenu->addSeparator();
+        singleMenu->addAction(ui->actionSettings);
         singleMenu->addAction(ui->actionAbout);
         singleMenu->addAction(ui->actionExit);
 
