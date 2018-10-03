@@ -115,6 +115,12 @@ class MainWindow : public QMainWindow
 
         void on_actionSources_triggered();
 
+        void on_actionUndo_triggered();
+
+        void on_actionRedo_triggered();
+
+        void on_actionSettings_triggered();
+
 private:
         Ui::MainWindow *ui;
 

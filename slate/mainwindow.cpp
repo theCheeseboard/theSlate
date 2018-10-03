@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <ttoast.h>
 #include <QDesktopServices>
+#include "settingsdialog.h"
 
 #ifdef Q_OS_MAC
     extern QString bundlePath;
@@ -70,6 +71,9 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addAction(ui->actionSave_As);
         singleMenu->addAction(ui->actionSave_All);
         singleMenu->addAction(ui->actionRevert);
+        singleMenu->addSeparator();
+        singleMenu->addAction(ui->actionUndo);
+        singleMenu->addAction(ui->actionRedo);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionCut);
         singleMenu->addAction(ui->actionCopy);
@@ -706,4 +710,28 @@ void MainWindow::on_actionFile_Bug_triggered()
 void MainWindow::on_actionSources_triggered()
 {
     QDesktopServices::openUrl(QUrl("https://github.com/vicr123/theslate"));
+}
+
+void MainWindow::on_actionUndo_triggered()
+{
+    currentDocument()->undo();
+}
+
+void MainWindow::on_actionRedo_triggered()
+{
+    currentDocument()->redo();
+}
+
+void MainWindow::on_actionSettings_triggered()
+{
+    QEventLoop loop;
+
+    SettingsDialog* d = new SettingsDialog(this);
+    d->setWindowFlags(Qt::Sheet);
+    d->setWindowModality(Qt::WindowModal);
+    d->show();
+
+    connect(d, SIGNAL(finished(int)), &loop, SLOT(quit()));
+
+    loop.exec();
 }

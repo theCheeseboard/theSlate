@@ -8,6 +8,8 @@
     QString bundlePath;
 #endif
 
+
+
 int main(int argc, char *argv[])
 {
     tApplication a(argc, argv);
@@ -16,9 +18,18 @@ int main(int argc, char *argv[])
     a.setOrganizationDomain("");
     a.setApplicationName("theSlate");
 
+    qDebug() << QLibraryInfo::location(QLibraryInfo::TranslationsPath);
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     a.installTranslator(&qtTranslator);
+
+    QT_TRANSLATE_NOOP("MAC_APPLICATION_MENU", "Services");
+    QT_TRANSLATE_NOOP("MAC_APPLICATION_MENU", "Hide %1");
+    QT_TRANSLATE_NOOP("MAC_APPLICATION_MENU", "Hide Others");
+    QT_TRANSLATE_NOOP("MAC_APPLICATION_MENU", "Show All");
+    QT_TRANSLATE_NOOP("MAC_APPLICATION_MENU", "Preferences...");
+    QT_TRANSLATE_NOOP("MAC_APPLICATION_MENU", "About %1");
+    QT_TRANSLATE_NOOP("MAC_APPLICATION_MENU", "Quit %1");
 
     QTranslator localTranslator;
 #ifdef Q_OS_MAC
