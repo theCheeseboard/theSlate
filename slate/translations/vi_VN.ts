@@ -510,7 +510,7 @@
     <message>
         <location filename="../mainwindow.ui" line="1110"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cài Đặt</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1113"/>
@@ -746,24 +746,25 @@
     <name>SettingsDialog</name>
     <message>
         <location filename="../settingsdialog.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../settingsdialog.ui" line="113"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Cài Đặt</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="143"/>
         <location filename="../settingsdialog.ui" line="191"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>Chung</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="256"/>
+        <location filename="../settingsdialog.ui" line="225"/>
+        <source>Use System Monospace Font</source>
+        <translation>Dùng phông chữ đơn cách của máy</translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="309"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -774,12 +775,12 @@
         <translation>Tệp mới</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="573"/>
+        <location filename="../texteditor.cpp" line="574"/>
         <source>Revert Changes?</source>
         <translation>Hoàn lại thay đổi?</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="574"/>
+        <location filename="../texteditor.cpp" line="575"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation>Bạn có muốn bỏ thầy đối với tệp này không?</translation>
     </message>

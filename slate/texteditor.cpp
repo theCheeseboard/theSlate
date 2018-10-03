@@ -16,7 +16,6 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
 
     button = new TabButton(this);
     button->setText(tr("New Document"));
-    this->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
     connect(this, &TextEditor::textChanged, [=] {
         if (firstEdit) {
@@ -103,6 +102,8 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
             scrollingLock->verticalScrollBar()->setValue(position);
         }
     });
+
+    reloadSettings();
 }
 
 TextEditor::~TextEditor() {
@@ -739,4 +740,14 @@ void TextEditor::setHighlighter(QSyntaxHighlighter *hl) {
         hl->setDocument(this->document());
         hl->rehighlight();
     }
+}
+
+void TextEditor::reloadSettings() {
+    QFont f;
+    if (settings.value("font/useSystem", true).toBool()) {
+        f = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+    } else {
+        f = QFont(settings.value("font/textFontFamily", QFontDatabase::systemFont(QFontDatabase::FixedFont).family()).toString(), settings.value("font/textFontSize", QFontDatabase::systemFont(QFontDatabase::FixedFont).pointSize()).toInt());
+    }
+    this->setFont(f);
 }

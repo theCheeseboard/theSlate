@@ -2,6 +2,7 @@
 #define SETTINGSDIALOG_H
 
 #include <QDialog>
+#include <QSettings>
 
 namespace Ui {
 class SettingsDialog;
@@ -18,8 +19,16 @@ public:
 private slots:
     void on_categoryList_currentRowChanged(int currentRow);
 
+    void on_systemMonospaceFont_toggled(bool checked);
+
+    void on_fontBox_currentFontChanged(const QFont &f);
+
+    void on_sizeBox_valueChanged(int arg1);
+
 private:
     Ui::SettingsDialog *ui;
+
+    QSettings settings;
 };
 
 #endif // SETTINGSDIALOG_H

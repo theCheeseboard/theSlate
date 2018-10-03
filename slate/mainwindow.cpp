@@ -734,4 +734,11 @@ void MainWindow::on_actionSettings_triggered()
     connect(d, SIGNAL(finished(int)), &loop, SLOT(quit()));
 
     loop.exec();
+
+    for (int i = 0; i < ui->tabs->count(); i++) {
+        TextEditor* item = (TextEditor*) ui->tabs->widget(i);
+        item->reloadSettings();
+    }
+
+    d->deleteLater();
 }

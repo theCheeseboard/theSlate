@@ -749,10 +749,6 @@
     <name>SettingsDialog</name>
     <message>
         <location filename="../settingsdialog.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../settingsdialog.ui" line="113"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
@@ -764,7 +760,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="256"/>
+        <location filename="../settingsdialog.ui" line="225"/>
+        <source>Use System Monospace Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="309"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -777,12 +778,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="573"/>
+        <location filename="../texteditor.cpp" line="574"/>
         <source>Revert Changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="574"/>
+        <location filename="../texteditor.cpp" line="575"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation type="unfinished"></translation>
     </message>

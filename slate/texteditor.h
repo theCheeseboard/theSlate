@@ -96,6 +96,8 @@ class TextEditor : public QPlainTextEdit
         void toggleMergedLines(int line);
         void updateMergedLinesColour();
 
+        void reloadSettings();
+
     private slots:
         void updateLeftMarginAreaWidth();
         void highlightCurrentLine();
@@ -145,6 +147,8 @@ class TextEditor : public QPlainTextEdit
 
         int highlightedLine = -1;
         QList<MergeLines> mergedLines;
+
+        QSettings settings;
         QMap<MergeLines, bool> mergeDecisions;
 };
 
