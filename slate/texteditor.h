@@ -71,6 +71,7 @@ class TextEditor : public QPlainTextEdit
         void fileNameChanged();
         void editedChanged();
         void mergeDecision(MergeLines lines, bool on);
+        void titleChanged(QString title);
 
     public slots:
         TabButton* getTabButton();

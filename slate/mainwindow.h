@@ -22,6 +22,7 @@
 #include <QToolBar>
 #include <QSettings>
 #include <QDockWidget>
+#include <QTabBar>
 #include "aboutwindow.h"
 #include "texteditor.h"
 #include "SourceControl/gitintegration.h"
@@ -121,6 +122,8 @@ class MainWindow : public QMainWindow
 
         void on_actionSettings_triggered();
 
+        void on_actionClose_triggered();
+
 private:
         Ui::MainWindow *ui;
 
@@ -135,6 +138,7 @@ private:
         QString currentProjectFile = "";
         QString projectType = "";
         QSettings settings;
+        QTabBar* tabBar;
 };
 
 #endif // MAINWINDOW_H

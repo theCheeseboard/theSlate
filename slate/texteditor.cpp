@@ -27,6 +27,7 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
     });
     connect(this, &TextEditor::fileNameChanged, [=] {
         button->setText(QFileInfo(this->filename()).fileName());
+        emit titleChanged(QFileInfo(this->filename()).fileName());
     });
 
     leftMargin = new TextEditorLeftMargin(this);

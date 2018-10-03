@@ -60,6 +60,20 @@ MainWindow::MainWindow(QWidget *parent) :
         toolbar->setItems(allowedItems);
 
         toolbar->attachToWindow(this->windowHandle());
+
+        ui->tabFrame->setVisible(false);
+
+        tabBar = new QTabBar(this);
+        tabBar->setDocumentMode(true);
+        tabBar->setTabsClosable(true);
+        connect(tabBar, &QTabBar::currentChanged, [=](int index) {
+            ui->tabs->setCurrentIndex(index);
+        });
+        connect(tabBar, &QTabBar::tabCloseRequested, [=](int index) {
+            ui->tabs->setCurrentIndex(index);
+            closeCurrentTab();
+        });
+        ((QBoxLayout*) ui->centralWidget->layout())->insertWidget(0, tabBar);
     #else
         //Set up single menu except on macOS
         QMenu* singleMenu = new QMenu();
@@ -199,9 +213,6 @@ void MainWindow::newTab() {
     ui->tabs->setCurrentWidget(view);
 
     connect(view, SIGNAL(editedChanged()), this, SLOT(checkForEdits()));
-    connect(view->getTabButton(), &QPushButton::clicked, [=]{
-        ui->tabs->setCurrentWidget(view);
-    });
     connect(view, &TextEditor::fileNameChanged, [=] {
         if (currentDocument() == view) {
             this->setWindowFilePath(view->filename());
@@ -209,11 +220,24 @@ void MainWindow::newTab() {
             ui->projectTree->expand(fileModel->index(view->filename()));
         }
     });
-    ui->tabButtons->addWidget(view->getTabButton());
+
+    #ifdef Q_OS_MAC
+        int index = tabBar->addTab(view->getTabButton()->text());
+        tabBar->setCurrentIndex(index);
+        connect(view, &TextEditor::titleChanged, [=](QString title) {
+            tabBar->setTabText(ui->tabs->indexOf(view), title);
+        });
+    #else
+        connect(view->getTabButton(), &QPushButton::clicked, [=]{
+            ui->tabs->setCurrentWidget(view);
+        });
+        ui->tabButtons->addWidget(view->getTabButton());
+    #endif
 
     ui->closeButton->setVisible(true);
     ui->actionSave->setEnabled(true);
     ui->menuCode->setEnabled(true);
+    ui->actionClose->setEnabled(true);
 }
 
 void MainWindow::newTab(QString filename) {
@@ -257,6 +281,8 @@ void MainWindow::on_tabs_currentChanged(int arg1)
                 this->setWindowFilePath(current->filename());
                 this->setWindowTitle(file.fileName());
             }
+
+            tabBar->setCurrentIndex(arg1);
         #endif
         ui->projectTree->scrollTo(fileModel->index(current->filename()));
         ui->projectTree->expand(fileModel->index(current->filename()));
@@ -343,6 +369,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
                     ui->closeButton->setVisible(false);
                     ui->actionSave->setEnabled(false);
                     ui->menuCode->setEnabled(false);
+                    ui->actionClose->setEnabled(false);
                 }
             });
             dialog->show();
@@ -386,7 +413,13 @@ bool MainWindow::closeCurrentTab() {
     }
 
     TextEditor* current = currentDocument();
-    ui->tabButtons->removeWidget(current->getTabButton());
+
+    #ifdef Q_OS_MAC
+        tabBar->removeTab(ui->tabs->indexOf(current));
+    #else
+        ui->tabButtons->removeWidget(current->getTabButton());
+    #endif
+
     ui->tabs->removeWidget(current);
     current->deleteLater();
 
@@ -394,6 +427,7 @@ bool MainWindow::closeCurrentTab() {
         ui->closeButton->setVisible(false);
         ui->actionSave->setEnabled(false);
         ui->menuCode->setEnabled(false);
+        ui->actionClose->setEnabled(false);
     }
     return true;
 }
@@ -742,4 +776,9 @@ void MainWindow::on_actionSettings_triggered()
     }
 
     d->deleteLater();
+}
+
+void MainWindow::on_actionClose_triggered()
+{
+    closeCurrentTab();
 }
