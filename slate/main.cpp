@@ -8,8 +8,6 @@
     QString bundlePath;
 #endif
 
-
-
 int main(int argc, char *argv[])
 {
     tApplication a(argc, argv);

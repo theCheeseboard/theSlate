@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->mainToolBar->setIconSize(ui->mainToolBar->iconSize() * theLibsGlobal::getDPIScaling());
+
     #ifdef Q_OS_WIN
         //Set up special palette for Windows
         QPalette pal = this->palette();
@@ -66,12 +68,18 @@ MainWindow::MainWindow(QWidget *parent) :
         tabBar = new QTabBar(this);
         tabBar->setDocumentMode(true);
         tabBar->setTabsClosable(true);
+        tabBar->setMovable(true);
         connect(tabBar, &QTabBar::currentChanged, [=](int index) {
             ui->tabs->setCurrentIndex(index);
         });
         connect(tabBar, &QTabBar::tabCloseRequested, [=](int index) {
             ui->tabs->setCurrentIndex(index);
             closeCurrentTab();
+        });
+        connect(tabBar, &QTabBar::tabMoved, [=](int from, int to) {
+            QWidget* w = ui->tabs->widget(from);
+            ui->tabs->removeWidget(w);
+            ui->tabs->insertWidget(to, w);
         });
         ((QBoxLayout*) ui->centralWidget->layout())->insertWidget(0, tabBar);
     #else
