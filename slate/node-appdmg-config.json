@@ -1,6 +1,6 @@
 {
     "title": "theSlate",
-    "icon": "icon.icns",
+    "icon": "dmgicon.icns",
     "background": "app-dmg-background.png",
     "icon-size": 48,
     "window": {
