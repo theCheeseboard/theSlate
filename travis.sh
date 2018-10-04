@@ -42,7 +42,7 @@ if [ $STAGE = "script" ]; then
     make
     echo "[TRAVIS] Embedding the-libs"
     mkdir slate/theSlate.app/Contents/Libraries
-    cp  /usr/local/lib/libthe-libs*.dylib slate/theSlate.app/Contents/Libraries/
+    cp /usr/local/lib/libthe-libs*.dylib slate/theSlate.app/Contents/Libraries/
     install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib slate/theSlate.app/Contents/MacOS/theSlate
     install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtWidgets @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtWidgets slate/theSlate.app/Libraries/libthe-libs.1.dylib
     install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtGui @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtGui slate/theSlate.app/Libraries/libthe-libs.1.dylib
