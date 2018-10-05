@@ -2,11 +2,56 @@
 #include <tapplication.h>
 #include <QTranslator>
 #include <QLibraryInfo>
+#include <QMenuBar>
+#include <QMenu>
+#include <QDesktopServices>
+#include "aboutwindow.h"
+#include "settingsdialog.h"
 
 #ifdef Q_OS_MAC
     #include <CoreFoundation/CFBundle.h>
     QString bundlePath;
 #endif
+
+void setupMacMenubar() {
+    //Set up macOS menu bar when no window is open
+    QMenuBar* menubar = new QMenuBar();
+
+    QMenu* fileMenu = new QMenu(tApplication::translate("MainWindow", "File"));
+    fileMenu->addAction(tApplication::translate("MainWindow", "New"), [=] {
+        MainWindow* w = new MainWindow();
+        w->show();
+    }, QKeySequence(Qt::ControlModifier | Qt::Key_N));
+    fileMenu->addAction(tApplication::translate("MainWindow", "New Window"), [=] {
+        MainWindow* w = new MainWindow();
+        w->show();
+    });
+    fileMenu->addSeparator();
+    fileMenu->addAction(tApplication::translate("MainWindow", "Settings"), [=] {
+        SettingsDialog d;
+        d.exec();
+    })->setMenuRole(QAction::PreferencesRole);
+    fileMenu->addSeparator();
+    fileMenu->addAction(tApplication::translate("MainWindow", "Exit"), [=] {
+        tApplication::quit();
+    })->setMenuRole(QAction::QuitRole);
+    menubar->addMenu(fileMenu);
+
+    QMenu* helpMenu = new QMenu(tApplication::translate("MainWindow", "Help"));
+    helpMenu->addAction(tApplication::translate("MainWindow", "File Bug"), [=] {
+        QDesktopServices::openUrl(QUrl("https://github.com/vicr123/theslate/issues"));
+    });
+    helpMenu->addAction(tApplication::translate("MainWindow", "Sources"), [=] {
+        QDesktopServices::openUrl(QUrl("https://github.com/vicr123/theslate"));
+    });
+    helpMenu->addSeparator();
+    helpMenu->addAction(tApplication::translate("MainWindow", "About"), [=] {
+        AboutWindow aboutWindow;
+        aboutWindow.exec();
+    })->setMenuRole(QAction::AboutRole);
+
+    menubar->addMenu(helpMenu);
+}
 
 int main(int argc, char *argv[])
 {
@@ -32,6 +77,7 @@ int main(int argc, char *argv[])
     QTranslator localTranslator;
 #ifdef Q_OS_MAC
     a.setAttribute(Qt::AA_DontShowIconsInMenus, true);
+    a.setQuitOnLastWindowClosed(false);
 
     CFURLRef appUrlRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
     CFStringRef macPath = CFURLCopyFileSystemPath(appUrlRef, kCFURLPOSIXPathStyle);
@@ -53,6 +99,10 @@ int main(int argc, char *argv[])
 #endif
 
     a.installTranslator(&localTranslator);
+
+#ifdef Q_OS_MAC
+    setupMacMenubar();
+#endif
 
     QStringList args = a.arguments();
     args.takeFirst();

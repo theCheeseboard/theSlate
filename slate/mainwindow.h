@@ -124,6 +124,8 @@ class MainWindow : public QMainWindow
 
         void on_actionClose_triggered();
 
+        void on_actionNew_Window_triggered();
+
 private:
         Ui::MainWindow *ui;
 
@@ -139,6 +141,8 @@ private:
         QString projectType = "";
         QSettings settings;
         QTabBar* tabBar;
+
+        static int numberWindowsOpen;
 };
 
 #endif // MAINWINDOW_H

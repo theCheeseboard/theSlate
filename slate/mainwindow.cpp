@@ -13,11 +13,15 @@
     extern QString bundlePath;
 #endif
 
+int MainWindow::numberWindowsOpen = 0;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    numberWindowsOpen++;
 
     ui->mainToolBar->setIconSize(ui->mainToolBar->iconSize() * theLibsGlobal::getDPIScaling());
 
@@ -86,6 +90,7 @@ MainWindow::MainWindow(QWidget *parent) :
         //Set up single menu except on macOS
         QMenu* singleMenu = new QMenu();
         singleMenu->addAction(ui->actionNew);
+        singleMenu->addAction(ui->actionNewWindow);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionOpen);
         singleMenu->addSeparator();
@@ -302,6 +307,10 @@ void MainWindow::on_tabs_currentChanged(int arg1)
 void MainWindow::on_actionExit_triggered()
 {
     QApplication::closeAllWindows();
+    if (numberWindowsOpen == 0) {
+        QApplication::exit();
+    }
+
 }
 
 void MainWindow::on_actionOpen_triggered()
@@ -389,6 +398,8 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 
     settings.setValue("window/state", this->saveState());
     event->accept();
+    this->deleteLater();
+    numberWindowsOpen--;
 }
 
 bool MainWindow::saveCurrentDocument(bool saveAs) {
@@ -789,4 +800,10 @@ void MainWindow::on_actionSettings_triggered()
 void MainWindow::on_actionClose_triggered()
 {
     closeCurrentTab();
+}
+
+void MainWindow::on_actionNew_Window_triggered()
+{
+    MainWindow* w = new MainWindow();
+    w->show();
 }
