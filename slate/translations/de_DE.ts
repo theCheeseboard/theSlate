@@ -204,418 +204,418 @@
     <message>
         <location filename="../mainwindow.ui" line="399"/>
         <source>Git Task</source>
-        <translation type="unfinished"></translation>
+        <translation>Git Aufgabe</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="406"/>
         <source>Git Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Git Ausgabe</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="446"/>
         <source>Merge Conflicts</source>
-        <translation type="unfinished"></translation>
+        <translation>Konflikte zusammenführen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="453"/>
         <source>There are merge conflicts that need to be resolved in this repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Es gibt Zusammenführungskonflikte, die in diesem Repository gelöst werden müssen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="478"/>
         <source>Abort Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Merge abbrechen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="541"/>
         <source>Git Repository not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Git Repository nicht gefunden</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="548"/>
         <source>Initialize a Git repository?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Git-Repository initialisieren?</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="576"/>
         <source>Initialize Git Repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Git Repository initialisieren</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="658"/>
         <source>Git Integration</source>
-        <translation type="unfinished"></translation>
+        <translation>Git-Integration</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="665"/>
         <source>Save this file to enable Git integration</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichern Sie diese Datei, um die Git-Integration zu aktivieren</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="758"/>
         <source>Git not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Git nicht gefunden</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="765"/>
         <source>To use Git integration, you&apos;ll need to install Git.</source>
-        <translation type="unfinished"></translation>
+        <translation>Um die Git-Integration nutzen zu können, müssen Sie Git installieren.</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="801"/>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Neu</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="804"/>
         <location filename="../mainwindow.cpp" line="39"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation>Neu</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="807"/>
         <source>Ctrl+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+N</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="816"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Speichern</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="819"/>
         <location filename="../mainwindow.cpp" line="53"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="822"/>
         <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+S</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="831"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Öffnen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="834"/>
         <location filename="../mainwindow.cpp" line="46"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffnen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="837"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+O</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="846"/>
         <source>&amp;Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Verlassen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="849"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+Q</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="861"/>
         <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kopieren</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="864"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopieren</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="867"/>
         <source>Ctrl+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+C</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="876"/>
         <source>C&amp;ut</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ausschneiden</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="879"/>
         <source>Cut</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausschneiden</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="882"/>
         <source>Ctrl+X</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+X</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="891"/>
         <source>&amp;Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Einfügen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="894"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Einfügen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="897"/>
         <source>Ctrl+V</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+V</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="902"/>
         <source>&amp;No Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Keine Hervorhebung</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="911"/>
         <source>&amp;About</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Über</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="923"/>
         <source>New theSlate &amp;Project</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Neues theSlate Projekt</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="926"/>
         <source>Ctrl+Shift+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+Shift+N</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="935"/>
         <source>&amp;Print</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Drucken</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="938"/>
         <source>Ctrl+P</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+P</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="943"/>
         <source>New File in Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Datei im Projekt</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="952"/>
         <source>File &amp;in Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei &amp;im Projekt</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="957"/>
         <source>&amp;Push</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Drücken</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="965"/>
         <source>P&amp;ull</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ziehen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="970"/>
         <source>&amp;Fetch</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Holen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="979"/>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Start</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="982"/>
         <source>F5</source>
-        <translation type="unfinished"></translation>
+        <translation>F5</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="991"/>
         <source>Sa&amp;ve All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Alles Speichern</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="994"/>
         <source>Ctrl+Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+Alt+S</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1003"/>
         <source>Continue</source>
-        <translation type="unfinished"></translation>
+        <translation>Fortsetzen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1012"/>
         <source>Step Into</source>
-        <translation type="unfinished"></translation>
+        <translation>Hineinsteigen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1021"/>
         <source>Step Over</source>
-        <translation type="unfinished"></translation>
+        <translation>Schritt über</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1030"/>
         <source>Step Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Tritt heraus</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1039"/>
         <source>Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Pause</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1048"/>
         <source>&amp;Find and Replace...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Suchen und Ersetzen...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1051"/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+F</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1056"/>
         <source>Save As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichern unter...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1059"/>
         <source>Ctrl+Shift+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+Shift+S</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1064"/>
         <source>&amp;Revert</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zurückkehren</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1072"/>
         <source>File Bug</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei Fehler</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1080"/>
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Quellen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1088"/>
         <source>Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>Rückgängig machen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1091"/>
         <source>Ctrl+Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+Z</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1099"/>
         <source>Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiederholen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1102"/>
         <source>Ctrl+Shift+Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+Shift+Z</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1110"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1113"/>
         <source>Ctrl+,</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg+,</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="370"/>
         <source>Save Changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Änderungen speichern?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="371"/>
         <source>Do you want to save your changes to this document?</source>
-        <translation type="unfinished"></translation>
+        <translation>Möchten Sie Ihre Änderungen in diesem Dokument speichern?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="597"/>
         <location filename="../mainwindow.cpp" line="604"/>
         <source>Git Pull</source>
-        <translation type="unfinished"></translation>
+        <translation>Git Ziehen</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="598"/>
         <source>Pulling from remote repository...</source>
-        <translation type="unfinished"></translation>
+        <translation>Aus dem Remote-Repository ziehen ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="605"/>
         <source>Local repository updated</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokales Repository aktualisiert</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="613"/>
         <source>Automatic merging failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatische Zusammenführung fehlgeschlagen</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="614"/>
         <source>Conflicting files in working directory need to be resolved.</source>
-        <translation type="unfinished"></translation>
+        <translation>Widersprüchliche Dateien im Arbeitsverzeichnis müssen aufgelöst werden.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="619"/>
         <source>Merging failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Zusammenführung fehlgeschlagen</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="620"/>
         <source>Your working directory is not clean. Commit your changes before you pull.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dein Arbeitsverzeichnis ist nicht sauber. Übernehmen Sie Ihre Änderungen, bevor Sie ziehen.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="632"/>
         <location filename="../mainwindow.cpp" line="639"/>
         <source>Git Push</source>
-        <translation type="unfinished"></translation>
+        <translation>Git drücken</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="633"/>
         <source>Pushing to remote repository...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum Remote-Repository drücken...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="640"/>
         <source>Files were pushed to the remote repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Dateien wurden an das Remote-Repository gesendet</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="651"/>
         <source>Push Rejected</source>
-        <translation type="unfinished"></translation>
+        <translation>Drücken abgelehnt</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="652"/>
         <source>Your local Git repository is not up to date. You&apos;ll need to pull from the remote repository before you can push.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ihr lokales Git-Repository ist nicht auf dem neuesten Stand. Sie müssen aus dem Remote-Repository ziehen, bevor Sie drücken können.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="671"/>
         <location filename="../mainwindow.cpp" line="683"/>
         <source>Git Commit</source>
-        <translation type="unfinished"></translation>
+        <translation>Git Commit</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="672"/>
         <source>A commit message is required.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Commit-Nachricht ist erforderlich.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="684"/>
         <source>Your local files have been committed. Your HEAD now points to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ihre lokalen Dateien wurden festgeschrieben. Dein KOPF zeigt jetzt auf %1</translation>
     </message>
 </context>
 <context>
@@ -624,52 +624,52 @@
         <location filename="../textparts/mergetool.ui" line="14"/>
         <location filename="../textparts/mergetool.ui" line="71"/>
         <source>Resolve a merge conflict</source>
-        <translation type="unfinished"></translation>
+        <translation>Beheben Sie einen Zusammenführungskonflikt</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.ui" line="87"/>
         <location filename="../textparts/mergetool.ui" line="219"/>
         <source>Accept and Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Akzeptieren und zusammenführen</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.ui" line="119"/>
         <source>Select portions of the file to keep by clicking on the margin of each file. You can further edit the file by editing the bottom pane.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen Sie Teile der Datei aus, die Sie behalten möchten, indem Sie auf den Rand jeder Datei klicken. Sie können die Datei weiter bearbeiten, indem Sie das untere Fenster bearbeiten.</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.ui" line="212"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="61"/>
         <source>%1 (Current changes)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (Aktuelle Änderungen)</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="86"/>
         <source>%1 (Incoming changes)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (Eingehende Änderungen)</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="150"/>
         <location filename="../textparts/mergetool.cpp" line="167"/>
         <location filename="../textparts/mergetool.cpp" line="182"/>
         <source>[Awaiting merge decision]</source>
-        <translation type="unfinished"></translation>
+        <translation>[Erwartung der Zusammenführung]</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="170"/>
         <location filename="../textparts/mergetool.cpp" line="173"/>
         <source>Unresolved Merge Conflicts</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungelöste Zusammenführungskonflikte</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="171"/>
         <location filename="../textparts/mergetool.cpp" line="174"/>
         <source>You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie haben immer noch Zusammenführungskonflikte, für die Sie noch keine Auflösung ausgewählt haben. Sind Sie sicher, dass Sie diese Lösung noch akzeptieren möchten?</translation>
     </message>
 </context>
 <context>
@@ -716,27 +716,27 @@
     <message>
         <location filename="../textparts/printdialog.ui" line="284"/>
         <source>Portrait</source>
-        <translation type="unfinished"></translation>
+        <translation>Hochformat</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="294"/>
         <source>&amp;Landscape</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Querformat</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="304"/>
         <source>Orientation</source>
-        <translation type="unfinished"></translation>
+        <translation>Orientierung</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="314"/>
         <source>Print Double Sided</source>
-        <translation type="unfinished"></translation>
+        <translation>doppelseitig Drucken</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="367"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
