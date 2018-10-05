@@ -6,27 +6,27 @@
     <message>
         <location filename="../aboutwindow.ui" line="14"/>
         <source>About theSlate</source>
-        <translation type="unfinished"></translation>
+        <translation>Über theSlate</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="25"/>
         <source>theSlate 0.3</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate 0.3</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="32"/>
         <source>Text Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Text Editor</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="52"/>
         <source>Copyright (c) Victor Tran 2018. Licensed under the terms of the GNU General Public License, version 3 or later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Copyright (c) Victor Tran 2018. Lizenziert unter den Bedingungen der GNU General Public License, Version 3 oder höher.</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="77"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Ok</translation>
     </message>
 </context>
 <context>
@@ -35,124 +35,118 @@
         <location filename="../exitsavedialog.ui" line="14"/>
         <location filename="../exitsavedialog.ui" line="25"/>
         <source>Modified Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifizierte Dateien</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="32"/>
         <source>The following files require your attention</source>
-        <translation type="unfinished"></translation>
+        <translation>Die folgenden Dateien brauchen deine Aufmerksamkeit</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="47"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="70"/>
         <location filename="../exitsavedialog.cpp" line="37"/>
         <source>Save All</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles Speichern</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="80"/>
         <location filename="../exitsavedialog.cpp" line="38"/>
         <source>Discard All</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles Verwerfen</translation>
     </message>
     <message numerus="yes">
         <location filename="../exitsavedialog.cpp" line="41"/>
         <source>Save %n</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>Speicher %n</numerusform>
+        <numerusform>Speicher %n</numerusform>
+        </translation></message>
     <message numerus="yes">
         <location filename="../exitsavedialog.cpp" line="42"/>
         <source>Discard %n</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>Verwerfe %n</numerusform>
+        <numerusform>Verwerfe %n</numerusform>
+        </translation></message>
 </context>
 <context>
     <name>FindReplace</name>
     <message>
         <location filename="../textparts/findreplace.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="46"/>
         <source>Find</source>
-        <translation type="unfinished"></translation>
+        <translation>Finden</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="111"/>
         <source>Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>Ersetzen</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="122"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Fertig</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="142"/>
         <source>Replace All</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles Ersetzen</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="73"/>
         <source>No matches</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Treffer</translation>
     </message>
     <message numerus="yes">
         <location filename="../textparts/findreplace.cpp" line="75"/>
         <source>%n matches</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n Treffer</numerusform>
+        <numerusform>%n Treffer</numerusform>
+        </translation></message>
 </context>
 <context>
     <name>MAC_APPLICATION_MENU</name>
     <message>
         <location filename="../main.cpp" line="26"/>
         <source>Services</source>
-        <translation type="unfinished"></translation>
+        <translation>Services</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="27"/>
         <source>Hide %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Verstecke %1</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="28"/>
         <source>Hide Others</source>
-        <translation type="unfinished"></translation>
+        <translation>Verstecke Andere</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="29"/>
         <source>Show All</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige Alles</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="30"/>
         <source>Preferences...</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen ...</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="31"/>
         <source>About %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Über %1</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="32"/>
         <source>Quit %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Verlasse %1</translation>
     </message>
 </context>
 <context>
@@ -160,52 +154,52 @@
     <message>
         <location filename="../mainwindow.ui" line="17"/>
         <source>theSlate</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="167"/>
         <source>Fi&amp;le</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Datei</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="186"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="199"/>
         <source>&amp;Code</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Code</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="205"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Hilfe</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="214"/>
         <source>So&amp;urce Control</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Quellcodeverwaltung</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="224"/>
         <source>Wi&amp;ndow</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fenster</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="256"/>
         <source>Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Dateien</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="283"/>
         <source>Sou&amp;rce Control</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Quellcodeverwaltung</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="345"/>
         <source>Commit Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Nachricht einreichen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="399"/>
@@ -687,37 +681,37 @@
         <location filename="../textparts/printdialog.ui" line="139"/>
         <location filename="../textparts/printdialog.ui" line="374"/>
         <source>Print</source>
-        <translation type="unfinished"></translation>
+        <translation>Drucken</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="169"/>
         <source>Copies</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopien</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="176"/>
         <source>Destination</source>
-        <translation type="unfinished"></translation>
+        <translation>Ziel</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="208"/>
         <source>E&amp;verything</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Alles</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="218"/>
         <source>Selected Area</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählter Bereich</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="225"/>
         <source>Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Seiten</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="247"/>
         <source>-</source>
-        <translation type="unfinished"></translation>
+        <translation>-</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="284"/>
@@ -750,23 +744,23 @@
     <message>
         <location filename="../settingsdialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="113"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="143"/>
         <location filename="../settingsdialog.ui" line="191"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>Allgemeines</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="256"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Ok</translation>
     </message>
 </context>
 <context>
@@ -774,17 +768,17 @@
     <message>
         <location filename="../texteditor.cpp" line="18"/>
         <source>New Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Dokument</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="573"/>
         <source>Revert Changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Änderungen rückgängig machen?</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="574"/>
         <source>Do you want to revert all the edits made to this document?</source>
-        <translation type="unfinished"></translation>
+        <translation>Möchten Sie alle Änderungen rückgängig machen, die an diesem Dokument vorgenommen wurden?</translation>
     </message>
 </context>
 <context>
@@ -792,17 +786,17 @@
     <message>
         <location filename="../textparts/topnotification.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="../textparts/topnotification.ui" line="32"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Titel</translation>
     </message>
     <message>
         <location filename="../textparts/topnotification.ui" line="45"/>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Nachricht</translation>
     </message>
 </context>
 </TS>
