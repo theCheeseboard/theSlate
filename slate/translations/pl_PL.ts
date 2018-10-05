@@ -708,21 +708,21 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/mergetool.cpp" line="150"/>
-        <location filename="../textparts/mergetool.cpp" line="167"/>
-        <location filename="../textparts/mergetool.cpp" line="182"/>
+        <location filename="../textparts/mergetool.cpp" line="161"/>
+        <location filename="../textparts/mergetool.cpp" line="178"/>
+        <location filename="../textparts/mergetool.cpp" line="193"/>
         <source>[Awaiting merge decision]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/mergetool.cpp" line="170"/>
-        <location filename="../textparts/mergetool.cpp" line="173"/>
+        <location filename="../textparts/mergetool.cpp" line="181"/>
+        <location filename="../textparts/mergetool.cpp" line="184"/>
         <source>Unresolved Merge Conflicts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/mergetool.cpp" line="171"/>
-        <location filename="../textparts/mergetool.cpp" line="174"/>
+        <location filename="../textparts/mergetool.cpp" line="182"/>
+        <location filename="../textparts/mergetool.cpp" line="185"/>
         <source>You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?</source>
         <translation type="unfinished"></translation>
     </message>

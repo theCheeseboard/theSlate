@@ -87,8 +87,19 @@ MergeTool::MergeTool(QString unmergedFile, MainWindow* mainWindow, QWidget *pare
 
                     int linesChanged = qMax(linesInSource, linesInRemote);
                     currentMergeMetadata.length = linesChanged;
-                    currentMergeMetadata.remote = remoteMergeContents.chopped(1);
-                    currentMergeMetadata.source = sourceMergeContents.chopped(1);
+
+                    if (remoteMergeContents.length() == 0) {
+                        currentMergeMetadata.remote = "";
+                    } else {
+                        currentMergeMetadata.remote = remoteMergeContents.chopped(1);
+                    }
+
+                    if (sourceMergeContents.length() == 0) {
+                        currentMergeMetadata.source = "";
+                    } else {
+                        currentMergeMetadata.source = sourceMergeContents.chopped(1);
+                    }
+
                     mergeLines.append(currentMergeMetadata);
                     currentLine += linesChanged;
 
