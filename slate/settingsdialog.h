@@ -25,6 +25,8 @@ private slots:
 
     void on_sizeBox_valueChanged(int arg1);
 
+    void on_showHiddenFiles_toggled(bool checked);
+
 private:
     Ui::SettingsDialog *ui;
 

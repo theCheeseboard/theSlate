@@ -206,6 +206,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->projectTree->setRootIndex(fileModel->index(QDir::rootPath()));
     ui->projectTree->scrollTo(fileModel->index(QDir::homePath()));
     ui->projectTree->expand(fileModel->index(QDir::homePath()));
+
+    if (settings.value("files/showHidden").toBool()) {
+        fileModel->setFilter(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Hidden);
+    }
 }
 
 MainWindow::~MainWindow()

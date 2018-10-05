@@ -28,11 +28,91 @@
                 <key>CFBundleTypeExtensions</key>
                 <array>
                     <string>txt</string>
+                </array>
+                <key>CFBundleTypeIconFile</key>
+                <string>@ICON@</string>
+                <key>CFBundleTypeRole</key>
+                <string>Viewer</string>
+                <key>LSTypeIsPackage</key>
+                <false />
+            </dict>
+            <dict>
+                <key>CFBundleTypeName</key>
+                <string>C++ Source File</string>
+                <key>CFBundleTypeExtensions</key>
+                <array>
                     <string>cpp</string>
+                </array>
+                <key>CFBundleTypeIconFile</key>
+                <string>@ICON@</string>
+                <key>CFBundleTypeRole</key>
+                <string>Viewer</string>
+                <key>LSTypeIsPackage</key>
+                <false />
+            </dict>
+            <dict>
+                <key>CFBundleTypeName</key>
+                <string>C Header File</string>
+                <key>CFBundleTypeExtensions</key>
+                <array>
                     <string>h</string>
+                </array>
+                <key>CFBundleTypeIconFile</key>
+                <string>@ICON@</string>
+                <key>CFBundleTypeRole</key>
+                <string>Viewer</string>
+                <key>LSTypeIsPackage</key>
+                <false />
+            </dict>
+            <dict>
+                <key>CFBundleTypeName</key>
+                <string>C++ Header File</string>
+                <key>CFBundleTypeExtensions</key>
+                <array>
                     <string>hpp</string>
+                </array>
+                <key>CFBundleTypeIconFile</key>
+                <string>@ICON@</string>
+                <key>CFBundleTypeRole</key>
+                <string>Viewer</string>
+                <key>LSTypeIsPackage</key>
+                <false />
+            </dict>
+            <dict>
+                <key>CFBundleTypeName</key>
+                <string>C Source File</string>
+                <key>CFBundleTypeExtensions</key>
+                <array>
                     <string>c</string>
+                </array>
+                <key>CFBundleTypeIconFile</key>
+                <string>@ICON@</string>
+                <key>CFBundleTypeRole</key>
+                <string>Viewer</string>
+                <key>LSTypeIsPackage</key>
+                <false />
+            </dict>
+            <dict>
+                <key>CFBundleTypeName</key>
+                <string>JSON File</string>
+                <key>CFBundleTypeExtensions</key>
+                <array>
                     <string>json</string>
+                </array>
+                <key>CFBundleTypeIconFile</key>
+                <string>@ICON@</string>
+                <key>CFBundleTypeRole</key>
+                <string>Viewer</string>
+                <key>LSTypeIsPackage</key>
+                <false />
+            </dict>
+            <dict>
+                <key>CFBundleTypeName</key>
+                <string>Hypertext Markup Language</string>
+                <key>CFBundleTypeExtensions</key>
+                <array>
+                    <string>htm</string>
+                    <string>html</string>
                 </array>
                 <key>CFBundleTypeIconFile</key>
                 <string>@ICON@</string>

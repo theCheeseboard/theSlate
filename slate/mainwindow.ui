@@ -923,18 +923,6 @@
     <enum>QAction::AboutRole</enum>
    </property>
   </action>
-  <action name="actionNew_theSlate_Project">
-   <property name="icon">
-    <iconset theme="document-new" resource="icons.qrc">
-     <normaloff>:/icons/document-new.svg</normaloff>:/icons/document-new.svg</iconset>
-   </property>
-   <property name="text">
-    <string>New theSlate &amp;Project</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+N</string>
-   </property>
-  </action>
   <action name="actionPrint">
    <property name="icon">
     <iconset theme="document-print">
@@ -1149,6 +1137,9 @@
   <action name="actionNew_Window">
    <property name="text">
     <string>New Window</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+N</string>
    </property>
   </action>
  </widget>

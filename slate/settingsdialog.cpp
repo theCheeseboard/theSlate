@@ -16,6 +16,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     ui->systemMonospaceFont->setChecked(settings.value("font/useSystem", true).toBool());
     ui->fontBox->setCurrentFont(QFont(settings.value("font/textFontFamily", QFontDatabase::systemFont(QFontDatabase::FixedFont).family()).toString()));
     ui->sizeBox->setValue(settings.value("font/textFontSize", QFontDatabase::systemFont(QFontDatabase::FixedFont).pointSize()).toInt());
+    ui->showHiddenFiles->setChecked(settings.value("files/showHidden", false).toBool());
 }
 
 SettingsDialog::~SettingsDialog()
@@ -48,4 +49,9 @@ void SettingsDialog::on_fontBox_currentFontChanged(const QFont &f)
 void SettingsDialog::on_sizeBox_valueChanged(int arg1)
 {
     settings.setValue("font/textFontSize", arg1);
+}
+
+void SettingsDialog::on_showHiddenFiles_toggled(bool checked)
+{
+    settings.setValue("files/showHidden", checked);
 }
