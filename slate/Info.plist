@@ -28,6 +28,11 @@
                 <key>CFBundleTypeExtensions</key>
                 <array>
                     <string>txt</string>
+                    <string>cpp</string>
+                    <string>h</string>
+                    <string>hpp</string>
+                    <string>c</string>
+                    <string>json</string>
                 </array>
                 <key>CFBundleTypeIconFile</key>
                 <string>@ICON@</string>

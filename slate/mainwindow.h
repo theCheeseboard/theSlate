@@ -46,6 +46,8 @@ class MainWindow : public QMainWindow
         explicit MainWindow(QWidget *parent = 0);
         ~MainWindow();
 
+        static QList<MainWindow*> openWindows;
+
     public slots:
         void newTab();
         void newTab(QString filename);
@@ -126,6 +128,8 @@ class MainWindow : public QMainWindow
 
         void on_actionNew_Window_triggered();
 
+        void on_projectTree_customContextMenuRequested(const QPoint &pos);
+
 private:
         Ui::MainWindow *ui;
 
@@ -141,8 +145,6 @@ private:
         QString projectType = "";
         QSettings settings;
         QTabBar* tabBar;
-
-        static int numberWindowsOpen;
 };
 
 #endif // MAINWINDOW_H

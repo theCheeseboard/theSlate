@@ -278,7 +278,11 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QTreeView" name="projectTree"/>
+      <widget class="QTreeView" name="projectTree">
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>

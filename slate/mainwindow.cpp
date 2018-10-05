@@ -13,7 +13,7 @@
     extern QString bundlePath;
 #endif
 
-int MainWindow::numberWindowsOpen = 0;
+QList<MainWindow*> MainWindow::openWindows = QList<MainWindow*>();
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    numberWindowsOpen++;
+    openWindows.append(this);
 
     ui->mainToolBar->setIconSize(ui->mainToolBar->iconSize() * theLibsGlobal::getDPIScaling());
 
@@ -90,7 +90,7 @@ MainWindow::MainWindow(QWidget *parent) :
         //Set up single menu except on macOS
         QMenu* singleMenu = new QMenu();
         singleMenu->addAction(ui->actionNew);
-        singleMenu->addAction(ui->actionNewWindow);
+        singleMenu->addAction(ui->actionNew_Window);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionOpen);
         singleMenu->addSeparator();
@@ -307,7 +307,7 @@ void MainWindow::on_tabs_currentChanged(int arg1)
 void MainWindow::on_actionExit_triggered()
 {
     QApplication::closeAllWindows();
-    if (numberWindowsOpen == 0) {
+    if (openWindows.count() == 0) {
         QApplication::exit();
     }
 
@@ -399,7 +399,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     settings.setValue("window/state", this->saveState());
     event->accept();
     this->deleteLater();
-    numberWindowsOpen--;
+    openWindows.removeOne(this);
 }
 
 bool MainWindow::saveCurrentDocument(bool saveAs) {
@@ -806,4 +806,32 @@ void MainWindow::on_actionNew_Window_triggered()
 {
     MainWindow* w = new MainWindow();
     w->show();
+}
+
+void MainWindow::on_projectTree_customContextMenuRequested(const QPoint &pos)
+{
+    QModelIndex index = ui->projectTree->indexAt(pos);
+    if (index.isValid()) {
+        QFileInfo info = fileModel->fileInfo(index);
+
+        if (info.isFile()) {
+            QMenu* menu = new QMenu();
+            menu->addSection(tr("For %1").arg(info.baseName()));
+            menu->addAction(tr("Edit in new tab"), [=] {
+                newTab();
+                currentDocument()->openFile(fileModel->filePath(index));
+                updateGit();
+            });
+            menu->addAction(tr("Edit in new window"), [=] {
+                MainWindow* w = new MainWindow();
+                w->newTab(info.fileName());
+                w->show();
+            });
+            menu->addSeparator();
+            menu->addAction(tr("Delete"), [=] {
+
+            });
+            menu->exec(ui->projectTree->mapToGlobal(pos));
+        }
+    }
 }

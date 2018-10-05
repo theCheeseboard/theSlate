@@ -118,7 +118,13 @@ int main(int argc, char *argv[])
     }
 
     QObject::connect(&a, &tApplication::openFile, [=](QString file) {
-        w->newTab(file);
+        if (MainWindow::openWindows.count() == 0) {
+            MainWindow* w = new MainWindow();
+            w->newTab(file);
+            w->show();
+        } else {
+            MainWindow::openWindows.first()->newTab(file);
+        }
     });
 
     w->show();
