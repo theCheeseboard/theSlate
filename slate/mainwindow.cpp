@@ -86,6 +86,8 @@ MainWindow::MainWindow(QWidget *parent) :
             ui->tabs->insertWidget(to, w);
         });
         ((QBoxLayout*) ui->centralWidget->layout())->insertWidget(0, tabBar);
+
+        setupMacOS();
     #else
         //Set up single menu except on macOS
         QMenu* singleMenu = new QMenu();
@@ -222,7 +224,6 @@ void MainWindow::show() {
         newTab();
     }
     QMainWindow::show();
-    setupMacOS();
 }
 
 void MainWindow::newTab() {
