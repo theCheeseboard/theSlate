@@ -21,8 +21,14 @@ class TopNotification : public QWidget
         void setText(QString text);
         void addButton(QPushButton* button);
 
+        //For touch bar
+        QPushButton* firstButton();
+        QPushButton* secondButton();
+
     private:
         Ui::TopNotification *ui;
+
+        QList<QPushButton*> buttons;
 };
 
 #endif // TOPNOTIFICATION_H

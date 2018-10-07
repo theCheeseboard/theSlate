@@ -54,12 +54,17 @@
 @property (strong) NSCustomTouchBarItem *saveItem;
 @property (strong) NSCustomTouchBarItem *newItem;
 @property (strong) NSCustomTouchBarItem *closeItem;
+@property (strong) NSCustomTouchBarItem *topbar1Item;
+@property (strong) NSCustomTouchBarItem *topbar2Item;
 @property (strong) NSButton *saveButton;
 @property (strong) NSButton *newButton;
 @property (strong) NSButton *closeButton;
+@property (strong) NSButton *topbar1Button;
+@property (strong) NSButton *topbar2Button;
 
 @property (strong) NSObject *qtDelegate;
 @property Ui::MainWindow *mainWindowUi;
+@property TopNotification* currentTopNotification;
 
 @end
 
@@ -67,6 +72,8 @@
 static NSTouchBarItemIdentifier saveIdentifier = @"org.thesuite.theslate.savebutton";
 static NSTouchBarItemIdentifier newIdentifier = @"com.thesuite.theslate.newbutton";
 static NSTouchBarItemIdentifier closeIdentifier = @"com.thesuite.theslate.closebutton";
+static NSTouchBarItemIdentifier topbar1Identifier = @"com.thesuite.theslate.topbar1";
+static NSTouchBarItemIdentifier topbar2Identifier = @"com.thesuite.theslate.topbar2";
 
 @implementation TouchBarProvider
 
@@ -89,9 +96,33 @@ static NSTouchBarItemIdentifier closeIdentifier = @"com.thesuite.theslate.closeb
     // by two buttons. Note that no further handling of the emoji picker
     // is needed (emojii are automatically routed to any active text edit). Button
     // actions handlers are set up in makeItemForIdentifier below.
-    bar.defaultItemIdentifiers = @[NSTouchBarItemIdentifierCharacterPicker, newIdentifier, saveIdentifier, NSTouchBarItemIdentifierFlexibleSpace, closeIdentifier];
+    bar.defaultItemIdentifiers = @[NSTouchBarItemIdentifierCharacterPicker, newIdentifier, saveIdentifier, NSTouchBarItemIdentifierFlexibleSpace, topbar1Identifier, topbar2Identifier, closeIdentifier];
+    bar.customizationRequiredItemIdentifiers = @[topbar1Identifier, topbar2Identifier];
 
     return bar;
+}
+
+- (void)setTopNotification:(TopNotification*)topNotification {
+    self.currentTopNotification = topNotification;
+
+    if (topNotification == nullptr) {
+        [self.topbar1Button setHidden:YES];
+        [self.topbar2Button setHidden:YES];
+    } else {
+        if (topNotification->firstButton() == nullptr) {
+            [self.topbar1Button setHidden:YES];
+        } else {
+            [self.topbar1Button setTitle:topNotification->firstButton()->text().toNSString()];
+            [self.topbar1Button setHidden:NO];
+        }
+
+        if (topNotification->secondButton() == nullptr) {
+            [self.topbar2Button setHidden:YES];
+        } else {
+            [self.topbar2Button setTitle:topNotification->secondButton()->text().toNSString()];
+            [self.topbar2Button setHidden:NO];
+        }
+    }
 }
 
 - (NSTouchBarItem *)touchBar:(NSTouchBar *)touchBar makeItemForIdentifier:(NSTouchBarItemIdentifier)identifier
@@ -138,6 +169,22 @@ static NSTouchBarItemIdentifier closeIdentifier = @"com.thesuite.theslate.closeb
         });
 
         return self.closeItem;
+    } else if ([identifier isEqualToString:topbar1Identifier]) {
+        self.topbar1Item = [[[NSCustomTouchBarItem alloc] initWithIdentifier:identifier] autorelease];
+        self.topbar1Button = [[NSButton buttonWithTitle:@"" target:self
+                                          action:@selector(topbar1Clicked)] autorelease];
+        self.topbar1Item.view =  self.topbar1Button;
+        [self.topbar1Button setHidden:YES];
+
+        return self.topbar1Item;
+    } else if ([identifier isEqualToString:topbar2Identifier]) {
+        self.topbar2Item = [[[NSCustomTouchBarItem alloc] initWithIdentifier:identifier] autorelease];
+        self.topbar2Button = [[NSButton buttonWithTitle:@"" target:self
+                                          action:@selector(topbar2Clicked)] autorelease];
+        self.topbar2Item.view =  self.topbar2Button;
+        [self.topbar2Button setHidden:YES];
+
+        return self.topbar2Item;
     }
    return nil;
 }
@@ -179,9 +226,32 @@ static NSTouchBarItemIdentifier closeIdentifier = @"com.thesuite.theslate.closeb
 
 - (void)closeClicked
 {
-    //New button on touch bar was clicked
+    //Close button on touch bar was clicked
     //Forward signal to the new action on the main window
     self.mainWindowUi->actionClose->trigger();
+}
+
+- (void)topbar1Clicked
+{
+    //Top Notification button 1 on touch bar was clicked
+    //Forward signal to the button if available
+    if (self.currentTopNotification != nullptr) {
+        if (self.currentTopNotification->firstButton() != nullptr) {
+            self.currentTopNotification->firstButton()->click();
+        }
+    }
+}
+
+- (void)topbar2Clicked
+{
+    //Top Notification button 2 on touch bar was clicked
+    //Forward signal to the button if available
+
+    if (self.currentTopNotification != nullptr) {
+        if (self.currentTopNotification->secondButton() != nullptr) {
+            self.currentTopNotification->secondButton()->click();
+        }
+    }
 }
 
 - (NSApplicationPresentationOptions)window:(NSWindow *)window willUseFullScreenPresentationOptions:(NSApplicationPresentationOptions)proposedOptions {
@@ -191,8 +261,18 @@ static NSTouchBarItemIdentifier closeIdentifier = @"com.thesuite.theslate.closeb
 @end
 
 void MainWindow::setupMacOS() {
-    // Install TouchBarProvider as window delegate
+    //Install TouchBarProvider as window delegate
     NSView *view = reinterpret_cast<NSView *>(this->winId());
     TouchBarProvider *touchBarProvider = [[TouchBarProvider alloc] init:ui];
     [touchBarProvider installAsDelegateForWindow:view.window];
+
+    connect(this, &MainWindow::changeTouchBarTopNotification, [=](TopNotification* notification) {
+        [touchBarProvider setTopNotification:notification];
+    });
+}
+
+void MainWindow::updateTouchBar() {
+    //Invalidate Touch Bar
+    NSView *view = reinterpret_cast<NSView *>(this->winId());
+    view.window.touchBar = nil;
 }

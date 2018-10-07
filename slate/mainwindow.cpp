@@ -246,6 +246,19 @@ void MainWindow::newTab() {
         connect(view, &TextEditor::titleChanged, [=](QString title) {
             tabBar->setTabText(ui->tabs->indexOf(view), title);
         });
+        connect(view, &TextEditor::primaryTopNotificationChanged, [=](TopNotification* topNotification) {
+            primaryTopNotifications.insert(view, topNotification);
+
+            if (currentDocument() == view) {
+                emit changeTouchBarTopNotification(topNotification);
+            }
+
+            updateTouchBar();
+        });
+        connect(view, &TextEditor::destroyed, [=] {
+            primaryTopNotifications.remove(view);
+        });
+        primaryTopNotifications.insert(view, nullptr);
     #else
         connect(view->getTabButton(), &QPushButton::clicked, [=]{
             ui->tabs->setCurrentWidget(view);
@@ -307,7 +320,12 @@ void MainWindow::on_tabs_currentChanged(int arg1)
         ui->projectTree->expand(fileModel->index(current->filename()));
 
         updateGit();
+
+        emit changeTouchBarTopNotification(primaryTopNotifications.value(current));
+    } else {
+        emit changeTouchBarTopNotification(nullptr);
     }
+    updateTouchBar();
 }
 
 void MainWindow::on_actionExit_triggered()
@@ -508,6 +526,8 @@ void MainWindow::on_projectTree_clicked(const QModelIndex &index)
 void MainWindow::updateGit() {
     if (GitIntegration::findGit().count() == 0) {
         ui->sourceControlPanes->setCurrentIndex(3);
+    } else if (currentDocument() == nullptr) {
+        //Do nothing
     } else if (currentDocument()->git == nullptr) {
         ui->sourceControlPanes->setCurrentIndex(2);
     } else {

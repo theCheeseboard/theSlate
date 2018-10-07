@@ -130,6 +130,11 @@ class MainWindow : public QMainWindow
 
         void on_projectTree_customContextMenuRequested(const QPoint &pos);
 
+signals:
+#ifdef Q_OS_MAC
+        void changeTouchBarTopNotification(TopNotification* topNotification);
+#endif
+
 private:
         Ui::MainWindow *ui;
 
@@ -142,6 +147,7 @@ private:
 
 #ifdef Q_OS_MAC
         void setupMacOS();
+        void updateTouchBar();
 #endif
 
         QFileSystemModel* fileModel;
@@ -149,6 +155,7 @@ private:
         QString projectType = "";
         QSettings settings;
         QTabBar* tabBar;
+        QMap<TextEditor*, TopNotification*> primaryTopNotifications;
 };
 
 #endif // MAINWINDOW_H

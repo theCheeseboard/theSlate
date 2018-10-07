@@ -23,4 +23,21 @@ void TopNotification::setText(QString text) {
 
 void TopNotification::addButton(QPushButton* button) {
     ui->buttonsLayout->addWidget(button);
+    buttons.append(button);
+}
+
+QPushButton* TopNotification::firstButton() {
+    if (buttons.count() > 1) {
+        return buttons.first();
+    }
+    return nullptr;
+}
+
+QPushButton* TopNotification::secondButton() {
+    if (buttons.count() == 1) {
+        return buttons.first();
+    } else if (buttons.count() > 1) {
+        return buttons.at(1);
+    }
+    return nullptr;
 }

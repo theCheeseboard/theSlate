@@ -658,12 +658,18 @@ void TextEditor::addTopPanel(QWidget* topPanel) {
     topPanelLayout->addWidget(topPanel);
     topPanel->setVisible(true);
     updateLeftMarginAreaWidth();
+
+    if (qobject_cast<TopNotification*>(topPanel)) {
+        emit primaryTopNotificationChanged(qobject_cast<TopNotification*>(topPanel));
+    }
 }
 
 void TextEditor::removeTopPanel(QWidget* topPanel) {
     topPanelLayout->removeWidget(topPanel);
     topPanel->setVisible(false);
     updateLeftMarginAreaWidth();
+
+    emit primaryTopNotificationChanged(nullptr);
 }
 
 void TextEditor::fileOnDiskChanged() {
