@@ -113,7 +113,7 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addMenu(ui->menuWindow);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionSettings);
-        singleMenu->addAction(ui->actionAbout);
+        singleMenu->addMenu(ui->menuHelp);
         singleMenu->addAction(ui->actionExit);
 
         QToolButton* menuButton = new QToolButton();

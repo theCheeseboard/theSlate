@@ -9,10 +9,10 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    height="16"
    width="16"
-   id="svg2"
    version="1.1"
-   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
-   sodipodi:docname="document-save.svg">
+   id="svg5"
+   sodipodi:docname="tools-report-bug.svg"
+   inkscape:version="0.92.0 r">
   <metadata
      id="metadata9">
     <rdf:RDF>
@@ -30,15 +30,15 @@
   <sodipodi:namedview
      id="namedview1"
      showgrid="true"
-     inkscape:zoom="20.85965"
-     inkscape:cx="6.5196096"
-     inkscape:cy="8.3539692"
+     inkscape:zoom="41.7193"
+     inkscape:cx="8.1395138"
+     inkscape:cy="8.1997909"
      inkscape:window-width="1680"
      inkscape:window-height="1016"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg2">
+     inkscape:current-layer="svg5">
     <inkscape:grid
        type="xygrid"
        id="grid1px"
@@ -52,7 +52,7 @@
        originx="0.5" />
   </sodipodi:namedview>
   <path
-     style="opacity:0.98999999;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.10000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 1.5 0.94921875 C 1.1956455 0.94881664 0.94881664 1.1956455 0.94921875 1.5 L 0.94921875 14.5 C 0.94881678 14.804354 1.1956456 15.051183 1.5 15.050781 L 14.5 15.050781 C 14.804354 15.051183 15.051183 14.804354 15.050781 14.5 L 15.050781 6.5 C 15.050442 6.354068 14.992127 6.2142517 14.888672 6.1113281 L 9.8886719 1.1113281 C 9.7857483 1.0078728 9.645932 0.94955744 9.5 0.94921875 L 8 0.94921875 L 8 5 L 3 5 L 3 0.94921875 L 1.5 0.94921875 z M 8.5 7 A 2.5 2.5 0 0 1 11 9.5 A 2.5 2.5 0 0 1 8.5 12 A 2.5 2.5 0 0 1 6 9.5 A 2.5 2.5 0 0 1 8.5 7 z "
-     id="path4137" />
+     style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     d="M 8 1 A 7 7 0 0 0 1 8 A 7 7 0 0 0 8 15 A 7 7 0 0 0 15 8 A 7 7 0 0 0 8 1 z M 7.5 2 L 8.5 2 A 0.50005 0.50005 0 0 1 9 2.5 L 9 10.5 A 0.50005 0.50005 0 0 1 8.5 11 L 7.5 11 A 0.50005 0.50005 0 0 1 7 10.5 L 7 2.5 A 0.50005 0.50005 0 0 1 7.5 2 z M 7.5 12 L 8.5 12 A 0.50005 0.50005 0 0 1 9 12.5 L 9 13.5 A 0.50005 0.50005 0 0 1 8.5 14 L 7.5 14 A 0.50005 0.50005 0 0 1 7 13.5 L 7 12.5 A 0.50005 0.50005 0 0 1 7.5 12 z "
+     id="path4499" />
 </svg>

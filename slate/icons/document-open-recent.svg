@@ -11,7 +11,7 @@
    width="16"
    id="svg2"
    version="1.1"
-   inkscape:version="0.92.0 r"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
    sodipodi:docname="document-open-recent.svg">
   <metadata
      id="metadata9">
@@ -31,8 +31,8 @@
      id="namedview1"
      showgrid="true"
      inkscape:zoom="20.85965"
-     inkscape:cx="11.974933"
-     inkscape:cy="2.9278921"
+     inkscape:cx="0.91578593"
+     inkscape:cy="10.43249"
      inkscape:window-width="1680"
      inkscape:window-height="1016"
      inkscape:window-x="0"
@@ -58,21 +58,7 @@
        spacingy="1.0666667" />
   </sodipodi:namedview>
   <path
-     style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-     d="M 8.5332031 6.4003906 A 3.2 3.2 0 0 0 5.3339844 9.5996094 A 3.2 3.2 0 0 0 8.5332031 12.800781 A 3.2 3.2 0 0 0 11.732422 9.5996094 A 3.2 3.2 0 0 0 8.5332031 6.4003906 z M 9.0859375 7.5 A 0.50014366 0.50005 0 0 1 9.5996094 8 L 9.5996094 11.199219 A 0.50014366 0.50005 0 0 1 8.7460938 11.552734 L 7.1464844 9.953125 A 0.50014366 0.50005 0 0 1 7.1464844 9.2460938 L 8.7460938 7.6464844 A 0.50014366 0.50005 0 0 1 9.0859375 7.5 z "
-     id="path840" />
-  <rect
-     style="opacity:0.98999999;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06666684;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect4137"
-     width="12.8"
-     height="9.666667"
-     x="1.6"
-     y="4.7999997" />
-  <rect
-     style="opacity:0.98999999;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.06666672;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="rect4139"
-     width="6.4000001"
-     height="3.2000003"
-     x="1.5999999"
-     y="1.5999995" />
+     style="opacity:0.98999999;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+     d="M 1.5 1 A 0.50005 0.50005 0 0 0 1 1.5 L 1 14.5 A 0.50005 0.50005 0 0 0 1.5 15 L 14.5 15 A 0.50005 0.50005 0 0 0 15 14.5 L 15 4.5 A 0.50005 0.50005 0 0 0 14.5 4 L 8 4 L 8 1.5 A 0.50005 0.50005 0 0 0 7.5 1 L 1.5 1 z M 2.4648438 3 A 0.50005 0.50005 0 0 1 2.5 3 L 6.5 3 A 0.50005 0.50005 0 1 1 6.5 4 L 2.5 4 A 0.50005 0.50005 0 0 1 2.4648438 3 z M 8.5332031 6.4003906 A 3.2 3.2 0 0 1 11.732422 9.5996094 A 3.2 3.2 0 0 1 8.5332031 12.800781 A 3.2 3.2 0 0 1 5.3339844 9.5996094 A 3.2 3.2 0 0 1 8.5332031 6.4003906 z M 9.0859375 7.5 A 0.50014366 0.50005 0 0 0 8.7460938 7.6464844 L 7.1464844 9.2460938 A 0.50014366 0.50005 0 0 0 7.1464844 9.953125 L 8.7460938 11.552734 A 0.50014366 0.50005 0 0 0 9.5996094 11.199219 L 9.5996094 8 A 0.50014366 0.50005 0 0 0 9.0859375 7.5 z "
+     id="path4485" />
 </svg>

@@ -23,5 +23,8 @@
         <file>icons/edit-find.svg</file>
         <file>icons/edit-find-replace.svg</file>
         <file>icons/dialog-ok.svg</file>
+        <file>icons/configure.svg</file>
+        <file>icons/view-refresh.svg</file>
+        <file>icons/tools-report-bug.svg</file>
     </qresource>
 </RCC>
