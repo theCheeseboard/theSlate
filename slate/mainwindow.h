@@ -140,6 +140,10 @@ private:
         void dragMoveEvent(QDragMoveEvent* event);
         void dropEvent(QDropEvent* event);
 
+#ifdef Q_OS_MAC
+        void setupMacOS();
+#endif
+
         QFileSystemModel* fileModel;
         QString currentProjectFile = "";
         QString projectType = "";

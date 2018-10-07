@@ -15,7 +15,7 @@ TEMPLATE = app
 macx {
     QT += macextras
     ICON = icon.icns
-    LIBS += -framework CoreFoundation
+    LIBS += -framework CoreFoundation -framework AppKit
     QMAKE_INFO_PLIST = Info.plist
 }
 
@@ -82,6 +82,11 @@ HEADERS += \
     syntaxhighlighting/syntaxhighlighting.h \
     textparts/printdialog.h \
     settingsdialog.h
+
+macx {
+    SOURCES += \
+        mainwindow-objc.mm
+}
 
 FORMS += \
         mainwindow.ui \

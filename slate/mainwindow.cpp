@@ -222,6 +222,7 @@ void MainWindow::show() {
         newTab();
     }
     QMainWindow::show();
+    setupMacOS();
 }
 
 void MainWindow::newTab() {
