@@ -320,12 +320,16 @@ void MainWindow::on_tabs_currentChanged(int arg1)
         ui->projectTree->expand(fileModel->index(current->filename()));
 
         updateGit();
+    }
 
+#ifdef Q_OS_MAC
+    if (current != nullptr) {
         emit changeTouchBarTopNotification(primaryTopNotifications.value(current));
     } else {
         emit changeTouchBarTopNotification(nullptr);
     }
     updateTouchBar();
+#endif
 }
 
 void MainWindow::on_actionExit_triggered()
