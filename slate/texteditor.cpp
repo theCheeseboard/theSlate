@@ -56,10 +56,10 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
     {
         mergeConflictsNotification = new TopNotification();
         mergeConflictsNotification->setTitle("Merge Conflicts");
-        mergeConflictsNotification->setText("Merge Conflicts were found in this file");
+        mergeConflictsNotification->setText(tr("Merge Conflicts were found in this file"));
 
         QPushButton* fixMergeButton = new QPushButton();
-        fixMergeButton->setText("Resolve Merge Conflicts");
+        fixMergeButton->setText(tr("Resolve Merge Conflicts"));
         connect(fixMergeButton, &QPushButton::clicked, [=] {
             //Open the merge resolution tool
             MergeTool* tool = new MergeTool(this->toPlainText(), parentWindow);
@@ -82,17 +82,22 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
 
     {
         onDiskChanged = new TopNotification();
-        onDiskChanged->setTitle("File on disk changed");
-        onDiskChanged->setText("The file on the disk has changed. If you save this file you will lose the changes on disk.");
+        onDiskChanged->setTitle(tr("File on disk changed"));
+        onDiskChanged->setText(tr("The file on the disk has changed. If you save this file you will lose the changes on disk."));
 
         QPushButton* reloadButton = new QPushButton();
-        reloadButton->setText("Reload File");
+        reloadButton->setText(tr("Reload File"));
         connect(reloadButton, SIGNAL(clicked(bool)), this, SLOT(revertFile()));
         onDiskChanged->addButton(reloadButton);
 
         QPushButton* mergeButton = new QPushButton();
-        mergeButton->setText("Merge File");
+        mergeButton->setText(tr("Merge File"));
         onDiskChanged->addButton(mergeButton);
+    }
+
+    {
+        fileReadError = new TopNotification();
+        fileReadError->setTitle(tr("Can't open file"));
     }
 
     fileWatcher = new QFileSystemWatcher();
@@ -132,9 +137,31 @@ bool TextEditor::isEdited() {
 
 void TextEditor::openFile(QString file) {
     removeTopPanel(onDiskChanged);
+    removeTopPanel(fileReadError);
 
     QFile f(file);
-    f.open(QFile::ReadOnly | QFile::Text);
+    if (!f.open(QFile::ReadOnly | QFile::Text)) {
+        QFileInfo info(f);
+        if (!info.permission(QFile::ReadUser)) {
+            fileReadError->setText(tr("You don't have the appropriate permissions to open %1.").arg(info.fileName()));
+        } else if (info.isDir()) {
+            fileReadError->setText(tr("%1 is a folder.").arg(info.fileName()));
+        } else {
+            fileReadError->setText(tr("Can't open %1.").arg(info.fileName()));
+        }
+
+        fileReadError->clearButtons();
+
+        QPushButton* retryButton = new QPushButton();
+        retryButton->setText(tr("Retry"));
+        connect(retryButton, &QPushButton::clicked, [=] {
+            openFile(file);
+        });
+        fileReadError->addButton(retryButton);
+
+        addTopPanel(fileReadError);
+        return;
+    }
     this->setPlainText(f.readAll());
     f.close();
 
@@ -173,12 +200,39 @@ void TextEditor::openFile(QString file) {
 
 bool TextEditor::saveFile(QString file) {
     fileWatcher->blockSignals(true);
-    removeTopPanel(onDiskChanged);
 
     QFile f(file);
-    f.open(QFile::WriteOnly | QFile::Text);
+    if (!f.open(QFile::WriteOnly | QFile::Text)) {
+        QMessageBox* messageBox = new QMessageBox(this->window());
+
+        QString titleText = tr("Unable to save file");
+        QString text = tr("We couldn't save the file.");
+        QString informativeText = tr("Here are a few things to check:\n- Ensure that enough disk space is available\n- Ensure that you have write permissions on the file that you want to save to.");
+
+        #ifdef Q_OS_MAC
+            messageBox->setText(titleText);
+            messageBox->setInformativeText(text);
+            messageBox->setDetailedText(informativeText);
+        #else
+        messageBox->setWindowTitle(titleText);
+        messageBox->setText(text);
+        messageBox->setInformativeText(informativeText);
+        #endif
+        messageBox->setIcon(QMessageBox::Critical);
+        messageBox->setWindowFlags(Qt::Sheet);
+        messageBox->setStandardButtons(QMessageBox::Ok);
+        messageBox->setDefaultButton(QMessageBox::Ok);
+        messageBox->exec();
+
+        messageBox->deleteLater();
+
+        fileWatcher->blockSignals(false);
+        return false;
+    }
     f.write(this->toPlainText().toUtf8());
     f.close();
+
+    removeTopPanel(onDiskChanged);
 
     edited = false;
     this->fn = file;

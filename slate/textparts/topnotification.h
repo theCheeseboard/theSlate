@@ -20,6 +20,7 @@ class TopNotification : public QWidget
         void setTitle(QString title);
         void setText(QString text);
         void addButton(QPushButton* button);
+        void clearButtons();
 
         //For touch bar
         QPushButton* firstButton();

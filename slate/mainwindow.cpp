@@ -338,7 +338,6 @@ void MainWindow::on_actionExit_triggered()
     if (openWindows.count() == 0) {
         QApplication::exit();
     }
-
 }
 
 void MainWindow::on_actionOpen_triggered()

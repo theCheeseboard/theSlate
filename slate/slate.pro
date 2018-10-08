@@ -66,7 +66,8 @@ SOURCES += \
     textparts/topnotification.cpp \
     textparts/mergetool.cpp \
     textparts/printdialog.cpp \
-    settingsdialog.cpp
+    settingsdialog.cpp \
+    main-objc.mm
 
 HEADERS += \
         mainwindow.h \

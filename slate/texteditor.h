@@ -142,7 +142,7 @@ class TextEditor : public QPlainTextEdit
         QWidget* topPanelWidget;
         QBoxLayout* topPanelLayout;
 
-        TopNotification *mergeConflictsNotification, *onDiskChanged;
+        TopNotification *mergeConflictsNotification, *onDiskChanged, *fileReadError;
         QFileSystemWatcher* fileWatcher;
 
         TextEditor* scrollingLock = nullptr;

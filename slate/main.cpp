@@ -11,6 +11,8 @@
 #ifdef Q_OS_MAC
     #include <CoreFoundation/CFBundle.h>
     QString bundlePath;
+
+    extern void setupMacObjC();
 #endif
 
 void setupMacMenubar() {
@@ -102,6 +104,7 @@ int main(int argc, char *argv[])
 
 #ifdef Q_OS_MAC
     setupMacMenubar();
+    setupMacObjC();
 #endif
 
     QStringList args = a.arguments();

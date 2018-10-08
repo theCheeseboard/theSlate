@@ -41,3 +41,11 @@ QPushButton* TopNotification::secondButton() {
     }
     return nullptr;
 }
+
+void TopNotification::clearButtons() {
+    while (buttons.count() > 0) {
+        QPushButton* b = buttons.takeFirst();
+        b->deleteLater();
+        buttons.removeOne(b);
+    }
+}
