@@ -66,8 +66,7 @@ SOURCES += \
     textparts/topnotification.cpp \
     textparts/mergetool.cpp \
     textparts/printdialog.cpp \
-    settingsdialog.cpp \
-    main-objc.mm
+    settingsdialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -86,7 +85,8 @@ HEADERS += \
 
 macx {
     SOURCES += \
-        mainwindow-objc.mm
+        mainwindow-objc.mm \
+        main-objc.mm
 }
 
 FORMS += \
