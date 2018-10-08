@@ -112,7 +112,7 @@ class TextEditor : public QPlainTextEdit
         void addTopPanel(QWidget* panel);
         void removeTopPanel(QWidget* panel);
 
-        void fileOnDiskChanged();
+        void fileOnDiskChanged(QString file);
 
     private:
         TabButton* button;

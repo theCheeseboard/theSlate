@@ -14,6 +14,9 @@
    <string notr="true">Form</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
    <property name="topMargin">
     <number>0</number>
    </property>
@@ -21,45 +24,52 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QLabel" name="title">
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="spacing">
+      <number>6</number>
      </property>
-     <property name="text">
-      <string notr="true">Title</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="message">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string notr="true">Message</string>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-    </widget>
+     <item>
+      <widget class="QLabel" name="title">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string notr="true">Title</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="message">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string notr="true">Message</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" name="buttonsLayout"/>
    </item>
    <item>
-    <widget class="QToolButton" name="toolButton">
+    <widget class="QToolButton" name="closeButton">
      <property name="text">
       <string/>
      </property>
      <property name="icon">
-      <iconset theme="dialog-close">
-       <normaloff>.</normaloff>.</iconset>
+      <iconset theme="dialog-close" resource="../icons.qrc">
+       <normaloff>:/icons/tab-close.svg</normaloff>:/icons/tab-close.svg</iconset>
      </property>
      <property name="autoRaise">
       <bool>true</bool>
@@ -68,6 +78,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

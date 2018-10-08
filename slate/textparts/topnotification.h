@@ -26,6 +26,12 @@ class TopNotification : public QWidget
         QPushButton* firstButton();
         QPushButton* secondButton();
 
+    signals:
+            void closeNotification();
+
+    private slots:
+            void on_closeButton_clicked();
+
     private:
         Ui::TopNotification *ui;
 

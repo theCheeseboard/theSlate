@@ -5,6 +5,7 @@
 #include <QMimeData>
 #include <QScrollBar>
 #include <QMenuBar>
+#include <QSignalBlocker>
 #include "the-libs_global.h"
 #include "mainwindow.h"
 
@@ -78,6 +79,10 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
             });
         });;
         mergeConflictsNotification->addButton(fixMergeButton);
+
+        connect(mergeConflictsNotification, &TopNotification::closeNotification, [=] {
+            removeTopPanel(mergeConflictsNotification);
+        });
     }
 
     {
@@ -93,15 +98,23 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
         QPushButton* mergeButton = new QPushButton();
         mergeButton->setText(tr("Merge File"));
         onDiskChanged->addButton(mergeButton);
+
+        connect(onDiskChanged, &TopNotification::closeNotification, [=] {
+            removeTopPanel(onDiskChanged);
+        });
     }
 
     {
         fileReadError = new TopNotification();
         fileReadError->setTitle(tr("Can't open file"));
+
+        connect(fileReadError, &TopNotification::closeNotification, [=] {
+            removeTopPanel(fileReadError);
+        });
     }
 
     fileWatcher = new QFileSystemWatcher();
-    connect(fileWatcher, SIGNAL(fileChanged(QString)), this, SLOT(fileOnDiskChanged()));
+    connect(fileWatcher, SIGNAL(fileChanged(QString)), this, SLOT(fileOnDiskChanged(QString)));
 
     connect(this->verticalScrollBar(), &QScrollBar::valueChanged, [=](int position) {
         if (scrollingLock != nullptr) {
@@ -199,7 +212,7 @@ void TextEditor::openFile(QString file) {
 }
 
 bool TextEditor::saveFile(QString file) {
-    fileWatcher->blockSignals(true);
+    QSignalBlocker blocker(fileWatcher);
 
     QFile f(file);
     if (!f.open(QFile::WriteOnly | QFile::Text)) {
@@ -207,7 +220,7 @@ bool TextEditor::saveFile(QString file) {
 
         QString titleText = tr("Unable to save file");
         QString text = tr("We couldn't save the file.");
-        QString informativeText = tr("Here are a few things to check:\n- Ensure that enough disk space is available\n- Ensure that you have write permissions on the file that you want to save to.");
+        QString informativeText = tr("Here are a few things to check:\n- Ensure that enough disk space is available.\n- Ensure that you have write permissions on the file that you want to save to.");
 
         #ifdef Q_OS_MAC
             messageBox->setText(titleText);
@@ -225,8 +238,6 @@ bool TextEditor::saveFile(QString file) {
         messageBox->exec();
 
         messageBox->deleteLater();
-
-        fileWatcher->blockSignals(false);
         return false;
     }
     f.write(this->toPlainText().toUtf8());
@@ -244,10 +255,9 @@ bool TextEditor::saveFile(QString file) {
     }
     fileWatcher->removePaths(fileWatcher->files());
     fileWatcher->addPath(file);
+
     git = new GitIntegration(QFileInfo(file).absoluteDir().path());
     connect(git, SIGNAL(reloadStatusNeeded()), parentWindow, SLOT(updateGit()));
-
-    fileWatcher->blockSignals(false);
     return true;
 }
 
@@ -726,8 +736,9 @@ void TextEditor::removeTopPanel(QWidget* topPanel) {
     emit primaryTopNotificationChanged(nullptr);
 }
 
-void TextEditor::fileOnDiskChanged() {
+void TextEditor::fileOnDiskChanged(QString file) {
     addTopPanel(onDiskChanged);
+    qDebug() << file;
 }
 
 void TextEditor::lockScrolling(TextEditor *other) {

@@ -49,3 +49,8 @@ void TopNotification::clearButtons() {
         buttons.removeOne(b);
     }
 }
+
+void TopNotification::on_closeButton_clicked()
+{
+    emit closeNotification();
+}
