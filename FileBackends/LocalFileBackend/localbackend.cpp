@@ -39,3 +39,4 @@ QString LocalBackend::documentTitle() {
 QUrl LocalBackend::url() {
     return QUrl::fromLocalFile(fileName);
 }
+

@@ -18,7 +18,6 @@ class LocalBackend : public FileBackend
 
         QString documentTitle();
         QUrl url();
-        FileBackend* openFromUrl(QUrl url);
 
     private:
         QString fileName;
