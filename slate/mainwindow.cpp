@@ -354,8 +354,8 @@ void MainWindow::on_tabs_currentChanged(int arg1)
     TextEditor* current = (TextEditor*) ui->tabs->widget(arg1);
     if (current != nullptr) {
         current->setActive(true);
+        QUrl url = current->fileUrl();
         #ifdef Q_OS_MAC
-            QUrl url = current->fileUrl();
             if (url.isLocalFile()) {
                 QString file = url.toLocalFile();
                 QFileIconProvider ic;
@@ -375,7 +375,6 @@ void MainWindow::on_tabs_currentChanged(int arg1)
             tabBar->setCurrentIndex(arg1);
         #endif
 
-        QUrl url = current->fileUrl();
         if (url.isLocalFile()) {
             QString file = url.toLocalFile();
             ui->projectTree->scrollTo(fileModel->index(file));
