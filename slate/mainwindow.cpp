@@ -11,6 +11,7 @@
 #include "picturetabbar.h"
 #include <QInputDialog>
 #include <QShortcut>
+#include "plugins/filebackend.h"
 
 #ifdef Q_OS_MAC
     extern QString bundlePath;
@@ -28,6 +29,62 @@ MainWindow::MainWindow(QWidget *parent) :
     openWindows.append(this);
 
     ui->mainToolBar->setIconSize(ui->mainToolBar->iconSize() * theLibsGlobal::getDPIScaling());
+    
+    //Load plugins
+    QStringList pluginSearchPaths;
+    #if defined(Q_OS_WIN)
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../../SyntaxHighlightingPlugins/");
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "/syntaxhighlighting/");
+    #elif defined(Q_OS_MAC)
+        pluginSearchPaths.append(bundlePath + "/Contents/syntaxhighlighting/");
+    #elif (defined Q_OS_UNIX)
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../SyntaxHighlightingPlugins/");
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../FileBackends/");
+        pluginSearchPaths.append("/usr/share/theslate/syntaxhighlighting/");
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "../share/theslate/syntaxhighlighting/");
+    #endif
+
+    QObjectList availablePlugins;
+    availablePlugins.append(QPluginLoader::staticInstances());
+
+    for (QString path : pluginSearchPaths) {
+        QDirIterator it(path, QDirIterator::Subdirectories);
+        while (it.hasNext()) {
+            it.next();
+            qDebug() << it.filePath();
+            QPluginLoader loader(it.filePath());
+            QObject* plugin = loader.instance();
+            qDebug() << loader.errorString();
+            if (plugin) {
+                availablePlugins.append(plugin);
+            }
+        }
+    }
+
+    for (QObject* obj : availablePlugins) {
+        SyntaxHighlighting* highlighter = qobject_cast<SyntaxHighlighting*>(obj);
+        if (highlighter) {
+            for (QString name : highlighter->availableHighlighters()) {
+                ui->menuCode->addAction(name, [=] {
+                    //highlighter->makeHighlighter(name);
+                    setCurrentDocumentHighlighting(highlighter->makeHighlighter(name));
+                });
+            }
+        }
+        
+        FileBackendPlugin* file = qobject_cast<FileBackendPlugin*>(obj);
+        if (file) {
+            QList<FileBackendFactory*> factories = file->getFactories();
+            for (FileBackendFactory* factory : factories) {
+                QAction* openAction = factory->makeOpenAction(this);
+                connect(factory, &FileBackendFactory::openFile, [=](FileBackend* backend) {
+                    qDebug() << "Woo open file!";
+                });
+
+                ui->menuOpenFrom->addAction(openAction);
+            }
+        }
+    }
 
     #ifdef Q_OS_WIN
         //Set up special palette for Windows
@@ -107,6 +164,7 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addAction(ui->actionNew_Window);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionOpen);
+        singleMenu->addMenu(ui->menuOpenFrom);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionSave);
         singleMenu->addAction(ui->actionSave_As);
@@ -169,47 +227,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->menuCode->addAction("XML", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::xml);});
     ui->menuCode->addAction("Markdown", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::md);});
     ui->menuCode->addAction("JavaScript Object Notation (JSON)", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::json);});*/
-
-    QObjectList availablePlugins;
-    availablePlugins.append(QPluginLoader::staticInstances());
-
-    QStringList pluginSearchPaths;
-    #if defined(Q_OS_WIN)
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../../SyntaxHighlightingPlugins/");
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "/syntaxhighlighting/");
-    #elif defined(Q_OS_MAC)
-        pluginSearchPaths.append(bundlePath + "/Contents/syntaxhighlighting/");
-    #elif (defined Q_OS_UNIX)
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../SyntaxHighlightingPlugins/");
-        pluginSearchPaths.append("/usr/share/theslate/syntaxhighlighting/");
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "../share/theslate/syntaxhighlighting/");
-    #endif
-
-
-    for (QString path : pluginSearchPaths) {
-        QDirIterator it(path, QDirIterator::Subdirectories);
-        while (it.hasNext()) {
-            it.next();
-            QPluginLoader loader(it.filePath());
-            QObject* plugin = loader.instance();
-            if (plugin) {
-                qDebug() << "Syntax Highlighting Plugin found at" << it.filePath();
-                availablePlugins.append(plugin);
-            }
-        }
-    }
-
-    for (QObject* obj : availablePlugins) {
-        SyntaxHighlighting* highlighter = qobject_cast<SyntaxHighlighting*>(obj);
-        if (highlighter) {
-            for (QString name : highlighter->availableHighlighters()) {
-                ui->menuCode->addAction(name, [=] {
-                    //highlighter->makeHighlighter(name);
-                    setCurrentDocumentHighlighting(highlighter->makeHighlighter(name));
-                });
-            }
-        }
-    }
 
     fileModel = new QFileSystemModel();
     fileModel->setRootPath(QDir::rootPath());

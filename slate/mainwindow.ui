@@ -169,9 +169,15 @@
     <property name="title">
      <string>Fi&amp;le</string>
     </property>
+    <widget class="QMenu" name="menuOpenFrom">
+     <property name="title">
+      <string>Open From</string>
+     </property>
+    </widget>
     <addaction name="actionNew"/>
     <addaction name="separator"/>
     <addaction name="actionOpen"/>
+    <addaction name="menuOpenFrom"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
@@ -230,7 +236,7 @@
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
-     <string>View</string>
+     <string>&amp;View</string>
     </property>
     <addaction name="actionNew_Window"/>
     <addaction name="separator"/>
@@ -1082,7 +1088,7 @@
      <normaloff>:/icons/tools-report-bug.svg</normaloff>:/icons/tools-report-bug.svg</iconset>
    </property>
    <property name="text">
-    <string>File Bug</string>
+    <string>&amp;File Bug</string>
    </property>
   </action>
   <action name="actionSources">
@@ -1091,7 +1097,7 @@
      <normaloff>:/icons/commit.svg</normaloff>:/icons/commit.svg</iconset>
    </property>
    <property name="text">
-    <string>Sources</string>
+    <string>&amp;Sources</string>
    </property>
   </action>
   <action name="actionUndo">
@@ -1100,7 +1106,7 @@
      <normaloff>:/icons/edit-undo.svg</normaloff>:/icons/edit-undo.svg</iconset>
    </property>
    <property name="text">
-    <string>Undo</string>
+    <string>U&amp;ndo</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Z</string>
@@ -1112,7 +1118,7 @@
      <normaloff>:/icons/edit-redo.svg</normaloff>:/icons/edit-redo.svg</iconset>
    </property>
    <property name="text">
-    <string>Redo</string>
+    <string>&amp;Redo</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+Z</string>
@@ -1124,7 +1130,7 @@
      <normaloff>:/icons/configure.svg</normaloff>:/icons/configure.svg</iconset>
    </property>
    <property name="text">
-    <string>Settings</string>
+    <string>Sett&amp;ings</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+,</string>
@@ -1139,7 +1145,7 @@
      <normaloff>:/icons/document-close.svg</normaloff>:/icons/document-close.svg</iconset>
    </property>
    <property name="text">
-    <string>Close</string>
+    <string>&amp;Close</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+W</string>
@@ -1147,10 +1153,15 @@
   </action>
   <action name="actionNew_Window">
    <property name="text">
-    <string>New Window</string>
+    <string>&amp;New Window</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+N</string>
+   </property>
+  </action>
+  <action name="actionWoo">
+   <property name="text">
+    <string>woo</string>
    </property>
   </action>
  </widget>

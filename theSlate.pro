@@ -4,4 +4,5 @@ slateDir.depends = SyntaxHighlightingPlugins
 slateDir.subdir = slate
 
 SUBDIRS = slateDir \
-    SyntaxHighlightingPlugins
+    SyntaxHighlightingPlugins \
+    FileBackends

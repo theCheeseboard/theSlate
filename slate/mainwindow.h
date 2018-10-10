@@ -26,7 +26,7 @@
 #include "aboutwindow.h"
 #include "texteditor.h"
 #include "SourceControl/gitintegration.h"
-#include "syntaxhighlighting/syntaxhighlighting.h"
+#include "plugins/syntaxhighlighting.h"
 #include "textparts/printdialog.h"
 
 #ifdef Q_OS_MAC

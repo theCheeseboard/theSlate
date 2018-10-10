@@ -80,10 +80,11 @@ HEADERS += \
     exitsavedialog.h \
     textparts/topnotification.h \
     textparts/mergetool.h \
-    syntaxhighlighting/syntaxhighlighting.h \
+    plugins/syntaxhighlighting.h \
     textparts/printdialog.h \
     settingsdialog.h \
-    picturetabbar.h
+    picturetabbar.h \
+    plugins/filebackend.h
 
 macx {
     SOURCES += \
@@ -153,7 +154,7 @@ unix:!macx {
     icon.files = icons/theslate.svg
 
     headers.path = /usr/include/theslate
-    header.files = syntaxhighlighting/syntaxhighlighting.h
+    header.files = plugins/syntaxhighlighting.h plugins/filebackend.h
 
     INSTALLS += target translations desktop icon headers
 }

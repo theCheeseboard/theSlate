@@ -6,7 +6,7 @@
 #include <QRegularExpressionMatchIterator>
 #include <QPalette>
 #include <QApplication>
-#include "../slate/syntaxhighlighting/syntaxhighlighting.h"
+#include "../slate/plugins/syntaxhighlighting.h"
 
 class XmlSyntaxHighlighter : public SyntaxHighlighter
 {

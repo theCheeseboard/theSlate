@@ -16,6 +16,9 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
     this->parentWindow = parent;
 
     button = new TabButton(this);
+    connect(button, &TabButton::destroyed, [=] {
+        button = nullptr;
+    });
     button->setText(tr("New Document"));
 
     connect(this, &TextEditor::textChanged, [=] {
