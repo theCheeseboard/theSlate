@@ -9,6 +9,8 @@
 #include "the-libs_global.h"
 #include "mainwindow.h"
 
+extern FileBackendFactory* localFileBackend;
+
 TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
 {
     this->setLineWrapMode(NoWrap);
@@ -29,9 +31,9 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
             emit editedChanged();
         }
     });
-    connect(this, &TextEditor::fileNameChanged, [=] {
-        button->setText(QFileInfo(this->filename()).fileName());
-        emit titleChanged(QFileInfo(this->filename()).fileName());
+    connect(this, &TextEditor::backendChanged, [=] {
+        button->setText(this->title());
+        emit titleChanged(this->title());
     });
 
     leftMargin = new TextEditorLeftMargin(this);
@@ -143,80 +145,54 @@ void TextEditor::setActive(bool active) {
     this->active = active;
 }
 
-QString TextEditor::filename() {
-    return fn;
+QString TextEditor::title() {
+    if (currentBackend == nullptr) {
+        return "";
+    } else {
+        return currentBackend->documentTitle();
+    }
 }
 
 bool TextEditor::isEdited() {
     return edited;
 }
 
-void TextEditor::openFile(QString file) {
+void TextEditor::openFile(FileBackend *backend) {
     removeTopPanel(onDiskChanged);
     removeTopPanel(fileReadError);
 
-    QFile f(file);
-    if (!f.open(QFile::ReadOnly | QFile::Text)) {
-        QFileInfo info(f);
-        if (!info.exists()) {
-            fileReadError->setText(tr("%1 doesn't exist.").arg(info.fileName()));
-        } else if (!info.permission(QFile::ReadUser)) {
-            fileReadError->setText(tr("You don't have the appropriate permissions to open %1.").arg(info.fileName()));
-        } else if (info.isDir()) {
-            fileReadError->setText(tr("%1 is a folder.").arg(info.fileName()));
+    backend->load()->then([=](QByteArray data) {
+        this->setPlainText(data);
+        edited = false;
+
+        emit backendChanged();
+        emit editedChanged();
+
+        if (this->toPlainText().contains("======")) {
+            addTopPanel(mergeConflictsNotification);
         } else {
-            fileReadError->setText(tr("Can't open %1.").arg(info.fileName()));
+            removeTopPanel(mergeConflictsNotification);
         }
+    })->error([=](QString error) {
+        fileReadError->setText(error);
 
         fileReadError->clearButtons();
 
         QPushButton* retryButton = new QPushButton();
         retryButton->setText(tr("Retry"));
         connect(retryButton, &QPushButton::clicked, [=] {
-            openFile(file);
+            openFile(backend);
         });
         fileReadError->addButton(retryButton);
 
         addTopPanel(fileReadError);
-        return;
-    }
-    this->setPlainText(f.readAll());
-    f.close();
 
-    edited = false;
-    this->fn = file;
-    emit fileNameChanged();
-    emit editedChanged();
+    });
 
-    QFileInfo fileInfo(file);
-    /*if (fileInfo.suffix() == "cpp") { //C++ File
-        hl->setCodeType(SyntaxHighlighter::cpp);
-    } else if (fileInfo.suffix() == "py") { //Python File
-        hl->setCodeType(SyntaxHighlighter::py);
-    } else if (fileInfo.suffix() == "js") { //Javascript File
-        hl->setCodeType(SyntaxHighlighter::js);
-    } else if (fileInfo.suffix() == "json") { //JSON File
-        hl->setCodeType(SyntaxHighlighter::json);
-    } else if (fileInfo.suffix() == "tslprj") { //theSlate Project File
-        hl->setCodeType(SyntaxHighlighter::json);
-    }*/
-
-    if (git != nullptr) {
-        git->deleteLater();
-    }
-    fileWatcher->removePaths(fileWatcher->files());
-    fileWatcher->addPath(file);
-    git = new GitIntegration(fileInfo.absoluteDir().path());
-    connect(git, SIGNAL(reloadStatusNeeded()), parentWindow, SLOT(updateGit()));
-
-    if (this->toPlainText().contains("======")) {
-        addTopPanel(mergeConflictsNotification);
-    } else {
-        removeTopPanel(mergeConflictsNotification);
-    }
+    this->currentBackend = backend;
 }
 
-bool TextEditor::saveFile(QString file) {
+/*bool TextEditor::saveFile(QString file) {
     QSignalBlocker blocker(fileWatcher);
 
     QFile f(file);
@@ -251,8 +227,8 @@ bool TextEditor::saveFile(QString file) {
     removeTopPanel(onDiskChanged);
 
     edited = false;
-    this->fn = file;
-    emit fileNameChanged();
+    //this->fn = file;
+    emit backendChanged();
     emit editedChanged();
 
     if (git != nullptr) {
@@ -264,13 +240,23 @@ bool TextEditor::saveFile(QString file) {
     git = new GitIntegration(QFileInfo(file).absoluteDir().path());
     connect(git, SIGNAL(reloadStatusNeeded()), parentWindow, SLOT(updateGit()));
     return true;
-}
+}*/
 
 bool TextEditor::saveFile() {
-    if (this->filename() == "") {
+    if (this->currentBackend == nullptr) {
         return false;
     } else {
-        return saveFile(this->filename());
+        currentBackend->save(this->toPlainText().toUtf8());
+
+        removeTopPanel(onDiskChanged);
+        edited = false;
+        emit backendChanged();
+        emit editedChanged();
+
+        if (git != nullptr) {
+            git->deleteLater();
+        }
+        return true;
     }
 }
 
@@ -620,12 +606,11 @@ void TextEditor::setExtraSelections(const QList<QTextEdit::ExtraSelection> &extr
     QPlainTextEdit::setExtraSelections(extraSelections);
 }
 
-void TextEditor::openFileFake(QString filename, QString contents) {
+void TextEditor::openFileFake(QString contents) {
     this->setPlainText(contents);
 
     edited = false;
-    this->fn = filename;
-    emit fileNameChanged();
+    emit backendChanged();
     emit editedChanged();
 }
 
@@ -639,7 +624,7 @@ void TextEditor::toggleFindReplace() {
 }
 
 void TextEditor::revertFile() {
-    if (this->fn != "") {
+    if (this->currentBackend != nullptr) {
         QMessageBox* messageBox = new QMessageBox(this->window());
         messageBox->setWindowTitle(tr("Revert Changes?"));
         messageBox->setText(tr("Do you want to revert all the edits made to this document?"));
@@ -650,7 +635,7 @@ void TextEditor::revertFile() {
         int button = messageBox->exec();
 
         if (button == QMessageBox::Yes) {
-            openFile(this->fn);
+            openFile(currentBackend);
         }
     }
 }
@@ -697,24 +682,13 @@ void TextEditor::dropEvent(QDropEvent *event) {
 }
 
 bool TextEditor::saveFileAskForFilename(bool saveAs) {
-    if (this->filename() == "" || saveAs) {
-        QEventLoop* loop = new QEventLoop();
-        QFileDialog* saveDialog = new QFileDialog(this->window(), Qt::Sheet);
-        saveDialog->setWindowModality(Qt::WindowModal);
-        saveDialog->setAcceptMode(QFileDialog::AcceptSave);
-        saveDialog->setDirectory(QDir::home());
-        saveDialog->setNameFilters(QStringList() << "Text File (*.txt)"
-                                                 << "All Files (*)");
-        connect(saveDialog, SIGNAL(finished(int)), saveDialog, SLOT(deleteLater()));
-        connect(saveDialog, SIGNAL(finished(int)), loop, SLOT(quit()));
-        saveDialog->show();
+    if (this->currentBackend == nullptr || saveAs) {
+        bool ok;
+        QUrl url = localFileBackend->askForUrl(this, &ok);
 
-        //Block until dialog is finished
-        loop->exec();
-        loop->deleteLater();
-
-        if (saveDialog->result() == QDialog::Accepted) {
-            return this->saveFile(saveDialog->selectedFiles().first());
+        if (ok) {
+            currentBackend = localFileBackend->openFromUrl(url);
+            this->saveFile();
         } else {
             return false;
         }
@@ -827,4 +801,12 @@ void TextEditor::reloadSettings() {
         f = QFont(settings.value("font/textFontFamily", QFontDatabase::systemFont(QFontDatabase::FixedFont).family()).toString(), settings.value("font/textFontSize", QFontDatabase::systemFont(QFontDatabase::FixedFont).pointSize()).toInt());
     }
     this->setFont(f);
+}
+
+QUrl TextEditor::fileUrl() {
+    if (currentBackend != nullptr) {
+        return currentBackend->url();
+    } else {
+        return QUrl();
+    }
 }

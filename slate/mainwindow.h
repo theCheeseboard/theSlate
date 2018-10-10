@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QToolButton>
-#include <QFileDialog>
 #include <QMessageBox>
 #include <QSplitter>
 #include <QJsonObject>
@@ -28,6 +27,7 @@
 #include "SourceControl/gitintegration.h"
 #include "plugins/syntaxhighlighting.h"
 #include "textparts/printdialog.h"
+#include "plugins/filebackend.h"
 
 #ifdef Q_OS_MAC
 #include <QMacToolBar>
@@ -51,6 +51,7 @@ class MainWindow : public QMainWindow
     public slots:
         void newTab();
         void newTab(QString filename);
+        void newTab(FileBackend* backend);
         bool closeCurrentTab();
         void show();
 
@@ -90,8 +91,6 @@ class MainWindow : public QMainWindow
         void on_modifiedChanges_itemChanged(QListWidgetItem *item);
 
         void on_actionSave_All_triggered();
-
-        void switchToFile(QString file, QString fakeFileContents = "");
 
         void setCurrentDocumentHighlighting(QSyntaxHighlighter* highlighter);
 

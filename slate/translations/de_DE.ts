@@ -115,37 +115,37 @@
 <context>
     <name>MAC_APPLICATION_MENU</name>
     <message>
-        <location filename="../main.cpp" line="71"/>
+        <location filename="../main.cpp" line="74"/>
         <source>Services</source>
         <translation>Services</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="72"/>
+        <location filename="../main.cpp" line="75"/>
         <source>Hide %1</source>
         <translation>Verstecke %1</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="73"/>
+        <location filename="../main.cpp" line="76"/>
         <source>Hide Others</source>
         <translation>Verstecke Andere</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="74"/>
+        <location filename="../main.cpp" line="77"/>
         <source>Show All</source>
         <translation>Zeige Alles</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="75"/>
+        <location filename="../main.cpp" line="78"/>
         <source>Preferences...</source>
         <translation>Einstellungen ...</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="76"/>
+        <location filename="../main.cpp" line="79"/>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="77"/>
+        <location filename="../main.cpp" line="80"/>
         <source>Quit %1</source>
         <translation>Verlasse %1</translation>
     </message>
@@ -174,7 +174,7 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="215"/>
-        <location filename="../main.cpp" line="42"/>
+        <location filename="../main.cpp" line="45"/>
         <source>Help</source>
         <translation>Hilfe</translation>
     </message>
@@ -270,10 +270,10 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="826"/>
-        <location filename="../main.cpp" line="23"/>
+        <location filename="../main.cpp" line="26"/>
         <location filename="../mainwindow-objc.mm" line="154"/>
         <location filename="../mainwindow-objc.mm" line="156"/>
-        <location filename="../mainwindow.cpp" line="106"/>
+        <location filename="../mainwindow.cpp" line="111"/>
         <source>New</source>
         <translation>Neu</translation>
     </message>
@@ -291,7 +291,7 @@
         <location filename="../mainwindow.ui" line="841"/>
         <location filename="../mainwindow-objc.mm" line="137"/>
         <location filename="../mainwindow-objc.mm" line="139"/>
-        <location filename="../mainwindow.cpp" line="122"/>
+        <location filename="../mainwindow.cpp" line="127"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
@@ -307,7 +307,7 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="856"/>
-        <location filename="../mainwindow.cpp" line="114"/>
+        <location filename="../mainwindow.cpp" line="119"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
@@ -542,12 +542,12 @@
         <translation>&amp;Zurückkehren</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="43"/>
+        <location filename="../main.cpp" line="46"/>
         <source>File Bug</source>
         <translation>Datei Fehler</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="46"/>
+        <location filename="../main.cpp" line="49"/>
         <source>Sources</source>
         <translation>Quellen</translation>
     </message>
@@ -562,7 +562,7 @@
         <translation>Strg+Shift+Z</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="32"/>
+        <location filename="../main.cpp" line="35"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
@@ -583,142 +583,142 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="27"/>
+        <location filename="../main.cpp" line="30"/>
         <source>New Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="474"/>
+        <location filename="../mainwindow.cpp" line="477"/>
         <source>Save Changes?</source>
         <translation>Änderungen speichern?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="475"/>
+        <location filename="../mainwindow.cpp" line="478"/>
         <source>Do you want to save your changes to this document?</source>
         <translation>Möchten Sie Ihre Änderungen in diesem Dokument speichern?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="710"/>
-        <location filename="../mainwindow.cpp" line="717"/>
+        <location filename="../mainwindow.cpp" line="699"/>
+        <location filename="../mainwindow.cpp" line="706"/>
         <source>Git Pull</source>
-        <translation>Git Ziehen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="711"/>
+        <location filename="../mainwindow.cpp" line="700"/>
         <source>Pulling from remote repository...</source>
-        <translation>Aus dem Remote-Repository ziehen ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="718"/>
+        <location filename="../mainwindow.cpp" line="707"/>
         <source>Local repository updated</source>
-        <translation>Lokales Repository aktualisiert</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="726"/>
+        <location filename="../mainwindow.cpp" line="715"/>
         <source>Automatic merging failed</source>
-        <translation>Automatische Zusammenführung fehlgeschlagen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="727"/>
+        <location filename="../mainwindow.cpp" line="716"/>
         <source>Conflicting files in working directory need to be resolved.</source>
-        <translation>Widersprüchliche Dateien im Arbeitsverzeichnis müssen aufgelöst werden.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="732"/>
+        <location filename="../mainwindow.cpp" line="721"/>
         <source>Merging failed</source>
-        <translation>Zusammenführung fehlgeschlagen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="733"/>
+        <location filename="../mainwindow.cpp" line="722"/>
         <source>Your working directory is not clean. Commit your changes before you pull.</source>
-        <translation>Dein Arbeitsverzeichnis ist nicht sauber. Übernehmen Sie Ihre Änderungen, bevor Sie ziehen.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="745"/>
-        <location filename="../mainwindow.cpp" line="752"/>
+        <location filename="../mainwindow.cpp" line="734"/>
+        <location filename="../mainwindow.cpp" line="741"/>
         <source>Git Push</source>
-        <translation>Git drücken</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="746"/>
+        <location filename="../mainwindow.cpp" line="735"/>
         <source>Pushing to remote repository...</source>
-        <translation>Zum Remote-Repository drücken...</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="742"/>
+        <source>Files were pushed to the remote repository</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="753"/>
-        <source>Files were pushed to the remote repository</source>
-        <translation>Dateien wurden an das Remote-Repository gesendet</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="764"/>
         <source>Push Rejected</source>
-        <translation>Drücken abgelehnt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="765"/>
+        <location filename="../mainwindow.cpp" line="754"/>
         <source>Your local Git repository is not up to date. You&apos;ll need to pull from the remote repository before you can push.</source>
-        <translation>Ihr lokales Git-Repository ist nicht auf dem neuesten Stand. Sie müssen aus dem Remote-Repository ziehen, bevor Sie drücken können.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="784"/>
-        <location filename="../mainwindow.cpp" line="796"/>
-        <source>Git Commit</source>
-        <translation>Git Commit</translation>
-    </message>
-    <message>
+        <location filename="../mainwindow.cpp" line="773"/>
         <location filename="../mainwindow.cpp" line="785"/>
+        <source>Git Commit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="774"/>
         <source>A commit message is required.</source>
-        <translation>Eine Commit-Nachricht ist erforderlich.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="797"/>
+        <location filename="../mainwindow.cpp" line="786"/>
         <source>Your local files have been committed. Your HEAD now points to %1</source>
-        <translation>Ihre lokalen Dateien wurden festgeschrieben. Dein KOPF zeigt jetzt auf %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="877"/>
+        <location filename="../mainwindow.cpp" line="866"/>
         <source>For %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="879"/>
+        <location filename="../mainwindow.cpp" line="868"/>
         <source>Edit in new tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="884"/>
+        <location filename="../mainwindow.cpp" line="873"/>
         <source>Edit in new window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="893"/>
-        <source>Delete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="890"/>
-        <location filename="../mainwindow.cpp" line="897"/>
-        <location filename="../mainwindow.cpp" line="899"/>
+        <location filename="../mainwindow.cpp" line="879"/>
+        <location filename="../mainwindow.cpp" line="886"/>
+        <location filename="../mainwindow.cpp" line="888"/>
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="899"/>
+        <location filename="../mainwindow.cpp" line="882"/>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="888"/>
         <source>What do you want to call this file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="22"/>
+        <location filename="../main.cpp" line="25"/>
         <source>File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="37"/>
+        <location filename="../main.cpp" line="40"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="50"/>
+        <location filename="../main.cpp" line="53"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
@@ -891,94 +891,57 @@
 <context>
     <name>TextEditor</name>
     <message>
-        <location filename="../texteditor.cpp" line="22"/>
+        <location filename="../texteditor.cpp" line="24"/>
         <source>New Document</source>
         <translation type="unfinished">Neues Dokument</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="63"/>
+        <location filename="../texteditor.cpp" line="65"/>
         <source>Merge Conflicts were found in this file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="66"/>
+        <location filename="../texteditor.cpp" line="68"/>
         <source>Resolve Merge Conflicts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="93"/>
+        <location filename="../texteditor.cpp" line="95"/>
         <source>File on disk changed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="94"/>
+        <location filename="../texteditor.cpp" line="96"/>
         <source>The file on the disk has changed. If you save this file you will lose the changes on disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="97"/>
+        <location filename="../texteditor.cpp" line="99"/>
         <source>Reload File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="102"/>
+        <location filename="../texteditor.cpp" line="104"/>
         <source>Merge File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="112"/>
+        <location filename="../texteditor.cpp" line="114"/>
         <source>Can&apos;t open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="162"/>
-        <source>%1 doesn&apos;t exist.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../texteditor.cpp" line="164"/>
-        <source>You don&apos;t have the appropriate permissions to open %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../texteditor.cpp" line="166"/>
-        <source>%1 is a folder.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../texteditor.cpp" line="168"/>
-        <source>Can&apos;t open %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../texteditor.cpp" line="174"/>
+        <location filename="../texteditor.cpp" line="182"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="226"/>
-        <source>Unable to save file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../texteditor.cpp" line="227"/>
-        <source>We couldn&apos;t save the file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../texteditor.cpp" line="228"/>
-        <source>Here are a few things to check:
-- Ensure that enough disk space is available.
-- Ensure that you have write permissions on the file that you want to save to.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../texteditor.cpp" line="644"/>
+        <location filename="../texteditor.cpp" line="629"/>
         <source>Revert Changes?</source>
         <translation type="unfinished">Änderungen rückgängig machen?</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="645"/>
+        <location filename="../texteditor.cpp" line="630"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation type="unfinished">Möchten Sie alle Änderungen rückgängig machen, die an diesem Dokument vorgenommen wurden?</translation>
     </message>

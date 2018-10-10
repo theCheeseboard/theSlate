@@ -18,6 +18,8 @@
     extern void setToolbarItemWidget(QMacToolBarItem* item, QWidget* widget);
 #endif
 
+extern FileBackendFactory* localFileBackend;
+
 QList<MainWindow*> MainWindow::openWindows = QList<MainWindow*>();
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -35,13 +37,18 @@ MainWindow::MainWindow(QWidget *parent) :
     #if defined(Q_OS_WIN)
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/../../SyntaxHighlightingPlugins/");
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/syntaxhighlighting/");
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../../FileBackends/");
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "/filebackends/");
     #elif defined(Q_OS_MAC)
         pluginSearchPaths.append(bundlePath + "/Contents/syntaxhighlighting/");
+        pluginSearchPaths.append(bundlePath + "/Contents/filebackends/");
     #elif (defined Q_OS_UNIX)
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/../SyntaxHighlightingPlugins/");
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/../FileBackends/");
         pluginSearchPaths.append("/usr/share/theslate/syntaxhighlighting/");
+        pluginSearchPaths.append("/usr/share/theslate/filebackends/");
         pluginSearchPaths.append(QApplication::applicationDirPath() + "../share/theslate/syntaxhighlighting/");
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "../share/theslate/filebackends/");
     #endif
 
     QObjectList availablePlugins;
@@ -76,12 +83,15 @@ MainWindow::MainWindow(QWidget *parent) :
         if (file) {
             QList<FileBackendFactory*> factories = file->getFactories();
             for (FileBackendFactory* factory : factories) {
-                QAction* openAction = factory->makeOpenAction(this);
+                if (factory->name() == "Local File" && localFileBackend == nullptr) {
+                    localFileBackend = factory;
+                } else {
+                    QAction* openAction = factory->makeOpenAction(this);
+                    ui->menuOpenFrom->addAction(openAction);
+                }
                 connect(factory, &FileBackendFactory::openFile, [=](FileBackend* backend) {
-                    qDebug() << "Woo open file!";
+                    newTab(backend);
                 });
-
-                ui->menuOpenFrom->addAction(openAction);
             }
         }
     }
@@ -262,11 +272,15 @@ void MainWindow::newTab() {
     ui->tabs->setCurrentWidget(view);
 
     connect(view, SIGNAL(editedChanged()), this, SLOT(checkForEdits()));
-    connect(view, &TextEditor::fileNameChanged, [=] {
+    connect(view, &TextEditor::backendChanged, [=] {
         if (currentDocument() == view) {
-            this->setWindowFilePath(view->filename());
-            ui->projectTree->scrollTo(fileModel->index(view->filename()));
-            ui->projectTree->expand(fileModel->index(view->filename()));
+            QUrl url = view->fileUrl();
+            if (url.isLocalFile()) {
+                QString file = url.toLocalFile();
+                this->setWindowFilePath(file);
+                ui->projectTree->scrollTo(fileModel->index(file));
+                ui->projectTree->expand(fileModel->index(file));
+            }
         }
     });
 
@@ -303,11 +317,20 @@ void MainWindow::newTab() {
 }
 
 void MainWindow::newTab(QString filename) {
-    if (currentDocument() == nullptr || currentDocument()->isEdited() || currentDocument()->filename() != "") {
+    if (currentDocument() == nullptr || currentDocument()->isEdited() || currentDocument()->title() != "") {
         newTab();
     }
 
-    currentDocument()->openFile(filename);
+    currentDocument()->openFile(localFileBackend->openFromUrl(QUrl::fromLocalFile(filename)));
+    updateGit();
+}
+
+void MainWindow::newTab(FileBackend* backend) {
+    if (currentDocument() == nullptr || currentDocument()->isEdited() || currentDocument()->title() != "") {
+        newTab();
+    }
+
+    currentDocument()->openFile(backend);
     updateGit();
 }
 
@@ -346,8 +369,13 @@ void MainWindow::on_tabs_currentChanged(int arg1)
 
             tabBar->setCurrentIndex(arg1);
         #endif
-        ui->projectTree->scrollTo(fileModel->index(current->filename()));
-        ui->projectTree->expand(fileModel->index(current->filename()));
+
+        QUrl url = current->fileUrl();
+        if (url.isLocalFile()) {
+            QString file = url.toLocalFile();
+            ui->projectTree->scrollTo(fileModel->index(file));
+            ui->projectTree->expand(fileModel->index(file));
+        }
 
         updateGit();
     }
@@ -373,29 +401,9 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionOpen_triggered()
 {
     this->menuBar()->setEnabled(false);
-    QEventLoop* loop = new QEventLoop();
-    QFileDialog* openDialog = new QFileDialog(this, Qt::Sheet);
-    openDialog->setWindowModality(Qt::WindowModal);
-    openDialog->setAcceptMode(QFileDialog::AcceptOpen);
-
-    if (currentProjectFile == "") {
-        openDialog->setDirectory(QDir::home());
-    } else {
-        openDialog->setDirectory(QFileInfo(currentProjectFile).path());
-    }
-
-    openDialog->setNameFilter("All Files (*)");
-    connect(openDialog, SIGNAL(finished(int)), openDialog, SLOT(deleteLater()));
-    connect(openDialog, SIGNAL(finished(int)), loop, SLOT(quit()));
-    openDialog->show();
-
-    //Block until dialog is finished
-    loop->exec();
-    loop->deleteLater();
-
-    if (openDialog->result() == QDialog::Accepted) {
-        newTab(openDialog->selectedFiles().first());
-    }
+    QAction* action = localFileBackend->makeOpenAction(this);
+    action->trigger();
+    action->deleteLater();
     this->menuBar()->setEnabled(true);
 }
 
@@ -544,14 +552,17 @@ void MainWindow::on_projectTree_clicked(const QModelIndex &index)
 {
     if (!fileModel->isDir(index)) {
         for (int i = 0; i < ui->tabs->count(); i++) {
-            if (fileModel->filePath(index) == ((TextEditor*) ui->tabs->widget(i))->filename()) {
-                ui->tabs->setCurrentIndex(i);
-                return;
+            QUrl url = ((TextEditor*) ui->tabs->widget(i))->fileUrl();
+            if (url.isLocalFile()) {
+                if (fileModel->filePath(index) == url.toLocalFile()) {
+                    ui->tabs->setCurrentIndex(i);
+                    return;
+                }
             }
         }
 
         newTab();
-        currentDocument()->openFile(fileModel->filePath(index));
+        currentDocument()->openFile(localFileBackend->openFromUrl(QUrl::fromLocalFile(fileModel->filePath(index))));
         updateGit();
     }
 }
@@ -618,26 +629,9 @@ void MainWindow::on_actionSave_All_triggered()
 {
     for (int i = 0; i < ui->tabs->count(); i++) {
         TextEditor* document = (TextEditor*) ui->tabs->widget(i);
-        if (document->filename() != "") {
+        if (document->title() != "") {
             document->saveFile();
         }
-    }
-}
-
-void MainWindow::switchToFile(QString file, QString fakeFileContents) {
-    for (int i = 0; i < ui->tabs->count(); i++) {
-        if (((TextEditor*) ui->tabs->widget(i))->filename() == file) {
-            ui->tabs->setCurrentIndex(i);
-            return;
-        }
-    }
-
-    newTab();
-    if (fakeFileContents == "") {
-        currentDocument()->openFile(file);
-        updateGit();
-    } else {
-        currentDocument()->openFileFake(file, fakeFileContents);
     }
 }
 
@@ -878,7 +872,7 @@ void MainWindow::on_projectTree_customContextMenuRequested(const QPoint &pos)
         if (info.isFile()) {
             menu->addAction(tr("Edit in new tab"), [=] {
                 newTab();
-                currentDocument()->openFile(fileModel->filePath(index));
+                currentDocument()->openFile(localFileBackend->openFromUrl(QUrl::fromLocalFile(fileModel->filePath(index))));
                 updateGit();
             });
             menu->addAction(tr("Edit in new window"), [=] {

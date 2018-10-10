@@ -55,7 +55,7 @@ void ExitSaveDialog::on_saveButton_clicked()
     for (int i = 0; i < ui->editedFilesList->count(); i++) {
         if (ui->editedFilesList->item(i)->checkState() == Qt::Checked || attnAll) {
             TextEditor* editor = ui->editedFilesList->item(i)->data(Qt::UserRole).value<TextEditor*>();
-            if (editor->filename() == "" && !didHide) {
+            if (editor->title() == "" && !didHide) {
                 this->hide();
                 didHide = true;
             }

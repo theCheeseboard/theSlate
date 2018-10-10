@@ -19,10 +19,12 @@ qmake theSlate.pro
 nmake release
 mkdir deploy
 mkdir deploy\syntaxhighlighting
+mkdir deploy\filebackends
 mkdir deploy\translations
 copy slate\release\theslate.exe deploy
 copy slate\translations\*.qm deploy\translations
 copy SyntaxHighlightingPlugins\release\SyntaxHighlightingPlugins.dll deploy\syntaxhighlighting
+copy FileBackends\LocalFileBackend\release\LocalFileBackend.dll deploy\filebackends
 copy "C:\Program Files\thelibs\lib\the-libs.dll" deploy
 cd deploy
 windeployqt theslate.exe

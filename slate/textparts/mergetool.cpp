@@ -127,8 +127,8 @@ MergeTool::MergeTool(QString unmergedFile, MainWindow* mainWindow, QWidget *pare
         }
     }
 
-    source->openFileFake("Local File", sourceStr);
-    remote->openFileFake("Remote File", remoteStr);
+    source->openFileFake(sourceStr);
+    remote->openFileFake(remoteStr);
     mergedDocument = mergedStr;
 
     updateMergedFile();
@@ -164,7 +164,7 @@ void MergeTool::updateMergedFile() {
         }
         current++;
     }
-    endFile->openFileFake("End File", mergedStr);
+    endFile->openFileFake(mergedStr);
 }
 
 void MergeTool::on_cancelButton_clicked()

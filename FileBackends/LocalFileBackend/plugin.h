@@ -11,6 +11,11 @@ class LocalBackendFactory : public FileBackendFactory
         LocalBackendFactory(QObject* parent = nullptr) : FileBackendFactory(parent) {}
 
         QAction* makeOpenAction(QWidget* parent);
+        QString name();
+
+    public slots:
+        FileBackend* openFromUrl(QUrl url);
+        QUrl askForUrl(QWidget* parent, bool* ok = nullptr);
 };
 
 class Plugin : public QObject, public FileBackendPlugin

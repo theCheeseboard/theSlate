@@ -3,6 +3,7 @@
 #include <QAction>
 #include <QFileDialog>
 #include <QEventLoop>
+#include "localbackend.h"
 
 Plugin::Plugin() : FileBackendPlugin()
 {
@@ -38,9 +39,45 @@ QAction* LocalBackendFactory::makeOpenAction(QWidget* parent) {
 
         if (openDialog->result() == QDialog::Accepted) {
             //Create new file backend
-            //newTab(openDialog->selectedFiles().first());
-            emit openFile(nullptr);
+            emit openFile(new LocalBackend(openDialog->selectedFiles().first()));
         }
     });
     return a;
+}
+
+QString LocalBackendFactory::name() {
+    return "Local File";
+}
+
+FileBackend* LocalBackendFactory::openFromUrl(QUrl url) {
+    if (!url.isLocalFile()) {
+        return nullptr;
+    } else {
+        return new LocalBackend(url.toLocalFile());
+    }
+}
+
+QUrl LocalBackendFactory::askForUrl(QWidget* parent, bool* ok) {
+    QEventLoop* loop = new QEventLoop();
+    QFileDialog* saveDialog = new QFileDialog(parent->window(), Qt::Sheet);
+    saveDialog->setWindowModality(Qt::WindowModal);
+    saveDialog->setAcceptMode(QFileDialog::AcceptSave);
+    saveDialog->setDirectory(QDir::home());
+    saveDialog->setNameFilters(QStringList() << "Text File (*.txt)"
+                                             << "All Files (*)");
+    connect(saveDialog, SIGNAL(finished(int)), saveDialog, SLOT(deleteLater()));
+    connect(saveDialog, SIGNAL(finished(int)), loop, SLOT(quit()));
+    saveDialog->show();
+
+    //Block until dialog is finished
+    loop->exec();
+    loop->deleteLater();
+
+    if (saveDialog->result() == QDialog::Accepted) {
+        if (ok != nullptr) *ok = true;
+        return QUrl::fromLocalFile(saveDialog->selectedFiles().first());
+    } else {
+        if (ok != nullptr) *ok = false;
+        return QUrl();
+    }
 }

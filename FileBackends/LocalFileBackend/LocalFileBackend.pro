@@ -25,14 +25,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 DISTFILES += LocalFileBackend.json
 
 unix:!macx {
-    target.path = /usr/share/theslate/syntaxhighlighting
+    target.path = /usr/share/theslate/filebackends
 
     INSTALLS += target
 }
 
 HEADERS += \
     plugin.h \
-    ../../slate/plugins/filebackend.h #Also moc the backend header
+    ../../slate/plugins/filebackend.h \ #Also moc the backend header
+    localbackend.h
 
 SOURCES += \
-    plugin.cpp
+    plugin.cpp \
+    localbackend.cpp

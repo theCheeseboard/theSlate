@@ -169,7 +169,10 @@ macx {
     syntax.files = ../SyntaxHighlightingPlugins/libSyntaxHighlightingPlugins.dylib
     syntax.path = Contents/syntaxhighlighting/
 
-    QMAKE_BUNDLE_DATA = translations locversion syntax
+    filebackend.files = ../FileBackends/LocalFileBackend/libLocalFileBackend.dylib
+    filebackend.path = Contents/filebackends/
+
+    QMAKE_BUNDLE_DATA = translations locversion syntax backend
 
     QMAKE_POST_LINK += $$quote(cp $${PWD}/dmgicon.icns $${PWD}/app-dmg-background.png $${PWD}/node-appdmg-config.json $${OUT_PWD}/..)
 }

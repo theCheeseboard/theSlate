@@ -18,6 +18,7 @@
 #include "textparts/findreplace.h"
 #include "textparts/topnotification.h"
 #include "textparts/mergetool.h"
+#include "plugins/filebackend.h"
 
 class TabButton;
 class FindReplace;
@@ -58,7 +59,8 @@ class TextEditor : public QPlainTextEdit
         explicit TextEditor(MainWindow *parent);
         ~TextEditor();
 
-        QString filename();
+        QUrl fileUrl();
+        QString title();
         bool isEdited();
         QSyntaxHighlighter* highlighter();
 
@@ -68,7 +70,7 @@ class TextEditor : public QPlainTextEdit
         GitIntegration* git = nullptr;
 
     signals:
-        void fileNameChanged();
+        void backendChanged();
         void editedChanged();
         void mergeDecision(MergeLines lines, bool on);
         void titleChanged(QString title);
@@ -78,9 +80,8 @@ class TextEditor : public QPlainTextEdit
         TabButton* getTabButton();
         void setActive(bool active);
 
-        void openFile(QString file);
-        void openFileFake(QString filename, QString contents);
-        bool saveFile(QString file);
+        void openFile(FileBackend* backend);
+        void openFileFake(QString contents);
         bool saveFile();
         bool saveFileAskForFilename(bool saveAs = false);
         void revertFile();
@@ -119,7 +120,6 @@ class TextEditor : public QPlainTextEdit
         bool active;
         bool edited = false;
         bool firstEdit = true;
-        QString fn;
         QSyntaxHighlighter* hl = nullptr;
         MainWindow* parentWindow;
 
@@ -152,6 +152,8 @@ class TextEditor : public QPlainTextEdit
 
         QSettings settings;
         QMap<MergeLines, bool> mergeDecisions;
+
+        FileBackend* currentBackend = nullptr;
 };
 
 #endif // TEXTEDITOR_H

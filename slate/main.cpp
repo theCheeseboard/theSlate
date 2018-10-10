@@ -7,6 +7,7 @@
 #include <QDesktopServices>
 #include "aboutwindow.h"
 #include "settingsdialog.h"
+#include "plugins/filebackend.h"
 
 #ifdef Q_OS_MAC
     #include <CoreFoundation/CFBundle.h>
@@ -14,6 +15,8 @@
 
     extern void setupMacObjC();
 #endif
+
+FileBackendFactory* localFileBackend = nullptr;
 
 void setupMacMenubar() {
     //Set up macOS menu bar when no window is open
