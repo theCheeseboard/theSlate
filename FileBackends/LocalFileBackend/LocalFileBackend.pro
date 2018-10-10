@@ -6,6 +6,12 @@
 
 QT       += core gui widgets thelib
 
+win32 {
+    INCLUDEPATH += "C:/Program Files/thelibs/include"
+    LIBS += -L"C:/Program Files/thelibs/lib" -lthe-libs
+}
+
+
 TARGET = LocalFileBackend
 TEMPLATE = lib
 CONFIG += plugin

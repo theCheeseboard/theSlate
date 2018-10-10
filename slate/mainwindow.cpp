@@ -355,16 +355,21 @@ void MainWindow::on_tabs_currentChanged(int arg1)
     if (current != nullptr) {
         current->setActive(true);
         #ifdef Q_OS_MAC
-            if (current->filename() == "") {
+            QUrl url = current->fileUrl();
+            if (url.isLocalFile()) {
+                QString file = url.toLocalFile();
+                QFileIconProvider ic;
+                QFileInfo fileInfo(file);
+                this->setWindowIcon(ic.icon(fileInfo));
+                this->setWindowFilePath(file);
+                this->setWindowTitle(current->title());
+            } else if (current->title() != "") {
+                this->setWindowTitle(current->title());
+                this->setWindowFilePath("");
+            } else {
                 this->setWindowTitle("theSlate");
                 this->setWindowIcon(QIcon(":/icons/icon.svg"));
                 this->setWindowFilePath("");
-            } else {
-                QFileIconProvider ic;
-                QFileInfo file(current->filename());
-                this->setWindowIcon(ic.icon(file));
-                this->setWindowFilePath(current->filename());
-                this->setWindowTitle(file.fileName());
             }
 
             tabBar->setCurrentIndex(arg1);
