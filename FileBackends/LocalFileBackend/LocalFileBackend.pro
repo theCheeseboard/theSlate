@@ -11,6 +11,11 @@ win32 {
     LIBS += -L"C:/Program Files/thelibs/lib" -lthe-libs
 }
 
+macx {
+    INCLUDEPATH += "/usr/local/include/the-libs"
+    LIBS += -L/usr/local/lib -lthe-libs
+}
+
 
 TARGET = LocalFileBackend
 TEMPLATE = lib
