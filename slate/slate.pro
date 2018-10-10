@@ -66,7 +66,8 @@ SOURCES += \
     textparts/topnotification.cpp \
     textparts/mergetool.cpp \
     textparts/printdialog.cpp \
-    settingsdialog.cpp
+    settingsdialog.cpp \
+    picturetabbar.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -81,7 +82,8 @@ HEADERS += \
     textparts/mergetool.h \
     syntaxhighlighting/syntaxhighlighting.h \
     textparts/printdialog.h \
-    settingsdialog.h
+    settingsdialog.h \
+    picturetabbar.h
 
 macx {
     SOURCES += \
@@ -97,7 +99,8 @@ FORMS += \
     textparts/topnotification.ui \
     textparts/mergetool.ui \
     textparts/printdialog.ui \
-    settingsdialog.ui
+    settingsdialog.ui \
+    picturetabbar.ui
 
 RESOURCES += \
     icons.qrc \

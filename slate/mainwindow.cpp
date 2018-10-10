@@ -8,9 +8,13 @@
 #include <ttoast.h>
 #include <QDesktopServices>
 #include "settingsdialog.h"
+#include "picturetabbar.h"
+#include <QInputDialog>
+#include <QShortcut>
 
 #ifdef Q_OS_MAC
     extern QString bundlePath;
+    extern void setToolbarItemWidget(QMacToolBarItem* item, QWidget* widget);
 #endif
 
 QList<MainWindow*> MainWindow::openWindows = QList<MainWindow*>();
@@ -43,29 +47,27 @@ MainWindow::MainWindow(QWidget *parent) :
 
         QMacToolBarItem* newItem = new QMacToolBarItem();
         newItem->setText(tr("New"));
-        newItem->setIcon(QIcon(":/icons/document-new.svg"));
+        //newItem->setIcon(QIcon(":/icons/document-new.svg"));
+        newItem->setIcon(QApplication::style()->standardIcon(QStyle::SP_FileIcon));
         newItem->setProperty("name", "new");
         connect(newItem, SIGNAL(activated()), this, SLOT(on_actionNew_triggered()));
         allowedItems.append(newItem);
 
         QMacToolBarItem* openItem = new QMacToolBarItem();
         openItem->setText(tr("Open"));
-        openItem->setIcon(QIcon(":/icons/document-open.svg"));
+        //openItem->setIcon(QIcon(":/icons/document-open.svg"));
+        openItem->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOpenButton));
         openItem->setProperty("name", "open");
         connect(openItem, SIGNAL(activated()), this, SLOT(on_actionOpen_triggered()));
         allowedItems.append(openItem);
 
         QMacToolBarItem* saveItem = new QMacToolBarItem();
         saveItem->setText(tr("Save"));
-        saveItem->setIcon(QIcon(":/icons/document-save.svg"));
+        //saveItem->setIcon(QIcon(":/icons/document-save.svg"));
+        saveItem->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogSaveButton));
         saveItem->setProperty("name", "save");
         connect(saveItem, SIGNAL(activated()), this, SLOT(on_actionSave_triggered()));
         allowedItems.append(saveItem);
-
-        toolbar->setAllowedItems(allowedItems);
-        toolbar->setItems(allowedItems);
-
-        toolbar->attachToWindow(this->windowHandle());
 
         ui->tabFrame->setVisible(false);
 
@@ -87,6 +89,16 @@ MainWindow::MainWindow(QWidget *parent) :
         });
         ((QBoxLayout*) ui->centralWidget->layout())->insertWidget(0, tabBar);
 
+        /*PictureTabBar* b = new PictureTabBar(this);
+
+        QMacToolBarItem* tabBarItem = new QMacToolBarItem();
+        setToolbarItemWidget(tabBarItem, b);
+        allowedItems.append(tabBarItem);*/
+
+        toolbar->setAllowedItems(allowedItems);
+        toolbar->setItems(allowedItems);
+
+        toolbar->attachToWindow(this->windowHandle());
         setupMacOS();
     #else
         //Set up single menu except on macOS
@@ -201,6 +213,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     fileModel = new QFileSystemModel();
     fileModel->setRootPath(QDir::rootPath());
+    fileModel->setReadOnly(false);
     ui->projectTree->setModel(fileModel);
     ui->projectTree->hideColumn(1);
     ui->projectTree->hideColumn(2);
@@ -843,9 +856,9 @@ void MainWindow::on_projectTree_customContextMenuRequested(const QPoint &pos)
     if (index.isValid()) {
         QFileInfo info = fileModel->fileInfo(index);
 
+        QMenu* menu = new QMenu();
+        menu->addSection(tr("For %1").arg(info.baseName()));
         if (info.isFile()) {
-            QMenu* menu = new QMenu();
-            menu->addSection(tr("For %1").arg(info.baseName()));
             menu->addAction(tr("Edit in new tab"), [=] {
                 newTab();
                 currentDocument()->openFile(fileModel->filePath(index));
@@ -857,10 +870,26 @@ void MainWindow::on_projectTree_customContextMenuRequested(const QPoint &pos)
                 w->show();
             });
             menu->addSeparator();
+            menu->addAction(tr("Rename"), [=] {
+                ui->projectTree->edit(ui->projectTree->currentIndex());
+            });
             menu->addAction(tr("Delete"), [=] {
 
             });
-            menu->exec(ui->projectTree->mapToGlobal(pos));
+        } else if (info.isDir()) {
+            menu->addAction(tr("Rename"), [=] {
+                bool ok;
+                QString newName = QInputDialog::getText(this, tr("Rename"), tr("What do you want to call this file?"), QLineEdit::Normal, info.baseName(), &ok, Qt::Sheet);
+                if (ok) {
+                    QFile f(info.filePath());
+                    if (newName.contains(".")) {
+                        f.rename(newName);
+                    } else {
+                        f.rename(newName + info.completeSuffix());
+                    }
+                }
+            });
         }
+        menu->exec(ui->projectTree->mapToGlobal(pos));
     }
 }

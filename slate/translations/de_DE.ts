@@ -276,8 +276,9 @@
     <message>
         <location filename="../mainwindow.ui" line="820"/>
         <location filename="../main.cpp" line="23"/>
-        <location filename="../mainwindow-objc.mm" line="150"/>
-        <location filename="../mainwindow.cpp" line="45"/>
+        <location filename="../mainwindow-objc.mm" line="154"/>
+        <location filename="../mainwindow-objc.mm" line="156"/>
+        <location filename="../mainwindow.cpp" line="49"/>
         <source>New</source>
         <translation>Neu</translation>
     </message>
@@ -293,8 +294,9 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="835"/>
-        <location filename="../mainwindow-objc.mm" line="134"/>
-        <location filename="../mainwindow.cpp" line="59"/>
+        <location filename="../mainwindow-objc.mm" line="137"/>
+        <location filename="../mainwindow-objc.mm" line="139"/>
+        <location filename="../mainwindow.cpp" line="65"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
@@ -310,7 +312,7 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="850"/>
-        <location filename="../mainwindow.cpp" line="52"/>
+        <location filename="../mainwindow.cpp" line="57"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
@@ -539,7 +541,8 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1142"/>
-        <location filename="../mainwindow-objc.mm" line="157"/>
+        <location filename="../mainwindow-objc.mm" line="162"/>
+        <location filename="../mainwindow-objc.mm" line="164"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
@@ -555,111 +558,123 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="444"/>
+        <location filename="../mainwindow.cpp" line="457"/>
         <source>Save Changes?</source>
         <translation>Änderungen speichern?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="445"/>
+        <location filename="../mainwindow.cpp" line="458"/>
         <source>Do you want to save your changes to this document?</source>
         <translation>Möchten Sie Ihre Änderungen in diesem Dokument speichern?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="680"/>
-        <location filename="../mainwindow.cpp" line="687"/>
+        <location filename="../mainwindow.cpp" line="693"/>
+        <location filename="../mainwindow.cpp" line="700"/>
         <source>Git Pull</source>
         <translation>Git Ziehen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="681"/>
+        <location filename="../mainwindow.cpp" line="694"/>
         <source>Pulling from remote repository...</source>
         <translation>Aus dem Remote-Repository ziehen ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="688"/>
+        <location filename="../mainwindow.cpp" line="701"/>
         <source>Local repository updated</source>
         <translation>Lokales Repository aktualisiert</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="696"/>
+        <location filename="../mainwindow.cpp" line="709"/>
         <source>Automatic merging failed</source>
         <translation>Automatische Zusammenführung fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="697"/>
+        <location filename="../mainwindow.cpp" line="710"/>
         <source>Conflicting files in working directory need to be resolved.</source>
         <translation>Widersprüchliche Dateien im Arbeitsverzeichnis müssen aufgelöst werden.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="702"/>
+        <location filename="../mainwindow.cpp" line="715"/>
         <source>Merging failed</source>
         <translation>Zusammenführung fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="703"/>
+        <location filename="../mainwindow.cpp" line="716"/>
         <source>Your working directory is not clean. Commit your changes before you pull.</source>
         <translation>Dein Arbeitsverzeichnis ist nicht sauber. Übernehmen Sie Ihre Änderungen, bevor Sie ziehen.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="715"/>
-        <location filename="../mainwindow.cpp" line="722"/>
+        <location filename="../mainwindow.cpp" line="728"/>
+        <location filename="../mainwindow.cpp" line="735"/>
         <source>Git Push</source>
         <translation>Git drücken</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="716"/>
+        <location filename="../mainwindow.cpp" line="729"/>
         <source>Pushing to remote repository...</source>
         <translation>Zum Remote-Repository drücken...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="723"/>
+        <location filename="../mainwindow.cpp" line="736"/>
         <source>Files were pushed to the remote repository</source>
         <translation>Dateien wurden an das Remote-Repository gesendet</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="734"/>
+        <location filename="../mainwindow.cpp" line="747"/>
         <source>Push Rejected</source>
         <translation>Drücken abgelehnt</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="735"/>
+        <location filename="../mainwindow.cpp" line="748"/>
         <source>Your local Git repository is not up to date. You&apos;ll need to pull from the remote repository before you can push.</source>
         <translation>Ihr lokales Git-Repository ist nicht auf dem neuesten Stand. Sie müssen aus dem Remote-Repository ziehen, bevor Sie drücken können.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="754"/>
-        <location filename="../mainwindow.cpp" line="766"/>
+        <location filename="../mainwindow.cpp" line="767"/>
+        <location filename="../mainwindow.cpp" line="779"/>
         <source>Git Commit</source>
         <translation>Git Commit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="755"/>
+        <location filename="../mainwindow.cpp" line="768"/>
         <source>A commit message is required.</source>
         <translation>Eine Commit-Nachricht ist erforderlich.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="767"/>
+        <location filename="../mainwindow.cpp" line="780"/>
         <source>Your local files have been committed. Your HEAD now points to %1</source>
         <translation>Ihre lokalen Dateien wurden festgeschrieben. Dein KOPF zeigt jetzt auf %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="848"/>
+        <location filename="../mainwindow.cpp" line="860"/>
         <source>For %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="849"/>
+        <location filename="../mainwindow.cpp" line="862"/>
         <source>Edit in new tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="854"/>
+        <location filename="../mainwindow.cpp" line="867"/>
         <source>Edit in new window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="860"/>
+        <location filename="../mainwindow.cpp" line="876"/>
         <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="873"/>
+        <location filename="../mainwindow.cpp" line="880"/>
+        <location filename="../mainwindow.cpp" line="882"/>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="882"/>
+        <source>What do you want to call this file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -730,6 +745,14 @@
         <location filename="../textparts/mergetool.cpp" line="185"/>
         <source>You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?</source>
         <translation>Sie haben immer noch Zusammenführungskonflikte, für die Sie noch keine Auflösung ausgewählt haben. Sind Sie sicher, dass Sie diese Lösung noch akzeptieren möchten?</translation>
+    </message>
+</context>
+<context>
+    <name>PictureTabBar</name>
+    <message>
+        <location filename="../picturetabbar.ui" line="16"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -879,48 +902,53 @@
     </message>
     <message>
         <location filename="../texteditor.cpp" line="159"/>
-        <source>You don&apos;t have the appropriate permissions to open %1.</source>
+        <source>%1 doesn&apos;t exist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="161"/>
-        <source>%1 is a folder.</source>
+        <source>You don&apos;t have the appropriate permissions to open %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="163"/>
+        <source>%1 is a folder.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../texteditor.cpp" line="165"/>
         <source>Can&apos;t open %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="169"/>
+        <location filename="../texteditor.cpp" line="171"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="221"/>
+        <location filename="../texteditor.cpp" line="223"/>
         <source>Unable to save file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="222"/>
+        <location filename="../texteditor.cpp" line="224"/>
         <source>We couldn&apos;t save the file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="223"/>
+        <location filename="../texteditor.cpp" line="225"/>
         <source>Here are a few things to check:
 - Ensure that enough disk space is available.
 - Ensure that you have write permissions on the file that you want to save to.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="639"/>
+        <location filename="../texteditor.cpp" line="641"/>
         <source>Revert Changes?</source>
         <translation type="unfinished">Änderungen rückgängig machen?</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="640"/>
+        <location filename="../texteditor.cpp" line="642"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation type="unfinished">Möchten Sie alle Änderungen rückgängig machen, die an diesem Dokument vorgenommen wurden?</translation>
     </message>

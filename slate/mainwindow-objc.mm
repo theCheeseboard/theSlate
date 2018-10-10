@@ -47,6 +47,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QMacNativeWidget>
 #import <AppKit/AppKit.h>
 
 @interface TouchBarProvider: NSResponder <NSTouchBarDelegate, NSApplicationDelegate, NSWindowDelegate>
@@ -98,6 +99,8 @@ static NSTouchBarItemIdentifier topbar2Identifier = @"com.thesuite.theslate.topb
     // actions handlers are set up in makeItemForIdentifier below.
     bar.defaultItemIdentifiers = @[NSTouchBarItemIdentifierCharacterPicker, newIdentifier, saveIdentifier, NSTouchBarItemIdentifierFlexibleSpace, topbar1Identifier, topbar2Identifier, closeIdentifier];
     bar.customizationRequiredItemIdentifiers = @[topbar1Identifier, topbar2Identifier];
+    bar.customizationAllowedItemIdentifiers = @[NSTouchBarItemIdentifierCharacterPicker, newIdentifier, saveIdentifier, closeIdentifier, NSTouchBarItemIdentifierFlexibleSpace];
+    [bar setCustomizationIdentifier:@"org.thesuite.theslate.touchbar"];
 
     return bar;
 }
@@ -133,6 +136,7 @@ static NSTouchBarItemIdentifier topbar2Identifier = @"com.thesuite.theslate.topb
     if ([identifier isEqualToString:saveIdentifier]) {
         QString title = QApplication::translate("MainWindow", "Save");
         self.saveItem = [[[NSCustomTouchBarItem alloc] initWithIdentifier:identifier] autorelease];
+        [self.saveItem setCustomizationLabel:QApplication::translate("MainWindow", "Save").toNSString()];
         self.saveButton = [[NSButton buttonWithTitle:title.toNSString() target:self
                                           action:@selector(saveClicked)] autorelease];
         self.saveItem.view =  self.saveButton;
@@ -149,6 +153,7 @@ static NSTouchBarItemIdentifier topbar2Identifier = @"com.thesuite.theslate.topb
     } else if ([identifier isEqualToString:newIdentifier]) {
         QString title = QApplication::translate("MainWindow", "New");
         self.newItem = [[[NSCustomTouchBarItem alloc] initWithIdentifier:identifier] autorelease];
+        [self.newItem setCustomizationLabel:QApplication::translate("MainWindow", "New").toNSString()];
         self.newButton = [[NSButton buttonWithTitle:title.toNSString() target:self
                                           action:@selector(newClicked)] autorelease];
         self.newItem.view =  self.newButton;
@@ -156,6 +161,7 @@ static NSTouchBarItemIdentifier topbar2Identifier = @"com.thesuite.theslate.topb
     } else if ([identifier isEqualToString:closeIdentifier]) {
         QString title = QApplication::translate("MainWindow", "Close");
         self.closeItem = [[[NSCustomTouchBarItem alloc] initWithIdentifier:identifier] autorelease];
+        [self.closeItem setCustomizationLabel:QApplication::translate("MainWindow", "Close").toNSString()];
         self.closeButton = [[NSButton buttonWithTitle:title.toNSString() target:self
                                           action:@selector(closeClicked)] autorelease];
         self.closeItem.view =  self.closeButton;
@@ -275,4 +281,18 @@ void MainWindow::updateTouchBar() {
     //Invalidate Touch Bar
     NSView *view = reinterpret_cast<NSView *>(this->winId());
     view.window.touchBar = nil;
+}
+
+void setToolbarItemWidget(QMacToolBarItem* item, QWidget* widget) {
+    QMacNativeWidget* nativeWidget = new QMacNativeWidget();
+    QBoxLayout* layout = new QBoxLayout(QBoxLayout::LeftToRight);
+    layout->addWidget(widget);
+    widget->setAttribute(Qt::WA_LayoutUsesWidgetRect);
+    nativeWidget->setLayout(layout);
+    nativeWidget->setFixedHeight(100);
+
+    NSView* nativeView = reinterpret_cast<NSView*>(nativeWidget->winId());
+    [nativeView setAutoresizingMask:NSViewWidthSizable];
+    [item->nativeToolBarItem() setView:nativeView];
+    //nativeWidget->show();
 }

@@ -155,7 +155,9 @@ void TextEditor::openFile(QString file) {
     QFile f(file);
     if (!f.open(QFile::ReadOnly | QFile::Text)) {
         QFileInfo info(f);
-        if (!info.permission(QFile::ReadUser)) {
+        if (!info.exists()) {
+            fileReadError->setText(tr("%1 doesn't exist.").arg(info.fileName()));
+        } else if (!info.permission(QFile::ReadUser)) {
             fileReadError->setText(tr("You don't have the appropriate permissions to open %1.").arg(info.fileName()));
         } else if (info.isDir()) {
             fileReadError->setText(tr("%1 is a folder.").arg(info.fileName()));
