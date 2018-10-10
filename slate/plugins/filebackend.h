@@ -27,7 +27,6 @@ class FileBackendFactory : public QObject {
         FileBackendFactory(QObject* parent = nullptr) : QObject(parent) {}
 
         virtual QAction* makeOpenAction(QWidget* parent) = 0;
-        virtual QAction* makeSaveAction(QWidget* parent) = 0;
         virtual QString name() = 0;
 
     public slots:

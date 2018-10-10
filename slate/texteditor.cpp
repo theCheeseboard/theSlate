@@ -689,6 +689,7 @@ bool TextEditor::saveFileAskForFilename(bool saveAs) {
         if (ok) {
             currentBackend = localFileBackend->openFromUrl(url);
             this->saveFile();
+            return true;
         } else {
             return false;
         }
