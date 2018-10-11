@@ -4,9 +4,14 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets thelib
+QT       += core gui widgets
+
+unix:!macx {
+    QT += thelib
+}
 
 win32 {
+    QT += thelib
     INCLUDEPATH += "C:/Program Files/thelibs/include"
     LIBS += -L"C:/Program Files/thelibs/lib" -lthe-libs
 }
