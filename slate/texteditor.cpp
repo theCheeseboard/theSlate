@@ -165,14 +165,24 @@ void TextEditor::openFile(FileBackend *backend) {
         this->setPlainText(data);
         edited = false;
 
-        emit backendChanged();
-        emit editedChanged();
-
         if (this->toPlainText().contains("======")) {
             addTopPanel(mergeConflictsNotification);
         } else {
             removeTopPanel(mergeConflictsNotification);
         }
+
+        if (git != nullptr) {
+            git->deleteLater();
+            git = nullptr;
+        }
+        if (currentBackend->url().isLocalFile()) {
+            git = new GitIntegration(QFileInfo(currentBackend->url().toLocalFile()).absoluteDir().path());
+            connect(git, SIGNAL(reloadStatusNeeded()), parentWindow, SLOT(updateGit()));
+        }
+        parentWindow->updateGit();
+
+        emit backendChanged();
+        emit editedChanged();
     })->error([=](QString error) {
         fileReadError->setText(error);
 
@@ -250,12 +260,19 @@ bool TextEditor::saveFile() {
 
         removeTopPanel(onDiskChanged);
         edited = false;
-        emit backendChanged();
-        emit editedChanged();
 
         if (git != nullptr) {
             git->deleteLater();
+            git = nullptr;
         }
+        if (currentBackend->url().isLocalFile()) {
+            git = new GitIntegration(QFileInfo(currentBackend->url().toLocalFile()).absoluteDir().path());
+            connect(git, SIGNAL(reloadStatusNeeded()), parentWindow, SLOT(updateGit()));
+        }
+        parentWindow->updateGit();
+
+        emit backendChanged();
+        emit editedChanged();
         return true;
     }
 }

@@ -55,6 +55,8 @@ class MainWindow : public QMainWindow
         bool closeCurrentTab();
         void show();
 
+        void updateGit();
+
         TextEditor* currentDocument();
 
     private slots:
@@ -85,8 +87,6 @@ class MainWindow : public QMainWindow
         void on_actionNo_Highlighting_triggered();
 
         void on_projectTree_clicked(const QModelIndex &index);
-
-        void updateGit();
 
         void on_modifiedChanges_itemChanged(QListWidgetItem *item);
 
