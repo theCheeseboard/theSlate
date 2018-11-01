@@ -6,27 +6,27 @@
     <message>
         <location filename="../aboutwindow.ui" line="14"/>
         <source>About theSlate</source>
-        <translation type="unfinished"></translation>
+        <translation>Over theSlate</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="25"/>
         <source>theSlate 0.3</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate 0.3</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="32"/>
         <source>Text Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstbewerker</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="52"/>
         <source>Copyright (c) Victor Tran 2018. Licensed under the terms of the GNU General Public License, version 3 or later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Copyright (c) Victor Tran 2018. Gelicenseerd onder de termen van de GNU General Public License, versie 3 of later.</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="77"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">OK</translation>
     </message>
 </context>
 <context>
@@ -35,12 +35,12 @@
         <location filename="../exitsavedialog.ui" line="14"/>
         <location filename="../exitsavedialog.ui" line="25"/>
         <source>Modified Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Veranderde Bestanden</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="32"/>
         <source>The following files require your attention</source>
-        <translation type="unfinished"></translation>
+        <translation>De volgende bestanden hebben uw aandacht nodig</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="47"/>
@@ -51,7 +51,7 @@
         <location filename="../exitsavedialog.ui" line="70"/>
         <location filename="../exitsavedialog.cpp" line="37"/>
         <source>Save All</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles opslaan</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="80"/>
