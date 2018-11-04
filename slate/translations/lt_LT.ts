@@ -6,27 +6,27 @@
     <message>
         <location filename="../aboutwindow.ui" line="14"/>
         <source>About theSlate</source>
-        <translation type="unfinished"></translation>
+        <translation>Apie theSlate</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="25"/>
         <source>theSlate 0.3</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate 0.3</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="32"/>
         <source>Text Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Teksto redaktorius</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="52"/>
         <source>Copyright (c) Victor Tran 2018. Licensed under the terms of the GNU General Public License, version 3 or later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Autorinės teisės (c) Victor Tran 2018. Licencijuota po GNU General Public License, versija 3 arba vėlesne.</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="77"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerai</translation>
     </message>
 </context>
 <context>
@@ -35,127 +35,121 @@
         <location filename="../exitsavedialog.ui" line="14"/>
         <location filename="../exitsavedialog.ui" line="25"/>
         <source>Modified Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifikuoti failai</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="32"/>
         <source>The following files require your attention</source>
-        <translation type="unfinished"></translation>
+        <translation>Šie failai reikalauja jūsų dėmesio</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="47"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Atšaukti</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="70"/>
         <location filename="../exitsavedialog.cpp" line="37"/>
         <source>Save All</source>
-        <translation type="unfinished"></translation>
+        <translation>Išsaugoti viską</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="80"/>
         <location filename="../exitsavedialog.cpp" line="38"/>
         <source>Discard All</source>
-        <translation type="unfinished"></translation>
+        <translation>Atmesti viską</translation>
     </message>
     <message numerus="yes">
         <location filename="../exitsavedialog.cpp" line="41"/>
         <source>Save %n</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>Išsaugoti tik %n</numerusform>
+        <numerusform>Išsaugoti kelis %n</numerusform>
+        <numerusform>Išsaugoti kitus %n</numerusform>
+        </translation></message>
     <message numerus="yes">
         <location filename="../exitsavedialog.cpp" line="42"/>
         <source>Discard %n</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>Atmesti vieną %n</numerusform>
+        <numerusform>Atmesti kelis %n</numerusform>
+        <numerusform>Atmesti kitus %n</numerusform>
+        </translation></message>
 </context>
 <context>
     <name>FindReplace</name>
     <message>
         <location filename="../textparts/findreplace.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="46"/>
         <source>Find</source>
-        <translation type="unfinished"></translation>
+        <translation>Surasti</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="111"/>
         <source>Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>Pakeisti</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="122"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Atlikta</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="142"/>
         <source>Replace All</source>
-        <translation type="unfinished"></translation>
+        <translation>Pakeisti viską</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="73"/>
         <source>No matches</source>
-        <translation type="unfinished"></translation>
+        <translation>Jokių atitikimų</translation>
     </message>
     <message numerus="yes">
         <location filename="../textparts/findreplace.cpp" line="75"/>
         <source>%n matches</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n atitikimas</numerusform>
+        <numerusform>%n atitikimai</numerusform>
+        <numerusform>%n atitikimaii</numerusform>
+        </translation></message>
 </context>
 <context>
     <name>MAC_APPLICATION_MENU</name>
     <message>
         <location filename="../main.cpp" line="26"/>
         <source>Services</source>
-        <translation type="unfinished"></translation>
+        <translation>Paslaugos</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="27"/>
         <source>Hide %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Paslėpti %1</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="28"/>
         <source>Hide Others</source>
-        <translation type="unfinished"></translation>
+        <translation>Paslėpti kitus</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="29"/>
         <source>Show All</source>
-        <translation type="unfinished"></translation>
+        <translation>Rodyti viską</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="30"/>
         <source>Preferences...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nustatymai...</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="31"/>
         <source>About %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Apie %1</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="32"/>
         <source>Quit %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Išeiti iš %1</translation>
     </message>
 </context>
 <context>
@@ -163,170 +157,170 @@
     <message>
         <location filename="../mainwindow.ui" line="17"/>
         <source>theSlate</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="167"/>
         <source>Fi&amp;le</source>
-        <translation type="unfinished"></translation>
+        <translation>Fai&amp;las</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="186"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Redaguoti</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="199"/>
         <source>&amp;Code</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kodas</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="205"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagalba</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="214"/>
         <source>So&amp;urce Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Šal&amp;tinio kontrolė</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="224"/>
         <source>Wi&amp;ndow</source>
-        <translation type="unfinished"></translation>
+        <translation>Lan&amp;gas</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="256"/>
         <source>Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Failai</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="283"/>
         <source>Sou&amp;rce Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Šal&amp;tinio kontrolė</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="345"/>
         <source>Commit Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Įpareigojimo žinutė</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="399"/>
         <source>Git Task</source>
-        <translation type="unfinished"></translation>
+        <translation>Git užduotis</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="406"/>
         <source>Git Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Git rezultatas</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="446"/>
         <source>Merge Conflicts</source>
-        <translation type="unfinished"></translation>
+        <translation>Suvienyti konfliktus</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="453"/>
         <source>There are merge conflicts that need to be resolved in this repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Yra suvienytų konfliktų kuriuos reikia išspręsti šiame repo</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="478"/>
         <source>Abort Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Atšaukti vienyjąmąsi</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="541"/>
         <source>Git Repository not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Git repo nerasta</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="548"/>
         <source>Initialize a Git repository?</source>
-        <translation type="unfinished"></translation>
+        <translation>Pradėti Git repo?</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="576"/>
         <source>Initialize Git Repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Pradėti Git repo</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="658"/>
         <source>Git Integration</source>
-        <translation type="unfinished"></translation>
+        <translation>Git integracija</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="665"/>
         <source>Save this file to enable Git integration</source>
-        <translation type="unfinished"></translation>
+        <translation>Išsaugokite šį failą, kad įjungtumėte Git integraciją</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="758"/>
         <source>Git not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Git nerastas</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="765"/>
         <source>To use Git integration, you&apos;ll need to install Git.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kad naudotumėtės Git integracija, turėsite įdiegti Git.</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="801"/>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Naujas</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="804"/>
         <location filename="../mainwindow.cpp" line="39"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation>Naujas</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="807"/>
         <source>Ctrl+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl + N</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="816"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Išsaugoti</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="819"/>
         <location filename="../mainwindow.cpp" line="53"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Išsaugoti</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="822"/>
         <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl + S</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="831"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Atidaryti</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="834"/>
         <location filename="../mainwindow.cpp" line="46"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Atidaryti</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="837"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl + O</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="846"/>
         <source>&amp;Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Išeiti</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="849"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl + Q</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="861"/>
