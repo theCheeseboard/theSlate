@@ -113,7 +113,7 @@ class TextEditor : public QPlainTextEdit
         void addTopPanel(QWidget* panel);
         void removeTopPanel(QWidget* panel);
 
-        void fileOnDiskChanged(QString file);
+        void fileOnDiskChanged();
 
     private:
         TabButton* button;
@@ -143,7 +143,6 @@ class TextEditor : public QPlainTextEdit
         QBoxLayout* topPanelLayout;
 
         TopNotification *mergeConflictsNotification, *onDiskChanged, *fileReadError;
-        QFileSystemWatcher* fileWatcher;
 
         TextEditor* scrollingLock = nullptr;
 

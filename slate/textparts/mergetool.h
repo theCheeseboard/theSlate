@@ -30,6 +30,8 @@ class MergeTool : public QDialog
         explicit MergeTool(QString unmergedFile, MainWindow* parentWindow, QWidget *parent = nullptr);
         ~MergeTool();
 
+        static QString getUnmergedFile(QString original, QString edited, bool* mergeResolutionRequired);
+
     private slots:
         void on_cancelButton_clicked();
         void updateMergedFile();

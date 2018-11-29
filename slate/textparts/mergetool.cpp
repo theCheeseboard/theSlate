@@ -195,3 +195,125 @@ void MergeTool::on_acceptButton_clicked()
     acceptResolution(finalFile);
     this->close();
 }
+
+QString MergeTool::getUnmergedFile(QString original, QString edited, bool* mergeResolutionRequired) {
+    //QString file;
+    *mergeResolutionRequired = false;
+
+    QTextStream ostr(&original);
+    QTextStream estr(&edited);
+
+    QLinkedList<QString> oList, eList;
+    QStringList output;
+    while (!ostr.atEnd()) oList.append(ostr.readLine());
+    while (!estr.atEnd()) eList.append(estr.readLine());
+
+    int mergeStage = 0;
+    QStringList oMerge, eMerge;
+    while (oList.count() != 0 || eList.count() != 0) {
+        if (mergeStage == 0) {
+            if ((oList.count() > 0 && eList.count() > 0) && oList.first() == eList.first()) {
+                //Lines are the same; nothing to do here
+                output.append(oList.takeFirst());
+                eList.takeFirst();
+            } else {
+                //Lines are different; switch to merging left side mode
+                mergeStage = 1;
+            }
+        } else if (mergeStage == 1) {
+            if (oList.count() > 0) oMerge.append(oList.takeFirst());
+            if (eList.count() > 0) eMerge.append(eList.takeFirst());
+
+            if (oMerge.count() == 0) {
+                //Automatically merge by just adding the text
+                output.append(eMerge.takeFirst());
+                mergeStage = 0;
+            } else if (eMerge.count() == 0) {
+                //Automatically merge by just adding the text
+                output.append(oMerge.takeFirst());
+                mergeStage = 0;
+            } else if (oMerge.contains(eMerge.last())) {
+                //Found the merging point!
+                int oIndex = oMerge.indexOf(eMerge.last());
+                if (oIndex == 0) {
+                    //We can automatically merge this part
+                    while (eMerge.count() != 1) {
+                        output.append(eMerge.takeFirst());
+                    }
+
+                    //Push all the text back
+                    while (oMerge.count() != 0) oList.prepend(oMerge.takeLast());
+                    while (eMerge.count() != 0) eList.prepend(eMerge.takeLast());
+
+                    mergeStage = 0;
+                } else {
+                    //This part will require manual intervention
+                    output.append("<<<<<<< File on Disk");
+                    while (oIndex != 0) {
+                        output.append(oMerge.takeFirst());
+                        oIndex--;
+                    }
+
+                    output.append("=======");
+
+                    while (eMerge.count() != 1) {
+                        output.append(eMerge.takeFirst());
+                    }
+
+                    mergeStage = 2;
+                }
+            } else if (eMerge.contains(oMerge.last())) {
+                //Found the merging point!
+                int eIndex = eMerge.indexOf(oMerge.last());
+                if (eIndex == 0) {
+                    //We can automatically merge this part
+                    while (oMerge.count() != 1) {
+                        output.append(oMerge.takeFirst());
+                    }
+
+                    //Push all the text back
+                    while (oMerge.count() != 0) oList.prepend(oMerge.takeLast());
+                    while (eMerge.count() != 0) eList.prepend(eMerge.takeLast());
+
+                    mergeStage = 0;
+                } else {
+                    //This part will require manual intervention
+                    output.append("<<<<<<< File on Disk");
+                    while (oMerge.count() != 1) {
+                        output.append(oMerge.takeFirst());
+                    }
+
+                    output.append("=======");
+
+                    while (eIndex != 0) {
+                        output.append(eMerge.takeFirst());
+                        eIndex--;
+                    }
+
+                    mergeStage = 2;
+                }
+            }
+
+            if (mergeStage == 2) {
+                //Push all the text back
+                while (oMerge.count() != 0) oList.prepend(oMerge.takeLast());
+                while (eMerge.count() != 0) eList.prepend(eMerge.takeLast());
+                output.append(">>>>>>> Currently Open File");
+                *mergeResolutionRequired = true;
+                mergeStage = 0;
+            }
+        }
+    }
+
+    if (mergeStage != 0) {
+        //Push everything else to the file
+        output.append("<<<<<<< File on Disk");
+        output.append(oMerge);
+        output.append("=======");
+        output.append(eMerge);
+        output.append(">>>>>>> Currently Open File");
+        *mergeResolutionRequired = true;
+    }
+
+    return output.join("\n");
+}

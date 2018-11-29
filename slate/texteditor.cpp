@@ -102,6 +102,35 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
 
         QPushButton* mergeButton = new QPushButton();
         mergeButton->setText(tr("Merge File"));
+        connect(mergeButton, &QPushButton::clicked, [=] {
+            currentBackend->load()->then([=](QByteArray currentFile) {
+                //Open the merge resolution tool
+                bool mergeResolutionRequred;
+                QString mergeFile = MergeTool::getUnmergedFile(currentFile, this->toPlainText(), &mergeResolutionRequred);
+
+                if (mergeResolutionRequred) {
+                    MergeTool* tool = new MergeTool(mergeFile, parentWindow);
+                    tool->setParent(this);
+                    tool->setWindowFlag(Qt::Sheet);
+                    tool->setModal(Qt::WindowModal);
+                    tool->show();
+                    parentWindow->menuBar()->setEnabled(false);
+
+                    connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
+                        this->setPlainText(revisedFile);
+                        removeTopPanel(onDiskChanged);
+                    });
+                    connect(tool, &MergeTool::finished, [=] {
+                        parentWindow->menuBar()->setEnabled(true);
+                    });
+                } else {
+                    this->setPlainText(mergeFile);
+                    removeTopPanel(onDiskChanged);
+                }
+            })->error([=](QString err) {
+
+            });
+        });
         onDiskChanged->addButton(mergeButton);
 
         connect(onDiskChanged, &TopNotification::closeNotification, [=] {
@@ -117,9 +146,6 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
             removeTopPanel(fileReadError);
         });
     }
-
-    fileWatcher = new QFileSystemWatcher();
-    connect(fileWatcher, SIGNAL(fileChanged(QString)), this, SLOT(fileOnDiskChanged(QString)));
 
     connect(this->verticalScrollBar(), &QScrollBar::valueChanged, [=](int position) {
         if (scrollingLock != nullptr) {
@@ -200,79 +226,33 @@ void TextEditor::openFile(FileBackend *backend) {
     });
 
     this->currentBackend = backend;
+    connect(currentBackend, &FileBackend::remoteFileEdited, this, &TextEditor::fileOnDiskChanged);
 }
-
-/*bool TextEditor::saveFile(QString file) {
-    QSignalBlocker blocker(fileWatcher);
-
-    QFile f(file);
-    if (!f.open(QFile::WriteOnly | QFile::Text)) {
-        QMessageBox* messageBox = new QMessageBox(this->window());
-
-        QString titleText = tr("Unable to save file");
-        QString text = tr("We couldn't save the file.");
-        QString informativeText = tr("Here are a few things to check:\n- Ensure that enough disk space is available.\n- Ensure that you have write permissions on the file that you want to save to.");
-
-        #ifdef Q_OS_MAC
-            messageBox->setText(titleText);
-            messageBox->setInformativeText(text);
-            messageBox->setDetailedText(informativeText);
-        #else
-        messageBox->setWindowTitle(titleText);
-        messageBox->setText(text);
-        messageBox->setInformativeText(informativeText);
-        #endif
-        messageBox->setIcon(QMessageBox::Critical);
-        messageBox->setWindowFlags(Qt::Sheet);
-        messageBox->setStandardButtons(QMessageBox::Ok);
-        messageBox->setDefaultButton(QMessageBox::Ok);
-        messageBox->exec();
-
-        messageBox->deleteLater();
-        return false;
-    }
-    f.write(this->toPlainText().toUtf8());
-    f.close();
-
-    removeTopPanel(onDiskChanged);
-
-    edited = false;
-    //this->fn = file;
-    emit backendChanged();
-    emit editedChanged();
-
-    if (git != nullptr) {
-        git->deleteLater();
-    }
-    fileWatcher->removePaths(fileWatcher->files());
-    fileWatcher->addPath(file);
-
-    git = new GitIntegration(QFileInfo(file).absoluteDir().path());
-    connect(git, SIGNAL(reloadStatusNeeded()), parentWindow, SLOT(updateGit()));
-    return true;
-}*/
 
 bool TextEditor::saveFile() {
     if (this->currentBackend == nullptr) {
         return false;
     } else {
-        currentBackend->save(this->toPlainText().toUtf8());
+        currentBackend->save(this->toPlainText().toUtf8())->then([=] {
+            removeTopPanel(onDiskChanged);
+            edited = false;
 
-        removeTopPanel(onDiskChanged);
-        edited = false;
+            if (git != nullptr) {
+                git->deleteLater();
+                git = nullptr;
+            }
+            if (currentBackend->url().isLocalFile()) {
+                git = new GitIntegration(QFileInfo(currentBackend->url().toLocalFile()).absoluteDir().path());
+                connect(git, SIGNAL(reloadStatusNeeded()), parentWindow, SLOT(updateGit()));
+            }
+            parentWindow->updateGit();
 
-        if (git != nullptr) {
-            git->deleteLater();
-            git = nullptr;
-        }
-        if (currentBackend->url().isLocalFile()) {
-            git = new GitIntegration(QFileInfo(currentBackend->url().toLocalFile()).absoluteDir().path());
-            connect(git, SIGNAL(reloadStatusNeeded()), parentWindow, SLOT(updateGit()));
-        }
-        parentWindow->updateGit();
-
-        emit backendChanged();
-        emit editedChanged();
+            emit backendChanged();
+            emit editedChanged();
+        })->error([=](QString error) {
+            QMessageBox::critical(this, tr("Couldn't save the file"), tr("Unable to save this file. Check that you have permissions to write to this file and that there's enough space on disk.\n\n"
+                                                                         "Do not exit theSlate until you've managed to write the file, otherwise you may lose data."), QMessageBox::Ok, QMessageBox::Ok);
+        });
         return true;
     }
 }
@@ -705,6 +685,7 @@ bool TextEditor::saveFileAskForFilename(bool saveAs) {
 
         if (ok) {
             currentBackend = localFileBackend->openFromUrl(url);
+            connect(currentBackend, &FileBackend::remoteFileEdited, this, &TextEditor::fileOnDiskChanged);
             this->saveFile();
             return true;
         } else {
@@ -733,9 +714,8 @@ void TextEditor::removeTopPanel(QWidget* topPanel) {
     emit primaryTopNotificationChanged(nullptr);
 }
 
-void TextEditor::fileOnDiskChanged(QString file) {
+void TextEditor::fileOnDiskChanged() {
     addTopPanel(onDiskChanged);
-    qDebug() << file;
 }
 
 void TextEditor::lockScrolling(TextEditor *other) {

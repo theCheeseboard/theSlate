@@ -923,22 +923,34 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="114"/>
+        <location filename="../texteditor.cpp" line="143"/>
         <source>Can&apos;t open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="192"/>
+        <location filename="../texteditor.cpp" line="218"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="646"/>
+        <location filename="../texteditor.cpp" line="253"/>
+        <source>Couldn&apos;t save the file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../texteditor.cpp" line="253"/>
+        <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.
+
+Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../texteditor.cpp" line="626"/>
         <source>Revert Changes?</source>
         <translation>Hoàn lại thay đổi?</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="647"/>
+        <location filename="../texteditor.cpp" line="627"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation>Bạn có muốn bỏ thầy đối với tệp này không?</translation>
     </message>

@@ -15,9 +15,11 @@ class FileBackend : public QObject {
         virtual QUrl url() = 0;
 
     public slots:
-        virtual tPromise<bool>* save(QByteArray fileContents) = 0;
+        virtual tPromise<void>* save(QByteArray fileContents) = 0;
         virtual tPromise<QByteArray>* load() = 0;
 
+    signals:
+        void remoteFileEdited();
 };
 
 class FileBackendFactory : public QObject {

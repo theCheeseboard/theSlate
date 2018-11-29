@@ -2,6 +2,7 @@
 #define LOCALBACKEND_H
 
 #include <QObject>
+#include <QFileSystemWatcher>
 #include "../../slate/plugins/filebackend.h"
 
 class LocalBackend : public FileBackend
@@ -13,7 +14,7 @@ class LocalBackend : public FileBackend
     signals:
 
     public slots:
-        tPromise<bool>* save(QByteArray fileContents);
+        tPromise<void>* save(QByteArray fileContents);
         tPromise<QByteArray>* load();
 
         QString documentTitle();
@@ -21,6 +22,7 @@ class LocalBackend : public FileBackend
 
     private:
         QString fileName;
+        QFileSystemWatcher* watcher;
 };
 
 #endif // LOCALBACKEND_H
