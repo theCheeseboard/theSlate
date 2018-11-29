@@ -49,12 +49,15 @@ HEADERS += \
     plugin.h \
     ../../slate/plugins/filebackend.h \ #Also moc the backend header
     httpbackend.h \
-    opendialog.h
+    opendialog.h \
+    httpbasicauthdialog.h
 
 SOURCES += \
     plugin.cpp \
     httpbackend.cpp \
-    opendialog.cpp
+    opendialog.cpp \
+    httpbasicauthdialog.cpp
 
 FORMS += \
-    opendialog.ui
+    opendialog.ui \
+    httpbasicauthdialog.ui

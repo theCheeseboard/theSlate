@@ -6,6 +6,7 @@
 #include <QScrollBar>
 #include <QMenuBar>
 #include <QSignalBlocker>
+#include <tcircularspinner.h>
 #include "the-libs_global.h"
 #include "mainwindow.h"
 #include "plugins/filebackend.h"
@@ -42,6 +43,8 @@ class TextEditorPrivate {
 
         QSettings settings;
         QMap<MergeLines, bool> mergeDecisions;
+
+        QWidget* cover;
 
         FileBackend* currentBackend = nullptr;
 };
@@ -86,6 +89,17 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
     d->findReplaceWidget->setFixedHeight(d->findReplaceWidget->sizeHint().height());
     d->findReplaceWidget->hide();
     //findReplaceWidget->show();
+
+    d->cover = new QWidget();
+    d->cover->setParent(this);
+    d->cover->move(0, 0);
+    d->cover->setVisible(false);
+
+    QBoxLayout* layout = new QBoxLayout(QBoxLayout::TopToBottom);
+    layout->addSpacerItem(new QSpacerItem(20, 20, QSizePolicy::Preferred, QSizePolicy::Expanding));
+    layout->addWidget(new tCircularSpinner());
+    layout->addSpacerItem(new QSpacerItem(20, 20, QSizePolicy::Preferred, QSizePolicy::Expanding));
+    d->cover->setLayout(layout);
 
     d->topPanelWidget = new QWidget(this);
     d->topPanelWidget->move(0, 0);
@@ -243,6 +257,8 @@ void TextEditor::openFile(FileBackend *backend) {
     removeTopPanel(d->onDiskDeleted);
     removeTopPanel(d->fileReadError);
 
+    d->cover->setVisible(true);
+    d->cover->raise();
     backend->load()->then([=](QByteArray data) {
         this->setPlainText(data);
         d->edited = false;
@@ -265,6 +281,7 @@ void TextEditor::openFile(FileBackend *backend) {
 
         emit backendChanged();
         emit editedChanged();
+        d->cover->setVisible(false);
     })->error([=](QString error) {
         d->fileReadError->setText(error);
 
@@ -278,7 +295,7 @@ void TextEditor::openFile(FileBackend *backend) {
         d->fileReadError->addButton(retryButton);
 
         addTopPanel(d->fileReadError);
-
+        d->cover->setVisible(false);
     });
 
     d->currentBackend = backend;
@@ -554,6 +571,8 @@ void TextEditor::resizeEvent(QResizeEvent *event)
     d->findReplaceWidget->move(this->width() - d->findReplaceWidget->width() - 9 - QApplication::style()->pixelMetric(QStyle::PM_ScrollBarExtent), 9);
 
     d->topPanelWidget->setFixedWidth(this->width());
+
+    d->cover->resize(this->size());
 }
 
 void TextEditor::highlightCurrentLine()

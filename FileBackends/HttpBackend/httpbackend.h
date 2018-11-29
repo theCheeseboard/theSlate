@@ -26,6 +26,8 @@ class HttpBackend : public FileBackend
     private:
         QUrl fileUrl;
         bool redirect = false;
+
+        QString currentAuthRealm, currentAuthHost, currentAuthUsername, currentAuthPassword;
 };
 
 #endif // HTTPBACKEND_H

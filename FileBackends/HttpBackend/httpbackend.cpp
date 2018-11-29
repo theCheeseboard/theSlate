@@ -1,6 +1,8 @@
 #include "httpbackend.h"
 #include <QStorageInfo>
 #include <QNetworkReply>
+#include <QAuthenticator>
+#include "httpbasicauthdialog.h"
 
 HttpBackend::HttpBackend(QUrl url, QObject *parent) : FileBackend(parent)
 {
@@ -17,6 +19,28 @@ tPromise<void>* HttpBackend::save(QByteArray fileContents) {
 }
 
 tPromise<QByteArray>* HttpBackend::load() {
+    if (currentAuthRealm != "") {
+        QEventLoop* loop = new QEventLoop();
+        HttpBasicAuthDialog* authDialog = new HttpBasicAuthDialog();
+        //openDialog->setWindowFlag(Qt::Sheet);
+        authDialog->setText(tr("Log in to %1").arg(currentAuthHost) + "\n" + tr("Server Realm: %1").arg(currentAuthRealm));
+        authDialog->setWindowModality(Qt::WindowModal);
+
+        connect(authDialog, SIGNAL(finished(int)), loop, SLOT(quit()));
+        authDialog->show();
+
+        //Block until dialog is finished
+        loop->exec();
+        loop->deleteLater();
+
+        if (authDialog->result() == QDialog::Accepted) {
+            currentAuthUsername = authDialog->username();
+            currentAuthPassword = authDialog->password();
+        }
+        authDialog->deleteLater();
+    }
+
+    currentAuthRealm = "";
     return new tPromise<QByteArray>([=](QString& error) {
         QNetworkAccessManager mgr;
 
@@ -27,14 +51,36 @@ tPromise<QByteArray>* HttpBackend::load() {
         QNetworkReply* reply;
         reply = mgr.get(req);
 
+        QList<QSslError>* sslErrors = new QList<QSslError>();
+
         QEventLoop* loop = new QEventLoop();
         connect(reply, &QNetworkReply::finished, loop, &QEventLoop::quit);
+        connect(&mgr, &QNetworkAccessManager::authenticationRequired, [=](QNetworkReply* reply, QAuthenticator* authenticator) {
+            if (currentAuthUsername != "" && currentAuthPassword != "") {
+                authenticator->setUser(currentAuthUsername);
+                authenticator->setPassword(currentAuthPassword);
+            } else {
+                currentAuthRealm = authenticator->realm();
+                currentAuthHost = reply->url().host();
+            }
+        });
+        connect(reply, &QNetworkReply::sslErrors, [=](QList<QSslError> errors) {
+            sslErrors->append(errors);
+        });
         loop->exec();
 
         loop->deleteLater();
 
+        QTimer::singleShot(0, [=] {
+            delete sslErrors;
+        });
+
         switch (reply->error()) {
-            case QNetworkReply::NoError: {
+            case QNetworkReply::NoError:
+            case QNetworkReply::ContentNotFoundError:
+            case QNetworkReply::ContentGoneError:
+            case QNetworkReply::InternalServerError:
+            {
                 int httpCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
                 if (httpCode / 100 == 2) {
                     return reply->readAll();
@@ -117,6 +163,55 @@ tPromise<QByteArray>* HttpBackend::load() {
 
                     return QByteArray();
                 }
+            }
+            case QNetworkReply::SslHandshakeFailedError: {
+                if (sslErrors->count() == 0) {
+                    error = tr("The SSL handshake failed and a secure connection to the server cannot be made.");
+                    return QByteArray();
+                }
+
+                QSslError e = sslErrors->first();
+                QStringList errorExplanation;
+
+                errorExplanation.append(tr("An SSL error occurred trying to retrieve the resource."));
+                errorExplanation.append("");
+                errorExplanation.append(tr("SSL Error: ") + e.errorString());
+                errorExplanation.append("");
+                errorExplanation.append(tr("Certificate information is below:"));
+                errorExplanation.append("");
+
+                auto getSInfo = [](QStringList s) {
+                    if (s.count() > 0) {
+                        return s.first();
+                    } else {
+                        return tr("[Not part of certificate]");
+                    }
+                };
+
+                QSslCertificate cert = e.certificate();
+                errorExplanation.append(tr("ISSUED TO:"));
+                errorExplanation.append(tr("Common Name (CN)") + "          " + getSInfo(cert.subjectInfo(QSslCertificate::CommonName)));
+                errorExplanation.append(tr("Organization (O)") + "          " + getSInfo(cert.subjectInfo(QSslCertificate::Organization)));
+                errorExplanation.append(tr("Organizational Unit (OU)") + "  " + getSInfo(cert.subjectInfo(QSslCertificate::Organization)));
+                errorExplanation.append("");
+                errorExplanation.append(tr("ISSUED BY:"));
+                errorExplanation.append(tr("Common Name (CN)") + "          " + getSInfo(cert.issuerInfo(QSslCertificate::CommonName)));
+                errorExplanation.append(tr("Organization (O)") + "          " + getSInfo(cert.issuerInfo(QSslCertificate::Organization)));
+                errorExplanation.append(tr("Organizational Unit (OU)") + "  " + getSInfo(cert.issuerInfo(QSslCertificate::Organization)));
+                errorExplanation.append("");
+                errorExplanation.append(tr("VALIDITY:"));
+                errorExplanation.append(tr("Effective Beginning") + "       " + cert.effectiveDate().toString(Qt::SystemLocaleLongDate));
+                errorExplanation.append(tr("Expiring On") + "               " + cert.expiryDate().toString(Qt::SystemLocaleLongDate));
+                errorExplanation.append("");
+                errorExplanation.append(tr("FINGERPRINTS:"));
+                errorExplanation.append(tr("SHA-256") + "                   " + cert.digest(QCryptographicHash::Sha256).toHex());
+                errorExplanation.append(tr("SHA-1") + "                     " + cert.digest(QCryptographicHash::Sha1).toHex());
+
+                return errorExplanation.join("\n").toUtf8();
+            }
+            case QNetworkReply::AuthenticationRequiredError: {
+                error = tr("Authentication is required to access this resource. Hit Retry to input your credentials and redo the request.");
+                return QByteArray();
             }
             default:
                 error = tr("An error occurred trying to retrieve the resource: ") + reply->errorString();
