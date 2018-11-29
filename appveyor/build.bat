@@ -27,5 +27,9 @@ copy SyntaxHighlightingPlugins\release\SyntaxHighlightingPlugins.dll deploy\synt
 copy FileBackends\LocalFileBackend\release\LocalFileBackend.dll deploy\filebackends
 copy FileBackends\HttpBackend\release\HttpBackend.dll deploy\filebackends
 copy "C:\Program Files\thelibs\lib\the-libs.dll" deploy
+copy "C:\OpenSSL-Win64\bin\openssl.exe" deploy
+copy "C:\OpenSSL-Win64\bin\libeay32.dll" deploy
+copy "C:\OpenSSL-Win64\bin\ssleay32.dll" deploy
+copy "C:\OpenSSL-Win64\bin\openssl.cfg" deploy
 cd deploy
 windeployqt theslate.exe -network
