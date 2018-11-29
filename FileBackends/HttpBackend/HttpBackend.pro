@@ -22,7 +22,7 @@ macx {
 }
 
 
-TARGET = LocalFileBackend
+TARGET = HttpBackend
 TEMPLATE = lib
 CONFIG += plugin
 
