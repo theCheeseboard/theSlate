@@ -28,4 +28,4 @@ copy FileBackends\LocalFileBackend\release\LocalFileBackend.dll deploy\filebacke
 copy FileBackends\HttpBackend\release\HttpBackend.dll deploy\filebackends
 copy "C:\Program Files\thelibs\lib\the-libs.dll" deploy
 cd deploy
-windeployqt theslate.exe
+windeployqt theslate.exe -network
