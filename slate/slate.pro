@@ -169,7 +169,7 @@ macx {
     syntax.files = ../SyntaxHighlightingPlugins/libSyntaxHighlightingPlugins.dylib
     syntax.path = Contents/syntaxhighlighting/
 
-    filebackend.files = ../FileBackends/LocalFileBackend/libLocalFileBackend.dylib
+    filebackend.files = ../FileBackends/LocalFileBackend/libLocalFileBackend.dylib ../FileBackends/HttpBackend/libHttpBackend.dylib
     filebackend.path = Contents/filebackends/
 
     QMAKE_BUNDLE_DATA = translations locversion syntax filebackend

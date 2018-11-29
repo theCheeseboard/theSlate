@@ -289,6 +289,7 @@ void TextEditor::openFile(FileBackend *backend) {
 
         QPushButton* retryButton = new QPushButton();
         retryButton->setText(tr("Retry"));
+        retryButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         connect(retryButton, &QPushButton::clicked, [=] {
             openFile(backend);
         });
