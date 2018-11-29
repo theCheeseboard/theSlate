@@ -27,12 +27,13 @@
 #include "SourceControl/gitintegration.h"
 #include "plugins/syntaxhighlighting.h"
 #include "textparts/printdialog.h"
-#include "plugins/filebackend.h"
 
 #ifdef Q_OS_MAC
 #include <QMacToolBar>
 #include <QMacToolBarItem>
 #endif
+
+class FileBackend;
 
 namespace Ui {
     class MainWindow;

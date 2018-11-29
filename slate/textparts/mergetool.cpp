@@ -144,6 +144,11 @@ MergeTool::~MergeTool()
     delete ui;
 }
 
+void MergeTool::setTitle(QString title) {
+    this->setWindowTitle(title);
+    ui->titleLabel->setText(title);
+}
+
 void MergeTool::updateMergedFile() {
     QString mergedStr = mergedDocument;
     int current = 1;
@@ -196,7 +201,7 @@ void MergeTool::on_acceptButton_clicked()
     this->close();
 }
 
-QString MergeTool::getUnmergedFile(QString original, QString edited, bool* mergeResolutionRequired) {
+QString MergeTool::getUnmergedFile(QString original, QString edited, QString oTitle, QString eTitle, bool* mergeResolutionRequired) {
     //QString file;
     *mergeResolutionRequired = false;
 
@@ -248,7 +253,7 @@ QString MergeTool::getUnmergedFile(QString original, QString edited, bool* merge
                     mergeStage = 0;
                 } else {
                     //This part will require manual intervention
-                    output.append("<<<<<<< File on Disk");
+                    output.append("<<<<<<< " + oTitle);
                     while (oIndex != 0) {
                         output.append(oMerge.takeFirst());
                         oIndex--;
@@ -278,7 +283,7 @@ QString MergeTool::getUnmergedFile(QString original, QString edited, bool* merge
                     mergeStage = 0;
                 } else {
                     //This part will require manual intervention
-                    output.append("<<<<<<< File on Disk");
+                    output.append("<<<<<<< " + oTitle);
                     while (oMerge.count() != 1) {
                         output.append(oMerge.takeFirst());
                     }
@@ -298,7 +303,7 @@ QString MergeTool::getUnmergedFile(QString original, QString edited, bool* merge
                 //Push all the text back
                 while (oMerge.count() != 0) oList.prepend(oMerge.takeLast());
                 while (eMerge.count() != 0) eList.prepend(eMerge.takeLast());
-                output.append(">>>>>>> Currently Open File");
+                output.append(">>>>>>> " + eTitle);
                 *mergeResolutionRequired = true;
                 mergeStage = 0;
             }
@@ -307,11 +312,11 @@ QString MergeTool::getUnmergedFile(QString original, QString edited, bool* merge
 
     if (mergeStage != 0) {
         //Push everything else to the file
-        output.append("<<<<<<< File on Disk");
+        output.append("<<<<<<< " + oTitle);
         output.append(oMerge);
         output.append("=======");
         output.append(eMerge);
-        output.append(">>>>>>> Currently Open File");
+        output.append(">>>>>>> " + eTitle);
         *mergeResolutionRequired = true;
     }
 

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Resolve a merge conflict</string>
+   <string notr="true">Resolve a merge conflict</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -55,7 +55,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="titleLabel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -68,7 +68,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Resolve a merge conflict</string>
+        <string notr="true">Resolve a merge conflict</string>
        </property>
        <property name="margin">
         <number>9</number>

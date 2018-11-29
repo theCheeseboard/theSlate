@@ -18,46 +18,48 @@
 #include "textparts/findreplace.h"
 #include "textparts/topnotification.h"
 #include "textparts/mergetool.h"
-#include "plugins/filebackend.h"
 
 class TabButton;
 class FindReplace;
 class MainWindow;
+class FileBackend;
 struct MergeLines;
+
+class TextEditorPrivate;
 
 class TextEditor : public QPlainTextEdit
 {
     Q_OBJECT
 
-    class TextEditorLeftMargin : public QWidget
-    {
-        public:
-            TextEditorLeftMargin(TextEditor *editor) : QWidget(editor) {
-                this->editor = editor;
-                this->setCursor(Qt::ArrowCursor);
-            }
-
-            QSize sizeHint() const override {
-                return QSize(editor->leftMarginWidth(), 0);
-            }
-
-        protected:
-            void paintEvent(QPaintEvent *event) override {
-                editor->leftMarginPaintEvent(event);
-            }
-
-        private:
-            void mousePressEvent(QMouseEvent* event) override {
-                int lineNo = editor->cursorForPosition(event->pos()).block().firstLineNumber() + 1;
-                editor->toggleMergedLines(lineNo);
-            }
-
-            TextEditor *editor;
-    };
-
     public:
         explicit TextEditor(MainWindow *parent);
         ~TextEditor();
+
+        class TextEditorLeftMargin : public QWidget
+        {
+            public:
+                TextEditorLeftMargin(TextEditor *editor) : QWidget(editor) {
+                    this->editor = editor;
+                    this->setCursor(Qt::ArrowCursor);
+                }
+
+                QSize sizeHint() const override {
+                    return QSize(editor->leftMarginWidth(), 0);
+                }
+
+            protected:
+                void paintEvent(QPaintEvent *event) override {
+                    editor->leftMarginPaintEvent(event);
+                }
+
+            private:
+                void mousePressEvent(QMouseEvent* event) override {
+                    int lineNo = editor->cursorForPosition(event->pos()).block().firstLineNumber() + 1;
+                    editor->toggleMergedLines(lineNo);
+                }
+
+                TextEditor *editor;
+        };
 
         QUrl fileUrl();
         QString title();
@@ -113,15 +115,10 @@ class TextEditor : public QPlainTextEdit
         void addTopPanel(QWidget* panel);
         void removeTopPanel(QWidget* panel);
 
-        void fileOnDiskChanged();
+        void connectBackend();
 
     private:
-        TabButton* button;
-        bool active;
-        bool edited = false;
-        bool firstEdit = true;
-        QSyntaxHighlighter* hl = nullptr;
-        MainWindow* parentWindow;
+        TextEditorPrivate* d;
 
         void keyPressEvent(QKeyEvent* event);
         void resizeEvent(QResizeEvent* event);
@@ -130,29 +127,6 @@ class TextEditor : public QPlainTextEdit
         void dragLeaveEvent(QDragLeaveEvent* event);
         void dragMoveEvent(QDragMoveEvent* event);
         void dropEvent(QDropEvent* event);
-        QTextCursor cursorBeforeDrop;
-
-        TextEditorLeftMargin *leftMargin = NULL;
-        int brokenLine = -1;
-
-        FindReplace* findReplaceWidget;
-        QMap<QString, QList<QTextEdit::ExtraSelection>> extraSelectionGroups;
-
-        QList<QWidget*> topPanels;
-        QWidget* topPanelWidget;
-        QBoxLayout* topPanelLayout;
-
-        TopNotification *mergeConflictsNotification, *onDiskChanged, *fileReadError;
-
-        TextEditor* scrollingLock = nullptr;
-
-        int highlightedLine = -1;
-        QList<MergeLines> mergedLines;
-
-        QSettings settings;
-        QMap<MergeLines, bool> mergeDecisions;
-
-        FileBackend* currentBackend = nullptr;
 };
 
 #endif // TEXTEDITOR_H

@@ -19,6 +19,7 @@ class LocalBackend : public FileBackend
 
         QString documentTitle();
         QUrl url();
+        bool readOnly();
 
     private:
         QString fileName;

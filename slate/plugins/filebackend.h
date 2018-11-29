@@ -13,6 +13,7 @@ class FileBackend : public QObject {
 
         virtual QString documentTitle() = 0;
         virtual QUrl url() = 0;
+        virtual bool readOnly() = 0;
 
     public slots:
         virtual tPromise<void>* save(QByteArray fileContents) = 0;
@@ -20,6 +21,7 @@ class FileBackend : public QObject {
 
     signals:
         void remoteFileEdited();
+        void remoteFileRemoved();
 };
 
 class FileBackendFactory : public QObject {

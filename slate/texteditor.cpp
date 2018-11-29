@@ -8,148 +8,202 @@
 #include <QSignalBlocker>
 #include "the-libs_global.h"
 #include "mainwindow.h"
+#include "plugins/filebackend.h"
 
 extern FileBackendFactory* localFileBackend;
 
+class TextEditorPrivate {
+    public:
+        TabButton* button;
+        bool active;
+        bool edited = false;
+        bool firstEdit = true;
+        QSyntaxHighlighter* hl = nullptr;
+        MainWindow* parentWindow;
+
+        QTextCursor cursorBeforeDrop;
+
+        TextEditor::TextEditorLeftMargin *leftMargin = nullptr;
+        int brokenLine = -1;
+
+        FindReplace* findReplaceWidget;
+        QMap<QString, QList<QTextEdit::ExtraSelection>> extraSelectionGroups;
+
+        QList<QWidget*> topPanels;
+        QWidget* topPanelWidget;
+        QBoxLayout* topPanelLayout;
+
+        TopNotification *mergeConflictsNotification, *onDiskChanged, *fileReadError, *onDiskDeleted;
+
+        TextEditor* scrollingLock = nullptr;
+
+        int highlightedLine = -1;
+        QList<MergeLines> mergedLines;
+
+        QSettings settings;
+        QMap<MergeLines, bool> mergeDecisions;
+
+        FileBackend* currentBackend = nullptr;
+};
+
 TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
 {
+    d = new TextEditorPrivate();
     this->setLineWrapMode(NoWrap);
     QFont normalFont = this->font();
-    this->parentWindow = parent;
+    d->parentWindow = parent;
 
-    button = new TabButton(this);
-    connect(button, &TabButton::destroyed, [=] {
-        button = nullptr;
+    d->button = new TabButton(this);
+    connect(d->button, &TabButton::destroyed, [=] {
+        d->button = nullptr;
     });
-    button->setText(tr("New Document"));
+    d->button->setText(tr("New Document"));
 
     connect(this, &TextEditor::textChanged, [=] {
-        if (firstEdit) {
-            firstEdit = false;
+        if (d->firstEdit) {
+            d->firstEdit = false;
         } else {
-            edited = true;
+            d->edited = true;
             emit editedChanged();
         }
     });
     connect(this, &TextEditor::backendChanged, [=] {
-        button->setText(this->title());
+        d->button->setText(this->title());
         emit titleChanged(this->title());
     });
 
-    leftMargin = new TextEditorLeftMargin(this);
+    d->leftMargin = new TextEditorLeftMargin(this);
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLeftMarginAreaWidth()));
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLeftMarginArea(QRect,int)));
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
 
-    leftMargin->setVisible(true);
+    d->leftMargin->setVisible(true);
     highlightCurrentLine();
 
-    findReplaceWidget = new FindReplace(this);
-    findReplaceWidget->setFont(normalFont);
-    findReplaceWidget->setFixedWidth(500 * theLibsGlobal::getDPIScaling());
-    findReplaceWidget->setFixedHeight(findReplaceWidget->sizeHint().height());
-    findReplaceWidget->hide();
+    d->findReplaceWidget = new FindReplace(this);
+    d->findReplaceWidget->setFont(normalFont);
+    d->findReplaceWidget->setFixedWidth(500 * theLibsGlobal::getDPIScaling());
+    d->findReplaceWidget->setFixedHeight(d->findReplaceWidget->sizeHint().height());
+    d->findReplaceWidget->hide();
     //findReplaceWidget->show();
 
-    topPanelWidget = new QWidget(this);
-    topPanelWidget->move(0, 0);
-    topPanelWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Maximum);
-    topPanelWidget->setFixedWidth(this->width());
-    topPanelLayout = new QBoxLayout(QBoxLayout::TopToBottom);
-    topPanelLayout->setContentsMargins(0, 1, 0, 0);
-    topPanelWidget->setLayout(topPanelLayout);
+    d->topPanelWidget = new QWidget(this);
+    d->topPanelWidget->move(0, 0);
+    d->topPanelWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Maximum);
+    d->topPanelWidget->setFixedWidth(this->width());
+    d->topPanelLayout = new QBoxLayout(QBoxLayout::TopToBottom);
+    d->topPanelLayout->setContentsMargins(0, 1, 0, 0);
+    d->topPanelWidget->setLayout(d->topPanelLayout);
 
     {
-        mergeConflictsNotification = new TopNotification();
-        mergeConflictsNotification->setTitle("Merge Conflicts");
-        mergeConflictsNotification->setText(tr("Merge Conflicts were found in this file"));
+        d->mergeConflictsNotification = new TopNotification();
+        d->mergeConflictsNotification->setFont(normalFont);
+        d->mergeConflictsNotification->setTitle("Merge Conflicts");
+        d->mergeConflictsNotification->setText(tr("Merge Conflicts were found in this file"));
 
         QPushButton* fixMergeButton = new QPushButton();
         fixMergeButton->setText(tr("Resolve Merge Conflicts"));
+        fixMergeButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         connect(fixMergeButton, &QPushButton::clicked, [=] {
             //Open the merge resolution tool
-            MergeTool* tool = new MergeTool(this->toPlainText(), parentWindow);
+            MergeTool* tool = new MergeTool(this->toPlainText(), d->parentWindow);
+            tool->setTitle(tr("Resolve a Merge Conflict"));
             tool->setParent(this);
             tool->setWindowFlag(Qt::Sheet);
             tool->setModal(Qt::WindowModal);
             tool->show();
-            parentWindow->menuBar()->setEnabled(false);
+            d->parentWindow->menuBar()->setEnabled(false);
 
             connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
                 this->setPlainText(revisedFile);
-                removeTopPanel(mergeConflictsNotification);
+                removeTopPanel(d->mergeConflictsNotification);
             });
             connect(tool, &MergeTool::finished, [=] {
-                parentWindow->menuBar()->setEnabled(true);
+                d->parentWindow->menuBar()->setEnabled(true);
             });
         });;
-        mergeConflictsNotification->addButton(fixMergeButton);
+        d->mergeConflictsNotification->addButton(fixMergeButton);
 
-        connect(mergeConflictsNotification, &TopNotification::closeNotification, [=] {
-            removeTopPanel(mergeConflictsNotification);
+        connect(d->mergeConflictsNotification, &TopNotification::closeNotification, [=] {
+            removeTopPanel(d->mergeConflictsNotification);
         });
     }
 
     {
-        onDiskChanged = new TopNotification();
-        onDiskChanged->setTitle(tr("File on disk changed"));
-        onDiskChanged->setText(tr("The file on the disk has changed. If you save this file you will lose the changes on disk."));
+        d->onDiskChanged = new TopNotification();
+        d->onDiskChanged->setFont(normalFont);
+        d->onDiskChanged->setTitle(tr("File on disk changed"));
+        d->onDiskChanged->setText(tr("The file on the disk has changed. If you save this file you will lose the changes on disk."));
 
         QPushButton* reloadButton = new QPushButton();
         reloadButton->setText(tr("Reload File"));
+        reloadButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         connect(reloadButton, SIGNAL(clicked(bool)), this, SLOT(revertFile()));
-        onDiskChanged->addButton(reloadButton);
+        d->onDiskChanged->addButton(reloadButton);
 
         QPushButton* mergeButton = new QPushButton();
-        mergeButton->setText(tr("Merge File"));
+        mergeButton->setText(tr("Merge Changes"));
+        mergeButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         connect(mergeButton, &QPushButton::clicked, [=] {
-            currentBackend->load()->then([=](QByteArray currentFile) {
-                //Open the merge resolution tool
+            d->currentBackend->load()->then([=](QByteArray currentFile) {
                 bool mergeResolutionRequred;
-                QString mergeFile = MergeTool::getUnmergedFile(currentFile, this->toPlainText(), &mergeResolutionRequred);
+                QString mergeFile = MergeTool::getUnmergedFile(currentFile, this->toPlainText(), tr("File on Disk"), tr("Currently open file"), &mergeResolutionRequred);
 
                 if (mergeResolutionRequred) {
-                    MergeTool* tool = new MergeTool(mergeFile, parentWindow);
+                    //Open the merge resolution tool
+                    MergeTool* tool = new MergeTool(mergeFile, d->parentWindow);
+                    tool->setTitle(tr("Resolve a Save Conflict"));
                     tool->setParent(this);
                     tool->setWindowFlag(Qt::Sheet);
                     tool->setModal(Qt::WindowModal);
                     tool->show();
-                    parentWindow->menuBar()->setEnabled(false);
+                    d->parentWindow->menuBar()->setEnabled(false);
 
                     connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
                         this->setPlainText(revisedFile);
-                        removeTopPanel(onDiskChanged);
+                        removeTopPanel(d->onDiskChanged);
                     });
                     connect(tool, &MergeTool::finished, [=] {
-                        parentWindow->menuBar()->setEnabled(true);
+                        d->parentWindow->menuBar()->setEnabled(true);
                     });
                 } else {
+                    //Merge resolution tool not needed
                     this->setPlainText(mergeFile);
-                    removeTopPanel(onDiskChanged);
+                    removeTopPanel(d->onDiskChanged);
                 }
             })->error([=](QString err) {
 
             });
         });
-        onDiskChanged->addButton(mergeButton);
+        d->onDiskChanged->addButton(mergeButton);
 
-        connect(onDiskChanged, &TopNotification::closeNotification, [=] {
-            removeTopPanel(onDiskChanged);
+        connect(d->onDiskChanged, &TopNotification::closeNotification, [=] {
+            removeTopPanel(d->onDiskChanged);
         });
     }
 
     {
-        fileReadError = new TopNotification();
-        fileReadError->setTitle(tr("Can't open file"));
+        d->onDiskDeleted = new TopNotification();
+        d->onDiskDeleted->setTitle(tr("File on disk deleted"));
+        d->onDiskDeleted->setText(tr("The file on the disk has been deleted. If you save this file you will recreate the file."));
 
-        connect(fileReadError, &TopNotification::closeNotification, [=] {
-            removeTopPanel(fileReadError);
+        connect(d->onDiskDeleted, &TopNotification::closeNotification, [=] {
+            removeTopPanel(d->onDiskDeleted);
+        });
+    }
+
+    {
+        d->fileReadError = new TopNotification();
+        d->fileReadError->setTitle(tr("Can't open file"));
+
+        connect(d->fileReadError, &TopNotification::closeNotification, [=] {
+            removeTopPanel(d->fileReadError);
         });
     }
 
     connect(this->verticalScrollBar(), &QScrollBar::valueChanged, [=](int position) {
-        if (scrollingLock != nullptr) {
-            scrollingLock->verticalScrollBar()->setValue(position);
+        if (d->scrollingLock != nullptr) {
+            d->scrollingLock->verticalScrollBar()->setValue(position);
         }
     });
 
@@ -157,108 +211,141 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
 }
 
 TextEditor::~TextEditor() {
-    if (button != nullptr) {
-        button->setVisible(false);
+    if (d->button != nullptr) {
+        d->button->setVisible(false);
     }
+    delete d;
 }
 
 TabButton* TextEditor::getTabButton() {
-    return button;
+    return d->button;
 }
 
 void TextEditor::setActive(bool active) {
-    button->setActive(active);
-    this->active = active;
+    d->button->setActive(active);
+    d->active = active;
 }
 
 QString TextEditor::title() {
-    if (currentBackend == nullptr) {
+    if (d->currentBackend == nullptr) {
         return "";
     } else {
-        return currentBackend->documentTitle();
+        return d->currentBackend->documentTitle();
     }
 }
 
 bool TextEditor::isEdited() {
-    return edited;
+    return d->edited;
 }
 
 void TextEditor::openFile(FileBackend *backend) {
-    removeTopPanel(onDiskChanged);
-    removeTopPanel(fileReadError);
+    removeTopPanel(d->onDiskChanged);
+    removeTopPanel(d->onDiskDeleted);
+    removeTopPanel(d->fileReadError);
 
     backend->load()->then([=](QByteArray data) {
         this->setPlainText(data);
-        edited = false;
+        d->edited = false;
 
         if (this->toPlainText().contains("======")) {
-            addTopPanel(mergeConflictsNotification);
+            addTopPanel(d->mergeConflictsNotification);
         } else {
-            removeTopPanel(mergeConflictsNotification);
+            removeTopPanel(d->mergeConflictsNotification);
         }
 
         if (git != nullptr) {
             git->deleteLater();
             git = nullptr;
         }
-        if (currentBackend->url().isLocalFile()) {
-            git = new GitIntegration(QFileInfo(currentBackend->url().toLocalFile()).absoluteDir().path());
-            connect(git, SIGNAL(reloadStatusNeeded()), parentWindow, SLOT(updateGit()));
+        if (d->currentBackend->url().isLocalFile()) {
+            git = new GitIntegration(QFileInfo(d->currentBackend->url().toLocalFile()).absoluteDir().path());
+            connect(git, SIGNAL(reloadStatusNeeded()), d->parentWindow, SLOT(updateGit()));
         }
-        parentWindow->updateGit();
+        d->parentWindow->updateGit();
 
         emit backendChanged();
         emit editedChanged();
     })->error([=](QString error) {
-        fileReadError->setText(error);
+        d->fileReadError->setText(error);
 
-        fileReadError->clearButtons();
+        d->fileReadError->clearButtons();
 
         QPushButton* retryButton = new QPushButton();
         retryButton->setText(tr("Retry"));
         connect(retryButton, &QPushButton::clicked, [=] {
             openFile(backend);
         });
-        fileReadError->addButton(retryButton);
+        d->fileReadError->addButton(retryButton);
 
-        addTopPanel(fileReadError);
+        addTopPanel(d->fileReadError);
 
     });
 
-    this->currentBackend = backend;
-    connect(currentBackend, &FileBackend::remoteFileEdited, this, &TextEditor::fileOnDiskChanged);
+    d->currentBackend = backend;
+    connectBackend();
 }
 
 bool TextEditor::saveFile() {
-    if (this->currentBackend == nullptr) {
+    if (d->currentBackend == nullptr) {
         return false;
+    } else if (d->currentBackend->readOnly()) {
+        QMessageBox* messageBox = new QMessageBox(this->window());
+        messageBox->setWindowTitle(tr("Read Only File"));
+        messageBox->setText(tr("This file is read only. You'll need to save it as a different file."));
+        messageBox->setIcon(QMessageBox::Warning);
+        messageBox->setWindowFlags(Qt::Sheet);
+        messageBox->setStandardButtons(QMessageBox::Ok);
+        messageBox->setDefaultButton(QMessageBox::Ok);
+        messageBox->exec();
+        return true;
     } else {
-        currentBackend->save(this->toPlainText().toUtf8())->then([=] {
-            removeTopPanel(onDiskChanged);
-            edited = false;
+        d->currentBackend->save(this->toPlainText().toUtf8())->then([=] {
+            removeTopPanel(d->onDiskChanged);
+            removeTopPanel(d->onDiskDeleted);
+            d->edited = false;
 
             if (git != nullptr) {
                 git->deleteLater();
                 git = nullptr;
             }
-            if (currentBackend->url().isLocalFile()) {
-                git = new GitIntegration(QFileInfo(currentBackend->url().toLocalFile()).absoluteDir().path());
-                connect(git, SIGNAL(reloadStatusNeeded()), parentWindow, SLOT(updateGit()));
+            if (d->currentBackend->url().isLocalFile()) {
+                git = new GitIntegration(QFileInfo(d->currentBackend->url().toLocalFile()).absoluteDir().path());
+                connect(git, SIGNAL(reloadStatusNeeded()), d->parentWindow, SLOT(updateGit()));
             }
-            parentWindow->updateGit();
+            d->parentWindow->updateGit();
 
             emit backendChanged();
             emit editedChanged();
         })->error([=](QString error) {
-            QMessageBox::critical(this, tr("Couldn't save the file"), tr("Unable to save this file. Check that you have permissions to write to this file and that there's enough space on disk.\n\n"
-                                                                         "Do not exit theSlate until you've managed to write the file, otherwise you may lose data."), QMessageBox::Ok, QMessageBox::Ok);
+            QString text;
+
+            if (error.startsWith("$")) {
+                text = error.mid(1);
+            } else if (error == "Disk Full") {
+                text = tr("There's no more space on this disk.");
+            } else if (error == "Permissions") {
+                text = tr("You don't have permission to save this file.");
+            } else {
+                text = tr("Unable to save this file. Check that you have permissions to write to this file and that there's enough space on disk.");
+            }
+
+            text.append(tr("\n\nDo not exit theSlate until you've managed to write the file, otherwise you may lose data."));
+
+            QMessageBox* messageBox = new QMessageBox(this->window());
+            messageBox->setWindowTitle(tr("Couldn't save the file"));
+            messageBox->setText(text);
+            messageBox->setIcon(QMessageBox::Critical);
+            messageBox->setWindowFlags(Qt::Sheet);
+            messageBox->setStandardButtons(QMessageBox::Ok);
+            messageBox->setDefaultButton(QMessageBox::Ok);
+            messageBox->exec();
         });
         return true;
     }
 }
 
 QSyntaxHighlighter* TextEditor::highlighter() {
-    return hl;
+    return d->hl;
 }
 
 void TextEditor::keyPressEvent(QKeyEvent *event) {
@@ -437,18 +524,18 @@ int TextEditor::leftMarginWidth()
 
 void TextEditor::updateLeftMarginAreaWidth()
 {
-    topPanelWidget->updateGeometry();
-    int height = topPanelWidget->sizeHint().height();
-    topPanelWidget->setFixedHeight(height);
+    d->topPanelWidget->updateGeometry();
+    int height = d->topPanelWidget->sizeHint().height();
+    d->topPanelWidget->setFixedHeight(height);
     setViewportMargins(leftMarginWidth(), height, 0, 0);
 }
 
 void TextEditor::updateLeftMarginArea(const QRect &rect, int dy)
 {
     if (dy) {
-        leftMargin->scroll(0, dy);
+        d->leftMargin->scroll(0, dy);
     } else {
-        leftMargin->update(0, rect.y(), leftMargin->width(), rect.height());
+        d->leftMargin->update(0, rect.y(), d->leftMargin->width(), rect.height());
     }
 
     if (rect.contains(viewport()->rect())) {
@@ -461,19 +548,19 @@ void TextEditor::resizeEvent(QResizeEvent *event)
     QPlainTextEdit::resizeEvent(event);
 
     QRect cr = contentsRect();
-    leftMargin->setGeometry(QRect(cr.left(), cr.top() + topPanelWidget->sizeHint().height(), leftMarginWidth(), cr.height()));
+    d->leftMargin->setGeometry(QRect(cr.left(), cr.top() + d->topPanelWidget->sizeHint().height(), leftMarginWidth(), cr.height()));
 
-    findReplaceWidget->setFixedHeight(findReplaceWidget->sizeHint().height());
-    findReplaceWidget->move(this->width() - findReplaceWidget->width() - 9 - QApplication::style()->pixelMetric(QStyle::PM_ScrollBarExtent), 9);
+    d->findReplaceWidget->setFixedHeight(d->findReplaceWidget->sizeHint().height());
+    d->findReplaceWidget->move(this->width() - d->findReplaceWidget->width() - 9 - QApplication::style()->pixelMetric(QStyle::PM_ScrollBarExtent), 9);
 
-    topPanelWidget->setFixedWidth(this->width());
+    d->topPanelWidget->setFixedWidth(this->width());
 }
 
 void TextEditor::highlightCurrentLine()
 {
     QList<QTextEdit::ExtraSelection> extraSelections;
 
-    highlightedLine = textCursor().block().firstLineNumber();
+    d->highlightedLine = textCursor().block().firstLineNumber();
 
     if (!this->isReadOnly()) {
         QTextEdit::ExtraSelection selection;
@@ -493,7 +580,7 @@ void TextEditor::highlightCurrentLine()
 
 void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
 {
-    QPainter painter(leftMargin);
+    QPainter painter(d->leftMargin);
     painter.fillRect(event->rect(), this->palette().color(QPalette::Window).lighter(120));
 
     QTextBlock block = firstVisibleBlock();
@@ -504,17 +591,17 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
     while (block.isValid() && top <= event->rect().bottom()) {
         int lineNo = blockNumber + 1;
 
-        for (MergeLines mergeBlock : mergedLines) {
+        for (MergeLines mergeBlock : d->mergedLines) {
             for (int i = 0; i < mergeBlock.length; i++) {
                 int mergeLine = mergeBlock.startLine + i;
                 if (blockNumber == mergeLine) {
                     painter.setPen(Qt::transparent);
-                    if (mergeDecisions.value(mergeBlock)) {
+                    if (d->mergeDecisions.value(mergeBlock)) {
                         painter.setBrush(QColor(0, 150, 0));
                     } else {
                         painter.setBrush(QColor(100, 100, 100));
                     }
-                    painter.drawRect(0, top, leftMargin->width(), bottom - top);
+                    painter.drawRect(0, top, d->leftMargin->width(), bottom - top);
                 }
             }
         }
@@ -522,10 +609,10 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
         QString number = QString::number(lineNo);
         if (block.isVisible() && bottom >= event->rect().top()) {
             painter.setPen(this->palette().color(QPalette::WindowText));
-            painter.drawText(0, top, leftMargin->width(), fontMetrics().height(), Qt::AlignRight, number);
+            painter.drawText(0, top, d->leftMargin->width(), fontMetrics().height(), Qt::AlignRight, number);
         }
 
-        if (lineNo == brokenLine) {
+        if (lineNo == d->brokenLine) {
             painter.setBrush(Qt::yellow);
             QPolygon polygon;
             polygon.append(QPoint(1, top));
@@ -551,7 +638,7 @@ void TextEditor::reloadBlockHighlighting() {
 
     while (block.isValid()) {
         int lineNo = blockNumber + 1;
-        if (brokenLine == lineNo) {
+        if (d->brokenLine == lineNo) {
             QTextEdit::ExtraSelection selection;
 
             selection.format.setBackground(Qt::yellow);
@@ -570,28 +657,28 @@ void TextEditor::reloadBlockHighlighting() {
     //setExtraSelections(extraSelections);
     setExtraSelectionGroup("blockHighlighting", extraSelections);
 
-    leftMargin->repaint();
+    d->leftMargin->repaint();
     highlightCurrentLine();
 }
 
 QList<QTextEdit::ExtraSelection> TextEditor::extraSelectionGroup(QString extraSelectionGroup) {
-    return extraSelectionGroups.value(extraSelectionGroup);
+    return d->extraSelectionGroups.value(extraSelectionGroup);
 }
 
 void TextEditor::setExtraSelectionGroup(QString extraSelectionGroup, QList<QTextEdit::ExtraSelection> selections) {
-    extraSelectionGroups.insert(extraSelectionGroup, selections);
+    d->extraSelectionGroups.insert(extraSelectionGroup, selections);
     updateExtraSelections();
 }
 
 void TextEditor::clearExtraSelectionGroup(QString extraSelectionGroups) {
-    this->extraSelectionGroups.remove(extraSelectionGroups);
+    d->extraSelectionGroups.remove(extraSelectionGroups);
     updateExtraSelections();
 }
 
 void TextEditor::updateExtraSelections() {
     QList<QTextEdit::ExtraSelection> extraSelections;
 
-    for (QList<QTextEdit::ExtraSelection> extraSelectionGroup : extraSelectionGroups.values()) {
+    for (QList<QTextEdit::ExtraSelection> extraSelectionGroup : d->extraSelectionGroups.values()) {
         extraSelections.append(extraSelectionGroup);
     }
 
@@ -599,29 +686,29 @@ void TextEditor::updateExtraSelections() {
 }
 
 void TextEditor::setExtraSelections(const QList<QTextEdit::ExtraSelection> &extraSelections) {
-    leftMargin->repaint();
+    d->leftMargin->repaint();
     QPlainTextEdit::setExtraSelections(extraSelections);
 }
 
 void TextEditor::openFileFake(QString contents) {
     this->setPlainText(contents);
 
-    edited = false;
+    d->edited = false;
     emit backendChanged();
     emit editedChanged();
 }
 
 void TextEditor::toggleFindReplace() {
-    if (findReplaceWidget->isVisible()) {
-        findReplaceWidget->setVisible(false);
+    if (d->findReplaceWidget->isVisible()) {
+        d->findReplaceWidget->setVisible(false);
     } else {
-        findReplaceWidget->setVisible(true);
-        findReplaceWidget->setFocus();
+        d->findReplaceWidget->setVisible(true);
+        d->findReplaceWidget->setFocus();
     }
 }
 
 void TextEditor::revertFile() {
-    if (this->currentBackend != nullptr) {
+    if (d->currentBackend != nullptr) {
         QMessageBox* messageBox = new QMessageBox(this->window());
         messageBox->setWindowTitle(tr("Revert Changes?"));
         messageBox->setText(tr("Do you want to revert all the edits made to this document?"));
@@ -632,7 +719,7 @@ void TextEditor::revertFile() {
         int button = messageBox->exec();
 
         if (button == QMessageBox::Yes) {
-            openFile(currentBackend);
+            openFile(d->currentBackend);
         }
     }
 }
@@ -646,7 +733,7 @@ void TextEditor::dragEnterEvent(QDragEnterEvent *event) {
     } else if (data->hasText()) {
         event->setDropAction(Qt::CopyAction);
         event->acceptProposedAction();
-        cursorBeforeDrop = this->textCursor();
+        d->cursorBeforeDrop = this->textCursor();
         this->setTextCursor(this->cursorForPosition(event->pos()));
         return;
     }
@@ -655,7 +742,7 @@ void TextEditor::dragEnterEvent(QDragEnterEvent *event) {
 }
 
 void TextEditor::dragLeaveEvent(QDragLeaveEvent *event) {
-    this->setTextCursor(cursorBeforeDrop);
+    this->setTextCursor(d->cursorBeforeDrop);
 }
 
 void TextEditor::dragMoveEvent(QDragMoveEvent *event) {
@@ -670,7 +757,7 @@ void TextEditor::dropEvent(QDropEvent *event) {
     if (data->hasUrls()) {
         for (QUrl url : data->urls()) {
             if (url.isLocalFile()) {
-                parentWindow->newTab(url.toLocalFile());
+                d->parentWindow->newTab(url.toLocalFile());
             }
         }
     } else if (data->hasText()) {
@@ -679,13 +766,13 @@ void TextEditor::dropEvent(QDropEvent *event) {
 }
 
 bool TextEditor::saveFileAskForFilename(bool saveAs) {
-    if (this->currentBackend == nullptr || saveAs) {
+    if (d->currentBackend == nullptr || saveAs) {
         bool ok;
         QUrl url = localFileBackend->askForUrl(this, &ok);
 
         if (ok) {
-            currentBackend = localFileBackend->openFromUrl(url);
-            connect(currentBackend, &FileBackend::remoteFileEdited, this, &TextEditor::fileOnDiskChanged);
+            d->currentBackend = localFileBackend->openFromUrl(url);
+            connectBackend();
             this->saveFile();
             return true;
         } else {
@@ -697,7 +784,7 @@ bool TextEditor::saveFileAskForFilename(bool saveAs) {
 }
 
 void TextEditor::addTopPanel(QWidget* topPanel) {
-    topPanelLayout->addWidget(topPanel);
+    d->topPanelLayout->addWidget(topPanel);
     topPanel->setVisible(true);
     updateLeftMarginAreaWidth();
 
@@ -707,42 +794,47 @@ void TextEditor::addTopPanel(QWidget* topPanel) {
 }
 
 void TextEditor::removeTopPanel(QWidget* topPanel) {
-    topPanelLayout->removeWidget(topPanel);
+    d->topPanelLayout->removeWidget(topPanel);
     topPanel->setVisible(false);
     updateLeftMarginAreaWidth();
 
     emit primaryTopNotificationChanged(nullptr);
 }
 
-void TextEditor::fileOnDiskChanged() {
-    addTopPanel(onDiskChanged);
+void TextEditor::connectBackend() {
+    connect(d->currentBackend, &FileBackend::remoteFileEdited, [=] {
+        addTopPanel(d->onDiskChanged);
+    });
+    connect(d->currentBackend, &FileBackend::remoteFileRemoved, [=] {
+        addTopPanel(d->onDiskDeleted);
+    });
 }
 
 void TextEditor::lockScrolling(TextEditor *other) {
-    if (this->scrollingLock != other) {
-        this->scrollingLock = other;
+    if (d->scrollingLock != other) {
+        d->scrollingLock = other;
         other->lockScrolling(this);
     }
 }
 
 void TextEditor::setMergedLines(QList<MergeLines> mergedLines) {
-    this->mergedLines = mergedLines;
+    d->mergedLines = mergedLines;
     for (MergeLines mergeBlock : mergedLines) {
-        mergeDecisions.insert(mergeBlock, false);
+        d->mergeDecisions.insert(mergeBlock, false);
     }
     updateMergedLinesColour();
 }
 
 void TextEditor::toggleMergedLines(int line) {
-    for (MergeLines mergeBlock : mergedLines) {
+    for (MergeLines mergeBlock : d->mergedLines) {
         for (int i = 0; i < mergeBlock.length; i++) {
             int mergeLine = mergeBlock.startLine + i;
             if (mergeLine == line - 1) {
-                bool currentDecision = mergeDecisions.value(mergeBlock);
-                mergeDecisions.insert(mergeBlock, !currentDecision);
+                bool currentDecision = d->mergeDecisions.value(mergeBlock);
+                d->mergeDecisions.insert(mergeBlock, !currentDecision);
                 updateMergedLinesColour();
                 emit mergeDecision(mergeBlock, !currentDecision);
-                leftMargin->update();
+                d->leftMargin->update();
                 return;
             }
         }
@@ -751,10 +843,10 @@ void TextEditor::toggleMergedLines(int line) {
 
 void TextEditor::updateMergedLinesColour() {
     QList<QTextEdit::ExtraSelection> extraSelections;
-    for (MergeLines mergeBlock : mergedLines) {
+    for (MergeLines mergeBlock : d->mergedLines) {
         QTextCursor cur(this->document());
         QBrush lineColor;
-        if (mergeDecisions.value(mergeBlock)) {
+        if (d->mergeDecisions.value(mergeBlock)) {
             lineColor = QColor(0, 200, 0, 100);
         } else {
             lineColor = QColor(150, 150, 150, 100);
@@ -777,14 +869,14 @@ void TextEditor::updateMergedLinesColour() {
 }
 
 bool TextEditor::mergedLineIsAccepted(MergeLines mergedLine) {
-    return mergeDecisions.value(mergedLine);
+    return d->mergeDecisions.value(mergedLine);
 }
 
 void TextEditor::setHighlighter(QSyntaxHighlighter *hl) {
-    if (this->hl != nullptr) {
-        this->hl->deleteLater();
+    if (d->hl != nullptr) {
+        d->hl->deleteLater();
     }
-    this->hl = hl;
+    d->hl = hl;
     if (hl != nullptr) {
         hl->setDocument(this->document());
         hl->rehighlight();
@@ -793,17 +885,17 @@ void TextEditor::setHighlighter(QSyntaxHighlighter *hl) {
 
 void TextEditor::reloadSettings() {
     QFont f;
-    if (settings.value("font/useSystem", true).toBool()) {
+    if (d->settings.value("font/useSystem", true).toBool()) {
         f = QFontDatabase::systemFont(QFontDatabase::FixedFont);
     } else {
-        f = QFont(settings.value("font/textFontFamily", QFontDatabase::systemFont(QFontDatabase::FixedFont).family()).toString(), settings.value("font/textFontSize", QFontDatabase::systemFont(QFontDatabase::FixedFont).pointSize()).toInt());
+        f = QFont(d->settings.value("font/textFontFamily", QFontDatabase::systemFont(QFontDatabase::FixedFont).family()).toString(), d->settings.value("font/textFontSize", QFontDatabase::systemFont(QFontDatabase::FixedFont).pointSize()).toInt());
     }
     this->setFont(f);
 }
 
 QUrl TextEditor::fileUrl() {
-    if (currentBackend != nullptr) {
-        return currentBackend->url();
+    if (d->currentBackend != nullptr) {
+        return d->currentBackend->url();
     } else {
         return QUrl();
     }
