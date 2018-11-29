@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
-slateDir.depends = SyntaxHighlightingPlugins
+slateDir.depends = SyntaxHighlightingPlugins FileBackends
 slateDir.subdir = slate
 
 SUBDIRS = slateDir \

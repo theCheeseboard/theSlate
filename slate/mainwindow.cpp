@@ -68,6 +68,7 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
 
+    QStringList errors;
     for (QObject* obj : availablePlugins) {
         SyntaxHighlighting* highlighter = qobject_cast<SyntaxHighlighting*>(obj);
         if (highlighter) {
@@ -94,6 +95,10 @@ MainWindow::MainWindow(QWidget *parent) :
                 });
             }
         }
+    }
+
+    if (localFileBackend == nullptr) {
+        QMessageBox::critical(nullptr, tr("theSlate may not work properly"), tr("The Local File Backend was unable to be loaded. theSlate may quit unexpectedly."), QMessageBox::Ok, QMessageBox::Ok);
     }
 
     #ifdef Q_OS_WIN
