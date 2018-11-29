@@ -25,6 +25,7 @@ copy slate\release\theslate.exe deploy
 copy slate\translations\*.qm deploy\translations
 copy SyntaxHighlightingPlugins\release\SyntaxHighlightingPlugins.dll deploy\syntaxhighlighting
 copy FileBackends\LocalFileBackend\release\LocalFileBackend.dll deploy\filebackends
+copy FileBackends\HttpBackend\release\HttpBackend.dll deploy\filebackends
 copy "C:\Program Files\thelibs\lib\the-libs.dll" deploy
 cd deploy
 windeployqt theslate.exe
