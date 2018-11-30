@@ -195,12 +195,18 @@
     <property name="title">
      <string>Edit</string>
     </property>
+    <widget class="QMenu" name="menuPaste_from_Clipboard_History">
+     <property name="title">
+      <string>Paste from Clipboard History</string>
+     </property>
+    </widget>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
     <addaction name="separator"/>
     <addaction name="actionCut"/>
     <addaction name="actionCopy"/>
     <addaction name="actionPaste"/>
+    <addaction name="menuPaste_from_Clipboard_History"/>
     <addaction name="separator"/>
     <addaction name="actionFind_and_Replace"/>
    </widget>

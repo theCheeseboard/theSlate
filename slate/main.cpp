@@ -6,6 +6,7 @@
 #include <QMenu>
 #include <QDesktopServices>
 #include <QCommandLineParser>
+#include <QClipboard>
 #include "aboutwindow.h"
 #include "settingsdialog.h"
 #include "plugins/filebackend.h"
@@ -18,6 +19,7 @@
 #endif
 
 FileBackendFactory* localFileBackend = nullptr;
+QLinkedList<QString> clipboardHistory;
 
 void setupMacMenubar() {
     //Set up macOS menu bar when no window is open
@@ -143,6 +145,13 @@ int main(int argc, char *argv[])
             w->show();
         } else {
             MainWindow::openWindows.first()->newTab(file);
+        }
+    });
+    QObject::connect(a.clipboard(), &QClipboard::dataChanged, [=] {
+        const QMimeData* d = QApplication::clipboard()->mimeData();
+        if (d->hasText()) {
+            clipboardHistory.prepend(d->text());
+            if (clipboardHistory.size() > 10) clipboardHistory.takeLast();
         }
     });
 

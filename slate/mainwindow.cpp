@@ -19,6 +19,7 @@
 #endif
 
 extern FileBackendFactory* localFileBackend;
+extern QLinkedList<QString> clipboardHistory;
 
 QList<MainWindow*> MainWindow::openWindows = QList<MainWindow*>();
 
@@ -190,6 +191,7 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addAction(ui->actionCut);
         singleMenu->addAction(ui->actionCopy);
         singleMenu->addAction(ui->actionPaste);
+        singleMenu->addMenu(ui->menuPaste_from_Clipboard_History);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionPrint);
         singleMenu->addAction(ui->actionFind_and_Replace);
@@ -210,6 +212,41 @@ MainWindow::MainWindow(QWidget *parent) :
     #endif
 
     ui->menuBar->setVisible(false);
+    connect(ui->menuPaste_from_Clipboard_History, &QMenu::aboutToShow, [=] {
+        ui->menuPaste_from_Clipboard_History->clear();
+
+        if (clipboardHistory.size() == 0) {
+            QAction* action = new QAction();
+            action->setText(tr("No Clipboard History available"));
+            action->setEnabled(false);
+            ui->menuPaste_from_Clipboard_History->addAction(action);
+        } else {
+            QFontMetrics metrics = ui->menuPaste_from_Clipboard_History->fontMetrics();
+            for (auto i = clipboardHistory.begin(); i != clipboardHistory.end(); i++) {
+                QString text = *i;
+
+                //Remove any line breaks
+                text = text.replace("\n", "");
+                text = text.replace("\r", "");
+
+                //Add the action
+                QAction* action = new QAction();
+                action->setText(metrics.elidedText(text, Qt::ElideRight, 500 * theLibsGlobal::getDPIScaling()));
+                action->setEnabled(currentDocument() != nullptr);
+                connect(action, &QAction::triggered, [=] {
+                    currentDocument()->insertPlainText(*i);
+                });
+                ui->menuPaste_from_Clipboard_History->addAction(action);
+            }
+        }
+    });
+    QShortcut* pasteHistory = new QShortcut(QKeySequence(tr("Ctrl+Shift+V")), this);
+    connect(pasteHistory, &QShortcut::activated, [=] {
+        if (currentDocument() != nullptr) {
+            QPoint p = currentDocument()->mapToGlobal(currentDocument()->cursorRect().bottomLeft());
+            ui->menuPaste_from_Clipboard_History->exec(p);
+        }
+    });
 
     if (settings.contains("window/state")) {
         this->restoreState(settings.value("window/state").toByteArray());
