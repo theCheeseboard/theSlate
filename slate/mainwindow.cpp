@@ -305,7 +305,9 @@ void MainWindow::newTab() {
             updateTouchBar();
         });
         connect(view, &TextEditor::destroyed, [=] {
-            primaryTopNotifications.remove(view);
+            if (primaryTopNotifications.contains(view)) {
+                primaryTopNotifications.remove(view);
+            }
         });
         primaryTopNotifications.insert(view, nullptr);
     #else

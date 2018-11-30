@@ -566,122 +566,122 @@
         <translation>Phụ trợ tệp sẽ không tải được. theSlate có thể thoát không mong đợi.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="491"/>
+        <location filename="../mainwindow.cpp" line="493"/>
         <source>Save Changes?</source>
         <translation>Lưu thay đổi?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="492"/>
+        <location filename="../mainwindow.cpp" line="494"/>
         <source>Do you want to save your changes to this document?</source>
         <translation>Bạn có muốn lưu thay đổi với tệp này không?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="713"/>
-        <location filename="../mainwindow.cpp" line="720"/>
+        <location filename="../mainwindow.cpp" line="715"/>
+        <location filename="../mainwindow.cpp" line="722"/>
         <source>Git Pull</source>
         <translation>Kéo từ Git</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="714"/>
+        <location filename="../mainwindow.cpp" line="716"/>
         <source>Pulling from remote repository...</source>
         <translation>Đang kéo từ kho xa...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="721"/>
+        <location filename="../mainwindow.cpp" line="723"/>
         <source>Local repository updated</source>
         <translation>Kho đây đã cập nhật thành công</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="729"/>
+        <location filename="../mainwindow.cpp" line="731"/>
         <source>Automatic merging failed</source>
         <translation>Hợp nhất tự động đã thất bại</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="730"/>
+        <location filename="../mainwindow.cpp" line="732"/>
         <source>Conflicting files in working directory need to be resolved.</source>
         <translation>Tệp xung đột cần bị sửa.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="735"/>
+        <location filename="../mainwindow.cpp" line="737"/>
         <source>Merging failed</source>
         <translation>Hợp nhất đã thất bại</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="736"/>
+        <location filename="../mainwindow.cpp" line="738"/>
         <source>Your working directory is not clean. Commit your changes before you pull.</source>
         <translation>Thư mục chưa dọn. Cam kết tệp trước khi bạn kéo.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="748"/>
-        <location filename="../mainwindow.cpp" line="755"/>
+        <location filename="../mainwindow.cpp" line="750"/>
+        <location filename="../mainwindow.cpp" line="757"/>
         <source>Git Push</source>
         <translation>Đẩy đén Git</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="749"/>
+        <location filename="../mainwindow.cpp" line="751"/>
         <source>Pushing to remote repository...</source>
         <translation>Đang đẩy đén kho xa...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="756"/>
+        <location filename="../mainwindow.cpp" line="758"/>
         <source>Files were pushed to the remote repository</source>
         <translation>Tệp đẩy đến kho xa thành công</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="767"/>
+        <location filename="../mainwindow.cpp" line="769"/>
         <source>Push Rejected</source>
         <translation>Việc đẩy đã từ chối</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="768"/>
+        <location filename="../mainwindow.cpp" line="770"/>
         <source>Your local Git repository is not up to date. You&apos;ll need to pull from the remote repository before you can push.</source>
         <translation>Kho Git đây chưa cập nhật. Bạn cần kéo từ kho xa trước khi bạn đẩy được.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="787"/>
-        <location filename="../mainwindow.cpp" line="799"/>
+        <location filename="../mainwindow.cpp" line="789"/>
+        <location filename="../mainwindow.cpp" line="801"/>
         <source>Git Commit</source>
         <translation>Cam kết Git</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="788"/>
+        <location filename="../mainwindow.cpp" line="790"/>
         <source>A commit message is required.</source>
         <translation>Chúng tôi cần tin nhắn cam kết.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="800"/>
+        <location filename="../mainwindow.cpp" line="802"/>
         <source>Your local files have been committed. Your HEAD now points to %1</source>
         <translation>Tệp đã cam kết thành công. HEAD của bạn chỉ đến %1 bây giờ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="880"/>
+        <location filename="../mainwindow.cpp" line="882"/>
         <source>For %1</source>
         <translation>Cho %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="882"/>
+        <location filename="../mainwindow.cpp" line="884"/>
         <source>Edit in new tab</source>
         <translation>Sửa trong tab mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="887"/>
+        <location filename="../mainwindow.cpp" line="889"/>
         <source>Edit in new window</source>
         <translation>Sửa trong cửa sổ mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="893"/>
-        <location filename="../mainwindow.cpp" line="900"/>
+        <location filename="../mainwindow.cpp" line="895"/>
         <location filename="../mainwindow.cpp" line="902"/>
+        <location filename="../mainwindow.cpp" line="904"/>
         <source>Rename</source>
         <translation>Đổi tên</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="896"/>
+        <location filename="../mainwindow.cpp" line="898"/>
         <source>Delete</source>
         <translation>Xóa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="902"/>
+        <location filename="../mainwindow.cpp" line="904"/>
         <source>What do you want to call this file?</source>
         <translation>Bạn muốn gọi tệp này là gì?</translation>
     </message>
