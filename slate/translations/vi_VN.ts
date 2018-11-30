@@ -651,7 +651,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="800"/>
         <source>Your local files have been committed. Your HEAD now points to %1</source>
-        <translation>Tệp đã cam kết thành công. HEAD của bạn chỉ đến %1 bây giờ.</translation>
+        <translation>Tệp đã cam kết thành công. HEAD của bạn chỉ đến %1 bây giờ</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="880"/>
