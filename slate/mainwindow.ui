@@ -948,20 +948,6 @@
     <string>Ctrl+P</string>
    </property>
   </action>
-  <action name="actionNew_File_in_Project">
-   <property name="text">
-    <string>New File in Project</string>
-   </property>
-  </action>
-  <action name="actionFile_in_Project">
-   <property name="icon">
-    <iconset theme="document-new" resource="icons.qrc">
-     <normaloff>:/icons/document-new.svg</normaloff>:/icons/document-new.svg</iconset>
-   </property>
-   <property name="text">
-    <string>File &amp;in Project</string>
-   </property>
-  </action>
   <action name="actionPush">
    <property name="text">
     <string>&amp;Push</string>
@@ -1157,11 +1143,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+N</string>
-   </property>
-  </action>
-  <action name="actionWoo">
-   <property name="text">
-    <string>woo</string>
    </property>
   </action>
  </widget>

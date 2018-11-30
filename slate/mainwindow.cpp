@@ -220,7 +220,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Hide the project frame
     ui->projectFrame->setVisible(false);
-    ui->actionFile_in_Project->setVisible(false);
     ui->menuSource_Control->setEnabled(false);
     ui->actionStart->setVisible(false);
     ui->actionContinue->setVisible(false);
