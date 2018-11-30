@@ -27,7 +27,7 @@
     <message>
         <location filename="../aboutwindow.cpp" line="13"/>
         <source>theSlate %1</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate %1</translation>
     </message>
 </context>
 <context>
@@ -181,7 +181,7 @@
     <message>
         <location filename="../mainwindow.ui" line="428"/>
         <source>Git Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Đò xuất ra bởi Git</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="468"/>
@@ -839,7 +839,7 @@
     <message>
         <location filename="../settingsdialog.ui" line="272"/>
         <source>FONTS</source>
-        <translation type="unfinished"></translation>
+        <translation>PHÔNG CHỮ</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="279"/>
@@ -849,47 +849,47 @@
     <message>
         <location filename="../settingsdialog.ui" line="366"/>
         <source>Tabs</source>
-        <translation type="unfinished"></translation>
+        <translation>Tab</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="373"/>
         <source>Spaces</source>
-        <translation type="unfinished"></translation>
+        <translation>Dấu cách</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="419"/>
         <source>Tab Key Behaviour</source>
-        <translation type="unfinished"></translation>
+        <translation>Hành vi phím Tab</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="412"/>
         <source>BEHAVIOUR</source>
-        <translation type="unfinished"></translation>
+        <translation>HÀNH VI</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="433"/>
         <source>Tab Character Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiều rộng ký tự tab</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="440"/>
         <source>End of Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Ký tự kết thúc dòng</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="448"/>
         <source>Unix (LF)</source>
-        <translation type="unfinished"></translation>
+        <translation>Unix (LF)</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="453"/>
         <source>Macintosh (CR)</source>
-        <translation type="unfinished"></translation>
+        <translation>Macintosh (CR)</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="458"/>
         <source>Windows (CRLF)</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows (CRLF)</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="543"/>
@@ -977,12 +977,12 @@
     <message>
         <location filename="../texteditor.cpp" line="224"/>
         <source>Mixed Line Endings detected</source>
-        <translation type="unfinished"></translation>
+        <translation>Ký tự kết thúc dòng hỗn hợp đã phát hiện</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="225"/>
         <source>If you save this file, we&apos;ll change all the line endings to your configuration in Settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nếu bạn lưu tệp này, chúng tôi sẽ thay tất cả ký tự kết thúc dòng trong tệp này sang quả ký tự cấu hình trong Cài Đặt.</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="298"/>
@@ -1044,22 +1044,22 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../main.cpp" line="113"/>
         <source>Read from standard input</source>
-        <translation type="unfinished"></translation>
+        <translation>Đọc đầu vào tiêu chuẩn</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="116"/>
         <source>files</source>
-        <translation type="unfinished"></translation>
+        <translation>tệp</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="116"/>
         <source>Files to open</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp để mở</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="116"/>
         <source>[files...]</source>
-        <translation type="unfinished"></translation>
+        <translation>[tệp...]</translation>
     </message>
 </context>
 </TS>
