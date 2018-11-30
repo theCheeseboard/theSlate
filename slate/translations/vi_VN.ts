@@ -135,7 +135,7 @@
     <message>
         <location filename="../mainwindow.ui" line="200"/>
         <source>Paste from Clipboard History</source>
-        <translation type="unfinished"></translation>
+        <translation>Dán từ lịch sử Clipboard</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="215"/>
@@ -559,12 +559,12 @@
     <message>
         <location filename="../mainwindow.cpp" line="220"/>
         <source>No Clipboard History available</source>
-        <translation type="unfinished"></translation>
+        <translation>Không có lịch sử Clipboard</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="243"/>
         <source>Ctrl+Shift+V</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+V</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="536"/>
