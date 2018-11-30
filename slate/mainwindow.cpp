@@ -446,7 +446,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 
         if (saveNeeded.count() > 0) {
             ExitSaveDialog* dialog = new ExitSaveDialog(saveNeeded, this);
-            dialog->setWindowFlag(Qt::Sheet);
+            //dialog->setWindowFlag(Qt::Sheet);
             dialog->setWindowModality(Qt::WindowModal);
             connect(dialog, &ExitSaveDialog::closeWindow, [=] {
                 this->close();

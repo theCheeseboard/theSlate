@@ -24,7 +24,7 @@ QAction* LocalBackendFactory::makeOpenAction(QWidget* parent) {
     connect(a, &QAction::triggered, [=] {
         QEventLoop* loop = new QEventLoop();
         OpenDialog* openDialog = new OpenDialog(parent);
-        openDialog->setWindowFlag(Qt::Sheet);
+        //openDialog->setWindowFlag(Qt::Sheet);
         openDialog->setWindowModality(Qt::WindowModal);
 
         connect(openDialog, SIGNAL(finished(int)), loop, SLOT(quit()));
