@@ -344,7 +344,7 @@
     <message>
         <location filename="../mainwindow.ui" line="924"/>
         <source>&amp;No Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Không làm nổi bật</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="933"/>
@@ -419,7 +419,7 @@
     <message>
         <location filename="../mainwindow.ui" line="966"/>
         <source>&amp;Fetch</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tìm nạp</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="975"/>
