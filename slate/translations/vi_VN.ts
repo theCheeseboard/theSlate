@@ -21,7 +21,7 @@
     <message>
         <location filename="../aboutwindow.ui" line="52"/>
         <source>Copyright (c) Victor Tran 2018. Licensed under the terms of the GNU General Public License, version 3 or later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bản quyền (c) Victor Tran 2018. Cấp phép với giấy phép Công cộng GNU, phiên bản 3 hoặc mới hơn.</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="77"/>
@@ -124,7 +124,7 @@
     <message>
         <location filename="../mainwindow.ui" line="174"/>
         <source>Open From</source>
-        <translation type="unfinished"></translation>
+        <translation>Mở từ</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="196"/>
@@ -155,7 +155,7 @@
     <message>
         <location filename="../mainwindow.ui" line="239"/>
         <source>&amp;View</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Xem</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="274"/>
@@ -353,42 +353,42 @@
     <message>
         <location filename="../mainwindow.ui" line="1091"/>
         <source>&amp;File Bug</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Báo cáo lỗi</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1100"/>
         <source>&amp;Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mã nguồn</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1109"/>
         <source>U&amp;ndo</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hoàn tác</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1121"/>
         <source>&amp;Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Làm lại</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1133"/>
         <source>Sett&amp;ings</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cài đặt</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1148"/>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Đóng</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1151"/>
         <source>Ctrl+W</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+W</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1156"/>
         <source>&amp;New Window</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cửa sổ mới</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1164"/>
@@ -463,22 +463,22 @@
     <message>
         <location filename="../mainwindow.ui" line="1022"/>
         <source>Step Into</source>
-        <translation type="unfinished"></translation>
+        <translation>Bước vào</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1031"/>
         <source>Step Over</source>
-        <translation type="unfinished"></translation>
+        <translation>Bước qua</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1040"/>
         <source>Step Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Bước ra</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1049"/>
         <source>Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Tạm dừng</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1058"/>
@@ -493,17 +493,17 @@
     <message>
         <location filename="../main.cpp" line="25"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="30"/>
         <source>New Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Cửa sổ mới</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="40"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Thoát</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="46"/>
@@ -518,32 +518,32 @@
     <message>
         <location filename="../main.cpp" line="53"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Giới thiệu</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1112"/>
         <source>Ctrl+Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Z</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1124"/>
         <source>Ctrl+Shift+Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+Z</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="35"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Cài đặt</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1136"/>
         <source>Ctrl+,</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+,</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1061"/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1070"/>
@@ -553,17 +553,17 @@
     <message>
         <location filename="../mainwindow.ui" line="1073"/>
         <source>Ctrl+Shift+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="101"/>
         <source>theSlate may not work properly</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate có thể không hoạt động</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="101"/>
         <source>The Local File Backend was unable to be loaded. theSlate may quit unexpectedly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Phụ trợ tệp sẽ không tải được. theSlate có thể thoát không mong đợi.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="491"/>
@@ -579,117 +579,117 @@
         <location filename="../mainwindow.cpp" line="713"/>
         <location filename="../mainwindow.cpp" line="720"/>
         <source>Git Pull</source>
-        <translation type="unfinished"></translation>
+        <translation>Kéo từ Git</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="714"/>
         <source>Pulling from remote repository...</source>
-        <translation type="unfinished"></translation>
+        <translation>Đang kéo từ kho xa...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="721"/>
         <source>Local repository updated</source>
-        <translation type="unfinished"></translation>
+        <translation>Kho đây đã cập nhật thành công</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="729"/>
         <source>Automatic merging failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Hợp nhất tự động đã thất bại</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="730"/>
         <source>Conflicting files in working directory need to be resolved.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp xung đột cần bị sửa.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="735"/>
         <source>Merging failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Hợp nhất đã thất bại</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="736"/>
         <source>Your working directory is not clean. Commit your changes before you pull.</source>
-        <translation type="unfinished"></translation>
+        <translation>Thư mục chưa dọn. Cam kết tệp trước khi bạn kéo.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="748"/>
         <location filename="../mainwindow.cpp" line="755"/>
         <source>Git Push</source>
-        <translation type="unfinished"></translation>
+        <translation>Đẩy đén Git</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="749"/>
         <source>Pushing to remote repository...</source>
-        <translation type="unfinished"></translation>
+        <translation>Đang đẩy đén kho xa...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="756"/>
         <source>Files were pushed to the remote repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp đẩy đến kho xa thành công</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="767"/>
         <source>Push Rejected</source>
-        <translation type="unfinished"></translation>
+        <translation>Việc đẩy đã từ chối</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="768"/>
         <source>Your local Git repository is not up to date. You&apos;ll need to pull from the remote repository before you can push.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kho Git đây chưa cập nhật. Bạn cần kéo từ kho xa trước khi bạn đẩy được.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="787"/>
         <location filename="../mainwindow.cpp" line="799"/>
         <source>Git Commit</source>
-        <translation type="unfinished"></translation>
+        <translation>Cam kết Git</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="788"/>
         <source>A commit message is required.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chúng tôi cần tin nhắn cam kết.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="800"/>
         <source>Your local files have been committed. Your HEAD now points to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp đã cam kết thành công. HEAD của bạn chỉ đến %1 bây giờ.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="880"/>
         <source>For %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cho %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="882"/>
         <source>Edit in new tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Sửa trong tab mới</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="887"/>
         <source>Edit in new window</source>
-        <translation type="unfinished"></translation>
+        <translation>Sửa trong cửa sổ mới</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="893"/>
         <location filename="../mainwindow.cpp" line="900"/>
         <location filename="../mainwindow.cpp" line="902"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Đổi tên</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="896"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Xóa</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="902"/>
         <source>What do you want to call this file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bạn muốn gọi tệp này là gì?</translation>
     </message>
     <message>
         <location filename="../mainwindow-objc.mm" line="162"/>
         <location filename="../mainwindow-objc.mm" line="164"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Đóng</translation>
     </message>
 </context>
 <context>
@@ -698,12 +698,12 @@
         <location filename="../textparts/mergetool.ui" line="87"/>
         <location filename="../textparts/mergetool.ui" line="219"/>
         <source>Accept and Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Chấp nhận và hợp nhất</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.ui" line="119"/>
         <source>Select portions of the file to keep by clicking on the margin of each file. You can further edit the file by editing the bottom pane.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nhấp vào lề tệp để chọn phần tệp giữ. Bạn có thể sửa tệp hơn trong ngăn dưới cùng.</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.ui" line="212"/>
@@ -713,31 +713,31 @@
     <message>
         <location filename="../textparts/mergetool.cpp" line="61"/>
         <source>%1 (Current changes)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (Thay đổi hiện tại)</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="86"/>
         <source>%1 (Incoming changes)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (Thay đổi hợp nhất vào)</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="166"/>
         <location filename="../textparts/mergetool.cpp" line="183"/>
         <location filename="../textparts/mergetool.cpp" line="198"/>
         <source>[Awaiting merge decision]</source>
-        <translation type="unfinished"></translation>
+        <translation>[Đang chờ quyết định hợp nhất]</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="186"/>
         <location filename="../textparts/mergetool.cpp" line="189"/>
         <source>Unresolved Merge Conflicts</source>
-        <translation type="unfinished"></translation>
+        <translation>Xung đột hợp nhất chưa giải quyết</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="187"/>
         <location filename="../textparts/mergetool.cpp" line="190"/>
         <source>You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bạn còn xung đột hợp nhất mà bạn chưa chọn giải quyết. Bạn có chắc chắn muốn chấp nhận giải quyết này?</translation>
     </message>
 </context>
 <context>
@@ -821,34 +821,34 @@
         <location filename="../settingsdialog.ui" line="14"/>
         <location filename="../settingsdialog.ui" line="113"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Cài đặt</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="143"/>
         <location filename="../settingsdialog.ui" line="199"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>Chung</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="148"/>
         <location filename="../settingsdialog.ui" line="306"/>
         <source>File Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Trình duyệt tệp</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="233"/>
         <source>Use System Monospace Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Dùng phông chữ đơn chắc của máy tính</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="340"/>
         <source>Show Hidden Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiển thị tệp ẩn</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="396"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -861,109 +861,111 @@
     <message>
         <location filename="../texteditor.cpp" line="116"/>
         <source>Merge Conflicts were found in this file</source>
-        <translation type="unfinished"></translation>
+        <translation>Đã tìm thấy xung đột hợp nhất trong tệp này</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="119"/>
         <source>Resolve Merge Conflicts</source>
-        <translation type="unfinished"></translation>
+        <translation>Giải quyết xung đột hợp nhất</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="124"/>
         <source>Resolve a Merge Conflict</source>
-        <translation type="unfinished"></translation>
+        <translation>Giải quyết xung đột hợp nhất</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="149"/>
         <source>File on disk changed</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp trên ổ đĩa đã thay</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="150"/>
         <source>The file on the disk has changed. If you save this file you will lose the changes on disk.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp trên ổ đĩa đã thay. Nếu bạn lưu tệp này, bạn sẽ mất thay đổi trên ổ đĩa.</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="153"/>
         <source>Reload File</source>
-        <translation type="unfinished"></translation>
+        <translation>Khôi phục tệp lại</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="159"/>
         <source>Merge Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Hợp nhất thay đổi</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="164"/>
         <source>File on Disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp trên đĩa</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="164"/>
         <source>Currently open file</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp đã mở</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="169"/>
         <source>Resolve a Save Conflict</source>
-        <translation type="unfinished"></translation>
+        <translation>Giải quyết xung đột lưu</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="201"/>
         <source>File on disk deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp trên ổ đĩa đã xóa</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="202"/>
         <source>The file on the disk has been deleted. If you save this file you will recreate the file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp trên ổ đĩa đã xóa. Nếu bạn lưu tệp này, bạn sẽ tạo tệp lại.</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="211"/>
         <source>Can&apos;t open file</source>
-        <translation type="unfinished"></translation>
+        <translation>Không thể mở tệp được</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="291"/>
         <source>Retry</source>
-        <translation type="unfinished"></translation>
+        <translation>Thử lại</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="311"/>
         <source>Read Only File</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp chỉ được đọc</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="312"/>
         <source>This file is read only. You&apos;ll need to save it as a different file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp này chỉ được đọc. Bạn sẽ cần lưu thành tệp khác.</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="343"/>
         <source>There&apos;s no more space on this disk.</source>
-        <translation type="unfinished"></translation>
+        <translation>Không còn dung lượng trên ổ đĩa.</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="345"/>
         <source>You don&apos;t have permission to save this file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bạn không quyến lưu tệp này.</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="347"/>
         <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.</source>
-        <translation type="unfinished"></translation>
+        <translation>Không lưu tệp này được. Kiểm tra xem bạn có quyền để ghi tệp này, và bạn còn dung lượng trống trên ổ đĩa.</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="350"/>
         <source>
 
 Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Đừng thoát theSlate đến khi bạn ghi tệp này; nếu không thì bạn sẽ mất dữ liệu.</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="353"/>
         <source>Couldn&apos;t save the file</source>
-        <translation type="unfinished"></translation>
+        <translation>Không lưu tệp được</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="733"/>
