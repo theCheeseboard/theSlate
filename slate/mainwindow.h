@@ -52,6 +52,7 @@ class MainWindow : public QMainWindow
     public slots:
         void newTab();
         void newTab(QString filename);
+        void newTab(QByteArray contents);
         void newTab(FileBackend* backend);
         bool closeCurrentTab();
         void show();

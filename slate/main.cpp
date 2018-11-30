@@ -5,6 +5,7 @@
 #include <QMenuBar>
 #include <QMenu>
 #include <QDesktopServices>
+#include <QCommandLineParser>
 #include "aboutwindow.h"
 #include "settingsdialog.h"
 #include "plugins/filebackend.h"
@@ -65,8 +66,8 @@ int main(int argc, char *argv[])
     a.setOrganizationName("theSuite");
     a.setOrganizationDomain("");
     a.setApplicationName("theSlate");
+    a.setApplicationVersion("0.4");
 
-    qDebug() << QLibraryInfo::location(QLibraryInfo::TranslationsPath);
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     a.installTranslator(&qtTranslator);
@@ -102,17 +103,37 @@ int main(int argc, char *argv[])
     setupMacObjC();
 #endif
 
-    QStringList args = a.arguments();
-    args.takeFirst();
+    QCommandLineParser parser;
+    parser.setApplicationDescription(a.translate("AboutWindow", "Text Editor"));
+    parser.setOptionsAfterPositionalArgumentsMode(QCommandLineParser::ParseAsOptions);
+    parser.addHelpOption();
+    parser.addVersionOption();
+    parser.addOptions({
+        {
+            {"i", "stdin"}, a.translate("main", "Read from standard input")
+        }
+    });
+    parser.addPositionalArgument(a.translate("main", "files"), a.translate("main", "Files to open"), a.translate("main", "[files...]"));
+    parser.process(a);
 
     MainWindow* w = new MainWindow();
 
-    for (QString arg : args) {
-        if (arg.startsWith("--")) {
+    if (parser.isSet("i")) {
+        //We want to read from stdin
+        QTextStream s(stdin, QIODevice::ReadOnly);
 
-        } else {
-            w->newTab(arg);
-        }
+        QStringList buf;
+        QString currentLine;
+        do {
+            currentLine = s.readLine();
+            buf.append(currentLine);
+        } while (currentLine != "");
+
+        w->newTab(buf.join("\n").toUtf8());
+    }
+
+    for (QString arg : parser.positionalArguments()) {
+        w->newTab(arg);
     }
 
     QObject::connect(&a, &tApplication::openFile, [=](QString file) {

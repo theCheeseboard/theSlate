@@ -58,10 +58,8 @@ MainWindow::MainWindow(QWidget *parent) :
         QDirIterator it(path, QDirIterator::Subdirectories);
         while (it.hasNext()) {
             it.next();
-            qDebug() << it.filePath();
             QPluginLoader loader(it.filePath());
             QObject* plugin = loader.instance();
-            qDebug() << loader.errorString();
             if (plugin) {
                 availablePlugins.append(plugin);
             }
@@ -304,11 +302,11 @@ void MainWindow::newTab() {
 
             updateTouchBar();
         });
-        connect(view, &TextEditor::destroyed, [=] {
+        /*connect(view, &TextEditor::destroyed, [=] {
             if (primaryTopNotifications.contains(view)) {
                 primaryTopNotifications.remove(view);
             }
-        });
+        });*/
         primaryTopNotifications.insert(view, nullptr);
     #else
         connect(view->getTabButton(), &QPushButton::clicked, [=]{
@@ -338,6 +336,15 @@ void MainWindow::newTab(FileBackend* backend) {
     }
 
     currentDocument()->openFile(backend);
+    updateGit();
+}
+
+void MainWindow::newTab(QByteArray contents) {
+    if (currentDocument() == nullptr || currentDocument()->isEdited() || currentDocument()->title() != "") {
+        newTab();
+    }
+
+    currentDocument()->loadText(contents);
     updateGit();
 }
 

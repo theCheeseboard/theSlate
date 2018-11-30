@@ -15,14 +15,14 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="versionLabel">
      <property name="font">
       <font>
        <pointsize>20</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>theSlate 0.3</string>
+      <string notr="true">theSlate 0.4</string>
      </property>
     </widget>
    </item>

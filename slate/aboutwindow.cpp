@@ -10,6 +10,7 @@ AboutWindow::AboutWindow(QWidget *parent) :
     ui->setupUi(this);
 
     this->resize(this->size() * theLibsGlobal::getDPIScaling());
+    ui->versionLabel->setText(tr("theSlate %1").arg(QApplication::applicationVersion()));
 }
 
 AboutWindow::~AboutWindow()

@@ -275,38 +275,7 @@ void TextEditor::openFile(FileBackend *backend) {
     d->cover->setVisible(true);
     d->cover->raise();
     backend->load()->then([=](QByteArray data) {
-        this->setPlainText(data);
-        d->edited = false;
-
-        //Detect line endings;
-        char endings = 0;
-        if (data.contains("\r\n"))                                    endings |= 0b001;
-        if (QRegularExpression("(?<!\\r)\\n").match(data).hasMatch()) endings |= 0b010;
-        if (QRegularExpression("\\r(?!\\n)").match(data).hasMatch())  endings |= 0b100;
-
-        switch (endings) {
-            case 0b000: //No line endings
-                d->currentLineEndings = -2;
-                break;
-            case 0b001: //Windows
-                d->currentLineEndings = 2;
-                break;
-            case 0b010: //Macintosh
-                d->currentLineEndings = 1;
-                break;
-            case 0b100: //UNIX
-                d->currentLineEndings = 0;
-                break;
-            default: //Mixed line endings
-                d->currentLineEndings = -1;
-                addTopPanel(d->mixedLineEndings);
-        }
-
-        if (this->toPlainText().contains("======")) {
-            addTopPanel(d->mergeConflictsNotification);
-        } else {
-            removeTopPanel(d->mergeConflictsNotification);
-        }
+        loadText(data);
 
         if (git != nullptr) {
             git->deleteLater();
@@ -319,7 +288,6 @@ void TextEditor::openFile(FileBackend *backend) {
         d->parentWindow->updateGit();
 
         emit backendChanged();
-        emit editedChanged();
         d->cover->setVisible(false);
     })->error([=](QString error) {
         d->fileReadError->setText(error);
@@ -340,6 +308,44 @@ void TextEditor::openFile(FileBackend *backend) {
 
     d->currentBackend = backend;
     connectBackend();
+}
+
+void TextEditor::loadText(QByteArray data) {
+    this->setPlainText(data);
+    d->edited = false;
+
+    //Detect line endings;
+    char endings = 0;
+    if (data.contains("\r\n"))                                    endings |= 0b001;
+    if (QRegularExpression("(?<!\\r)\\n").match(data).hasMatch()) endings |= 0b010;
+    if (QRegularExpression("\\r(?!\\n)").match(data).hasMatch())  endings |= 0b100;
+
+    switch (endings) {
+        case 0b000: //No line endings
+            d->currentLineEndings = -2;
+            break;
+        case 0b001: //Windows
+            d->currentLineEndings = 2;
+            break;
+        case 0b010: //Macintosh
+            d->currentLineEndings = 1;
+            break;
+        case 0b100: //UNIX
+            d->currentLineEndings = 0;
+            break;
+        default: //Mixed line endings
+            d->currentLineEndings = -1;
+            addTopPanel(d->mixedLineEndings);
+    }
+
+    //Detect VCS conflicts
+    if (this->toPlainText().contains("======")) {
+        addTopPanel(d->mergeConflictsNotification);
+    } else {
+        removeTopPanel(d->mergeConflictsNotification);
+    }
+
+    emit editedChanged();
 }
 
 bool TextEditor::saveFile() {

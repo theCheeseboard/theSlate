@@ -84,6 +84,7 @@ class TextEditor : public QPlainTextEdit
 
         void openFile(FileBackend* backend);
         void openFileFake(QString contents);
+        void loadText(QByteArray data);
         bool saveFile();
         bool saveFileAskForFilename(bool saveAs = false);
         void revertFile();
