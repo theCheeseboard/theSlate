@@ -34,7 +34,7 @@ class TextEditorPrivate {
         QWidget* topPanelWidget;
         QBoxLayout* topPanelLayout;
 
-        TopNotification *mergeConflictsNotification, *onDiskChanged, *fileReadError, *onDiskDeleted;
+        TopNotification *mergeConflictsNotification, *onDiskChanged, *fileReadError, *onDiskDeleted, *mixedLineEndings;
 
         TextEditor* scrollingLock = nullptr;
 
@@ -46,6 +46,8 @@ class TextEditorPrivate {
 
         QWidget* cover;
 
+        int currentLineEndings = -2;
+
         FileBackend* currentBackend = nullptr;
 };
 
@@ -53,6 +55,8 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
 {
     d = new TextEditorPrivate();
     this->setLineWrapMode(NoWrap);
+    this->setTabStopWidth(this->fontMetrics().width(" ") * d->settings.value("behaviour/tabWidth", 4).toInt());
+
     QFont normalFont = this->font();
     d->parentWindow = parent;
 
@@ -215,6 +219,16 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
         });
     }
 
+    {
+        d->mixedLineEndings = new TopNotification();
+        d->mixedLineEndings->setTitle(tr("Mixed Line Endings detected"));
+        d->mixedLineEndings->setText(tr("If you save this file, we'll change all the line endings to your configuration in Settings."));
+
+        connect(d->mixedLineEndings, &TopNotification::closeNotification, [=] {
+            removeTopPanel(d->mixedLineEndings);
+        });
+    }
+
     connect(this->verticalScrollBar(), &QScrollBar::valueChanged, [=](int position) {
         if (d->scrollingLock != nullptr) {
             d->scrollingLock->verticalScrollBar()->setValue(position);
@@ -256,12 +270,37 @@ void TextEditor::openFile(FileBackend *backend) {
     removeTopPanel(d->onDiskChanged);
     removeTopPanel(d->onDiskDeleted);
     removeTopPanel(d->fileReadError);
+    removeTopPanel(d->mixedLineEndings);
 
     d->cover->setVisible(true);
     d->cover->raise();
     backend->load()->then([=](QByteArray data) {
         this->setPlainText(data);
         d->edited = false;
+
+        //Detect line endings;
+        char endings = 0;
+        if (data.contains("\r\n"))                                    endings |= 0b001;
+        if (QRegularExpression("(?<!\\r)\\n").match(data).hasMatch()) endings |= 0b010;
+        if (QRegularExpression("\\r(?!\\n)").match(data).hasMatch())  endings |= 0b100;
+
+        switch (endings) {
+            case 0b000: //No line endings
+                d->currentLineEndings = -2;
+                break;
+            case 0b001: //Windows
+                d->currentLineEndings = 2;
+                break;
+            case 0b010: //Macintosh
+                d->currentLineEndings = 1;
+                break;
+            case 0b100: //UNIX
+                d->currentLineEndings = 0;
+                break;
+            default: //Mixed line endings
+                d->currentLineEndings = -1;
+                addTopPanel(d->mixedLineEndings);
+        }
 
         if (this->toPlainText().contains("======")) {
             addTopPanel(d->mergeConflictsNotification);
@@ -317,7 +356,7 @@ bool TextEditor::saveFile() {
         messageBox->exec();
         return true;
     } else {
-        d->currentBackend->save(this->toPlainText().toUtf8())->then([=] {
+        d->currentBackend->save(formatForSaving(this->toPlainText().toUtf8()))->then([=] {
             removeTopPanel(d->onDiskChanged);
             removeTopPanel(d->onDiskDeleted);
             d->edited = false;
@@ -930,4 +969,28 @@ QUrl TextEditor::fileUrl() {
     } else {
         return QUrl();
     }
+}
+
+QByteArray TextEditor::formatForSaving(QString text) {
+    removeTopPanel(d->mixedLineEndings);
+    QByteArray a = text.toUtf8();
+    int lineEndingsToSaveAs;
+
+    if (d->currentLineEndings < 0) { //Use settings
+        lineEndingsToSaveAs = d->settings.value("behaviour/endOfLine", THESLATE_END_OF_LINE).toInt();
+    } else { //Use detected line endings
+        lineEndingsToSaveAs = d->currentLineEndings;
+    }
+
+    switch (lineEndingsToSaveAs) {
+        case 0: //Unix
+            //do nothing
+            break;
+        case 1: //Macintosh
+            a.replace("\n", "\r");
+            break;
+        case 2: //Windows
+            a.replace("\n", "\r\n");
+    }
+    return a;
 }

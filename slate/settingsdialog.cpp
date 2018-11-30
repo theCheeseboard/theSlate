@@ -24,6 +24,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
         ui->tabKeyTabs->setChecked(true);
     }
     ui->tabKeySpaceNunber->setValue(settings.value("behaviour/tabSpaceNumber", 4).toInt());
+    ui->tabCharWidth->setValue(settings.value("behaviour/tabWidth", 4).toInt());
+
+    ui->endOfLineComboBox->setCurrentIndex(settings.value("behaviour/endOfLine", THESLATE_END_OF_LINE).toInt());
 }
 
 SettingsDialog::~SettingsDialog()
@@ -81,4 +84,14 @@ void SettingsDialog::on_tabKeyTabs_toggled(bool checked)
 void SettingsDialog::on_tabKeySpaceNunber_valueChanged(int arg1)
 {
     settings.setValue("behaviour/tabSpaceNumber", arg1);
+}
+
+void SettingsDialog::on_tabCharWidth_valueChanged(int arg1)
+{
+    settings.setValue("behaviour/tabWidth", arg1);
+}
+
+void SettingsDialog::on_endOfLineComboBox_currentIndexChanged(int index)
+{
+    settings.setValue("behaviour/endOfLine", index);
 }

@@ -17,12 +17,14 @@ macx {
     ICON = icon.icns
     LIBS += -framework CoreFoundation -framework AppKit
     QMAKE_INFO_PLIST = Info.plist
+    DEFINES += "THESLATE_END_OF_LINE=0"
 }
 
 unix:!macx {
     QT += thelib
     TARGET = theslate
     LIBS +=  -L../SyntaxHighlightingPlugins/ -lSyntaxHighlightingPlugins
+    DEFINES += "THESLATE_END_OF_LINE=0"
 }
 
 win32 {
@@ -33,6 +35,7 @@ win32 {
     else: LIBS += -L../SyntaxHighlightingPlugins/release/
     LIBS += -lSyntaxHighlightingPlugins
     RC_FILE = icon.rc
+    DEFINES += "THESLATE_END_OF_LINE=2"
 }
 
 macx {

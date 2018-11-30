@@ -33,6 +33,10 @@ private slots:
 
     void on_tabKeySpaceNunber_valueChanged(int arg1);
 
+    void on_tabCharWidth_valueChanged(int arg1);
+
+    void on_endOfLineComboBox_currentIndexChanged(int index);
+
     private:
     Ui::SettingsDialog *ui;
 

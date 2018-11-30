@@ -400,13 +400,6 @@
                  </layout>
                 </widget>
                </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_5">
-                 <property name="text">
-                  <string>Tab Key Behaviour</string>
-                 </property>
-                </widget>
-               </item>
                <item row="0" column="0" colspan="2">
                 <widget class="QLabel" name="label_6">
                  <property name="font">
@@ -420,6 +413,53 @@
                  </property>
                 </widget>
                </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_5">
+                 <property name="text">
+                  <string>Tab Key Behaviour</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QSpinBox" name="tabCharWidth">
+                 <property name="singleStep">
+                  <number>4</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_7">
+                 <property name="text">
+                  <string>Tab Character Width</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_8">
+                 <property name="text">
+                  <string>End of Line</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QComboBox" name="endOfLineComboBox">
+                 <item>
+                  <property name="text">
+                   <string>Unix (LF)</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Macintosh (CR)</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Windows (CRLF)</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
               </layout>
              </item>
              <item>
@@ -430,7 +470,7 @@
                <property name="sizeHint" stdset="0">
                 <size>
                  <width>20</width>
-                 <height>252</height>
+                 <height>191</height>
                 </size>
                </property>
               </spacer>

@@ -831,7 +831,7 @@
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="148"/>
-        <location filename="../settingsdialog.ui" line="469"/>
+        <location filename="../settingsdialog.ui" line="509"/>
         <source>File Browser</source>
         <translation type="unfinished"></translation>
     </message>
@@ -856,22 +856,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="406"/>
+        <location filename="../settingsdialog.ui" line="419"/>
         <source>Tab Key Behaviour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="419"/>
+        <location filename="../settingsdialog.ui" line="412"/>
         <source>BEHAVIOUR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="503"/>
+        <location filename="../settingsdialog.ui" line="433"/>
+        <source>Tab Character Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="440"/>
+        <source>End of Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="448"/>
+        <source>Unix (LF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="453"/>
+        <source>Macintosh (CR)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="458"/>
+        <source>Windows (CRLF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="543"/>
         <source>Show Hidden Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="559"/>
+        <location filename="../settingsdialog.ui" line="599"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -879,124 +904,134 @@
 <context>
     <name>TextEditor</name>
     <message>
-        <location filename="../texteditor.cpp" line="63"/>
+        <location filename="../texteditor.cpp" line="67"/>
         <source>New Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="116"/>
+        <location filename="../texteditor.cpp" line="120"/>
         <source>Merge Conflicts were found in this file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="119"/>
+        <location filename="../texteditor.cpp" line="123"/>
         <source>Resolve Merge Conflicts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="124"/>
+        <location filename="../texteditor.cpp" line="128"/>
         <source>Resolve a Merge Conflict</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="149"/>
+        <location filename="../texteditor.cpp" line="153"/>
         <source>File on disk changed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="150"/>
+        <location filename="../texteditor.cpp" line="154"/>
         <source>The file on the disk has changed. If you save this file you will lose the changes on disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="153"/>
+        <location filename="../texteditor.cpp" line="157"/>
         <source>Reload File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="159"/>
+        <location filename="../texteditor.cpp" line="163"/>
         <source>Merge Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="164"/>
+        <location filename="../texteditor.cpp" line="168"/>
         <source>File on Disk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="164"/>
+        <location filename="../texteditor.cpp" line="168"/>
         <source>Currently open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="169"/>
+        <location filename="../texteditor.cpp" line="173"/>
         <source>Resolve a Save Conflict</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="201"/>
+        <location filename="../texteditor.cpp" line="205"/>
         <source>File on disk deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="202"/>
+        <location filename="../texteditor.cpp" line="206"/>
         <source>The file on the disk has been deleted. If you save this file you will recreate the file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="211"/>
+        <location filename="../texteditor.cpp" line="215"/>
         <source>Can&apos;t open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="291"/>
+        <location filename="../texteditor.cpp" line="224"/>
+        <source>Mixed Line Endings detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../texteditor.cpp" line="225"/>
+        <source>If you save this file, we&apos;ll change all the line endings to your configuration in Settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../texteditor.cpp" line="330"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="311"/>
+        <location filename="../texteditor.cpp" line="350"/>
         <source>Read Only File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="312"/>
+        <location filename="../texteditor.cpp" line="351"/>
         <source>This file is read only. You&apos;ll need to save it as a different file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="343"/>
+        <location filename="../texteditor.cpp" line="382"/>
         <source>There&apos;s no more space on this disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="345"/>
+        <location filename="../texteditor.cpp" line="384"/>
         <source>You don&apos;t have permission to save this file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="347"/>
+        <location filename="../texteditor.cpp" line="386"/>
         <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="350"/>
+        <location filename="../texteditor.cpp" line="389"/>
         <source>
 
 Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="353"/>
+        <location filename="../texteditor.cpp" line="392"/>
         <source>Couldn&apos;t save the file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="744"/>
+        <location filename="../texteditor.cpp" line="783"/>
         <source>Revert Changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="745"/>
+        <location filename="../texteditor.cpp" line="784"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation type="unfinished"></translation>
     </message>

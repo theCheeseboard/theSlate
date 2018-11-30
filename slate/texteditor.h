@@ -116,6 +116,7 @@ class TextEditor : public QPlainTextEdit
         void removeTopPanel(QWidget* panel);
 
         void connectBackend();
+        QByteArray formatForSaving(QString text);
 
     private:
         TextEditorPrivate* d;
