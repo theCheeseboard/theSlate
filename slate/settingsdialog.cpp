@@ -17,6 +17,13 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     ui->fontBox->setCurrentFont(QFont(settings.value("font/textFontFamily", QFontDatabase::systemFont(QFontDatabase::FixedFont).family()).toString()));
     ui->sizeBox->setValue(settings.value("font/textFontSize", QFontDatabase::systemFont(QFontDatabase::FixedFont).pointSize()).toInt());
     ui->showHiddenFiles->setChecked(settings.value("files/showHidden", false).toBool());
+
+    if (settings.value("behaviour/tabSpaces", true).toBool()) {
+        ui->tabKeySpaces->setChecked(true);
+    } else {
+        ui->tabKeyTabs->setChecked(true);
+    }
+    ui->tabKeySpaceNunber->setValue(settings.value("behaviour/tabSpaceNumber", 4).toInt());
 }
 
 SettingsDialog::~SettingsDialog()
@@ -54,4 +61,24 @@ void SettingsDialog::on_sizeBox_valueChanged(int arg1)
 void SettingsDialog::on_showHiddenFiles_toggled(bool checked)
 {
     settings.setValue("files/showHidden", checked);
+}
+
+void SettingsDialog::on_tabKeySpaces_toggled(bool checked)
+{
+    ui->tabKeySpaceNunber->setEnabled(checked);
+    if (checked) {
+        settings.setValue("behaviour/tabSpaces", true);
+    }
+}
+
+void SettingsDialog::on_tabKeyTabs_toggled(bool checked)
+{
+    if (checked) {
+        settings.setValue("behaviour/tabSpaces", false);
+    }
+}
+
+void SettingsDialog::on_tabKeySpaceNunber_valueChanged(int arg1)
+{
+    settings.setValue("behaviour/tabSpaceNumber", arg1);
 }

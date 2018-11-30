@@ -27,7 +27,13 @@ private slots:
 
     void on_showHiddenFiles_toggled(bool checked);
 
-private:
+    void on_tabKeySpaces_toggled(bool checked);
+
+    void on_tabKeyTabs_toggled(bool checked);
+
+    void on_tabKeySpaceNunber_valueChanged(int arg1);
+
+    private:
     Ui::SettingsDialog *ui;
 
     QSettings settings;

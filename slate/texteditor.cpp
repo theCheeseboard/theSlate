@@ -369,8 +369,20 @@ QSyntaxHighlighter* TextEditor::highlighter() {
 void TextEditor::keyPressEvent(QKeyEvent *event) {
     QTextCursor cursor = this->textCursor();
     bool handle = false;
+
+    QString spacingCharacters;
+    bool tabSpaces = d->settings.value("behaviour/tabSpaces", true).toBool();
+    int spaceNum;
+    if (tabSpaces) {
+        spaceNum = d->settings.value("behaviour/tabSpaceNumber", 4).toInt();
+        spacingCharacters = QString().fill(' ', spaceNum);
+    } else {
+        spaceNum = 1;
+        spacingCharacters = "\t";
+    }
+
     if (event->key() == Qt::Key_Tab) {
-        cursor.insertText("    ");
+        cursor.insertText(spacingCharacters);
         handle = true;
     } else if (event->key() == Qt::Key_Backspace) {
         cursor.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor);
@@ -385,54 +397,54 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
             cursor.movePosition(QTextCursor::Left);
             cursor.movePosition(QTextCursor::StartOfLine, QTextCursor::KeepAnchor);
             QString text = cursor.selectedText();
-            if (text.endsWith("    ") && text.length() % 4 == 0) {
+            if (tabSpaces && text.endsWith(spacingCharacters) && text.length() % spaceNum == 0) {
                 cursor = this->textCursor();
-                cursor.deletePreviousChar();
-                cursor.deletePreviousChar();
-                cursor.deletePreviousChar();
-                cursor.deletePreviousChar();
+                for (int i = 0; i < spaceNum; i++) {
+                    cursor.deletePreviousChar();
+                }
                 handle = true;
             }
         }
     } else if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
         int spaces = 0;
         cursor.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor);
-        if (cursor.selectedText() == "{") {
-            spaces = 4;
-        }
-        if (cursor.selectedText() == ":") {
-            spaces = 4;
-        }
-        if (cursor.selectedText() == "[") {
-            spaces = 4;
+
+        if (cursor.selectedText() == "{" || cursor.selectedText() == ":" || cursor.selectedText() == "[") {
+            spaces = spaceNum;
         }
 
+        QString testCharacter;
+        if (tabSpaces) {
+            testCharacter = " ";
+        } else {
+            testCharacter = "\t";
+        }
         cursor.select(QTextCursor::LineUnderCursor);
         QString text = cursor.selectedText();
-        while (text.startsWith(" ")) {
+        while (text.startsWith(testCharacter)) {
             spaces++;
             text.remove(0, 1);
         }
         cursor = this->textCursor();
         cursor.insertText("\n");
         for (int i = 0; i < spaces; i++) {
-            cursor.insertText(" ");
+            cursor.insertText(testCharacter);
         }
 
         if (cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor)) {
             if (cursor.selectedText() == "}") {
                 cursor.movePosition(QTextCursor::Left);
                 cursor.insertText("\n");
-                for (int i = 0; i < spaces - 4; i++) {
-                    cursor.insertText(" ");
+                for (int i = 0; i < spaces - spaceNum; i++) {
+                    cursor.insertText(testCharacter);
                     cursor.movePosition(QTextCursor::Left);
                 }
                 cursor.movePosition(QTextCursor::Left);
             } else if (cursor.selectedText() == "]") {
                     cursor.movePosition(QTextCursor::Left);
                     cursor.insertText("\n");
-                    for (int i = 0; i < spaces - 4; i++) {
-                        cursor.insertText(" ");
+                    for (int i = 0; i < spaces - spaceNum; i++) {
+                        cursor.insertText(testCharacter);
                         cursor.movePosition(QTextCursor::Left);
                     }
                     cursor.movePosition(QTextCursor::Left);
@@ -445,12 +457,11 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
     } else if (event->text() == "}") {
         cursor.movePosition(QTextCursor::StartOfLine, QTextCursor::KeepAnchor);
         QString text = cursor.selectedText();
-        if (text.endsWith("    ") && text.length() % 4 == 0) {
+        if (tabSpaces && text.endsWith(spacingCharacters) && text.length() % spaceNum == 0) {
             cursor = this->textCursor();
-            cursor.deletePreviousChar();
-            cursor.deletePreviousChar();
-            cursor.deletePreviousChar();
-            cursor.deletePreviousChar();
+            for (int i = 0; i < spaceNum; i++) {
+                cursor.deletePreviousChar();
+            }
             cursor.insertText("}");
             handle = true;
         }

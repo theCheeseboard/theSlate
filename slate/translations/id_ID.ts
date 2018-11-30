@@ -831,22 +831,47 @@
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="148"/>
-        <location filename="../settingsdialog.ui" line="306"/>
+        <location filename="../settingsdialog.ui" line="469"/>
         <source>File Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="233"/>
+        <location filename="../settingsdialog.ui" line="272"/>
+        <source>FONTS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="279"/>
         <source>Use System Monospace Font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="340"/>
+        <location filename="../settingsdialog.ui" line="366"/>
+        <source>Tabs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="373"/>
+        <source>Spaces</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="406"/>
+        <source>Tab Key Behaviour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="419"/>
+        <source>BEHAVIOUR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="503"/>
         <source>Show Hidden Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="396"/>
+        <location filename="../settingsdialog.ui" line="559"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -966,12 +991,12 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="733"/>
+        <location filename="../texteditor.cpp" line="744"/>
         <source>Revert Changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="734"/>
+        <location filename="../texteditor.cpp" line="745"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation type="unfinished"></translation>
     </message>
