@@ -994,7 +994,7 @@
     <message>
         <location filename="../texteditor.cpp" line="390"/>
         <source>You don&apos;t have permission to save this file.</source>
-        <translation>Bạn không quyến lưu tệp này.</translation>
+        <translation>Bạn không có quyền để lưu tệp này.</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="392"/>
