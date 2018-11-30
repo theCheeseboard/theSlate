@@ -6,17 +6,17 @@
     <message>
         <location filename="../aboutwindow.ui" line="14"/>
         <source>About theSlate</source>
-        <translation type="unfinished"></translation>
+        <translation>Giới thiệu về theSlate</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="25"/>
         <source>theSlate 0.3</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate 0.3</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="32"/>
         <source>Text Editor</source>
-        <translation>Bộ sửa chữ</translation>
+        <translation>Bộ sửa chứ</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="52"/>
@@ -26,7 +26,7 @@
     <message>
         <location filename="../aboutwindow.ui" line="77"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -114,12 +114,17 @@
     <message>
         <location filename="../mainwindow.ui" line="17"/>
         <source>theSlate</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="170"/>
         <source>Fi&amp;le</source>
         <translation>&amp;Tệp</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="174"/>
+        <source>Open From</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="196"/>
@@ -148,6 +153,11 @@
         <translation>&amp;Cửa sổ</translation>
     </message>
     <message>
+        <location filename="../mainwindow.ui" line="239"/>
+        <source>&amp;View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.ui" line="274"/>
         <source>Files</source>
         <translation>Tệp</translation>
@@ -155,17 +165,17 @@
     <message>
         <location filename="../mainwindow.ui" line="305"/>
         <source>Sou&amp;rce Control</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Quản lý mã nguồn</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="367"/>
         <source>Commit Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Tin nhắn cam kết</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="421"/>
         <source>Git Task</source>
-        <translation type="unfinished"></translation>
+        <translation>Bài tập Git</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="428"/>
@@ -175,52 +185,52 @@
     <message>
         <location filename="../mainwindow.ui" line="468"/>
         <source>Merge Conflicts</source>
-        <translation type="unfinished"></translation>
+        <translation>Xung đột hợp nhất</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="475"/>
         <source>There are merge conflicts that need to be resolved in this repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Có xung đột hợp nhất cần sửa trong kho Git này</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="500"/>
         <source>Abort Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Hủy hợp nhất</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="563"/>
         <source>Git Repository not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Kho Git không tìm thấy</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="570"/>
         <source>Initialize a Git repository?</source>
-        <translation type="unfinished"></translation>
+        <translation>Khởi tạo ra kho Git mới?</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="598"/>
         <source>Initialize Git Repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Khởi tạo ra kho Git</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="680"/>
         <source>Git Integration</source>
-        <translation type="unfinished"></translation>
+        <translation>Hội nhập Git</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="687"/>
         <source>Save this file to enable Git integration</source>
-        <translation type="unfinished"></translation>
+        <translation>Lưu tệp này để hội nhập Git</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="780"/>
         <source>Git not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Không tìm thấy Git</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="787"/>
         <source>To use Git integration, you&apos;ll need to install Git.</source>
-        <translation type="unfinished"></translation>
+        <translation>Để hội nhập với Git, bạn cần cài đặt Git.</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="823"/>
@@ -239,7 +249,7 @@
     <message>
         <location filename="../mainwindow.ui" line="829"/>
         <source>Ctrl+N</source>
-        <translation type="unfinished"></translation>
+        <translation>CTRL+N</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="838"/>
@@ -257,7 +267,7 @@
     <message>
         <location filename="../mainwindow.ui" line="844"/>
         <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+S</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="853"/>
@@ -273,7 +283,7 @@
     <message>
         <location filename="../mainwindow.ui" line="859"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="868"/>
@@ -283,7 +293,7 @@
     <message>
         <location filename="../mainwindow.ui" line="871"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="883"/>
@@ -298,7 +308,7 @@
     <message>
         <location filename="../mainwindow.ui" line="889"/>
         <source>Ctrl+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+C</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="898"/>
@@ -313,7 +323,7 @@
     <message>
         <location filename="../mainwindow.ui" line="904"/>
         <source>Ctrl+X</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+X</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="913"/>
@@ -328,7 +338,7 @@
     <message>
         <location filename="../mainwindow.ui" line="919"/>
         <source>Ctrl+V</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+V</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="924"/>
@@ -371,13 +381,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1156"/>
-        <source>&amp;New Window</source>
+        <location filename="../mainwindow.ui" line="1151"/>
+        <source>Ctrl+W</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1159"/>
-        <source>Ctrl+Shift+N</source>
+        <location filename="../mainwindow.ui" line="1156"/>
+        <source>&amp;New Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -386,24 +396,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../mainwindow.ui" line="1159"/>
+        <source>Ctrl+Shift+N</source>
+        <translation>Ctrl+Shift+N</translation>
+    </message>
+    <message>
         <location filename="../mainwindow.ui" line="945"/>
         <source>&amp;Print</source>
         <translation>&amp;In</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="174"/>
-        <source>Open From</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="239"/>
-        <source>&amp;View</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.ui" line="948"/>
         <source>Ctrl+P</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+P</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="953"/>
@@ -418,12 +423,12 @@
     <message>
         <location filename="../mainwindow.ui" line="967"/>
         <source>&amp;Push</source>
-        <translation type="unfinished"></translation>
+        <translation>Đẩ&amp;y</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="975"/>
         <source>P&amp;ull</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kéo</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="980"/>
@@ -433,12 +438,12 @@
     <message>
         <location filename="../mainwindow.ui" line="989"/>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Bắt đầu</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="992"/>
         <source>F5</source>
-        <translation type="unfinished"></translation>
+        <translation>F5</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1001"/>
@@ -448,12 +453,12 @@
     <message>
         <location filename="../mainwindow.ui" line="1004"/>
         <source>Ctrl+Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Alt+S</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1013"/>
         <source>Continue</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiếp tục</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1022"/>
@@ -486,6 +491,21 @@
         <translation>&amp;Khôi phục lại</translation>
     </message>
     <message>
+        <location filename="../main.cpp" line="25"/>
+        <source>File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="30"/>
+        <source>New Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="40"/>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../main.cpp" line="46"/>
         <source>File Bug</source>
         <translation>Báo lỗi</translation>
@@ -494,6 +514,11 @@
         <location filename="../main.cpp" line="49"/>
         <source>Sources</source>
         <translation>Mã nguồn</translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="53"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1112"/>
@@ -508,27 +533,11 @@
     <message>
         <location filename="../main.cpp" line="35"/>
         <source>Settings</source>
-        <translation type="unfinished">Cài Đặt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1136"/>
         <source>Ctrl+,</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow-objc.mm" line="162"/>
-        <location filename="../mainwindow-objc.mm" line="164"/>
-        <source>Close</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="1151"/>
-        <source>Ctrl+W</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main.cpp" line="30"/>
-        <source>New Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -549,12 +558,12 @@
     <message>
         <location filename="../mainwindow.cpp" line="101"/>
         <source>theSlate may not work properly</source>
-        <translation>theSlate có thể không hoạt động đúng</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="101"/>
         <source>The Local File Backend was unable to be loaded. theSlate may quit unexpectedly.</source>
-        <translation>Phần phụ tệp cục bộ không thể tải được. theSlate có thể thoát không mong đợi.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="491"/>
@@ -677,18 +686,9 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="25"/>
-        <source>File</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main.cpp" line="40"/>
-        <source>Exit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main.cpp" line="53"/>
-        <source>About</source>
+        <location filename="../mainwindow-objc.mm" line="162"/>
+        <location filename="../mainwindow-objc.mm" line="164"/>
+        <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -821,13 +821,13 @@
         <location filename="../settingsdialog.ui" line="14"/>
         <location filename="../settingsdialog.ui" line="113"/>
         <source>Settings</source>
-        <translation>Cài Đặt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="143"/>
         <location filename="../settingsdialog.ui" line="199"/>
         <source>General</source>
-        <translation>Chung</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="148"/>
@@ -838,7 +838,7 @@
     <message>
         <location filename="../settingsdialog.ui" line="233"/>
         <source>Use System Monospace Font</source>
-        <translation>Dùng phông chữ đơn cách của máy</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="340"/>
@@ -848,7 +848,7 @@
     <message>
         <location filename="../settingsdialog.ui" line="396"/>
         <source>OK</source>
-        <translation></translation>
+        <translation type="unfinished">OK</translation>
     </message>
 </context>
 <context>

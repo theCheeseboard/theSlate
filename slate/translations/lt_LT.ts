@@ -6,27 +6,27 @@
     <message>
         <location filename="../aboutwindow.ui" line="14"/>
         <source>About theSlate</source>
-        <translation type="unfinished"></translation>
+        <translation>Apie theSlate</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="25"/>
         <source>theSlate 0.3</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate 0.3</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="32"/>
         <source>Text Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Teksto redaktorius</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="52"/>
         <source>Copyright (c) Victor Tran 2018. Licensed under the terms of the GNU General Public License, version 3 or later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Autorinės teisės (c) Victor Tran 2018. Licencijuota po GNU General Public License, versija 3 arba vėlesne.</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="77"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerai</translation>
     </message>
 </context>
 <context>
@@ -35,46 +35,46 @@
         <location filename="../exitsavedialog.ui" line="14"/>
         <location filename="../exitsavedialog.ui" line="25"/>
         <source>Modified Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifikuoti failai</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="32"/>
         <source>The following files require your attention</source>
-        <translation type="unfinished"></translation>
+        <translation>Šie failai reikalauja jūsų dėmesio</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="47"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Atšaukti</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="70"/>
         <location filename="../exitsavedialog.cpp" line="37"/>
         <source>Save All</source>
-        <translation type="unfinished"></translation>
+        <translation>Išsaugoti viską</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="80"/>
         <location filename="../exitsavedialog.cpp" line="38"/>
         <source>Discard All</source>
-        <translation type="unfinished"></translation>
+        <translation>Atmesti viską</translation>
     </message>
     <message numerus="yes">
         <location filename="../exitsavedialog.cpp" line="41"/>
         <source>Save %n</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Išsaugoti tik %n</numerusform>
+            <numerusform>Išsaugoti kelis %n</numerusform>
+            <numerusform>Išsaugoti kitus %n</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../exitsavedialog.cpp" line="42"/>
         <source>Discard %n</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Atmesti vieną %n</numerusform>
+            <numerusform>Atmesti kelis %n</numerusform>
+            <numerusform>Atmesti kitus %n</numerusform>
         </translation>
     </message>
 </context>
@@ -83,35 +83,35 @@
     <message>
         <location filename="../textparts/findreplace.ui" line="46"/>
         <source>Find</source>
-        <translation type="unfinished"></translation>
+        <translation>Surasti</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="111"/>
         <source>Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>Pakeisti</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="122"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Atlikta</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="142"/>
         <source>Replace All</source>
-        <translation type="unfinished"></translation>
+        <translation>Pakeisti viską</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="73"/>
         <source>No matches</source>
-        <translation type="unfinished"></translation>
+        <translation>Jokių atitikimų</translation>
     </message>
     <message numerus="yes">
         <location filename="../textparts/findreplace.cpp" line="75"/>
         <source>%n matches</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n atitikimas</numerusform>
+            <numerusform>%n atitikimai</numerusform>
+            <numerusform>%n atitikimaii</numerusform>
         </translation>
     </message>
 </context>
@@ -120,118 +120,128 @@
     <message>
         <location filename="../mainwindow.ui" line="17"/>
         <source>theSlate</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="170"/>
         <source>Fi&amp;le</source>
+        <translation>Fai&amp;las</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="174"/>
+        <source>Open From</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="196"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Redaguoti</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="209"/>
         <source>&amp;Code</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kodas</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="215"/>
         <location filename="../main.cpp" line="45"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagalba</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="224"/>
         <source>So&amp;urce Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Šal&amp;tinio kontrolė</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="234"/>
         <source>Wi&amp;ndow</source>
+        <translation>Lan&amp;gas</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="239"/>
+        <source>&amp;View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="274"/>
         <source>Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Failai</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="305"/>
         <source>Sou&amp;rce Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Šal&amp;tinio kontrolė</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="367"/>
         <source>Commit Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Įpareigojimo žinutė</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="421"/>
         <source>Git Task</source>
-        <translation type="unfinished"></translation>
+        <translation>Git užduotis</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="428"/>
         <source>Git Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Git rezultatas</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="468"/>
         <source>Merge Conflicts</source>
-        <translation type="unfinished"></translation>
+        <translation>Suvienyti konfliktus</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="475"/>
         <source>There are merge conflicts that need to be resolved in this repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Yra suvienytų konfliktų kuriuos reikia išspręsti šiame repo</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="500"/>
         <source>Abort Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Atšaukti vienyjąmąsi</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="563"/>
         <source>Git Repository not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Git repo nerasta</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="570"/>
         <source>Initialize a Git repository?</source>
-        <translation type="unfinished"></translation>
+        <translation>Pradėti Git repo?</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="598"/>
         <source>Initialize Git Repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Pradėti Git repo</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="680"/>
         <source>Git Integration</source>
-        <translation type="unfinished"></translation>
+        <translation>Git integracija</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="687"/>
         <source>Save this file to enable Git integration</source>
-        <translation type="unfinished"></translation>
+        <translation>Išsaugokite šį failą, kad įjungtumėte Git integraciją</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="780"/>
         <source>Git not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Git nerastas</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="787"/>
         <source>To use Git integration, you&apos;ll need to install Git.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kad naudotumėtės Git integracija, turėsite įdiegti Git.</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="823"/>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Naujas</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="826"/>
@@ -240,17 +250,17 @@
         <location filename="../mainwindow-objc.mm" line="156"/>
         <location filename="../mainwindow.cpp" line="121"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation>Naujas</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="829"/>
         <source>Ctrl+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl + N</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="838"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Išsaugoti</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="841"/>
@@ -258,38 +268,38 @@
         <location filename="../mainwindow-objc.mm" line="139"/>
         <location filename="../mainwindow.cpp" line="137"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Išsaugoti</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="844"/>
         <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl + S</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="853"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Atidaryti</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="856"/>
         <location filename="../mainwindow.cpp" line="129"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Atidaryti</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="859"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl + O</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="868"/>
         <source>&amp;Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Išeiti</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="871"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl + Q</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="883"/>
@@ -377,13 +387,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1156"/>
-        <source>&amp;New Window</source>
+        <location filename="../mainwindow.ui" line="1151"/>
+        <source>Ctrl+W</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1159"/>
-        <source>Ctrl+Shift+N</source>
+        <location filename="../mainwindow.ui" line="1156"/>
+        <source>&amp;New Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -392,18 +402,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../mainwindow.ui" line="1159"/>
+        <source>Ctrl+Shift+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../mainwindow.ui" line="945"/>
         <source>&amp;Print</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="174"/>
-        <source>Open From</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="239"/>
-        <source>&amp;View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -507,6 +512,21 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../main.cpp" line="25"/>
+        <source>File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="30"/>
+        <source>New Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="40"/>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../main.cpp" line="46"/>
         <source>File Bug</source>
         <translation type="unfinished"></translation>
@@ -514,6 +534,11 @@
     <message>
         <location filename="../main.cpp" line="49"/>
         <source>Sources</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="53"/>
+        <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -534,22 +559,6 @@
     <message>
         <location filename="../mainwindow.ui" line="1136"/>
         <source>Ctrl+,</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow-objc.mm" line="162"/>
-        <location filename="../mainwindow-objc.mm" line="164"/>
-        <source>Close</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="1151"/>
-        <source>Ctrl+W</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main.cpp" line="30"/>
-        <source>New Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -683,18 +692,9 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="25"/>
-        <source>File</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main.cpp" line="40"/>
-        <source>Exit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main.cpp" line="53"/>
-        <source>About</source>
+        <location filename="../mainwindow-objc.mm" line="162"/>
+        <location filename="../mainwindow-objc.mm" line="164"/>
+        <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -714,7 +714,7 @@
     <message>
         <location filename="../textparts/mergetool.ui" line="212"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Atšaukti</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="61"/>
@@ -751,7 +751,7 @@
     <message>
         <location filename="../picturetabbar.ui" line="16"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Forma</translation>
     </message>
 </context>
 <context>
@@ -818,7 +818,7 @@
     <message>
         <location filename="../textparts/printdialog.ui" line="367"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Atšaukti</translation>
     </message>
 </context>
 <context>
@@ -854,7 +854,7 @@
     <message>
         <location filename="../settingsdialog.ui" line="396"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gerai</translation>
     </message>
 </context>
 <context>
