@@ -404,17 +404,17 @@
     <message>
         <location filename="../mainwindow.ui" line="1162"/>
         <source>Select All</source>
-        <translation type="unfinished"></translation>
+        <translation>Chọn tất cả</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1165"/>
         <source>Ctrl+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+A</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1173"/>
         <source>Use Menubar</source>
-        <translation type="unfinished"></translation>
+        <translation>Dùng thanh menu</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="954"/>
@@ -751,12 +751,12 @@
     <message>
         <location filename="../plugins/pluginmanager.cpp" line="67"/>
         <source>theSlate may not work properly</source>
-        <translation type="unfinished">theSlate có thể không hoạt động</translation>
+        <translation>theSlate có thể không hoạt động</translation>
     </message>
     <message>
         <location filename="../plugins/pluginmanager.cpp" line="67"/>
         <source>The Local File Backend was unable to be loaded. theSlate may quit unexpectedly.</source>
-        <translation type="unfinished">Phụ trợ tệp sẽ không tải được. theSlate có thể thoát không mong đợi.</translation>
+        <translation>Phụ trợ tệp sẽ không tải được. theSlate có thể thoát không mong đợi.</translation>
     </message>
 </context>
 <context>
