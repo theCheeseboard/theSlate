@@ -208,6 +208,8 @@
     <addaction name="actionPaste"/>
     <addaction name="menuPaste_from_Clipboard_History"/>
     <addaction name="separator"/>
+    <addaction name="actionSelect_All"/>
+    <addaction name="separator"/>
     <addaction name="actionFind_and_Replace"/>
    </widget>
    <widget class="QMenu" name="menuCode">
@@ -239,6 +241,7 @@
     <property name="title">
      <string>Wi&amp;ndow</string>
     </property>
+    <addaction name="actionUse_Menubar"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -1149,6 +1152,25 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+N</string>
+   </property>
+  </action>
+  <action name="actionSelect_All">
+   <property name="icon">
+    <iconset theme="edit-select-all"/>
+   </property>
+   <property name="text">
+    <string>Select All</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionUse_Menubar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Use Menubar</string>
    </property>
   </action>
  </widget>

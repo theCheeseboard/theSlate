@@ -111,6 +111,7 @@ MainWindow::MainWindow(QWidget *parent) :
     #ifdef Q_OS_MACOS
         //Set up Mac toolbar
         ui->mainToolBar->setVisible(false);
+        ui->actionUse_Menubar->setVisible(false); //Menu bar is always visible on macOS
 
         QMacToolBar* toolbar = new QMacToolBar();
 
@@ -195,6 +196,7 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionPrint);
         singleMenu->addAction(ui->actionFind_and_Replace);
+        singleMenu->addAction(ui->actionSelect_All);
         singleMenu->addSeparator();
         singleMenu->addMenu(ui->menuCode);
         singleMenu->addMenu(ui->menuWindow);
@@ -202,6 +204,8 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addAction(ui->actionSettings);
         singleMenu->addMenu(ui->menuHelp);
         singleMenu->addAction(ui->actionExit);
+
+        ui->actionUse_Menubar->setChecked(settings.value("appearance/menubar", false).toBool());
 
         QToolButton* menuButton = new QToolButton();
         menuButton->setPopupMode(QToolButton::InstantPopup);
@@ -222,7 +226,7 @@ MainWindow::MainWindow(QWidget *parent) :
             ui->menuPaste_from_Clipboard_History->addAction(action);
         } else {
             QFontMetrics metrics = ui->menuPaste_from_Clipboard_History->fontMetrics();
-            for (auto i = clipboardHistory.begin(); i != clipboardHistory.end(); i++) {
+            for (auto i = clipboardHistory.constBegin(); i != clipboardHistory.constEnd(); i++) {
                 QString text = *i;
 
                 //Remove any line breaks
@@ -956,5 +960,27 @@ void MainWindow::on_projectTree_customContextMenuRequested(const QPoint &pos)
             });
         }
         menu->exec(ui->projectTree->mapToGlobal(pos));
+    }
+}
+
+void MainWindow::on_actionSelect_All_triggered()
+{
+    if (currentDocument() != nullptr) {
+        currentDocument()->selectAll();
+    }
+}
+
+void MainWindow::on_actionUse_Menubar_triggered(bool checked)
+{
+    settings.setValue("appearance/menubar", checked);
+    ui->menuBar->setVisible(checked);
+}
+
+void MainWindow::on_sourceControlPanes_currentChanged(int arg1)
+{
+    if (arg1 == 0) {
+        ui->menuSource_Control->setEnabled(true);
+    } else {
+        ui->menuSource_Control->setEnabled(false);
     }
 }

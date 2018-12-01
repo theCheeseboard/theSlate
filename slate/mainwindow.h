@@ -131,7 +131,13 @@ class MainWindow : public QMainWindow
 
         void on_projectTree_customContextMenuRequested(const QPoint &pos);
 
-signals:
+        void on_actionSelect_All_triggered();
+
+        void on_actionUse_Menubar_triggered(bool checked);
+
+        void on_sourceControlPanes_currentChanged(int arg1);
+
+    signals:
 #ifdef Q_OS_MAC
         void changeTouchBarTopNotification(TopNotification* topNotification);
 #endif
