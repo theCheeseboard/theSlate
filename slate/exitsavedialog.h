@@ -28,7 +28,6 @@ private slots:
     void on_discardButton_clicked();
 
 signals:
-    void closeWindow();
     void closeTab(TextEditor* tab);
 
 private:

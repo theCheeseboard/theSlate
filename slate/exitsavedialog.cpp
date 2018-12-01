@@ -46,7 +46,7 @@ void ExitSaveDialog::on_editedFilesList_itemChanged(QListWidgetItem *item)
 
 void ExitSaveDialog::on_cancelButton_clicked()
 {
-    this->close();
+    this->reject();
 }
 
 void ExitSaveDialog::on_saveButton_clicked()
@@ -69,8 +69,7 @@ void ExitSaveDialog::on_saveButton_clicked()
     }
 
     if (ui->editedFilesList->count() == 0) {
-        this->close();
-        emit closeWindow();
+        this->accept();
     } else if (didHide) {
         this->show();
         on_editedFilesList_itemChanged(ui->editedFilesList->item(0));
@@ -91,8 +90,7 @@ void ExitSaveDialog::on_discardButton_clicked()
     }
 
     if (ui->editedFilesList->count() == 0) {
-        this->close();
-        emit closeWindow();
+        this->accept();
     } else {
         on_editedFilesList_itemChanged(ui->editedFilesList->item(0));
     }

@@ -494,11 +494,15 @@ void MainWindow::closeEvent(QCloseEvent *event) {
         }
 
         if (saveNeeded.count() > 0) {
+            QEventLoop* loop = new QEventLoop();
             ExitSaveDialog* dialog = new ExitSaveDialog(saveNeeded, this);
             //dialog->setWindowFlag(Qt::Sheet);
             dialog->setWindowModality(Qt::WindowModal);
-            connect(dialog, &ExitSaveDialog::closeWindow, [=] {
-                this->close();
+            connect(dialog, &ExitSaveDialog::accepted, [=] {
+                loop->exit(0);
+            });
+            connect(dialog, &ExitSaveDialog::rejected, [=] {
+                loop->exit(1);
             });
             connect(dialog, &ExitSaveDialog::closeTab, [=](TextEditor* tab) {
                 ui->tabButtons->removeWidget(tab->getTabButton());
@@ -514,8 +518,12 @@ void MainWindow::closeEvent(QCloseEvent *event) {
             });
             dialog->show();
 
-            event->ignore();
-            return;
+            if (loop->exec() == 1) {
+                event->ignore();
+                loop->deleteLater();
+                return;
+            }
+            loop->deleteLater();
         }
     }
 
