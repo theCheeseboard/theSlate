@@ -9,7 +9,7 @@
 #include <QClipboard>
 #include "aboutwindow.h"
 #include "settingsdialog.h"
-#include "plugins/filebackend.h"
+#include "plugins/pluginmanager.h"
 
 #ifdef Q_OS_MAC
     #include <CoreFoundation/CFBundle.h>
@@ -18,8 +18,8 @@
     extern void setupMacObjC();
 #endif
 
-FileBackendFactory* localFileBackend = nullptr;
 QLinkedList<QString> clipboardHistory;
+PluginManager* plugins;
 
 void setupMacMenubar() {
     //Set up macOS menu bar when no window is open
@@ -117,6 +117,9 @@ int main(int argc, char *argv[])
     });
     parser.addPositionalArgument(a.translate("main", "files"), a.translate("main", "Files to open"), a.translate("main", "[files...]"));
     parser.process(a);
+
+    //Set up plugins
+    plugins = new PluginManager();
 
     MainWindow* w = new MainWindow();
 

@@ -11,15 +11,15 @@
 #include "picturetabbar.h"
 #include <QInputDialog>
 #include <QShortcut>
-#include "plugins/filebackend.h"
+#include "plugins/pluginmanager.h"
 
 #ifdef Q_OS_MAC
     extern QString bundlePath;
     extern void setToolbarItemWidget(QMacToolBarItem* item, QWidget* widget);
 #endif
 
-extern FileBackendFactory* localFileBackend;
 extern QLinkedList<QString> clipboardHistory;
+extern PluginManager* plugins;
 
 QList<MainWindow*> MainWindow::openWindows = QList<MainWindow*>();
 
@@ -34,70 +34,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->mainToolBar->setIconSize(ui->mainToolBar->iconSize() * theLibsGlobal::getDPIScaling());
     
     //Load plugins
-    QStringList pluginSearchPaths;
-    #if defined(Q_OS_WIN)
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../../SyntaxHighlightingPlugins/");
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "/syntaxhighlighting/");
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../../FileBackends/");
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "/filebackends/");
-    #elif defined(Q_OS_MAC)
-        pluginSearchPaths.append(bundlePath + "/Contents/syntaxhighlighting/");
-        pluginSearchPaths.append(bundlePath + "/Contents/filebackends/");
-    #elif (defined Q_OS_UNIX)
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../SyntaxHighlightingPlugins/");
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../FileBackends/");
-        pluginSearchPaths.append("/usr/share/theslate/syntaxhighlighting/");
-        pluginSearchPaths.append("/usr/share/theslate/filebackends/");
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "../share/theslate/syntaxhighlighting/");
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "../share/theslate/filebackends/");
-    #endif
-
-    QObjectList availablePlugins;
-    availablePlugins.append(QPluginLoader::staticInstances());
-
-    for (QString path : pluginSearchPaths) {
-        QDirIterator it(path, QDirIterator::Subdirectories);
-        while (it.hasNext()) {
-            it.next();
-            QPluginLoader loader(it.filePath());
-            QObject* plugin = loader.instance();
-            if (plugin) {
-                availablePlugins.append(plugin);
-            }
+    for (SyntaxHighlighting* highlighter : plugins->syntaxHighlighters()) {
+        for (QString name : highlighter->availableHighlighters()) {
+            ui->menuCode->addAction(name, [=] {
+                setCurrentDocumentHighlighting(highlighter->makeHighlighter(name));
+            });
         }
     }
 
-    QStringList errors;
-    for (QObject* obj : availablePlugins) {
-        SyntaxHighlighting* highlighter = qobject_cast<SyntaxHighlighting*>(obj);
-        if (highlighter) {
-            for (QString name : highlighter->availableHighlighters()) {
-                ui->menuCode->addAction(name, [=] {
-                    //highlighter->makeHighlighter(name);
-                    setCurrentDocumentHighlighting(highlighter->makeHighlighter(name));
-                });
-            }
+    for (FileBackendFactory* factory : plugins->fileBackends()) {
+        if (factory != plugins->getLocalFileBackend()) {
+            QAction* openAction = factory->makeOpenAction(this);
+            ui->menuOpenFrom->addAction(openAction);
         }
-        
-        FileBackendPlugin* file = qobject_cast<FileBackendPlugin*>(obj);
-        if (file) {
-            QList<FileBackendFactory*> factories = file->getFactories();
-            for (FileBackendFactory* factory : factories) {
-                if (factory->name() == "Local File" && localFileBackend == nullptr) {
-                    localFileBackend = factory;
-                } else {
-                    QAction* openAction = factory->makeOpenAction(this);
-                    ui->menuOpenFrom->addAction(openAction);
-                }
-                connect(factory, &FileBackendFactory::openFile, [=](FileBackend* backend) {
-                    newTab(backend);
-                });
-            }
-        }
-    }
-
-    if (localFileBackend == nullptr) {
-        QMessageBox::critical(nullptr, tr("theSlate may not work properly"), tr("The Local File Backend was unable to be loaded. theSlate may quit unexpectedly."), QMessageBox::Ok, QMessageBox::Ok);
+        connect(factory, &FileBackendFactory::openFile, [=](FileBackend* backend) {
+            newTab(backend);
+        });
     }
 
     #ifdef Q_OS_WIN
@@ -366,7 +318,7 @@ void MainWindow::newTab(QString filename) {
         newTab();
     }
 
-    currentDocument()->openFile(localFileBackend->openFromUrl(QUrl::fromLocalFile(filename)));
+    currentDocument()->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(filename)));
     updateGit();
 }
 
@@ -459,7 +411,7 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionOpen_triggered()
 {
     this->menuBar()->setEnabled(false);
-    QAction* action = localFileBackend->makeOpenAction(this);
+    QAction* action = plugins->getLocalFileBackend()->makeOpenAction(this);
     action->trigger();
     action->deleteLater();
     this->menuBar()->setEnabled(true);
@@ -628,7 +580,7 @@ void MainWindow::on_projectTree_clicked(const QModelIndex &index)
         }
 
         newTab();
-        currentDocument()->openFile(localFileBackend->openFromUrl(QUrl::fromLocalFile(fileModel->filePath(index))));
+        currentDocument()->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(fileModel->filePath(index))));
         updateGit();
     }
 }
@@ -938,7 +890,7 @@ void MainWindow::on_projectTree_customContextMenuRequested(const QPoint &pos)
         if (info.isFile()) {
             menu->addAction(tr("Edit in new tab"), [=] {
                 newTab();
-                currentDocument()->openFile(localFileBackend->openFromUrl(QUrl::fromLocalFile(fileModel->filePath(index))));
+                currentDocument()->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(fileModel->filePath(index))));
                 updateGit();
             });
             menu->addAction(tr("Edit in new window"), [=] {

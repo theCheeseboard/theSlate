@@ -70,7 +70,8 @@ SOURCES += \
     textparts/mergetool.cpp \
     textparts/printdialog.cpp \
     settingsdialog.cpp \
-    picturetabbar.cpp
+    picturetabbar.cpp \
+    plugins/pluginmanager.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -87,7 +88,8 @@ HEADERS += \
     textparts/printdialog.h \
     settingsdialog.h \
     picturetabbar.h \
-    plugins/filebackend.h
+    plugins/filebackend.h \
+    plugins/pluginmanager.h
 
 macx {
     SOURCES += \

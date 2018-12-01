@@ -9,9 +9,9 @@
 #include <tcircularspinner.h>
 #include "the-libs_global.h"
 #include "mainwindow.h"
-#include "plugins/filebackend.h"
+#include "plugins/pluginmanager.h"
 
-extern FileBackendFactory* localFileBackend;
+extern PluginManager* plugins;
 
 class TextEditorPrivate {
     public:
@@ -844,10 +844,10 @@ void TextEditor::dropEvent(QDropEvent *event) {
 bool TextEditor::saveFileAskForFilename(bool saveAs) {
     if (d->currentBackend == nullptr || saveAs) {
         bool ok;
-        QUrl url = localFileBackend->askForUrl(this, &ok);
+        QUrl url = plugins->getLocalFileBackend()->askForUrl(this, &ok);
 
         if (ok) {
-            d->currentBackend = localFileBackend->openFromUrl(url);
+            d->currentBackend = plugins->getLocalFileBackend()->openFromUrl(url);
             connectBackend();
             this->saveFile();
             return true;
