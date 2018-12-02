@@ -613,15 +613,15 @@
    <sender>pushButton_2</sender>
    <signal>clicked()</signal>
    <receiver>SettingsDialog</receiver>
-   <slot>close()</slot>
+   <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>670</x>
-     <y>456</y>
+     <x>709</x>
+     <y>480</y>
     </hint>
     <hint type="destinationlabel">
-     <x>366</x>
-     <y>496</y>
+     <x>805</x>
+     <y>432</y>
     </hint>
    </hints>
   </connection>
@@ -629,15 +629,15 @@
    <sender>backButton</sender>
    <signal>clicked()</signal>
    <receiver>SettingsDialog</receiver>
-   <slot>close()</slot>
+   <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>11</x>
-     <y>22</y>
+     <x>17</x>
+     <y>15</y>
     </hint>
     <hint type="destinationlabel">
-     <x>63</x>
-     <y>562</y>
+     <x>848</x>
+     <y>311</y>
     </hint>
    </hints>
   </connection>

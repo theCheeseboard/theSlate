@@ -95,3 +95,8 @@ void SettingsDialog::on_endOfLineComboBox_currentIndexChanged(int index)
 {
     settings.setValue("behaviour/endOfLine", index);
 }
+
+void SettingsDialog::accept() {
+    settings.sync();
+    QDialog::accept();
+}

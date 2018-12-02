@@ -55,7 +55,6 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
 {
     d = new TextEditorPrivate();
     this->setLineWrapMode(NoWrap);
-    this->setTabStopWidth(this->fontMetrics().width(" ") * d->settings.value("behaviour/tabWidth", 4).toInt());
 
     QFont normalFont = this->font();
     d->parentWindow = parent;
@@ -1073,6 +1072,7 @@ void TextEditor::setHighlighter(QSyntaxHighlighter *hl) {
 }
 
 void TextEditor::reloadSettings() {
+    d->settings.sync();
     QFont f;
     if (d->settings.value("font/useSystem", true).toBool()) {
         f = QFontDatabase::systemFont(QFontDatabase::FixedFont);
@@ -1080,6 +1080,7 @@ void TextEditor::reloadSettings() {
         f = QFont(d->settings.value("font/textFontFamily", QFontDatabase::systemFont(QFontDatabase::FixedFont).family()).toString(), d->settings.value("font/textFontSize", QFontDatabase::systemFont(QFontDatabase::FixedFont).pointSize()).toInt());
     }
     this->setFont(f);
+    this->setTabStopDistance(QFontMetrics(f).width(" ") * d->settings.value("behaviour/tabWidth", 4).toInt());
 }
 
 QUrl TextEditor::fileUrl() {

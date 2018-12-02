@@ -910,117 +910,117 @@
 <context>
     <name>TextEditor</name>
     <message>
-        <location filename="../texteditor.cpp" line="67"/>
+        <location filename="../texteditor.cpp" line="66"/>
         <source>New Document</source>
         <translation>Tệp mới</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="120"/>
+        <location filename="../texteditor.cpp" line="119"/>
         <source>Merge Conflicts were found in this file</source>
         <translation>Đã tìm thấy xung đột hợp nhất trong tệp này</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="123"/>
+        <location filename="../texteditor.cpp" line="122"/>
         <source>Resolve Merge Conflicts</source>
         <translation>Giải quyết xung đột hợp nhất</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="128"/>
+        <location filename="../texteditor.cpp" line="127"/>
         <source>Resolve a Merge Conflict</source>
         <translation>Giải quyết xung đột hợp nhất</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="153"/>
+        <location filename="../texteditor.cpp" line="152"/>
         <source>File on disk changed</source>
         <translation>Tệp trên ổ đĩa đã thay</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="154"/>
+        <location filename="../texteditor.cpp" line="153"/>
         <source>The file on the disk has changed. If you save this file you will lose the changes on disk.</source>
         <translation>Tệp trên ổ đĩa đã thay. Nếu bạn lưu tệp này, bạn sẽ mất thay đổi trên ổ đĩa.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="157"/>
+        <location filename="../texteditor.cpp" line="156"/>
         <source>Reload File</source>
         <translation>Khôi phục tệp lại</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="163"/>
+        <location filename="../texteditor.cpp" line="162"/>
         <source>Merge Changes</source>
         <translation>Hợp nhất thay đổi</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="168"/>
+        <location filename="../texteditor.cpp" line="167"/>
         <source>File on Disk</source>
         <translation>Tệp trên đĩa</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="168"/>
+        <location filename="../texteditor.cpp" line="167"/>
         <source>Currently open file</source>
         <translation>Tệp đã mở</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="173"/>
+        <location filename="../texteditor.cpp" line="172"/>
         <source>Resolve a Save Conflict</source>
         <translation>Giải quyết xung đột lưu</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="205"/>
+        <location filename="../texteditor.cpp" line="204"/>
         <source>File on disk deleted</source>
         <translation>Tệp trên ổ đĩa đã xóa</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="206"/>
+        <location filename="../texteditor.cpp" line="205"/>
         <source>The file on the disk has been deleted. If you save this file you will recreate the file.</source>
         <translation>Tệp trên ổ đĩa đã xóa. Nếu bạn lưu tệp này, bạn sẽ tạo tệp lại.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="215"/>
+        <location filename="../texteditor.cpp" line="214"/>
         <source>Can&apos;t open file</source>
         <translation>Không thể mở tệp được</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="224"/>
+        <location filename="../texteditor.cpp" line="223"/>
         <source>Mixed Line Endings detected</source>
         <translation>Ký tự kết thúc dòng hỗn hợp đã phát hiện</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="225"/>
+        <location filename="../texteditor.cpp" line="224"/>
         <source>If you save this file, we&apos;ll change all the line endings to your configuration in Settings.</source>
         <translation>Nếu bạn lưu tệp này, chúng tôi sẽ thay tất cả ký tự kết thúc dòng trong tệp này sang quả ký tự cấu hình trong Cài Đặt.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="298"/>
+        <location filename="../texteditor.cpp" line="297"/>
         <source>Retry</source>
         <translation>Thử lại</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="356"/>
+        <location filename="../texteditor.cpp" line="355"/>
         <source>Read Only File</source>
         <translation>Tệp chỉ được đọc</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="357"/>
+        <location filename="../texteditor.cpp" line="356"/>
         <source>This file is read only. You&apos;ll need to save it as a different file.</source>
         <translation>Tệp này chỉ được đọc. Bạn sẽ cần lưu thành tệp khác.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="388"/>
+        <location filename="../texteditor.cpp" line="387"/>
         <source>There&apos;s no more space on this disk.</source>
         <translation>Không còn dung lượng trên ổ đĩa.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="390"/>
+        <location filename="../texteditor.cpp" line="389"/>
         <source>You don&apos;t have permission to save this file.</source>
         <translation>Bạn không có quyền để lưu tệp này.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="392"/>
+        <location filename="../texteditor.cpp" line="391"/>
         <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.</source>
         <translation>Không lưu tệp này được. Kiểm tra xem bạn có quyền để ghi tệp này, và bạn còn dung lượng trống trên ổ đĩa.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="395"/>
+        <location filename="../texteditor.cpp" line="394"/>
         <source>
 
 Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
@@ -1029,17 +1029,17 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
 Đừng thoát theSlate đến khi bạn ghi tệp này; nếu không thì bạn sẽ mất dữ liệu.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="398"/>
+        <location filename="../texteditor.cpp" line="397"/>
         <source>Couldn&apos;t save the file</source>
         <translation>Không lưu tệp được</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="902"/>
+        <location filename="../texteditor.cpp" line="901"/>
         <source>Revert Changes?</source>
         <translation>Hoàn lại thay đổi?</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="903"/>
+        <location filename="../texteditor.cpp" line="902"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation>Bạn có muốn bỏ thầy đối với tệp này không?</translation>
     </message>
