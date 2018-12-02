@@ -82,7 +82,7 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
     d->leftMargin = new TextEditorLeftMargin(this);
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLeftMarginAreaWidth()));
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLeftMarginArea(QRect,int)));
-    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
+    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorLocationChanged()));
 
     d->leftMargin->setVisible(true);
     highlightCurrentLine();
@@ -641,9 +641,15 @@ void TextEditor::highlightCurrentLine()
     if (!this->isReadOnly()) {
         QTextEdit::ExtraSelection selection;
 
-        QColor lineColor = this->palette().color(QPalette::Window).lighter(160);
+        QColor windowCol = this->palette().color(QPalette::Window);
+        QColor lineCol;
+        if ((windowCol.red() + windowCol.green() + windowCol.blue()) / 3 > 127) {
+            lineCol = QColor(0, 0, 0, 25);
+        } else {
+            lineCol = QColor(255, 255, 255, 25);
+        }
 
-        selection.format.setBackground(lineColor);
+        selection.format.setBackground(lineCol);
         selection.format.setProperty(QTextFormat::FullWidthSelection, true);
         selection.format.setProperty(QTextFormat::UserFormat, "currentHighlight");
         selection.cursor = textCursor();
@@ -652,6 +658,111 @@ void TextEditor::highlightCurrentLine()
     }
 
     setExtraSelectionGroup("lineHighlight", extraSelections);
+}
+
+void TextEditor::cursorLocationChanged() {
+    highlightCurrentLine();
+
+    clearExtraSelectionGroup("bracketLocation");
+    QTextCursor c(textCursor());
+    int startPosition = c.position();
+    c.clearSelection();
+    c.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
+    QString firstChar = c.selectedText();
+    QStringList bracketDetection = {
+        "(","{","[",
+        ")","}","]"
+    };
+
+    bool search = false;
+    if (bracketDetection.contains(firstChar)) {
+        search = true;
+    } else {
+        c.setPosition(c.anchor());
+        c.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, 1);
+        firstChar = c.selectedText();
+        if (bracketDetection.contains(firstChar)) {
+            search = true;
+        }
+    }
+
+    if (search) {
+        QTextCursor endCursor(c);
+        endCursor.movePosition(QTextCursor::End);
+
+        QTextCursor startCursor(c);
+        startCursor.movePosition(QTextCursor::Start);
+
+        QTextCursor firstCursor = QTextCursor(c);
+        c.setPosition(c.selectionStart());
+
+        QString searchChar;
+        bool stepForwards = true;
+        int firstIndex = bracketDetection.indexOf(firstChar);
+        if (firstIndex >= bracketDetection.count() / 2) {
+            searchChar = bracketDetection.at(firstIndex - bracketDetection.count() / 2);
+            stepForwards = false;
+        } else {
+            searchChar = bracketDetection.at(firstIndex + bracketDetection.count() / 2);
+        }
+
+        int currentIndentation = 1;
+        int otherPosition = -1;
+
+        while (otherPosition == -1) {
+            if (stepForwards) {
+                if (c.selectionStart() == endCursor.position()) {
+                    otherPosition = -2;
+                    continue;
+                }
+            } else {
+                if (c.selectionStart() == startCursor.position()) {
+                    otherPosition = -2;
+                    continue;
+                }
+            }
+
+            c.setPosition(c.selectionStart());
+            if (!c.movePosition(stepForwards ? QTextCursor::NextCharacter : QTextCursor::PreviousCharacter)) {
+                otherPosition = -2;
+                continue;
+            }
+            c.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
+            if (c.selectedText() == firstChar) {
+                currentIndentation++;
+            } else if (c.selectedText() == searchChar) {
+                currentIndentation--;
+                if (currentIndentation == 0) {
+                    //Found the other character!
+                    otherPosition = c.position();
+                }
+            }
+        }
+
+        if (otherPosition == -2) {
+            //Mismatched!
+        } else {
+            //Found it!
+            QTextCharFormat format;
+            format.setBackground(QColor(255, 255, 0));
+            format.setForeground(QColor(255, 0, 0));
+
+            QTextEdit::ExtraSelection firstSelection;
+            firstSelection.cursor = firstCursor;
+            firstSelection.format = format;
+            firstSelection.format.setProperty(QTextFormat::FullWidthSelection, false);
+
+            QTextEdit::ExtraSelection secondSelection;
+            secondSelection.cursor = c;
+            secondSelection.format = format;
+            secondSelection.format.setProperty(QTextFormat::FullWidthSelection, false);
+
+            setExtraSelectionGroup("bracketLocation", {
+                                       firstSelection, secondSelection
+                                   });
+        }
+
+    }
 }
 
 void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
@@ -747,7 +858,9 @@ void TextEditor::setExtraSelectionGroup(QString extraSelectionGroup, QList<QText
 }
 
 void TextEditor::clearExtraSelectionGroup(QString extraSelectionGroups) {
-    d->extraSelectionGroups.remove(extraSelectionGroups);
+    if (d->extraSelectionGroups.contains(extraSelectionGroups)) {
+        d->extraSelectionGroups.remove(extraSelectionGroups);
+    }
     updateExtraSelections();
 }
 

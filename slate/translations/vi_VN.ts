@@ -1034,12 +1034,12 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
         <translation>Không lưu tệp được</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="789"/>
+        <location filename="../texteditor.cpp" line="902"/>
         <source>Revert Changes?</source>
         <translation>Hoàn lại thay đổi?</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="790"/>
+        <location filename="../texteditor.cpp" line="903"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation>Bạn có muốn bỏ thầy đối với tệp này không?</translation>
     </message>

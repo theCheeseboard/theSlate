@@ -107,6 +107,7 @@ class TextEditor : public QPlainTextEdit
     private slots:
         void updateLeftMarginAreaWidth();
         void highlightCurrentLine();
+        void cursorLocationChanged();
         void updateLeftMarginArea(const QRect &, int);
         void reloadBlockHighlighting();
 
