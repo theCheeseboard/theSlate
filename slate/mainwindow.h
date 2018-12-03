@@ -137,6 +137,8 @@ class MainWindow : public QMainWindow
 
         void on_sourceControlPanes_currentChanged(int arg1);
 
+        void updateRecentFiles();
+
     signals:
 #ifdef Q_OS_MAC
         void changeTouchBarTopNotification(TopNotification* topNotification);

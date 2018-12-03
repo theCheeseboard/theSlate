@@ -10,8 +10,10 @@
 #include "the-libs_global.h"
 #include "mainwindow.h"
 #include "plugins/pluginmanager.h"
+#include "managers/recentfilesmanager.h"
 
 extern PluginManager* plugins;
+extern RecentFilesManager* recentFiles;
 
 class TextEditorPrivate {
     public:
@@ -288,6 +290,10 @@ void TextEditor::openFile(FileBackend *backend) {
 
         emit backendChanged();
         d->cover->setVisible(false);
+
+        if (backend->url().scheme() == "file") {
+            recentFiles->putFile(backend->url().toString());
+        }
     })->error([=](QString error) {
         d->fileReadError->setText(error);
 
@@ -378,6 +384,10 @@ bool TextEditor::saveFile() {
 
             emit backendChanged();
             emit editedChanged();
+
+            if (d->currentBackend->url().scheme() == "file") {
+                recentFiles->putFile(d->currentBackend->url().toString());
+            }
         })->error([=](QString error) {
             QString text;
 

@@ -12,6 +12,7 @@
 #include <QInputDialog>
 #include <QShortcut>
 #include "plugins/pluginmanager.h"
+#include "managers/recentfilesmanager.h"
 
 #ifdef Q_OS_MAC
     extern QString bundlePath;
@@ -20,6 +21,7 @@
 
 extern QLinkedList<QString> clipboardHistory;
 extern PluginManager* plugins;
+extern RecentFilesManager* recentFiles;
 
 QList<MainWindow*> MainWindow::openWindows = QList<MainWindow*>();
 
@@ -132,6 +134,7 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionOpen);
         singleMenu->addMenu(ui->menuOpenFrom);
+        singleMenu->addMenu(ui->menuOpen_Recent);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionSave);
         singleMenu->addAction(ui->actionSave_As);
@@ -243,6 +246,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->projectTree->setRootIndex(fileModel->index(QDir::rootPath()));
     ui->projectTree->scrollTo(fileModel->index(QDir::homePath()));
     ui->projectTree->expand(fileModel->index(QDir::homePath()));
+
+    updateRecentFiles();
+    connect(recentFiles, &RecentFilesManager::filesUpdated, this, &MainWindow::updateRecentFiles);
 
     if (settings.value("files/showHidden").toBool()) {
         fileModel->setFilter(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Hidden);
@@ -824,6 +830,7 @@ void MainWindow::on_actionPrint_triggered()
 {
     PrintDialog* d = new PrintDialog(currentDocument(), this);
     d->setWindowModality(Qt::WindowModal);
+    d->resize(this->width() - 20, this->height() - 50);
     d->show();
 }
 
@@ -943,4 +950,30 @@ void MainWindow::on_sourceControlPanes_currentChanged(int arg1)
     } else {
         ui->menuSource_Control->setEnabled(false);
     }
+}
+
+void MainWindow::updateRecentFiles() {
+    QMenu* m = ui->menuOpen_Recent;
+    m->clear();
+
+    if (recentFiles->getFiles().count() == 0) {
+        QAction* a = new QAction();
+        a->setText(tr("No Recent Items"));
+        a->setEnabled(false);
+        m->addAction(a);
+    } else {
+        for (QString file : recentFiles->getFiles()) {
+            QUrl url(file);
+            QFileInfo f(url.toLocalFile());
+
+            m->addAction(f.fileName(), [=] {
+                newTab(plugins->getLocalFileBackend()->openFromUrl(url));
+            });
+        }
+    }
+
+    m->addSeparator();
+    m->addAction(tr("Clear Recent Items"), [=] {
+        recentFiles->clear();
+    });
 }

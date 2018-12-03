@@ -10,6 +10,7 @@
 #include "aboutwindow.h"
 #include "settingsdialog.h"
 #include "plugins/pluginmanager.h"
+#include "managers/recentfilesmanager.h"
 
 #ifdef Q_OS_MAC
     #include <CoreFoundation/CFBundle.h>
@@ -20,6 +21,7 @@
 
 QLinkedList<QString> clipboardHistory;
 PluginManager* plugins;
+RecentFilesManager* recentFiles;
 
 void setupMacMenubar() {
     //Set up macOS menu bar when no window is open
@@ -120,6 +122,7 @@ int main(int argc, char *argv[])
 
     //Set up plugins
     plugins = new PluginManager();
+    recentFiles = new RecentFilesManager();
 
     MainWindow* w = new MainWindow();
 

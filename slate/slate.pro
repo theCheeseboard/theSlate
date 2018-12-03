@@ -71,7 +71,8 @@ SOURCES += \
     textparts/printdialog.cpp \
     settingsdialog.cpp \
     picturetabbar.cpp \
-    plugins/pluginmanager.cpp
+    plugins/pluginmanager.cpp \
+    managers/recentfilesmanager.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -89,7 +90,8 @@ HEADERS += \
     settingsdialog.h \
     picturetabbar.h \
     plugins/filebackend.h \
-    plugins/pluginmanager.h
+    plugins/pluginmanager.h \
+    managers/recentfilesmanager.h
 
 macx {
     SOURCES += \
