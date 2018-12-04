@@ -5,6 +5,8 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDesktopServices>
+#include <QFile>
+#include <QProcess>
 
 UpdateManager::UpdateManager(QObject *parent) : QObject(parent)
 {
@@ -61,6 +63,13 @@ void UpdateManager::checkForUpdates() {
     //Check for updates only on Windows or macOS
     #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
         if (s == NewUpdateAvailable) {
+            if (QFile(QApplication::applicationDirPath() + "/uninstall.exe").exists()) {
+                //Use theInstaller to update theSlate
+                QProcess::startDetached(QApplication::applicationDirPath() + "/uninstall.exe", {"--update-from-app"});
+                return;
+            }
+
+            //Open the website to download the latest version
             QDesktopServices::openUrl(QUrl("https://vicr123.com/theslate/download.html?update=true"));
         } else {
             s = Checking;

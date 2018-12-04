@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     openWindows.append(this);
 
-    ui->mainToolBar->setIconSize(ui->mainToolBar->iconSize() * theLibsGlobal::getDPIScaling());
+    //ui->mainToolBar->setIconSize(ui->mainToolBar->iconSize() * theLibsGlobal::getDPIScaling());
     
     //Load plugins
     for (SyntaxHighlighting* highlighter : plugins->syntaxHighlighters()) {
@@ -64,9 +64,10 @@ MainWindow::MainWindow(QWidget *parent) :
         //ui->tabFrame->setPalette(pal);
     #endif
 
-    #ifdef Q_OS_MACOS
+    #ifdef Q_OS_MAC
         //Set up Mac toolbar
         ui->mainToolBar->setVisible(false);
+        ui->mainToolBar->setParent(nullptr);
         ui->actionUse_Menubar->setVisible(false); //Menu bar is always visible on macOS
 
         QMacToolBar* toolbar = new QMacToolBar();
@@ -169,6 +170,20 @@ MainWindow::MainWindow(QWidget *parent) :
         menuButton->setMenu(singleMenu);
         menuButton->setArrowType(Qt::NoArrow);
         menuButton->setIcon(QIcon::fromTheme("theslate", QIcon(":/icons/icon.svg")));
+        connect(updateManager, &UpdateManager::updateAvailable, [=] {
+            //Create icon to notify user that an update is available
+            QPixmap pixmap = QIcon::fromTheme("theslate", QIcon(":/icons/icon.svg")).pixmap(menuButton->iconSize());
+            QPainter p(&pixmap);
+
+            QSize iconSize = menuButton->iconSize() / 2;
+            QPoint iconLoc(iconSize.width(), iconSize.height());
+            QRect circleRect(iconLoc, iconSize);
+            p.setPen(Qt::transparent);
+            p.setBrush(QColor(200, 0, 0));
+            p.drawEllipse(circleRect);
+
+            menuButton->setIcon(QIcon(pixmap));
+        });
         ui->mainToolBar->insertWidget(ui->actionNew, menuButton);
     #endif
 
