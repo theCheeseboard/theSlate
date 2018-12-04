@@ -130,7 +130,7 @@
     <message>
         <location filename="../mainwindow.ui" line="179"/>
         <source>Open Recent</source>
-        <translation type="unfinished"></translation>
+        <translation>Mở tệp gần đây</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="203"/>
@@ -699,12 +699,12 @@
     <message>
         <location filename="../mainwindow.cpp" line="961"/>
         <source>No Recent Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Không có tệp nào gần đây</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="976"/>
         <source>Clear Recent Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Xóa tất cả mục</translation>
     </message>
     <message>
         <location filename="../mainwindow-objc.mm" line="162"/>
