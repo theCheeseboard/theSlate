@@ -133,11 +133,11 @@ class MainWindow : public QMainWindow
 
         void on_actionSelect_All_triggered();
 
-        void on_actionUse_Menubar_triggered(bool checked);
-
         void on_sourceControlPanes_currentChanged(int arg1);
 
         void updateRecentFiles();
+
+        void on_actionUse_Menubar_toggled(bool arg1);
 
     signals:
 #ifdef Q_OS_MAC
@@ -164,6 +164,8 @@ private:
         QString projectType = "";
         QSettings settings;
         QTabBar* tabBar;
+        QToolButton* menuButton;
+        QAction* menuAction = nullptr;
         QMap<TextEditor*, TopNotification*> primaryTopNotifications;
 };
 

@@ -7,6 +7,8 @@
 #include <QDesktopServices>
 #include <QFile>
 #include <QProcess>
+#include <QDebug>
+#include "mainwindow.h"
 
 UpdateManager::UpdateManager(QObject *parent) : QObject(parent)
 {
@@ -65,7 +67,12 @@ void UpdateManager::checkForUpdates() {
         if (s == NewUpdateAvailable) {
             if (QFile(QApplication::applicationDirPath() + "/uninstall.exe").exists()) {
                 //Use theInstaller to update theSlate
-                QProcess::startDetached(QApplication::applicationDirPath() + "/uninstall.exe", {"--update-from-app"});
+                QApplication::closeAllWindows();
+
+                if (MainWindow::openWindows.count() == 0) {
+                    QProcess::startDetached(QApplication::applicationDirPath() + "/uninstall.exe", {"--update-from-app"});
+                    QApplication::exit();
+                }
                 return;
             }
 

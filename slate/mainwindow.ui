@@ -159,7 +159,7 @@
      <x>0</x>
      <y>0</y>
      <width>974</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="nativeMenuBar">
@@ -955,6 +955,9 @@
    <property name="text">
     <string>&amp;No Highlighting</string>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="actionAbout">
    <property name="icon">
@@ -1107,6 +1110,9 @@
    </property>
    <property name="text">
     <string>&amp;File Bug</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
    </property>
   </action>
   <action name="actionSources">

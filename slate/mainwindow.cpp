@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     openWindows.append(this);
 
-    //ui->mainToolBar->setIconSize(ui->mainToolBar->iconSize() * theLibsGlobal::getDPIScaling());
+    ui->mainToolBar->setIconSize(ui->mainToolBar->iconSize() * theLibsGlobal::getDPIScaling());
     
     //Load plugins
     for (SyntaxHighlighting* highlighter : plugins->syntaxHighlighters()) {
@@ -163,31 +163,54 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addMenu(ui->menuHelp);
         singleMenu->addAction(ui->actionExit);
 
-        ui->actionUse_Menubar->setChecked(settings.value("appearance/menubar", false).toBool());
-
-        QToolButton* menuButton = new QToolButton();
+        menuButton = new QToolButton();
         menuButton->setPopupMode(QToolButton::InstantPopup);
         menuButton->setMenu(singleMenu);
         menuButton->setArrowType(Qt::NoArrow);
         menuButton->setIcon(QIcon::fromTheme("theslate", QIcon(":/icons/icon.svg")));
+        menuButton->setIconSize(ui->mainToolBar->iconSize());
+        menuAction = ui->mainToolBar->insertWidget(ui->actionNew, menuButton);
         connect(updateManager, &UpdateManager::updateAvailable, [=] {
             //Create icon to notify user that an update is available
-            QPixmap pixmap = QIcon::fromTheme("theslate", QIcon(":/icons/icon.svg")).pixmap(menuButton->iconSize());
-            QPainter p(&pixmap);
 
-            QSize iconSize = menuButton->iconSize() / 2;
-            QPoint iconLoc(iconSize.width(), iconSize.height());
-            QRect circleRect(iconLoc, iconSize);
-            p.setPen(Qt::transparent);
-            p.setBrush(QColor(200, 0, 0));
-            p.drawEllipse(circleRect);
+            //Change the theSlate toolbar icon
+            {
+                QPixmap pixmap = QIcon::fromTheme("theslate", QIcon(":/icons/icon.svg")).pixmap(ui->mainToolBar->iconSize());
+                QPainter p(&pixmap);
+                p.setRenderHint(QPainter::Antialiasing);
 
-            menuButton->setIcon(QIcon(pixmap));
+                QSize iconSize = ui->mainToolBar->iconSize() / 2;
+                QPoint iconLoc(iconSize.width(), iconSize.height());
+                QRect circleRect(iconLoc, iconSize);
+                p.setPen(Qt::transparent);
+                p.setBrush(QColor(200, 0, 0));
+                p.drawEllipse(circleRect);
+
+                menuButton->setIcon(QIcon(pixmap));
+            }
+
+            //Change the help menu icon
+            if (!ui->actionUse_Menubar->isChecked()) {
+                int size = QApplication::style()->pixelMetric(QStyle::PM_SmallIconSize);
+                QPixmap pixmap = QIcon::fromTheme("help-contents", QIcon(":/icons/help-contents.svg")).pixmap(size, size);
+                QPainter p(&pixmap);
+                p.setRenderHint(QPainter::Antialiasing);
+
+                QSize iconSize = QSize(size, size) / 2;
+                QPoint iconLoc(iconSize.width(), iconSize.height());
+                QRect circleRect(iconLoc, iconSize);
+                p.setPen(Qt::transparent);
+                p.setBrush(QColor(200, 0, 0));
+                p.drawEllipse(circleRect);
+
+                ui->menuHelp->setIcon(QIcon(pixmap));
+            }
         });
-        ui->mainToolBar->insertWidget(ui->actionNew, menuButton);
+
+        ui->actionUse_Menubar->setChecked(settings.value("appearance/menubar", false).toBool());
+        on_actionUse_Menubar_toggled(settings.value("appearance/menubar", false).toBool());
     #endif
 
-    ui->menuBar->setVisible(false);
     connect(ui->menuPaste_from_Clipboard_History, &QMenu::aboutToShow, [=] {
         ui->menuPaste_from_Clipboard_History->clear();
 
@@ -958,12 +981,6 @@ void MainWindow::on_actionSelect_All_triggered()
     }
 }
 
-void MainWindow::on_actionUse_Menubar_triggered(bool checked)
-{
-    settings.setValue("appearance/menubar", checked);
-    ui->menuBar->setVisible(checked);
-}
-
 void MainWindow::on_sourceControlPanes_currentChanged(int arg1)
 {
     if (arg1 == 0) {
@@ -997,4 +1014,19 @@ void MainWindow::updateRecentFiles() {
     m->addAction(tr("Clear Recent Items"), [=] {
         recentFiles->clear();
     });
+}
+
+void MainWindow::on_actionUse_Menubar_toggled(bool arg1)
+{
+    settings.setValue("appearance/menubar", arg1);
+    ui->menuBar->setVisible(arg1);
+    menuAction->setVisible(!arg1);
+
+    if (arg1) {
+        ui->menuCode->setIcon(QIcon());
+        ui->menuHelp->setIcon(QIcon());
+    } else {
+        ui->menuCode->setIcon(QIcon::fromTheme("commit", QIcon(":/icons/commit.svg")));
+        ui->menuHelp->setIcon(QIcon::fromTheme("help-contents", QIcon(":/icons/help-contents.svg")));
+    }
 }
