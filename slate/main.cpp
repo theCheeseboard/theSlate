@@ -11,6 +11,7 @@
 #include "settingsdialog.h"
 #include "plugins/pluginmanager.h"
 #include "managers/recentfilesmanager.h"
+#include "managers/updatemanager.h"
 
 #ifdef Q_OS_MAC
     #include <CoreFoundation/CFBundle.h>
@@ -22,6 +23,7 @@
 QLinkedList<QString> clipboardHistory;
 PluginManager* plugins;
 RecentFilesManager* recentFiles;
+UpdateManager* updateManager;
 
 void setupMacMenubar() {
     //Set up macOS menu bar when no window is open
@@ -70,7 +72,6 @@ int main(int argc, char *argv[])
     a.setOrganizationName("theSuite");
     a.setOrganizationDomain("");
     a.setApplicationName("theSlate");
-    a.setApplicationVersion("0.4");
 
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
@@ -106,6 +107,8 @@ int main(int argc, char *argv[])
     setupMacMenubar();
     setupMacObjC();
 #endif
+
+    updateManager = new UpdateManager();
 
     QCommandLineParser parser;
     parser.setApplicationDescription(a.translate("AboutWindow", "Text Editor"));

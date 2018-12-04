@@ -38,3 +38,8 @@ unix:!macx {
 
     INSTALLS += target
 }
+
+macx {
+    sign.target = sign
+    QMAKE_EXTRA_TARGETS += sign
+}

@@ -72,7 +72,8 @@ SOURCES += \
     settingsdialog.cpp \
     picturetabbar.cpp \
     plugins/pluginmanager.cpp \
-    managers/recentfilesmanager.cpp
+    managers/recentfilesmanager.cpp \
+    managers/updatemanager.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -91,7 +92,8 @@ HEADERS += \
     picturetabbar.h \
     plugins/filebackend.h \
     plugins/pluginmanager.h \
-    managers/recentfilesmanager.h
+    managers/recentfilesmanager.h \
+    managers/updatemanager.h
 
 macx {
     SOURCES += \
@@ -189,3 +191,10 @@ DISTFILES += \
     app-dmg-background.png \
     icon.icns \
     Info.plist
+
+macx {
+    sign.target = sign
+    sign.commands = codesign -s theSuite $$OUT_PWD/theSlate.app/
+
+    QMAKE_EXTRA_TARGETS += sign
+}

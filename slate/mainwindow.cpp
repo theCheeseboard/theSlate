@@ -13,6 +13,7 @@
 #include <QShortcut>
 #include "plugins/pluginmanager.h"
 #include "managers/recentfilesmanager.h"
+#include "managers/updatemanager.h"
 
 #ifdef Q_OS_MAC
     extern QString bundlePath;
@@ -22,6 +23,7 @@
 extern QLinkedList<QString> clipboardHistory;
 extern PluginManager* plugins;
 extern RecentFilesManager* recentFiles;
+extern UpdateManager* updateManager;
 
 QList<MainWindow*> MainWindow::openWindows = QList<MainWindow*>();
 
@@ -206,6 +208,10 @@ MainWindow::MainWindow(QWidget *parent) :
             ui->menuPaste_from_Clipboard_History->exec(p);
         }
     });
+
+    #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+        ui->menuHelp->insertAction(ui->actionAbout, updateManager->getCheckForUpdatesAction());
+    #endif
 
     if (settings.contains("window/state")) {
         this->restoreState(settings.value("window/state").toByteArray());
