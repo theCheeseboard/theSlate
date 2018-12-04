@@ -178,6 +178,10 @@
      <property name="title">
       <string>Open Recent</string>
      </property>
+     <property name="icon">
+      <iconset theme="document-open-recent" resource="icons.qrc">
+       <normaloff>:/icons/document-open-recent.svg</normaloff>:/icons/document-open-recent.svg</iconset>
+     </property>
     </widget>
     <addaction name="actionNew"/>
     <addaction name="separator"/>
@@ -206,6 +210,10 @@
      <property name="title">
       <string>Paste from Clipboard History</string>
      </property>
+     <property name="icon">
+      <iconset theme="edit-paste" resource="icons.qrc">
+       <normaloff>:/icons/edit-paste.svg</normaloff>:/icons/edit-paste.svg</iconset>
+     </property>
     </widget>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
@@ -223,11 +231,19 @@
     <property name="title">
      <string>&amp;Code</string>
     </property>
+    <property name="icon">
+     <iconset theme="commit" resource="icons.qrc">
+      <normaloff>:/icons/commit.svg</normaloff>:/icons/commit.svg</iconset>
+    </property>
     <addaction name="actionNo_Highlighting"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>Help</string>
+    </property>
+    <property name="icon">
+     <iconset theme="help-contents" resource="icons.qrc">
+      <normaloff>:/icons/help-contents.svg</normaloff>:/icons/help-contents.svg</iconset>
     </property>
     <addaction name="actionFile_Bug"/>
     <addaction name="actionSources"/>
@@ -1154,6 +1170,10 @@
    </property>
   </action>
   <action name="actionNew_Window">
+   <property name="icon">
+    <iconset theme="window-new" resource="icons.qrc">
+     <normaloff>:/icons/window-new.svg</normaloff>:/icons/window-new.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;New Window</string>
    </property>
@@ -1163,7 +1183,8 @@
   </action>
   <action name="actionSelect_All">
    <property name="icon">
-    <iconset theme="edit-select-all"/>
+    <iconset theme="edit-select-all" resource="icons.qrc">
+     <normaloff>:/icons/edit-select-all.svg</normaloff>:/icons/edit-select-all.svg</iconset>
    </property>
    <property name="text">
     <string>Select All</string>

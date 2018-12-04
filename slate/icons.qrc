@@ -26,5 +26,10 @@
         <file>icons/configure.svg</file>
         <file>icons/view-refresh.svg</file>
         <file>icons/tools-report-bug.svg</file>
+        <file>icons/edit-select-all.svg</file>
+        <file>icons/edit-clear.svg</file>
+        <file>icons/window-new.svg</file>
+        <file>icons/window.svg</file>
+        <file>icons/help-contents.svg</file>
     </qresource>
 </RCC>
