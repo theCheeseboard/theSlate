@@ -10,6 +10,8 @@ FindReplace::FindReplace(TextEditor *parent) :
     editor = parent;
     this->setParent(parent);
     ui->matchesFound->setVisible(false);
+
+    ui->findBox->installEventFilter(this);
 }
 
 FindReplace::~FindReplace()
@@ -128,4 +130,33 @@ void FindReplace::reset() {
     ui->matchesFound->setVisible(false);
     editor->clearExtraSelectionGroup("findreplace");
     indices.clear();
+}
+
+void FindReplace::setFocus() {
+    ui->findBox->setFocus();
+}
+
+bool FindReplace::eventFilter(QObject* watched, QEvent* event) {
+    if (watched == ui->findBox) {
+        if (event->type() == QEvent::KeyPress) {
+            QKeyEvent* e = (QKeyEvent*) event;
+            if (e->key() == Qt::Key_Return || e->key() == Qt::Key_Enter) {
+                //Perform search
+                if (e->modifiers() & Qt::ShiftModifier) {
+                    moveCursor(true);
+                } else {
+                    moveCursor(false);
+                }
+                return true;
+            } else if (e->key() == Qt::Key_Escape) {
+                this->hide();
+            }
+        }
+    }
+    return false;
+}
+
+void FindReplace::on_replaceAllButton_clicked()
+{
+
 }

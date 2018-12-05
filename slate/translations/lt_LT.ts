@@ -102,12 +102,12 @@
         <translation>Pakeisti viską</translation>
     </message>
     <message>
-        <location filename="../textparts/findreplace.cpp" line="73"/>
+        <location filename="../textparts/findreplace.cpp" line="75"/>
         <source>No matches</source>
         <translation>Jokių atitikimų</translation>
     </message>
     <message numerus="yes">
-        <location filename="../textparts/findreplace.cpp" line="75"/>
+        <location filename="../textparts/findreplace.cpp" line="77"/>
         <source>%n matches</source>
         <translation>
             <numerusform>%n atitikimas</numerusform>
@@ -1011,54 +1011,54 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="303"/>
+        <location filename="../texteditor.cpp" line="310"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="361"/>
+        <location filename="../texteditor.cpp" line="368"/>
         <source>Read Only File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="362"/>
+        <location filename="../texteditor.cpp" line="369"/>
         <source>This file is read only. You&apos;ll need to save it as a different file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="397"/>
+        <location filename="../texteditor.cpp" line="404"/>
         <source>There&apos;s no more space on this disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="399"/>
+        <location filename="../texteditor.cpp" line="406"/>
         <source>You don&apos;t have permission to save this file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="401"/>
+        <location filename="../texteditor.cpp" line="408"/>
         <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="404"/>
+        <location filename="../texteditor.cpp" line="411"/>
         <source>
 
 Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="407"/>
+        <location filename="../texteditor.cpp" line="414"/>
         <source>Couldn&apos;t save the file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="911"/>
+        <location filename="../texteditor.cpp" line="918"/>
         <source>Revert Changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="912"/>
+        <location filename="../texteditor.cpp" line="919"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation type="unfinished"></translation>
     </message>

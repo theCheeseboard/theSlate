@@ -35,20 +35,12 @@ JsSyntaxHighlighter::JsSyntaxHighlighter(QObject *parent) : SyntaxHighlighter(pa
                     << "\\bfor\\b" << "\\bswitch\\b" << "\\bcase\\b"
                     << "\\bof\\b" << "\\belse\\b" << "\\bconst\\b"
                     << "\\btry\\b" << "\\bcatch\\b" << "\\bin\\b"
-                    << "\\bbreak\\b";
+                    << "\\bbreak\\b" << "\\breturn\\b";
     for (QString pattern : controlPatterns) {
         rule.pattern = QRegularExpression(pattern);
         rule.format = controlFormat;
         highlightingRules.append(rule);
     }
-
-    //String
-    //rule.pattern = QRegularExpression("\".*\"");
-    //rule.format = quotationFormat;
-    //highlightingRules.append(rule);
-
-    //rule.pattern = QRegularExpression("'.*'");
-    //highlightingRules.append(rule);
 
     //Function
     rule.pattern = QRegularExpression("\\b[A-Za-z0-9_]+(?=\\()");

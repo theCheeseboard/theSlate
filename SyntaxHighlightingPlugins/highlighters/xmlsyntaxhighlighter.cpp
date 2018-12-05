@@ -1,7 +1,7 @@
 #include "xmlsyntaxhighlighter.h"
 
 XmlSyntaxHighlighter::XmlSyntaxHighlighter(QObject *parent) : SyntaxHighlighter(parent)
-{
+{   
     QColor background = QApplication::palette("QPlainTextEditor").color(QPalette::Window);
     int avg = (background.blue() + background.green() + background.red()) / 3;
     if (avg > 127) {
@@ -23,13 +23,18 @@ XmlSyntaxHighlighter::XmlSyntaxHighlighter(QObject *parent) : SyntaxHighlighter(
     HighlightingRule rule;
 
     //Tag (class)
-    rule.pattern = QRegularExpression("<.+?>");
+    rule.pattern = QRegularExpression("(?<=<).+?(?=( |>))");
     rule.format = classFormat;
     highlightingRules.append(rule);
 
     //Attribute (function)
-    rule.pattern = QRegularExpression("(?<= ).+?(?=\")");
+    rule.pattern = QRegularExpression("(?<= )[^<]*?(?==\")");
     rule.format = functionFormat;
+    highlightingRules.append(rule);
+
+    //Attribute Value (quotation)
+    rule.pattern = QRegularExpression("(?<==)\".*?\"(?=( |>))");
+    rule.format = quotationFormat;
     highlightingRules.append(rule);
 }
 

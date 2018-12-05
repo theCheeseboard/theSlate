@@ -278,6 +278,13 @@ void TextEditor::openFile(FileBackend *backend) {
     backend->load()->then([=](QByteArray data) {
         loadText(data);
 
+        QMap<SyntaxHighlighting*, QString> recommendedBackend;
+        for (SyntaxHighlighting* h : plugins->syntaxHighlighters()) {
+            QString f = h->highlighterForFilename(backend->url().toString());
+            if (f != "") recommendedBackend.insert(h, f);
+        }
+        if (recommendedBackend.count() != 0) this->setHighlighter(recommendedBackend.firstKey()->makeHighlighter(recommendedBackend.first()));
+
         if (git != nullptr) {
             git->deleteLater();
             git = nullptr;

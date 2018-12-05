@@ -46,6 +46,7 @@ class SyntaxHighlighting {
 
         virtual QStringList availableHighlighters() = 0;
         virtual SyntaxHighlighter* makeHighlighter(QString highlighter) = 0;
+        virtual QString highlighterForFilename(QString filename) = 0;
 };
 
 Q_DECLARE_INTERFACE(SyntaxHighlighting, THESLATE_SYNTAXHIGHLIGHTING_IID)

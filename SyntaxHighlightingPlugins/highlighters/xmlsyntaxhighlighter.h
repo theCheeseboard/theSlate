@@ -7,6 +7,7 @@
 #include <QPalette>
 #include <QApplication>
 #include "../slate/plugins/syntaxhighlighting.h"
+#include "jssyntaxhighlighter.h"
 
 class XmlSyntaxHighlighter : public SyntaxHighlighter
 {
@@ -39,6 +40,8 @@ class XmlSyntaxHighlighter : public SyntaxHighlighter
         QTextCharFormat functionFormat;
         QTextCharFormat preprocessorFormat;
         QTextCharFormat numberFormat;
+
+        JsSyntaxHighlighter* jsHighlighter;
 };
 
 #endif // XMLSYNTAXHIGHLIGHTER_H

@@ -5,6 +5,7 @@
 #include "highlighters/jssyntaxhighlighter.h"
 #include <QDebug>
 #include <QApplication>
+#include <QFileInfo>
 
 DefaultSyntaxHighlighting::DefaultSyntaxHighlighting() : SyntaxHighlighting()
 {
@@ -24,4 +25,16 @@ SyntaxHighlighter* DefaultSyntaxHighlighting::makeHighlighter(QString highlighte
         return new JsSyntaxHighlighter(new QObject);
     }
     return nullptr;
+}
+
+QString DefaultSyntaxHighlighting::highlighterForFilename(QString filename) {
+    QFileInfo info(filename);
+    if (QStringList({"js"}).contains(info.suffix())) {
+        return "JavaScript";
+    } else if (QStringList({"c", "cpp", "h", "hpp"}).contains(info.suffix())) {
+        return "C++";
+    } else if (QStringList({"xml", "html"}).contains(info.suffix())) {
+        return  "XML";
+    }
+    return "";
 }

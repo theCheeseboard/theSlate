@@ -18,6 +18,9 @@ class FindReplace : public QWidget
         explicit FindReplace(TextEditor *parent = 0);
         ~FindReplace();
 
+    public slots:
+        void setFocus();
+
     private slots:
         void on_findBox_textChanged(const QString &arg1);
 
@@ -33,7 +36,9 @@ class FindReplace : public QWidget
 
         void on_doneButton_clicked();
 
-private:
+        void on_replaceAllButton_clicked();
+
+    private:
         Ui::FindReplace *ui;
 
         TextEditor* editor;
@@ -42,6 +47,7 @@ private:
 
         void hideEvent(QHideEvent* event);
         void showEvent(QShowEvent* event);
+        bool eventFilter(QObject* watched, QEvent* event);
 };
 
 #endif // FINDREPLACE_H
