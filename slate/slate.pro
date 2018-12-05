@@ -73,7 +73,8 @@ SOURCES += \
     picturetabbar.cpp \
     plugins/pluginmanager.cpp \
     managers/recentfilesmanager.cpp \
-    managers/updatemanager.cpp
+    managers/updatemanager.cpp \
+    messagebox.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -93,7 +94,8 @@ HEADERS += \
     plugins/filebackend.h \
     plugins/pluginmanager.h \
     managers/recentfilesmanager.h \
-    managers/updatemanager.h
+    managers/updatemanager.h \
+    messagebox.h
 
 macx {
     SOURCES += \

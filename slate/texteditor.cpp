@@ -1,7 +1,7 @@
 #include "texteditor.h"
 
 #include <QStyle>
-#include <QMessageBox>
+#include "messagebox.h"
 #include <QMimeData>
 #include <QScrollBar>
 #include <QMenuBar>
@@ -23,6 +23,8 @@ class TextEditorPrivate {
         bool firstEdit = true;
         QSyntaxHighlighter* hl = nullptr;
         MainWindow* parentWindow;
+
+        QTextCodec* textCodec = nullptr;
 
         QTextCursor cursorBeforeDrop;
 
@@ -166,7 +168,7 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
         connect(mergeButton, &QPushButton::clicked, [=] {
             d->currentBackend->load()->then([=](QByteArray currentFile) {
                 bool mergeResolutionRequred;
-                QString mergeFile = MergeTool::getUnmergedFile(currentFile, this->toPlainText(), tr("File on Disk"), tr("Currently open file"), &mergeResolutionRequred);
+                QString mergeFile = MergeTool::getUnmergedFile(d->textCodec->toUnicode(currentFile), this->toPlainText(), tr("File on Disk"), tr("Currently open file"), &mergeResolutionRequred);
 
                 if (mergeResolutionRequred) {
                     //Open the merge resolution tool
@@ -323,7 +325,11 @@ void TextEditor::openFile(FileBackend *backend) {
 }
 
 void TextEditor::loadText(QByteArray data) {
-    this->setPlainText(data);
+    if (d->textCodec == nullptr) {
+        d->textCodec = QTextCodec::codecForUtfText(data);
+    }
+
+    this->setPlainText(d->textCodec->toUnicode(data));
     d->edited = false;
 
     //Detect line endings;
@@ -364,17 +370,28 @@ bool TextEditor::saveFile() {
     if (d->currentBackend == nullptr) {
         return false;
     } else if (d->currentBackend->readOnly()) {
-        QMessageBox* messageBox = new QMessageBox(this->window());
+        MessageBox* messageBox = new MessageBox(this->window());
         messageBox->setWindowTitle(tr("Read Only File"));
         messageBox->setText(tr("This file is read only. You'll need to save it as a different file."));
-        messageBox->setIcon(QMessageBox::Warning);
+        messageBox->setIcon(MessageBox::Warning);
         messageBox->setWindowFlags(Qt::Sheet);
-        messageBox->setStandardButtons(QMessageBox::Ok);
-        messageBox->setDefaultButton(QMessageBox::Ok);
+        messageBox->setStandardButtons(MessageBox::Ok);
+        messageBox->setDefaultButton(MessageBox::Ok);
         messageBox->exec();
         return true;
     } else {
-        d->currentBackend->save(formatForSaving(this->toPlainText().toUtf8()))->then([=] {
+        QByteArray saveData = formatForSaving(this->toPlainText());
+        if (!d->textCodec->canEncode(this->toPlainText())) {
+            MessageBox* messageBox = new MessageBox(this->window());
+            messageBox->setWindowTitle(tr("Encoding Error"));
+            messageBox->setText(tr("Some characters used in this file cannot be encoded in the selected encoding. Saving this file will remove any invalid characters and may result in possible data loss."));
+            messageBox->setIcon(MessageBox::Warning);
+            messageBox->setWindowFlags(Qt::Sheet);
+            messageBox->setStandardButtons(MessageBox::Cancel | MessageBox::Save);
+            messageBox->setDefaultButton(MessageBox::Ok);
+            if (messageBox->exec() == MessageBox::Cancel) return true;
+        }
+        d->currentBackend->save(saveData)->then([=] {
             removeTopPanel(d->onDiskChanged);
             removeTopPanel(d->onDiskDeleted);
             d->edited = false;
@@ -410,13 +427,13 @@ bool TextEditor::saveFile() {
 
             text.append(tr("\n\nDo not exit theSlate until you've managed to write the file, otherwise you may lose data."));
 
-            QMessageBox* messageBox = new QMessageBox(this->window());
+            MessageBox* messageBox = new MessageBox(this->window());
             messageBox->setWindowTitle(tr("Couldn't save the file"));
             messageBox->setText(text);
-            messageBox->setIcon(QMessageBox::Critical);
+            messageBox->setIcon(MessageBox::Critical);
             messageBox->setWindowFlags(Qt::Sheet);
-            messageBox->setStandardButtons(QMessageBox::Ok);
-            messageBox->setDefaultButton(QMessageBox::Ok);
+            messageBox->setStandardButtons(MessageBox::Ok);
+            messageBox->setDefaultButton(MessageBox::Ok);
             messageBox->exec();
         });
         return true;
@@ -912,18 +929,19 @@ void TextEditor::toggleFindReplace() {
     }
 }
 
-void TextEditor::revertFile() {
+void TextEditor::revertFile(QTextCodec* codec) {
     if (d->currentBackend != nullptr) {
-        QMessageBox* messageBox = new QMessageBox(this->window());
+        MessageBox* messageBox = new MessageBox(this->window());
         messageBox->setWindowTitle(tr("Revert Changes?"));
         messageBox->setText(tr("Do you want to revert all the edits made to this document?"));
-        messageBox->setIcon(QMessageBox::Warning);
+        messageBox->setIcon(MessageBox::Warning);
         messageBox->setWindowFlags(Qt::Sheet);
-        messageBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        messageBox->setDefaultButton(QMessageBox::Save);
+        messageBox->setStandardButtons(MessageBox::Yes | MessageBox::No);
+        messageBox->setDefaultButton(MessageBox::Save);
         int button = messageBox->exec();
 
-        if (button == QMessageBox::Yes) {
+        if (button == MessageBox::Yes) {
+            if (codec != nullptr) d->textCodec = codec;
             openFile(d->currentBackend);
         }
     }
@@ -1109,8 +1127,12 @@ QUrl TextEditor::fileUrl() {
 }
 
 QByteArray TextEditor::formatForSaving(QString text) {
+    if (d->textCodec == nullptr) {
+        d->textCodec = QTextCodec::codecForName("UTF-8");
+    }
+
     removeTopPanel(d->mixedLineEndings);
-    QByteArray a = text.toUtf8();
+    QByteArray a = d->textCodec->fromUnicode(text);
     int lineEndingsToSaveAs;
 
     if (d->currentLineEndings < 0) { //Use settings
@@ -1130,4 +1152,8 @@ QByteArray TextEditor::formatForSaving(QString text) {
             a.replace("\n", "\r\n");
     }
     return a;
+}
+
+void TextEditor::setTextCodec(QTextCodec* codec) {
+    d->textCodec = codec;
 }

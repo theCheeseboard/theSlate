@@ -13,6 +13,7 @@
 #include <QBoxLayout>
 #include <QFileSystemWatcher>
 #include <QSyntaxHighlighter>
+#include <QTextCodec>
 #include "tabbutton.h"
 #include "SourceControl/gitintegration.h"
 #include "textparts/findreplace.h"
@@ -87,7 +88,7 @@ class TextEditor : public QPlainTextEdit
         void loadText(QByteArray data);
         bool saveFile();
         bool saveFileAskForFilename(bool saveAs = false);
-        void revertFile();
+        void revertFile(QTextCodec* codec = nullptr);
 
         void setHighlighter(QSyntaxHighlighter* hl);
 
@@ -101,6 +102,8 @@ class TextEditor : public QPlainTextEdit
         bool mergedLineIsAccepted(MergeLines mergedLine);
         void toggleMergedLines(int line);
         void updateMergedLinesColour();
+
+        void setTextCodec(QTextCodec* codec);
 
         void reloadSettings();
 

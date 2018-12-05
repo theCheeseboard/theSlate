@@ -2,6 +2,7 @@
 #include "ui_mergetool.h"
 
 #include <QBuffer>
+#include "messagebox.h"
 
 MergeTool::MergeTool(QString unmergedFile, MainWindow* mainWindow, QWidget *parent) :
     QDialog(parent),
@@ -181,7 +182,7 @@ void MergeTool::on_acceptButton_clicked()
 {
     QString finalFile = endFile->toPlainText();
     if (finalFile.contains(tr("[Awaiting merge decision]"))) {
-        QMessageBox* messageBox = new QMessageBox(this);
+        MessageBox* messageBox = new MessageBox(this);
         #ifdef Q_OS_MAC
             messageBox->setText(tr("Unresolved Merge Conflicts"));
             messageBox->setInformativeText(tr("You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?"));
@@ -189,11 +190,11 @@ void MergeTool::on_acceptButton_clicked()
             messageBox->setWindowTitle(tr("Unresolved Merge Conflicts"));
             messageBox->setText(tr("You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?"));
         #endif
-        messageBox->setIcon(QMessageBox::Warning);
+        messageBox->setIcon(MessageBox::Warning);
         messageBox->setWindowFlags(Qt::Sheet);
-        messageBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        messageBox->setDefaultButton(QMessageBox::Yes);
-        if (messageBox->exec() == QMessageBox::No) return;
+        messageBox->setStandardButtons(MessageBox::Yes | MessageBox::No);
+        messageBox->setDefaultButton(MessageBox::Yes);
+        if (messageBox->exec() == MessageBox::No) return;
     }
     finalFile.remove(tr("[Awaiting merge decision]") + "\n");
 

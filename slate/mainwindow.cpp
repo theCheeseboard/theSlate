@@ -4,6 +4,7 @@
 #include "exitsavedialog.h"
 #include <QMimeData>
 #include <QFileIconProvider>
+#include "messagebox.h"
 #include <QLineEdit>
 #include <ttoast.h>
 #include <QDesktopServices>
@@ -250,6 +251,15 @@ MainWindow::MainWindow(QWidget *parent) :
     #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
         ui->menuHelp->insertAction(ui->actionAbout, updateManager->getCheckForUpdatesAction());
     #endif
+
+    for (QByteArray codec : QTextCodec::availableCodecs()) {
+        ui->menuReload_Using_Encoding->addAction(codec, [=] {
+            if (currentDocument() != nullptr) currentDocument()->revertFile(QTextCodec::codecForName(codec));
+        });
+        ui->menuChange_File_Encoding->addAction(codec, [=] {
+            if (currentDocument() != nullptr) currentDocument()->setTextCodec(QTextCodec::codecForName(codec));
+        });
+    }
 
     if (settings.contains("window/state")) {
         this->restoreState(settings.value("window/state").toByteArray());
@@ -546,20 +556,20 @@ bool MainWindow::saveCurrentDocument(bool saveAs) {
 
 bool MainWindow::closeCurrentTab() {
     if (currentDocument()->isEdited()) {
-        QMessageBox* messageBox = new QMessageBox(this);
+        MessageBox* messageBox = new MessageBox(this);
         messageBox->setWindowTitle(tr("Save Changes?"));
         messageBox->setText(tr("Do you want to save your changes to this document?"));
-        messageBox->setIcon(QMessageBox::Warning);
+        messageBox->setIcon(MessageBox::Warning);
         messageBox->setWindowFlags(Qt::Sheet);
-        messageBox->setStandardButtons(QMessageBox::Discard | QMessageBox::Save | QMessageBox::Cancel);
-        messageBox->setDefaultButton(QMessageBox::Save);
+        messageBox->setStandardButtons(MessageBox::Discard | MessageBox::Save | MessageBox::Cancel);
+        messageBox->setDefaultButton(MessageBox::Save);
         int button = messageBox->exec();
 
-        if (button == QMessageBox::Save) {
+        if (button == MessageBox::Save) {
             if (!saveCurrentDocument()) {
                 return false;
             }
-        } else if (button == QMessageBox::Cancel) {
+        } else if (button == MessageBox::Cancel) {
             return false;
         }
     }

@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QToolButton>
-#include <QMessageBox>
 #include <QSplitter>
 #include <QJsonObject>
 #include <QJsonDocument>
