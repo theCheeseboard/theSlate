@@ -28,6 +28,24 @@ struct MergeLines;
 
 class TextEditorPrivate;
 
+class TextEditorLeftMargin : public QWidget
+{
+    Q_OBJECT
+
+    public:
+        TextEditorLeftMargin(TextEditor *editor);
+
+        QSize sizeHint() const override;
+
+    protected:
+        void paintEvent(QPaintEvent *event) override;
+
+    private:
+        void mousePressEvent(QMouseEvent* event) override;
+
+        TextEditor *editor;
+};
+
 class TextEditor : public QPlainTextEdit
 {
     Q_OBJECT
@@ -36,31 +54,6 @@ class TextEditor : public QPlainTextEdit
         explicit TextEditor(MainWindow *parent);
         ~TextEditor();
 
-        class TextEditorLeftMargin : public QWidget
-        {
-            public:
-                TextEditorLeftMargin(TextEditor *editor) : QWidget(editor) {
-                    this->editor = editor;
-                    this->setCursor(Qt::ArrowCursor);
-                }
-
-                QSize sizeHint() const override {
-                    return QSize(editor->leftMarginWidth(), 0);
-                }
-
-            protected:
-                void paintEvent(QPaintEvent *event) override {
-                    editor->leftMarginPaintEvent(event);
-                }
-
-            private:
-                void mousePressEvent(QMouseEvent* event) override {
-                    int lineNo = editor->cursorForPosition(event->pos()).block().firstLineNumber() + 1;
-                    editor->toggleMergedLines(lineNo);
-                }
-
-                TextEditor *editor;
-        };
 
         QUrl fileUrl();
         QString title();

@@ -28,7 +28,7 @@ class TextEditorPrivate {
 
         QTextCursor cursorBeforeDrop;
 
-        TextEditor::TextEditorLeftMargin *leftMargin = nullptr;
+        TextEditorLeftMargin *leftMargin = nullptr;
         int brokenLine = -1;
 
         FindReplace* findReplaceWidget;
@@ -55,6 +55,31 @@ class TextEditorPrivate {
         FileBackend* currentBackend = nullptr;
 };
 
+
+class TextEditorBlockData : public QTextBlockUserData {
+    public:
+        enum MarginState {
+            None,
+            Edited,
+            SavedEdited
+        };
+
+        TextEditorBlockData(TextEditor* parent) {
+            editedConnection = QObject::connect(parent, &TextEditor::editedChanged, [=] {
+                if (!parent->isEdited() && this->marginState == Edited) this->marginState = SavedEdited;
+            });
+        }
+        ~TextEditorBlockData() {
+            QObject::disconnect(editedConnection);
+        }
+
+        MarginState marginState = None;
+
+    private:
+        QMetaObject::Connection editedConnection;
+};
+
+
 TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
 {
     d = new TextEditorPrivate();
@@ -73,6 +98,9 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
         if (d->firstEdit) {
             d->firstEdit = false;
         } else {
+            if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
+            ((TextEditorBlockData*) this->textCursor().block().userData())->marginState = TextEditorBlockData::Edited;
+            d->leftMargin->update();
             d->edited = true;
             emit editedChanged();
         }
@@ -694,6 +722,7 @@ void TextEditor::highlightCurrentLine()
 }
 
 void TextEditor::cursorLocationChanged() {
+    if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
     highlightCurrentLine();
 
     clearExtraSelectionGroup("bracketLocation");
@@ -832,13 +861,21 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
             painter.drawText(0, top, d->leftMargin->width(), fontMetrics().height(), Qt::AlignRight, number);
         }
 
-        if (lineNo == d->brokenLine) {
-            painter.setBrush(Qt::yellow);
-            QPolygon polygon;
-            polygon.append(QPoint(1, top));
-            polygon.append(QPoint(1, bottom));
-            polygon.append(QPoint(15, (top + bottom) / 2));
-            painter.drawPolygon(polygon);
+        TextEditorBlockData* blockData = (TextEditorBlockData*) block.userData();
+        if (blockData != nullptr) {
+            painter.setPen(Qt::transparent);
+            switch (blockData->marginState) {
+                case TextEditorBlockData::None:
+                    painter.setBrush(Qt::transparent);
+                    break;
+                case TextEditorBlockData::Edited:
+                    painter.setBrush(QColor(200, 0, 0));
+                    break;
+                case TextEditorBlockData::SavedEdited:
+                    painter.setBrush(QColor(0, 200, 0));
+                    break;
+            }
+            painter.drawRect(0, top, 3 * theLibsGlobal::getDPIScaling(), bottom - top);
         }
 
         block = block.next();
@@ -1152,8 +1189,28 @@ QByteArray TextEditor::formatForSaving(QString text) {
             a.replace("\n", "\r\n");
     }
     return a;
+
+
 }
 
 void TextEditor::setTextCodec(QTextCodec* codec) {
     d->textCodec = codec;
+}
+
+TextEditorLeftMargin::TextEditorLeftMargin(TextEditor* editor) : QWidget(editor) {
+    this->editor = editor;
+    this->setCursor(Qt::ArrowCursor);
+}
+
+QSize TextEditorLeftMargin::sizeHint() const {
+    return QSize(editor->leftMarginWidth(), 0);
+}
+
+void TextEditorLeftMargin::paintEvent(QPaintEvent* event) {
+    editor->leftMarginPaintEvent(event);
+}
+
+void TextEditorLeftMargin::mousePressEvent(QMouseEvent* event)  {
+    int lineNo = editor->cursorForPosition(event->pos()).block().firstLineNumber() + 1;
+    editor->toggleMergedLines(lineNo);
 }
