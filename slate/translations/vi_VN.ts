@@ -135,12 +135,12 @@
     <message>
         <location filename="../mainwindow.ui" line="188"/>
         <source>Reload Using Encoding</source>
-        <translation type="unfinished"></translation>
+        <translation>Khôi phục lại với mã hóa văn bản</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="193"/>
         <source>Change File Encoding</source>
-        <translation type="unfinished"></translation>
+        <translation>Thay đổi mã hóa văn bản</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="219"/>
@@ -1032,12 +1032,12 @@
     <message>
         <location filename="../texteditor.cpp" line="386"/>
         <source>Encoding Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Lỗi với mã hóa văn bản</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="387"/>
         <source>Some characters used in this file cannot be encoded in the selected encoding. Saving this file will remove any invalid characters and may result in possible data loss.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ký tự bị dung trong tệp này không mã hóa được. Nếu bạn lưu tệp này, kỳ tự không hợp lệ sẽ bị xóa và có thể mất dữ liệu.</translation>
     </message>
     <message>
         <location filename="../texteditor.cpp" line="421"/>
@@ -1084,17 +1084,17 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../managers/updatemanager.cpp" line="50"/>
         <source>Checking for updates...</source>
-        <translation type="unfinished"></translation>
+        <translation>Đang kiểm tra cập nhật...</translation>
     </message>
     <message>
         <location filename="../managers/updatemanager.cpp" line="54"/>
         <source>Check for updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Kiểm tra cập nhật</translation>
     </message>
     <message>
         <location filename="../managers/updatemanager.cpp" line="58"/>
         <source>Update to %1 available</source>
-        <translation type="unfinished"></translation>
+        <translation>Bản cập nhật đến %1 co sẵn</translation>
     </message>
 </context>
 <context>
