@@ -158,5 +158,7 @@ bool FindReplace::eventFilter(QObject* watched, QEvent* event) {
 
 void FindReplace::on_replaceAllButton_clicked()
 {
-
+    QTextCursor currentCursor = editor->textCursor();
+    editor->setPlainText(editor->toPlainText().replace(ui->findBox->text(), ui->replaceBox->text()));
+    editor->setTextCursor(currentCursor);
 }
