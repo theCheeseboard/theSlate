@@ -2,8 +2,6 @@
 #define DEFAULTSYNTAXHIGHLIGHTING_H
 
 #include <QGenericPlugin>
-#include "highlighters/cppsyntaxhighlighter.h"
-#include "highlighters/xmlsyntaxhighlighter.h"
 #include "../slate/plugins/syntaxhighlighting.h"
 
 class DefaultSyntaxHighlighting : public QObject,

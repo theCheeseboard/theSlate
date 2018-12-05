@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QSyntaxHighlighter>
+#include <QApplication>
+#include <QPalette>
 #define THESLATE_SYNTAXHIGHLIGHTING_IID "org.thesuite.theSlate.SyntaxHighlighting"
 
 class SyntaxHighlighter : public QSyntaxHighlighter {

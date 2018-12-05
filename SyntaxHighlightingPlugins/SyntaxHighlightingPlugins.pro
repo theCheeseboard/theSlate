@@ -24,12 +24,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         defaultsyntaxhighlighting.cpp \
     highlighters/cppsyntaxhighlighter.cpp \
-    highlighters/xmlsyntaxhighlighter.cpp
+    highlighters/xmlsyntaxhighlighter.cpp \
+    highlighters/jssyntaxhighlighter.cpp
 
 HEADERS += \
         defaultsyntaxhighlighting.h \
     highlighters/cppsyntaxhighlighter.h \
-    highlighters/xmlsyntaxhighlighter.h
+    highlighters/xmlsyntaxhighlighter.h \
+    highlighters/jssyntaxhighlighter.h
 
 DISTFILES += SyntaxHighlightingPlugins.json 
 

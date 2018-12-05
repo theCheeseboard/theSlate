@@ -1,15 +1,13 @@
-#include "cppsyntaxhighlighter.h"
+#include "jssyntaxhighlighter.h"
 
-CppSyntaxHighlighter::CppSyntaxHighlighter(QObject *parent) : SyntaxHighlighter(parent)
+JsSyntaxHighlighter::JsSyntaxHighlighter(QObject *parent) : SyntaxHighlighter(parent)
 {
     QColor background = QApplication::palette("QPlainTextEditor").color(QPalette::Window);
     int avg = (background.blue() + background.green() + background.red()) / 3;
     if (avg > 127) {
-        preprocessorFormat.setForeground(QColor(150, 0, 0));
         controlFormat.setForeground(Qt::blue);
         numberFormat.setForeground(QColor(200, 0, 0));
     } else {
-        preprocessorFormat.setForeground(QColor(150, 0, 0));
         controlFormat.setForeground(QColor(0, 100, 255));
         numberFormat.setForeground(QColor(255, 0, 0));
     }
@@ -24,17 +22,7 @@ CppSyntaxHighlighter::CppSyntaxHighlighter(QObject *parent) : SyntaxHighlighter(
 
     //Keywords
     QStringList keywordPatterns;
-    keywordPatterns << "\\bchar\\b" << "\\bclass\\b" << "\\bconst\\b"
-                    << "\\bdouble\\b" << "\\benum\\b" << "\\bexplicit\\b"
-                    << "\\bfriend\\b" << "\\binline\\b" << "\\bint\\b"
-                    << "\\blong\\b" << "\\bnamespace\\b" << "\\boperator\\b"
-                    << "\\bprivate\\b" << "\\bprotected\\b" << "\\bpublic\\b"
-                    << "\\bshort\\b" << "\\bsignals\\b" << "\\bsigned\\b"
-                    << "\\bslots\\b" << "\\bstatic\\b" << "\\bstruct\\b"
-                    << "\\btemplate\\b" << "\\btypedef\\b" << "\\btypename\\b"
-                    << "\\bunion\\b" << "\\bunsigned\\b" << "\\bvirtual\\b"
-                    << "\\bvoid\\b" << "\\bvolatile\\b" << "\\bbool\\b"
-                    << "\\busing\\b";
+    keywordPatterns << "\\bvar\\b" << "\\blet\\b" << "\\bfunction\\b";
     for (QString pattern : keywordPatterns) {
         rule.pattern = QRegularExpression(pattern);
         rule.format = keywordFormat;
@@ -45,33 +33,26 @@ CppSyntaxHighlighter::CppSyntaxHighlighter(QObject *parent) : SyntaxHighlighter(
     QStringList controlPatterns;
     controlPatterns << "\\bif\\b" << "\\bwhile\\b" << "\\bdo\\b"
                     << "\\bfor\\b" << "\\bswitch\\b" << "\\bcase\\b"
-                    << "\\belse\\b" << "\\breturn\\n";
+                    << "\\bof\\b" << "\\belse\\b" << "\\bconst\\b"
+                    << "\\btry\\b" << "\\bcatch\\b" << "\\bin\\b"
+                    << "\\bbreak\\b";
     for (QString pattern : controlPatterns) {
         rule.pattern = QRegularExpression(pattern);
         rule.format = controlFormat;
         highlightingRules.append(rule);
     }
 
-    //Class
-    rule.pattern = QRegularExpression("\\b[A-Za-z]+(?=(\\.|->))\\b");
-    rule.format = classFormat;
-    highlightingRules.append(rule);
-    rule.pattern = QRegularExpression("(?<=class )([A-Z]|[a-z])([A-Z]|[a-z]|\\d)*");
-    highlightingRules.append(rule);
-
     //String
     //rule.pattern = QRegularExpression("\".*\"");
     //rule.format = quotationFormat;
     //highlightingRules.append(rule);
 
+    //rule.pattern = QRegularExpression("'.*'");
+    //highlightingRules.append(rule);
+
     //Function
     rule.pattern = QRegularExpression("\\b[A-Za-z0-9_]+(?=\\()");
     rule.format = functionFormat;
-    highlightingRules.append(rule);
-
-    //Preprocessor
-    rule.pattern = QRegularExpression("#.+");
-    rule.format = preprocessorFormat;
     highlightingRules.append(rule);
 
     //Comments
@@ -83,10 +64,10 @@ CppSyntaxHighlighter::CppSyntaxHighlighter(QObject *parent) : SyntaxHighlighter(
     highlightingRules.append(rule);
 
     commentStartExpression = QRegularExpression("/\\*");
-    commentEndExpression = QRegularExpression("\\*//*");
+    commentEndExpression = QRegularExpression("\\*/");
 }
 
-void CppSyntaxHighlighter::highlightBlock(const QString &text) {
+void JsSyntaxHighlighter::highlightBlock(const QString &text) {
     for (HighlightingRule rule : highlightingRules) {
         QRegularExpressionMatchIterator matchIterator = rule.pattern.globalMatch(text);
         while (matchIterator.hasNext()) {
@@ -97,11 +78,13 @@ void CppSyntaxHighlighter::highlightBlock(const QString &text) {
 
     //Try to match strings
     int beginIndex = -1;
+    QChar textDelimiter;
     for (int i = 0; i < text.count(); i++) {
-        if (text.at(i) == '"') {
+        if (text.at(i) == '"' || text.at(i) == '\'' || text.at(i) == '`') {
             if (beginIndex == -1) {
+                textDelimiter = text.at(i);
                 beginIndex = i;
-            } else {
+            } else if (text.at(i) == textDelimiter) {
                 setFormat(beginIndex, i + 1 - beginIndex, quotationFormat);
                 beginIndex = -1;
             }
