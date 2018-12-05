@@ -183,13 +183,8 @@ void MergeTool::on_acceptButton_clicked()
     QString finalFile = endFile->toPlainText();
     if (finalFile.contains(tr("[Awaiting merge decision]"))) {
         MessageBox* messageBox = new MessageBox(this);
-        #ifdef Q_OS_MAC
-            messageBox->setText(tr("Unresolved Merge Conflicts"));
-            messageBox->setInformativeText(tr("You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?"));
-        #else
-            messageBox->setWindowTitle(tr("Unresolved Merge Conflicts"));
-            messageBox->setText(tr("You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?"));
-        #endif
+        messageBox->setWindowTitle(tr("Unresolved Merge Conflicts"));
+        messageBox->setText(tr("You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?"));
         messageBox->setIcon(MessageBox::Warning);
         messageBox->setWindowFlags(Qt::Sheet);
         messageBox->setStandardButtons(MessageBox::Yes | MessageBox::No);

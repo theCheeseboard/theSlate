@@ -754,19 +754,17 @@
     <message>
         <location filename="../textparts/mergetool.cpp" line="167"/>
         <location filename="../textparts/mergetool.cpp" line="184"/>
-        <location filename="../textparts/mergetool.cpp" line="199"/>
+        <location filename="../textparts/mergetool.cpp" line="194"/>
         <source>[Awaiting merge decision]</source>
         <translation>[Đang chờ quyết định hợp nhất]</translation>
     </message>
     <message>
-        <location filename="../textparts/mergetool.cpp" line="187"/>
-        <location filename="../textparts/mergetool.cpp" line="190"/>
+        <location filename="../textparts/mergetool.cpp" line="186"/>
         <source>Unresolved Merge Conflicts</source>
         <translation>Xung đột hợp nhất chưa giải quyết</translation>
     </message>
     <message>
-        <location filename="../textparts/mergetool.cpp" line="188"/>
-        <location filename="../textparts/mergetool.cpp" line="191"/>
+        <location filename="../textparts/mergetool.cpp" line="187"/>
         <source>You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?</source>
         <translation>Bạn còn xung đột hợp nhất mà bạn chưa chọn giải quyết. Bạn có chắc chắn muốn chấp nhận giải quyết này?</translation>
     </message>
