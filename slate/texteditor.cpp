@@ -79,7 +79,6 @@ class TextEditorBlockData : public QTextBlockUserData {
         QMetaObject::Connection editedConnection;
 };
 
-
 TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
 {
     d = new TextEditorPrivate();
@@ -354,7 +353,7 @@ void TextEditor::openFile(FileBackend *backend) {
 
 void TextEditor::loadText(QByteArray data) {
     if (d->textCodec == nullptr) {
-        d->textCodec = QTextCodec::codecForUtfText(data);
+        d->textCodec = QTextCodec::codecForUtfText(data, QTextCodec::codecForName("UTF-8"));
     }
 
     this->setPlainText(d->textCodec->toUnicode(data));
@@ -436,6 +435,7 @@ bool TextEditor::saveFile() {
 
             emit backendChanged();
             emit editedChanged();
+            d->leftMargin->update();
 
             if (d->currentBackend->url().scheme() == "file") {
                 recentFiles->putFile(d->currentBackend->url().toString());

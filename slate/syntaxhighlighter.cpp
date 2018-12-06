@@ -109,29 +109,6 @@ void SyntaxHighlighter::setCodeType(codeType type) {
             commentEndExpression = QRegularExpression("\"\"\"");
         }
         case json: {
-            //String
-            rule.pattern = QRegularExpression("\".*\"");
-            rule.format = quotationFormat;
-            highlightingRules.append(rule);
-
-            rule.pattern = QRegularExpression("'.*'");
-            highlightingRules.append(rule);
-
-            //Key
-            rule.pattern = QRegularExpression("\".*\":");
-            rule.format = classFormat;
-            highlightingRules.append(rule);
-
-            //Comments
-            rule.pattern = QRegularExpression("\\/\\*(\\w|\\s)*\\*\\/");
-            rule.format = commentFormat;
-            highlightingRules.append(rule);
-
-            rule.pattern = QRegularExpression("\\/\\/(.)*");
-            highlightingRules.append(rule);
-
-            commentStartExpression = QRegularExpression("/\\*");
-            commentEndExpression = QRegularExpression("\\*/");
         }
     }
 
