@@ -15,7 +15,7 @@ class DefaultSyntaxHighlighting : public QObject,
         DefaultSyntaxHighlighting();
 
         QStringList availableHighlighters() override;
-        SyntaxHighlighter* makeHighlighter(QString highlighter) override;
+        SyntaxHighlighter* makeHighlighter(QString highlighter, QColor (*getColor)(QString)) override;
         QString highlighterForFilename(QString filename) override;
 };
 

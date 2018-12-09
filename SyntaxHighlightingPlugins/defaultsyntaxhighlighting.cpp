@@ -17,15 +17,15 @@ QStringList DefaultSyntaxHighlighting::availableHighlighters() {
     return QStringList() << "C++" << "XML" << "JavaScript" << "JSON";
 }
 
-SyntaxHighlighter* DefaultSyntaxHighlighting::makeHighlighter(QString highlighter) {
+SyntaxHighlighter* DefaultSyntaxHighlighting::makeHighlighter(QString highlighter, QColor (*getColor)(QString)) {
     if (highlighter == "C++") {
-        return new CppSyntaxHighlighter(new QObject);
+        return new CppSyntaxHighlighter(getColor, new QObject);
     } else if (highlighter == "XML") {
-        return new XmlSyntaxHighlighter(new QObject);
+        return new XmlSyntaxHighlighter(getColor, new QObject);
     } else if (highlighter == "JavaScript") {
-        return new JsSyntaxHighlighter(new QObject);
+        return new JsSyntaxHighlighter(getColor, new QObject);
     } else if (highlighter == "JSON") {
-        return new JsonSyntaxHighlighter(new QObject);
+        return new JsonSyntaxHighlighter(getColor, new QObject);
     }
     return nullptr;
 }

@@ -15,6 +15,8 @@
 extern PluginManager* plugins;
 extern RecentFilesManager* recentFiles;
 
+extern QColor getSyntaxHighlighterColor(QString color);
+
 class TextEditorPrivate {
     public:
         TabButton* button;
@@ -265,6 +267,7 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
         }
     });
 
+    connect((QApplication*) QApplication::instance(), &QApplication::paletteChanged, this, &TextEditor::reloadSettings);
     reloadSettings();
 }
 
@@ -312,7 +315,7 @@ void TextEditor::openFile(FileBackend *backend) {
             QString f = h->highlighterForFilename(backend->url().toString());
             if (f != "") recommendedBackend.insert(h, f);
         }
-        if (recommendedBackend.count() != 0) this->setHighlighter(recommendedBackend.firstKey()->makeHighlighter(recommendedBackend.first()));
+        if (recommendedBackend.count() != 0) this->setHighlighter(recommendedBackend.firstKey()->makeHighlighter(recommendedBackend.first(), &getSyntaxHighlighterColor));
 
         if (git != nullptr) {
             git->deleteLater();
@@ -1153,6 +1156,14 @@ void TextEditor::reloadSettings() {
     }
     this->setFont(f);
     this->setTabStopDistance(QFontMetrics(f).width(" ") * d->settings.value("behaviour/tabWidth", 4).toInt());
+
+    //Set up palette
+    QPalette pal = QApplication::palette(this);
+    pal.setColor(QPalette::Window, getSyntaxHighlighterColor("editor/bg"));
+    pal.setColor(QPalette::Base, getSyntaxHighlighterColor("editor/bg"));
+    pal.setColor(QPalette::WindowText, getSyntaxHighlighterColor("editor/fg"));
+    pal.setColor(QPalette::Text, getSyntaxHighlighterColor("editor/fg"));
+    this->setPalette(pal);
 }
 
 QUrl TextEditor::fileUrl() {

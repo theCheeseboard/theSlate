@@ -12,7 +12,7 @@ class JsonSyntaxHighlighter : public SyntaxHighlighter
 {
         Q_OBJECT
     public:
-        explicit JsonSyntaxHighlighter(QObject *parent = nullptr);
+        explicit JsonSyntaxHighlighter(QColor (*getColor)(QString), QObject *parent = nullptr);
 
         enum State {
             Invalid = -1,

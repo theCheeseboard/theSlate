@@ -1,6 +1,6 @@
 #include "jsonsyntaxhighlighter.h"
 
-JsonSyntaxHighlighter::JsonSyntaxHighlighter(QObject *parent) : SyntaxHighlighter(parent)
+JsonSyntaxHighlighter::JsonSyntaxHighlighter(QColor (*getColor)(QString), QObject *parent) : SyntaxHighlighter(getColor, parent)
 {
     QColor background = QApplication::palette("QPlainTextEditor").color(QPalette::Window);
     int avg = (background.blue() + background.green() + background.red()) / 3;

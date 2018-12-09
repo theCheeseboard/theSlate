@@ -1,6 +1,6 @@
 #include "xmlsyntaxhighlighter.h"
 
-XmlSyntaxHighlighter::XmlSyntaxHighlighter(QObject *parent) : SyntaxHighlighter(parent)
+XmlSyntaxHighlighter::XmlSyntaxHighlighter(QColor (*getColor)(QString), QObject *parent) : SyntaxHighlighter(getColor, parent)
 {   
     QColor background = QApplication::palette("QPlainTextEditor").color(QPalette::Window);
     int avg = (background.blue() + background.green() + background.red()) / 3;

@@ -13,8 +13,9 @@ class XmlSyntaxHighlighter : public SyntaxHighlighter
 {
         Q_OBJECT
     public:
-        explicit XmlSyntaxHighlighter(QObject *parent = nullptr);
+        explicit XmlSyntaxHighlighter(QColor (*getColor)(QString), QObject *parent = nullptr);
 
+        void initialize(QColor (*getColor)(QString));
     signals:
 
     public slots:

@@ -74,7 +74,8 @@ SOURCES += \
     plugins/pluginmanager.cpp \
     managers/recentfilesmanager.cpp \
     managers/updatemanager.cpp \
-    messagebox.cpp
+    messagebox.cpp \
+    managers/syntaxhighlighting.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -167,6 +168,9 @@ unix:!macx {
     headers.path = /usr/include/theslate
     header.files = plugins/syntaxhighlighting.h plugins/filebackend.h
 
+    cols.files = ColorDefinitions/*
+    cols.path = /usr/share/theslate/ColorDefinitions
+
     INSTALLS += target translations desktop icon headers
 }
 
@@ -183,7 +187,10 @@ macx {
     filebackend.files = ../FileBackends/LocalFileBackend/libLocalFileBackend.dylib ../FileBackends/HttpBackend/libHttpBackend.dylib
     filebackend.path = Contents/filebackends/
 
-    QMAKE_BUNDLE_DATA = translations locversion syntax filebackend
+    cols.files = ColorDefinitions/
+    cols.path = Contents/Resources/ColorDefinitions/
+
+    QMAKE_BUNDLE_DATA = translations locversion syntax filebackend cols
 
     QMAKE_POST_LINK += $$quote(cp $${PWD}/dmgicon.icns $${PWD}/app-dmg-background.png $${PWD}/node-appdmg-config.json $${OUT_PWD}/..)
 }

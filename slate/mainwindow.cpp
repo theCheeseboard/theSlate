@@ -26,6 +26,8 @@ extern PluginManager* plugins;
 extern RecentFilesManager* recentFiles;
 extern UpdateManager* updateManager;
 
+extern QColor getSyntaxHighlighterColor(QString color);
+
 QList<MainWindow*> MainWindow::openWindows = QList<MainWindow*>();
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -42,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
     for (SyntaxHighlighting* highlighter : plugins->syntaxHighlighters()) {
         for (QString name : highlighter->availableHighlighters()) {
             ui->menuCode->addAction(name, [=] {
-                setCurrentDocumentHighlighting(highlighter->makeHighlighter(name));
+                setCurrentDocumentHighlighting(highlighter->makeHighlighter(name, &getSyntaxHighlighterColor));
             });
         }
     }

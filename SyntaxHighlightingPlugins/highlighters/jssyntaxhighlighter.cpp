@@ -1,6 +1,6 @@
 #include "jssyntaxhighlighter.h"
 
-JsSyntaxHighlighter::JsSyntaxHighlighter(QObject *parent) : SyntaxHighlighter(parent)
+JsSyntaxHighlighter::JsSyntaxHighlighter(QColor (*getColor)(QString), QObject *parent) : SyntaxHighlighter(getColor, parent)
 {
     QColor background = QApplication::palette("QPlainTextEditor").color(QPalette::Window);
     int avg = (background.blue() + background.green() + background.red()) / 3;

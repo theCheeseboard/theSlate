@@ -12,7 +12,7 @@ class CppSyntaxHighlighter : public SyntaxHighlighter
 {
         Q_OBJECT
     public:
-        explicit CppSyntaxHighlighter(QObject *parent = nullptr);
+        explicit CppSyntaxHighlighter(QColor (*getColor)(QString), QObject *parent = nullptr);
 
     signals:
 

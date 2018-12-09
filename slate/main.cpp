@@ -93,6 +93,7 @@ int main(int argc, char *argv[])
     CFRelease(macPath);
 #endif
 
+
 #ifdef Q_OS_LINUX
     localTranslator.load(QLocale::system().name(), "/usr/share/theslate/translations");
 #endif

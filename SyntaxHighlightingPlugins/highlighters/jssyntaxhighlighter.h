@@ -12,8 +12,9 @@ class JsSyntaxHighlighter : public SyntaxHighlighter
 {
         Q_OBJECT
     public:
-        explicit JsSyntaxHighlighter(QObject *parent = nullptr);
+        explicit JsSyntaxHighlighter(QColor (*getColor)(QString), QObject *parent = nullptr);
 
+        void initialize(QColor (*getColor)(QString));
     signals:
 
     public slots:
