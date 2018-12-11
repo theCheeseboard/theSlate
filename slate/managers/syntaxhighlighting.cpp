@@ -55,7 +55,7 @@ QColor getSyntaxHighlighterColor(QString color) {
 
         QStringList searchPaths;
         #if defined(Q_OS_WIN)
-            searchPaths.append(QApplication::applicationDirPath() + "/../../ColorDefinitions/");
+            searchPaths.append(QApplication::applicationDirPath() + "/../../../theSlate/slate/ColorDefinitions/");
             searchPaths.append(QApplication::applicationDirPath() + "/ColorDefinitions/");
         #elif defined(Q_OS_MAC)
             searchPaths.append(bundlePath + "/Contents/Resources/ColorDefinitions");

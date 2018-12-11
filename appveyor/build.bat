@@ -21,8 +21,10 @@ mkdir deploy
 mkdir deploy\syntaxhighlighting
 mkdir deploy\filebackends
 mkdir deploy\translations
+mkdir deploy\ColorDefinitions
 copy slate\release\theslate.exe deploy
 copy slate\translations\*.qm deploy\translations
+copy slate\ColorDefinitions\* deploy\ColorDefinitions
 copy SyntaxHighlightingPlugins\release\SyntaxHighlightingPlugins.dll deploy\syntaxhighlighting
 copy FileBackends\LocalFileBackend\release\LocalFileBackend.dll deploy\filebackends
 copy FileBackends\HttpBackend\release\HttpBackend.dll deploy\filebackends
