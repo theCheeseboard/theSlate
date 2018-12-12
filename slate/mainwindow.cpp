@@ -195,10 +195,14 @@ MainWindow::MainWindow(QWidget *parent) :
             //Change the help menu icon
             if (!ui->actionUse_Menubar->isChecked()) {
                 int size = QApplication::style()->pixelMetric(QStyle::PM_SmallIconSize);
-                QPixmap pixmap = QIcon::fromTheme("help-contents", QIcon(":/icons/help-contents.svg")).pixmap(size, size);
-                QPainter p(&pixmap);
+                QImage image = QIcon::fromTheme("help-contents", QIcon(":/icons/help-contents.svg")).pixmap(size, size).toImage();
+                QPainter p(&image);
                 p.setRenderHint(QPainter::Antialiasing);
 
+                p.setCompositionMode(QPainter::CompositionMode_SourceAtop);
+                p.fillRect(0, 0, image.width(), image.height(), QColor(Qt::white));
+
+                p.setCompositionMode(QPainter::CompositionMode_SourceOver);
                 QSize iconSize = QSize(size, size) / 2;
                 QPoint iconLoc(iconSize.width(), iconSize.height());
                 QRect circleRect(iconLoc, iconSize);
@@ -206,7 +210,7 @@ MainWindow::MainWindow(QWidget *parent) :
                 p.setBrush(QColor(200, 0, 0));
                 p.drawEllipse(circleRect);
 
-                ui->menuHelp->setIcon(QIcon(pixmap));
+                ui->menuHelp->setIcon(QIcon(QPixmap::fromImage(image)));
             }
         });
 
