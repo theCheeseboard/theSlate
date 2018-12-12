@@ -107,6 +107,41 @@ int main(int argc, char *argv[])
 #ifdef Q_OS_MAC
     setupMacMenubar();
     setupMacObjC();
+#elif defined(Q_OS_WIN)
+    //Check if dark palette is needed
+    QSettings darkDetection("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", QSettings::NativeFormat);
+    int AppsUseLightTheme = darkDetection.value("AppsUseLightTheme", 1).toInt();
+
+    if (AppsUseLightTheme == 0) {
+        //Set up the dark palette
+        a.setStyle(QStyleFactory::create("contemporary"));
+
+        //Get the accent colour
+        QSettings accentDetection("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\DWM", QSettings::NativeFormat);
+        QColor accentCol(QRgb(accentDetection.value("ColorizationColor", 0xC4003296).toInt() & 0x00FFFFFF));
+
+        QPalette pal = a.palette();
+
+        pal.setColor(QPalette::Button, accentCol);
+        pal.setColor(QPalette::ButtonText, QColor(255, 255, 255));
+        pal.setColor(QPalette::Highlight, accentCol.lighter(125));
+        pal.setColor(QPalette::HighlightedText, QColor(255, 255, 255));
+        pal.setColor(QPalette::Disabled, QPalette::Button, accentCol.darker(200));
+        pal.setColor(QPalette::Disabled, QPalette::ButtonText, QColor(150, 150, 150));
+
+        pal.setColor(QPalette::Window, QColor(40, 40, 40));
+        pal.setColor(QPalette::Base, QColor(40, 40, 40));
+        pal.setColor(QPalette::AlternateBase, QColor(60, 60, 60));
+        pal.setColor(QPalette::WindowText, QColor(255, 255, 255));
+        pal.setColor(QPalette::Text, QColor(255, 255, 255));
+        pal.setColor(QPalette::ToolTipText, QColor(255, 255, 255));
+
+        pal.setColor(QPalette::Disabled, QPalette::WindowText, QColor(150, 150, 150));
+
+        a.setPalette(pal);
+        a.setPalette(pal, "QDockWidget");
+        a.setPalette(pal, "QToolBar");
+    }
 #endif
 
     updateManager = new UpdateManager();

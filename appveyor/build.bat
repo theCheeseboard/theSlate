@@ -15,13 +15,20 @@ qmake the-libs.pro
 nmake release
 nmake install
 cd ..
+git clone https://github.com/vicr123/contemporary-theme.git
+cd contemporary-theme
+qmake Contemporary.pro
+nmake release
+cd ..
 qmake theSlate.pro
 nmake release
 mkdir deploy
+mkdir deploy\styles
 mkdir deploy\syntaxhighlighting
 mkdir deploy\filebackends
 mkdir deploy\translations
 mkdir deploy\ColorDefinitions
+copy "contemporary-theme\release\Contemporary.dll" deploy\styles
 copy slate\release\theslate.exe deploy
 copy slate\translations\*.qm deploy\translations
 copy slate\ColorDefinitions\* deploy\ColorDefinitions

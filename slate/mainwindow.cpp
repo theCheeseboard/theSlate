@@ -284,14 +284,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->menuSource_Control->setEnabled(true);
     ui->gitProgressFrame->setVisible(false);
 
-    //Set up code highlighting options
-    /*ui->menuCode->addAction("C++", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::cpp);});
-    ui->menuCode->addAction("JavaScript", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::js);});
-    ui->menuCode->addAction("Python", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::py);});
-    ui->menuCode->addAction("XML", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::xml);});
-    ui->menuCode->addAction("Markdown", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::md);});
-    ui->menuCode->addAction("JavaScript Object Notation (JSON)", [=] {setCurrentDocumentHighlighting(SyntaxHighlighter::json);});*/
-
     fileModel = new QFileSystemModel();
     fileModel->setRootPath(QDir::rootPath());
     fileModel->setReadOnly(false);
@@ -321,6 +313,11 @@ void MainWindow::show() {
         newTab();
     }
     QMainWindow::show();
+
+#ifdef Q_OS_WIN
+    //Force the palette on Windows
+    this->setPalette(QApplication::palette());
+#endif
 }
 
 void MainWindow::newTab() {
