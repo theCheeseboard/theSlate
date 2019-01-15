@@ -48,10 +48,11 @@ mkdir deploy\styles
 mkdir deploy\filebackends
 mkdir deploy\translations
 mkdir deploy\ColorDefinitions
+mkdir deploy\ColorDefinitions\themes
 copy "contemporary-theme\release\Contemporary.dll" deploy\styles
 copy slate\release\theslate.exe deploy
 copy slate\translations\*.qm deploy\translations
-copy slate\ColorDefinitions\* deploy\ColorDefinitions
+copy slate\ColorDefinitions\themes\* deploy\ColorDefinitions\themes
 copy FileBackends\LocalFileBackend\release\LocalFileBackend.dll deploy\filebackends
 copy FileBackends\HttpBackend\release\HttpBackend.dll deploy\filebackends
 copy "C:\Program Files\thelibs\lib\the-libs.dll" deploy
