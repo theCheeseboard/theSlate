@@ -28,6 +28,7 @@ class TextEditorPrivate {
         bool edited = false;
         bool firstEdit = true;
         KSyntaxHighlighting::SyntaxHighlighter* hl = nullptr;
+        KSyntaxHighlighting::Definition hlDef;
         MainWindow* parentWindow;
 
         QTextCodec* textCodec = nullptr;
@@ -160,7 +161,7 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
         fixMergeButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         connect(fixMergeButton, &QPushButton::clicked, [=] {
             //Open the merge resolution tool
-            MergeTool* tool = new MergeTool(this->toPlainText(), d->parentWindow);
+            MergeTool* tool = new MergeTool(this->toPlainText(), d->hlDef, d->parentWindow);
             tool->setTitle(tr("Resolve a Merge Conflict"));
             tool->setParent(this);
             tool->setWindowFlag(Qt::Sheet);
@@ -205,7 +206,7 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
 
                 if (mergeResolutionRequred) {
                     //Open the merge resolution tool
-                    MergeTool* tool = new MergeTool(mergeFile, d->parentWindow);
+                    MergeTool* tool = new MergeTool(mergeFile, d->hlDef, d->parentWindow);
                     tool->setTitle(tr("Resolve a Save Conflict"));
                     tool->setParent(this);
                     tool->setWindowFlag(Qt::Sheet);
@@ -1160,6 +1161,7 @@ void TextEditor::setHighlighter(KSyntaxHighlighting::Definition hl) {
     highlighter->setDocument(this->document());
 
     d->hl = highlighter;
+    d->hlDef = hl;
 }
 
 void TextEditor::reloadSettings() {

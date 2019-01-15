@@ -742,29 +742,29 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/mergetool.cpp" line="62"/>
+        <location filename="../textparts/mergetool.cpp" line="68"/>
         <source>%1 (Current changes)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/mergetool.cpp" line="87"/>
+        <location filename="../textparts/mergetool.cpp" line="93"/>
         <source>%1 (Incoming changes)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/mergetool.cpp" line="167"/>
-        <location filename="../textparts/mergetool.cpp" line="184"/>
-        <location filename="../textparts/mergetool.cpp" line="194"/>
+        <location filename="../textparts/mergetool.cpp" line="173"/>
+        <location filename="../textparts/mergetool.cpp" line="190"/>
+        <location filename="../textparts/mergetool.cpp" line="200"/>
         <source>[Awaiting merge decision]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/mergetool.cpp" line="186"/>
+        <location filename="../textparts/mergetool.cpp" line="192"/>
         <source>Unresolved Merge Conflicts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/mergetool.cpp" line="187"/>
+        <location filename="../textparts/mergetool.cpp" line="193"/>
         <source>You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -933,144 +933,144 @@
 <context>
     <name>TextEditor</name>
     <message>
-        <location filename="../texteditor.cpp" line="100"/>
+        <location filename="../texteditor.cpp" line="101"/>
         <source>New Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="156"/>
+        <location filename="../texteditor.cpp" line="157"/>
         <source>Merge Conflicts were found in this file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="159"/>
+        <location filename="../texteditor.cpp" line="160"/>
         <source>Resolve Merge Conflicts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="164"/>
+        <location filename="../texteditor.cpp" line="165"/>
         <source>Resolve a Merge Conflict</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="189"/>
+        <location filename="../texteditor.cpp" line="190"/>
         <source>File on disk changed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="190"/>
+        <location filename="../texteditor.cpp" line="191"/>
         <source>The file on the disk has changed. If you save this file you will lose the changes on disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="193"/>
+        <location filename="../texteditor.cpp" line="194"/>
         <source>Reload File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="199"/>
+        <location filename="../texteditor.cpp" line="200"/>
         <source>Merge Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="204"/>
+        <location filename="../texteditor.cpp" line="205"/>
         <source>File on Disk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="204"/>
+        <location filename="../texteditor.cpp" line="205"/>
         <source>Currently open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="209"/>
+        <location filename="../texteditor.cpp" line="210"/>
         <source>Resolve a Save Conflict</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="241"/>
+        <location filename="../texteditor.cpp" line="242"/>
         <source>File on disk deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="242"/>
+        <location filename="../texteditor.cpp" line="243"/>
         <source>The file on the disk has been deleted. If you save this file you will recreate the file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="251"/>
+        <location filename="../texteditor.cpp" line="252"/>
         <source>Can&apos;t open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="260"/>
+        <location filename="../texteditor.cpp" line="261"/>
         <source>Mixed Line Endings detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="261"/>
+        <location filename="../texteditor.cpp" line="262"/>
         <source>If you save this file, we&apos;ll change all the line endings to your configuration in Settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="351"/>
+        <location filename="../texteditor.cpp" line="352"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="413"/>
+        <location filename="../texteditor.cpp" line="414"/>
         <source>Read Only File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="414"/>
+        <location filename="../texteditor.cpp" line="415"/>
         <source>This file is read only. You&apos;ll need to save it as a different file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="425"/>
+        <location filename="../texteditor.cpp" line="426"/>
         <source>Encoding Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="426"/>
+        <location filename="../texteditor.cpp" line="427"/>
         <source>Some characters used in this file cannot be encoded in the selected encoding. Saving this file will remove any invalid characters and may result in possible data loss.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="461"/>
+        <location filename="../texteditor.cpp" line="462"/>
         <source>There&apos;s no more space on this disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="463"/>
+        <location filename="../texteditor.cpp" line="464"/>
         <source>You don&apos;t have permission to save this file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="465"/>
+        <location filename="../texteditor.cpp" line="466"/>
         <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="468"/>
+        <location filename="../texteditor.cpp" line="469"/>
         <source>
 
 Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="471"/>
+        <location filename="../texteditor.cpp" line="472"/>
         <source>Couldn&apos;t save the file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="984"/>
+        <location filename="../texteditor.cpp" line="985"/>
         <source>Revert Changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="985"/>
+        <location filename="../texteditor.cpp" line="986"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation type="unfinished"></translation>
     </message>

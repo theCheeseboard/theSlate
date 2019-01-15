@@ -4,7 +4,9 @@
 #include <QBuffer>
 #include "messagebox.h"
 
-MergeTool::MergeTool(QString unmergedFile, MainWindow* mainWindow, QWidget *parent) :
+#include <SyntaxHighlighter>
+
+MergeTool::MergeTool(QString unmergedFile, KSyntaxHighlighting::Definition syntaxHighlighting, MainWindow* mainWindow, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MergeTool)
 {
@@ -22,6 +24,10 @@ MergeTool::MergeTool(QString unmergedFile, MainWindow* mainWindow, QWidget *pare
     source = new TextEditor(mainWindow);
     remote = new TextEditor(mainWindow);
     endFile = new TextEditor(mainWindow);
+    source->setHighlighter(syntaxHighlighting);
+    remote->setHighlighter(syntaxHighlighting);
+    endFile->setHighlighter(syntaxHighlighting);
+
     source->lockScrolling(remote);
     source->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 

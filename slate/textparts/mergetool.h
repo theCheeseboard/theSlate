@@ -5,6 +5,8 @@
 #include "texteditor.h"
 #include "mainwindow.h"
 
+#include <Definition>
+
 class MainWindow;
 
 namespace Ui {
@@ -27,7 +29,7 @@ class MergeTool : public QDialog
         Q_OBJECT
 
     public:
-        explicit MergeTool(QString unmergedFile, MainWindow* parentWindow, QWidget *parent = nullptr);
+        explicit MergeTool(QString unmergedFile, KSyntaxHighlighting::Definition syntaxHighlighting, MainWindow* parentWindow, QWidget *parent = nullptr);
         ~MergeTool();
 
         static QString getUnmergedFile(QString original, QString edited, QString oTitle, QString eTitle, bool* mergeResolutionRequired);
