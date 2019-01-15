@@ -1,23 +1,1 @@
-language: cpp
-os:
-  - linux
-  - osx
-before_install:
-  - export STAGE=before_install
-  - ./travis.sh
-script:
-  - export STAGE=script
-  - ./travis.sh
-after_success:
-  - export STAGE=after_success
-  - ./travis.sh
-
-compiler:
-  - gcc
-dist: xenial
-sudo: required
-
-branches:
-  except:
-    - # Do not build tags that we create when we upload to GitHub Releases
-    - /^(?i:continuous)/
+language: cppos:  - linux  - osxbefore_install:  - export STAGE=before_install  - ./travis.shscript:  - export STAGE=script  - ./travis.shafter_success:  - export STAGE=after_success  - ./travis.shcompiler:  - gccdist: trustysudo: requiredbranches:  except:    - # Do not build tags that we create when we upload to GitHub Releases    - /^(?i:continuous)/
