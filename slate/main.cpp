@@ -168,6 +168,9 @@ int main(int argc, char *argv[])
     highlightRepo = new KSyntaxHighlighting::Repository();
     #ifdef Q_OS_MAC
         highlightRepo->addCustomSearchPath(bundlePath + "/Contents/Resources/ColorDefinitions");
+    #elif defined(Q_OS_WIN)
+        highlightRepo->addCustomSearchPath(QApplication::applicationDirPath() + "/../../../theSlate/slate/ColorDefinitions/");
+        highlightRepo->addCustomSearchPath(QApplication::applicationDirPath() + "/ColorDefinitions/");
     #endif
 
 

@@ -29,11 +29,8 @@ unix:!macx {
 
 win32 {
     QT += thelib
-    INCLUDEPATH += "C:/Program Files/thelibs/include"
-    LIBS += -L"C:/Program Files/thelibs/lib" -lthe-libs
-    CONFIG(debug, debug|release): LIBS += -L../SyntaxHighlightingPlugins/debug/
-    else: LIBS += -L../SyntaxHighlightingPlugins/release/
-    LIBS += -lSyntaxHighlightingPlugins
+    INCLUDEPATH += "C:/Program Files/thelibs/include" "C:/Program Files (x86)/KSyntaxHighlighting/include/KF5/KSyntaxHighlighting"
+    LIBS += -L"C:/Program Files/thelibs/lib" -lthe-libs -L"C:/Program Files (x86)/KSyntaxHighlighting/lib" -lKF5SyntaxHighlighting
     RC_FILE = icon.rc
     DEFINES += "THESLATE_END_OF_LINE=2"
 }
