@@ -12,14 +12,14 @@ call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary
 git clone https://github.com/vicr123/the-libs.git
 cd the-libs
 git checkout blueprint
-qmake the-libs.pro
+qmake the-libs.pro "CONFIG+=release"
 nmake release
 nmake install
 cd ..
 
 git clone https://github.com/vicr123/contemporary-theme.git
 cd contemporary-theme
-qmake Contemporary.pro
+qmake Contemporary.pro "CONFIG+=release"
 nmake release
 cd ..
 
@@ -27,7 +27,7 @@ git clone git://anongit.kde.org/extra-cmake-modules.git
 cd extra-cmake-modules
 mkdir build
 cd build
-cmake .. -G "NMake Makefiles"
+cmake -DCMAKE_BUILD_TYPE=Release .. -G "NMake Makefiles"
 nmake
 nmake install
 cd ..\..
@@ -36,12 +36,12 @@ git clone git://anongit.kde.org/syntax-highlighting.git
 cd syntax-highlighting
 mkdir build
 cd build
-cmake .. -G "NMake Makefiles"
+cmake -DCMAKE_BUILD_TYPE=Release .. -G "NMake Makefiles"
 nmake
 nmake install
 cd ..\..
 
-qmake theSlate.pro
+qmake theSlate.pro "CONFIG+=release"
 nmake release
 mkdir deploy
 mkdir deploy\styles
