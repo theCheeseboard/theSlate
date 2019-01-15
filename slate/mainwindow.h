@@ -24,8 +24,9 @@
 #include "aboutwindow.h"
 #include "texteditor.h"
 #include "SourceControl/gitintegration.h"
-#include "plugins/syntaxhighlighting.h"
 #include "textparts/printdialog.h"
+
+#include <Definition>
 
 #ifdef Q_OS_MAC
 #include <QMacToolBar>
@@ -93,7 +94,7 @@ class MainWindow : public QMainWindow
 
         void on_actionSave_All_triggered();
 
-        void setCurrentDocumentHighlighting(QSyntaxHighlighter* highlighter);
+        void setCurrentDocumentHighlighting(KSyntaxHighlighting::Definition highlighter);
 
         void on_initGitButton_clicked();
 

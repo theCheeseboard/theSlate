@@ -1,10 +1,9 @@
 TEMPLATE = subdirs
 
-slateDir.depends = SyntaxHighlightingPlugins FileBackends
+slateDir.depends = FileBackends
 slateDir.subdir = slate
 
 SUBDIRS = slateDir \
-    SyntaxHighlightingPlugins \
     FileBackends
 
 macx {

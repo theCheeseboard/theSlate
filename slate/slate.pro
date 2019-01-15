@@ -39,8 +39,8 @@ win32 {
 }
 
 macx {
-    INCLUDEPATH += "/usr/local/include/the-libs"
-    LIBS += -L/usr/local/lib -lthe-libs
+    INCLUDEPATH += "/usr/local/include/the-libs" "/usr/local/include/KF5/KSyntaxHighlighting"
+    LIBS += -L/usr/local/lib -lthe-libs -lKF5SyntaxHighlighting
 }
 
 
@@ -88,7 +88,6 @@ HEADERS += \
     exitsavedialog.h \
     textparts/topnotification.h \
     textparts/mergetool.h \
-    plugins/syntaxhighlighting.h \
     textparts/printdialog.h \
     settingsdialog.h \
     picturetabbar.h \
@@ -181,16 +180,13 @@ macx {
     locversion.files = localisedresources/
     locversion.path = Contents/Resources
 
-    syntax.files = ../SyntaxHighlightingPlugins/libSyntaxHighlightingPlugins.dylib
-    syntax.path = Contents/syntaxhighlighting/
-
     filebackend.files = ../FileBackends/LocalFileBackend/libLocalFileBackend.dylib ../FileBackends/HttpBackend/libHttpBackend.dylib
     filebackend.path = Contents/filebackends/
 
     cols.files = ColorDefinitions/
     cols.path = Contents/Resources/ColorDefinitions/
 
-    QMAKE_BUNDLE_DATA = translations locversion syntax filebackend cols
+    QMAKE_BUNDLE_DATA = translations locversion filebackend cols
 
     QMAKE_POST_LINK += $$quote(cp $${PWD}/dmgicon.icns $${PWD}/app-dmg-background.png $${PWD}/node-appdmg-config.json $${OUT_PWD}/..)
 }

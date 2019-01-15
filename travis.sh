@@ -10,6 +10,15 @@ if [ $STAGE = "script" ]; then
     make
     sudo make install INSTALL_ROOT=/
     cd ..
+    echo "[TRAVIS] Building and installing KDE Syntax Highlighting"
+    git clone git://anongit.kde.org/syntax-highlighting.git
+    cd syntax-highlighting
+    mkdir build
+    cd build
+    cmake ../CMakeLists.txt
+    make
+    sudo make install
+    cd ../..
     echo "[TRAVIS] Running qmake"
     qmake
     echo "[TRAVIS] Building project"
@@ -66,8 +75,9 @@ elif [ $STAGE = "before_install" ]; then
     sudo apt-get install qt510-meta-minimal qt510x11extras qt510tools qt510translations qt510svg qt510websockets xorg-dev libxcb-util0-dev libgl1-mesa-dev
   else
     echo "[TRAVIS] Preparing to build for macOS"
+    brew tap kde-mac/kde
     brew update
-    brew install qt5
+    brew install qt5 kf5-syntax-highlighting
   fi
 elif [ $STAGE = "after_success" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then

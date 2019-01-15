@@ -10,19 +10,13 @@ PluginManager::PluginManager(QObject *parent) : QObject(parent)
     //Load all plugins
     QStringList pluginSearchPaths;
     #if defined(Q_OS_WIN)
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../../SyntaxHighlightingPlugins/");
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "/syntaxhighlighting/");
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/../../FileBackends/");
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/filebackends/");
     #elif defined(Q_OS_MAC)
-        pluginSearchPaths.append(bundlePath + "/Contents/syntaxhighlighting/");
         pluginSearchPaths.append(bundlePath + "/Contents/filebackends/");
     #elif (defined Q_OS_UNIX)
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../SyntaxHighlightingPlugins/");
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/../FileBackends/");
-        pluginSearchPaths.append("/usr/share/theslate/syntaxhighlighting/");
         pluginSearchPaths.append("/usr/share/theslate/filebackends/");
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "../share/theslate/syntaxhighlighting/");
         pluginSearchPaths.append(QApplication::applicationDirPath() + "../share/theslate/filebackends/");
     #endif
 
@@ -43,11 +37,6 @@ PluginManager::PluginManager(QObject *parent) : QObject(parent)
 
     QStringList errors;
     for (QObject* obj : availablePlugins) {
-        SyntaxHighlighting* highlighter = qobject_cast<SyntaxHighlighting*>(obj);
-        if (highlighter) {
-            highlightingDefinitions.append(highlighter);
-        }
-
         FileBackendPlugin* file = qobject_cast<FileBackendPlugin*>(obj);
         if (file) {
             QList<FileBackendFactory*> backends = file->getFactories();
@@ -70,10 +59,6 @@ PluginManager::PluginManager(QObject *parent) : QObject(parent)
 
 QList<FileBackendFactory*> PluginManager::fileBackends() {
     return fileFactories;
-}
-
-QList<SyntaxHighlighting*> PluginManager::syntaxHighlighters() {
-    return highlightingDefinitions;
 }
 
 FileBackendFactory* PluginManager::getLocalFileBackend() {

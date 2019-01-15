@@ -20,6 +20,8 @@
 #include "textparts/topnotification.h"
 #include "textparts/mergetool.h"
 
+#include <Definition>
+
 class TabButton;
 class FindReplace;
 class MainWindow;
@@ -83,7 +85,7 @@ class TextEditor : public QPlainTextEdit
         bool saveFileAskForFilename(bool saveAs = false);
         void revertFile(QTextCodec* codec = nullptr);
 
-        void setHighlighter(QSyntaxHighlighter* hl);
+        void setHighlighter(KSyntaxHighlighting::Definition hl);
 
         void setExtraSelectionGroup(QString extraSelectionGroup, QList<QTextEdit::ExtraSelection> selections);
         QList<QTextEdit::ExtraSelection> extraSelectionGroup(QString extraSelectionGroup);

@@ -12,8 +12,13 @@
 #include "plugins/pluginmanager.h"
 #include "managers/recentfilesmanager.h"
 
+#include <Repository>
+#include <SyntaxHighlighter>
+#include <Theme>
+
 extern PluginManager* plugins;
 extern RecentFilesManager* recentFiles;
+extern KSyntaxHighlighting::Repository* highlightRepo;
 
 extern QColor getSyntaxHighlighterColor(QString color);
 
@@ -23,7 +28,7 @@ class TextEditorPrivate {
         bool active;
         bool edited = false;
         bool firstEdit = true;
-        QSyntaxHighlighter* hl = nullptr;
+        KSyntaxHighlighting::SyntaxHighlighter* hl = nullptr;
         MainWindow* parentWindow;
 
         QTextCodec* textCodec = nullptr;
@@ -99,9 +104,9 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
         if (d->firstEdit) {
             d->firstEdit = false;
         } else {
-            if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
-            ((TextEditorBlockData*) this->textCursor().block().userData())->marginState = TextEditorBlockData::Edited;
-            d->leftMargin->update();
+            //if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
+            //((TextEditorBlockData*) this->textCursor().block().userData())->marginState = TextEditorBlockData::Edited;
+            //d->leftMargin->update();
             d->edited = true;
             emit editedChanged();
         }
@@ -310,12 +315,17 @@ void TextEditor::openFile(FileBackend *backend) {
     backend->load()->then([=](QByteArray data) {
         loadText(data);
 
-        QMap<SyntaxHighlighting*, QString> recommendedBackend;
+        /*QMap<SyntaxHighlighting*, QString> recommendedBackend;
         for (SyntaxHighlighting* h : plugins->syntaxHighlighters()) {
             QString f = h->highlighterForFilename(backend->url().toString());
             if (f != "") recommendedBackend.insert(h, f);
         }
-        if (recommendedBackend.count() != 0) this->setHighlighter(recommendedBackend.firstKey()->makeHighlighter(recommendedBackend.first(), &getSyntaxHighlighterColor));
+        if (recommendedBackend.count() != 0) this->setHighlighter(recommendedBackend.firstKey()->makeHighlighter(recommendedBackend.first(), &getSyntaxHighlighterColor));*/
+
+        KSyntaxHighlighting::Definition def = highlightRepo->definitionForFileName(backend->url().toString());
+        if (def.isValid()) {
+            setHighlighter(def);
+        }
 
         if (git != nullptr) {
             git->deleteLater();
@@ -725,7 +735,7 @@ void TextEditor::highlightCurrentLine()
 }
 
 void TextEditor::cursorLocationChanged() {
-    if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
+    //if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
     highlightCurrentLine();
 
     clearExtraSelectionGroup("bracketLocation");
@@ -864,8 +874,8 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
             painter.drawText(0, top, d->leftMargin->width(), fontMetrics().height(), Qt::AlignRight, number);
         }
 
-        TextEditorBlockData* blockData = (TextEditorBlockData*) block.userData();
-        if (blockData != nullptr) {
+        //TextEditorBlockData* blockData = (TextEditorBlockData*) block.userData();
+        /*if (blockData != nullptr) {
             painter.setPen(Qt::transparent);
             switch (blockData->marginState) {
                 case TextEditorBlockData::None:
@@ -879,7 +889,7 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
                     break;
             }
             painter.drawRect(0, top, 3 * theLibsGlobal::getDPIScaling(), bottom - top);
-        }
+        }*/
 
         block = block.next();
         top = bottom;
@@ -1135,14 +1145,30 @@ bool TextEditor::mergedLineIsAccepted(MergeLines mergedLine) {
     return d->mergeDecisions.value(mergedLine);
 }
 
-void TextEditor::setHighlighter(QSyntaxHighlighter *hl) {
+void TextEditor::setHighlighter(KSyntaxHighlighting::Definition hl) {
     if (d->hl != nullptr) {
         d->hl->deleteLater();
     }
-    d->hl = hl;
-    if (hl != nullptr) {
-        hl->setDocument(this->document());
-        hl->rehighlight();
+
+    if (hl.isValid()) {
+        KSyntaxHighlighting::SyntaxHighlighter* highlighter = new KSyntaxHighlighting::SyntaxHighlighter(this);
+        highlighter->setDefinition(hl);
+
+        QColor background = QApplication::palette("QPlainTextEditor").color(QPalette::Window);
+        int avg = (background.blue() + background.green() + background.red()) / 3;
+
+        bool dark = false;
+        if (avg < 127) {
+            dark = true;
+        }
+        if (dark) {
+            highlighter->setTheme(highlightRepo->theme("Contemporary Dark"));
+        } else {
+            highlighter->setTheme(highlightRepo->theme("Contemporary"));
+        }
+        d->hl = highlighter;
+
+        highlighter->setDocument(this->document());
     }
 }
 

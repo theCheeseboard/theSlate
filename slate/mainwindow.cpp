@@ -16,6 +16,11 @@
 #include "managers/recentfilesmanager.h"
 #include "managers/updatemanager.h"
 
+#include <Repository>
+#include <SyntaxHighlighter>
+#include <Definition>
+#include <Theme>
+
 #ifdef Q_OS_MAC
     extern QString bundlePath;
     extern void setToolbarItemWidget(QMacToolBarItem* item, QWidget* widget);
@@ -25,10 +30,13 @@ extern QLinkedList<QString> clipboardHistory;
 extern PluginManager* plugins;
 extern RecentFilesManager* recentFiles;
 extern UpdateManager* updateManager;
+extern KSyntaxHighlighting::Repository* highlightRepo;
 
 extern QColor getSyntaxHighlighterColor(QString color);
 
 QList<MainWindow*> MainWindow::openWindows = QList<MainWindow*>();
+
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -41,13 +49,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->mainToolBar->setIconSize(ui->mainToolBar->iconSize() * theLibsGlobal::getDPIScaling());
     
     //Load plugins
-    for (SyntaxHighlighting* highlighter : plugins->syntaxHighlighters()) {
+    /*for (SyntaxHighlighting* highlighter : plugins->syntaxHighlighters()) {
         for (QString name : highlighter->availableHighlighters()) {
             ui->menuCode->addAction(name, [=] {
                 setCurrentDocumentHighlighting(highlighter->makeHighlighter(name, &getSyntaxHighlighterColor));
             });
         }
-    }
+    }*/
 
     for (FileBackendFactory* factory : plugins->fileBackends()) {
         if (factory != plugins->getLocalFileBackend()) {
@@ -56,6 +64,24 @@ MainWindow::MainWindow(QWidget *parent) :
         }
         connect(factory, &FileBackendFactory::openFile, [=](FileBackend* backend) {
             newTab(backend);
+        });
+    }
+
+    //Load Syntax Highlighters
+    QMenu* sectionMenu = nullptr;
+    for (KSyntaxHighlighting::Definition d : highlightRepo->definitions()) {
+        if (sectionMenu == nullptr || sectionMenu->property("sectionName") != d.section()) {
+            sectionMenu = new QMenu();
+            sectionMenu->setTitle(" " + d.translatedSection());
+            sectionMenu->setProperty("sectionName", d.section());
+
+            if (d.section() != "") {
+                ui->menuCode->addMenu(sectionMenu);
+            }
+        }
+
+        sectionMenu->addAction(d.translatedName(), [=] {
+            setCurrentDocumentHighlighting(d);
         });
     }
 
@@ -626,7 +652,7 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionNo_Highlighting_triggered()
 {
-    setCurrentDocumentHighlighting(nullptr);
+    setCurrentDocumentHighlighting(KSyntaxHighlighting::Definition());
 }
 
 void MainWindow::on_projectTree_clicked(const QModelIndex &index)
@@ -724,7 +750,7 @@ void MainWindow::on_actionSave_All_triggered()
     }
 }
 
-void MainWindow::setCurrentDocumentHighlighting(QSyntaxHighlighter* highlighting) {
+void MainWindow::setCurrentDocumentHighlighting(KSyntaxHighlighting::Definition highlighting) {
     if (currentDocument() == nullptr) {
 
     } else {

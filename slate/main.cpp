@@ -12,6 +12,7 @@
 #include "plugins/pluginmanager.h"
 #include "managers/recentfilesmanager.h"
 #include "managers/updatemanager.h"
+#include <Repository>
 
 #ifdef Q_OS_MAC
     #include <CoreFoundation/CFBundle.h>
@@ -24,6 +25,7 @@ QLinkedList<QString> clipboardHistory;
 PluginManager* plugins;
 RecentFilesManager* recentFiles;
 UpdateManager* updateManager;
+KSyntaxHighlighting::Repository* highlightRepo;
 
 void setupMacMenubar() {
     //Set up macOS menu bar when no window is open
@@ -162,6 +164,12 @@ int main(int argc, char *argv[])
     //Set up plugins
     plugins = new PluginManager();
     recentFiles = new RecentFilesManager();
+
+    highlightRepo = new KSyntaxHighlighting::Repository();
+    #ifdef Q_OS_MAC
+        highlightRepo->addCustomSearchPath(bundlePath + "/Contents/Resources/ColorDefinitions");
+    #endif
+
 
     MainWindow* w = new MainWindow();
 
