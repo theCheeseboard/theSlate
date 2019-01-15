@@ -45,7 +45,7 @@ CppSyntaxHighlighter::CppSyntaxHighlighter(QColor (*getColor)(QString), QObject 
     QStringList controlPatterns;
     controlPatterns << "\\bif\\b" << "\\bwhile\\b" << "\\bdo\\b"
                     << "\\bfor\\b" << "\\bswitch\\b" << "\\bcase\\b"
-                    << "\\belse\\b" << "\\breturn\\n";
+                    << "\\belse\\b" << "\\breturn\\b";
     for (QString pattern : controlPatterns) {
         rule.pattern = QRegularExpression(pattern);
         rule.format = controlFormat;

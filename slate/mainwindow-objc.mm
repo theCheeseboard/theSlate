@@ -264,9 +264,14 @@ static NSTouchBarItemIdentifier topbar2Identifier = @"com.thesuite.theslate.topb
     //On an unrelated note, set full screen window properties
     return (NSApplicationPresentationFullScreen | NSApplicationPresentationHideDock | NSApplicationPresentationAutoHideMenuBar | NSApplicationPresentationAutoHideToolbar);
 }
+
+
 @end
 
 void MainWindow::setupMacOS() {
+    //Disable automatic window tabbing
+    [NSWindow setAllowsAutomaticWindowTabbing:NO];
+
     //Install TouchBarProvider as window delegate
     NSView *view = reinterpret_cast<NSView *>(this->winId());
     TouchBarProvider *touchBarProvider = [[TouchBarProvider alloc] init:ui];

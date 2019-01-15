@@ -663,6 +663,7 @@ void MainWindow::updateGit() {
             currentDocument()->git->reloadStatus()->then([=](QStringList changedFiles) {
                 ui->modifiedChanges->clear();
 
+                QVector<QListWidgetItem*> items;
                 bool hasConflicts = false;
                 for (QString changedFile : changedFiles) {
                     if (changedFile != "") {
@@ -687,8 +688,15 @@ void MainWindow::updateGit() {
                         }
                         item->setData(Qt::UserRole, fileLocation);
 
-                        ui->modifiedChanges->addItem(item);
+                        items.append(item);
                     }
+                }
+
+                std::sort(items.begin(), items.end(), [=](const QListWidgetItem* a, const QListWidgetItem* b) {
+                    return a->text() < b->text();
+                });
+                for (QListWidgetItem* item : items) {
+                    ui->modifiedChanges->addItem(item);
                 }
 
                 ui->gitMergeConflictsFrame->setVisible(hasConflicts);
