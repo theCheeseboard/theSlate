@@ -13,6 +13,7 @@
 #include "managers/recentfilesmanager.h"
 #include "managers/updatemanager.h"
 #include <Repository>
+#include <Theme>
 
 #ifdef Q_OS_MAC
     #include <CoreFoundation/CFBundle.h>
@@ -26,6 +27,7 @@ PluginManager* plugins;
 RecentFilesManager* recentFiles;
 UpdateManager* updateManager;
 KSyntaxHighlighting::Repository* highlightRepo;
+KSyntaxHighlighting::Theme highlightTheme;
 
 void setupMacMenubar() {
     //Set up macOS menu bar when no window is open
@@ -173,6 +175,18 @@ int main(int argc, char *argv[])
         highlightRepo->addCustomSearchPath(QApplication::applicationDirPath() + "/ColorDefinitions/");
     #endif
 
+
+    QColor background = QApplication::palette("QPlainTextEditor").color(QPalette::Window);
+    int avg = (background.blue() + background.green() + background.red()) / 3;
+    bool dark = false;
+    if (avg < 127) {
+        dark = true;
+    }
+    if (dark) {
+        highlightTheme = highlightRepo->theme("Contemporary Dark");
+    } else {
+        highlightTheme = highlightRepo->theme("Contemporary");
+    }
 
     MainWindow* w = new MainWindow();
 

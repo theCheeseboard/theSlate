@@ -32,8 +32,6 @@ extern RecentFilesManager* recentFiles;
 extern UpdateManager* updateManager;
 extern KSyntaxHighlighting::Repository* highlightRepo;
 
-extern QColor getSyntaxHighlighterColor(QString color);
-
 QList<MainWindow*> MainWindow::openWindows = QList<MainWindow*>();
 
 

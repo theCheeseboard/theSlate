@@ -19,8 +19,7 @@
 extern PluginManager* plugins;
 extern RecentFilesManager* recentFiles;
 extern KSyntaxHighlighting::Repository* highlightRepo;
-
-extern QColor getSyntaxHighlighterColor(QString color);
+extern KSyntaxHighlighting::Theme highlightTheme;
 
 class TextEditorPrivate {
     public:
@@ -1150,26 +1149,17 @@ void TextEditor::setHighlighter(KSyntaxHighlighting::Definition hl) {
         d->hl->deleteLater();
     }
 
+    KSyntaxHighlighting::SyntaxHighlighter* highlighter = new KSyntaxHighlighting::SyntaxHighlighter(this);
     if (hl.isValid()) {
-        KSyntaxHighlighting::SyntaxHighlighter* highlighter = new KSyntaxHighlighting::SyntaxHighlighter(this);
         highlighter->setDefinition(hl);
-
-        QColor background = QApplication::palette("QPlainTextEditor").color(QPalette::Window);
-        int avg = (background.blue() + background.green() + background.red()) / 3;
-
-        bool dark = false;
-        if (avg < 127) {
-            dark = true;
-        }
-        if (dark) {
-            highlighter->setTheme(highlightRepo->theme("Contemporary Dark"));
-        } else {
-            highlighter->setTheme(highlightRepo->theme("Contemporary"));
-        }
-        d->hl = highlighter;
-
-        highlighter->setDocument(this->document());
+    } else {
+        highlighter->setDefinition(highlightRepo->definitionForName("None"));
     }
+
+    highlighter->setTheme(highlightTheme);
+    highlighter->setDocument(this->document());
+
+    d->hl = highlighter;
 }
 
 void TextEditor::reloadSettings() {
@@ -1185,10 +1175,10 @@ void TextEditor::reloadSettings() {
 
     //Set up palette
     QPalette pal = QApplication::palette(this);
-    pal.setColor(QPalette::Window, getSyntaxHighlighterColor("editor/bg"));
-    pal.setColor(QPalette::Base, getSyntaxHighlighterColor("editor/bg"));
-    pal.setColor(QPalette::WindowText, getSyntaxHighlighterColor("editor/fg"));
-    pal.setColor(QPalette::Text, getSyntaxHighlighterColor("editor/fg"));
+    pal.setColor(QPalette::Window, highlightTheme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
+    pal.setColor(QPalette::Base, highlightTheme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
+    //pal.setColor(QPalette::WindowText, getSyntaxHighlighterColor("editor/fg"));
+    //pal.setColor(QPalette::Text, getSyntaxHighlighterColor("editor/fg"));
     this->setPalette(pal);
 }
 
