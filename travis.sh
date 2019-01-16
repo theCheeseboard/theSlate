@@ -16,7 +16,7 @@ if [ $STAGE = "script" ]; then
     cd extra-cmake-modules
     mkdir build
     cd build
-    cmake ..
+    cmake -DCMAKE_INSTALL_PREFIX=/usr ..
     make
     sudo make install
     cd ../..
@@ -26,7 +26,7 @@ if [ $STAGE = "script" ]; then
     cd syntax-highlighting
     mkdir build
     cd build
-    cmake ..
+    cmake -DCMAKE_INSTALL_PREFIX=/usr -DECM_MKSPECS_INSTALL_DIR=$(qmake -query QMAKE_INSTALL_PLUGINS)/../mkspecs ..
     make
     sudo make install
     cd ../..
