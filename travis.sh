@@ -10,6 +10,17 @@ if [ $STAGE = "script" ]; then
     make
     sudo make install INSTALL_ROOT=/
     cd ..
+    
+    echo "[TRAVIS] Building and installing extra CMake modules"
+    git clone git://anongit.kde.org/extra-cmake-modules
+    cd extra-cmake-modules
+    mkdir build
+    cd build
+    cmake ../CMakeLists.txt
+    make
+    sudo make install
+    cd ../..
+    
     echo "[TRAVIS] Building and installing KDE Syntax Highlighting"
     git clone git://anongit.kde.org/syntax-highlighting.git
     cd syntax-highlighting
@@ -19,6 +30,7 @@ if [ $STAGE = "script" ]; then
     make
     sudo make install
     cd ../..
+    
     echo "[TRAVIS] Running qmake"
     qmake
     echo "[TRAVIS] Building project"
@@ -72,7 +84,7 @@ elif [ $STAGE = "before_install" ]; then
     sudo add-apt-repository 'deb https://vicr123.com/repo/apt/ubuntu bionic main'
     sudo add-apt-repository -y ppa:beineri/opt-qt-5.10.1-trusty
     sudo apt-get update -qq
-    sudo apt-get install qt510-meta-minimal qt510x11extras qt510tools qt510translations qt510svg qt510websockets xorg-dev libxcb-util0-dev libgl1-mesa-dev extra-cmake-modules
+    sudo apt-get install qt510-meta-minimal qt510x11extras qt510tools qt510translations qt510svg qt510websockets xorg-dev libxcb-util0-dev libgl1-mesa-dev
   else
     echo "[TRAVIS] Preparing to build for macOS"
     brew tap kde-mac/kde
