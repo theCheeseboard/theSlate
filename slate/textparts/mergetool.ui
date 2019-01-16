@@ -151,6 +151,12 @@
        </property>
        <item>
         <widget class="QLabel" name="localChangesTitle">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="font">
           <font>
            <pointsize>15</pointsize>
@@ -173,6 +179,12 @@
        </property>
        <item>
         <widget class="QLabel" name="remoteChangesTitle">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="font">
           <font>
            <pointsize>15</pointsize>

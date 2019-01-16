@@ -16,6 +16,10 @@
 #include <SyntaxHighlighter>
 #include <Theme>
 
+#if THE_LIBS_API_VERSION >= 3
+#include <tpopover.h>
+#endif
+
 extern PluginManager* plugins;
 extern RecentFilesManager* recentFiles;
 extern KSyntaxHighlighting::Repository* highlightRepo;
@@ -164,18 +168,37 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
             MergeTool* tool = new MergeTool(this->toPlainText(), d->hlDef, d->parentWindow);
             tool->setTitle(tr("Resolve a Merge Conflict"));
             tool->setParent(this);
-            tool->setWindowFlag(Qt::Sheet);
-            tool->setModal(Qt::WindowModal);
-            tool->show();
-            d->parentWindow->menuBar()->setEnabled(false);
+            #if THE_LIBS_API_VERSION >= 3 && !defined(Q_OS_MAC)
+                tool->setWindowFlags(Qt::Widget);
+                tPopover* popover = new tPopover(tool);
+                popover->setPopoverWidth(-100 * theLibsGlobal::getDPIScaling());
+                popover->show(this->window());
 
-            connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
-                this->setPlainText(revisedFile);
-                removeTopPanel(d->mergeConflictsNotification);
-            });
-            connect(tool, &MergeTool::finished, [=] {
-                d->parentWindow->menuBar()->setEnabled(true);
-            });
+                connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
+                    this->setPlainText(revisedFile);
+                    removeTopPanel(d->mergeConflictsNotification);
+                });
+                connect(tool, &MergeTool::finished, [=] {
+                    d->parentWindow->menuBar()->setEnabled(true);
+                    popover->dismiss();
+                });
+                connect(popover, &tPopover::dismissed, [=] {
+                    tool->reject();
+                });
+            #else
+                tool->setWindowFlag(Qt::Sheet);
+                tool->setModal(Qt::WindowModal);
+                tool->show();
+                d->parentWindow->menuBar()->setEnabled(false);
+
+                connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
+                    this->setPlainText(revisedFile);
+                    removeTopPanel(d->mergeConflictsNotification);
+                });
+                connect(tool, &MergeTool::finished, [=] {
+                    d->parentWindow->menuBar()->setEnabled(true);
+                });
+            #endif
         });;
         d->mergeConflictsNotification->addButton(fixMergeButton);
 
@@ -209,18 +232,38 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
                     MergeTool* tool = new MergeTool(mergeFile, d->hlDef, d->parentWindow);
                     tool->setTitle(tr("Resolve a Save Conflict"));
                     tool->setParent(this);
-                    tool->setWindowFlag(Qt::Sheet);
-                    tool->setModal(Qt::WindowModal);
-                    tool->show();
-                    d->parentWindow->menuBar()->setEnabled(false);
 
-                    connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
-                        this->setPlainText(revisedFile);
-                        removeTopPanel(d->onDiskChanged);
-                    });
-                    connect(tool, &MergeTool::finished, [=] {
-                        d->parentWindow->menuBar()->setEnabled(true);
-                    });
+                    #if THE_LIBS_API_VERSION >= 3 && !defined(Q_OS_MAC)
+                        tool->setWindowFlags(Qt::Widget);
+                        tPopover* popover = new tPopover(tool);
+                        popover->setPopoverWidth(-100 * theLibsGlobal::getDPIScaling());
+                        popover->show(this->window());
+
+                        connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
+                            this->setPlainText(revisedFile);
+                            removeTopPanel(d->onDiskChanged);
+                        });
+                        connect(tool, &MergeTool::finished, [=] {
+                            d->parentWindow->menuBar()->setEnabled(true);
+                            popover->dismiss();
+                        });
+                        connect(popover, &tPopover::dismissed, [=] {
+                            tool->reject();
+                        });
+                    #else
+                        tool->setWindowFlag(Qt::Sheet);
+                        tool->setModal(Qt::WindowModal);
+                        tool->show();
+                        d->parentWindow->menuBar()->setEnabled(false);
+
+                        connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
+                            this->setPlainText(revisedFile);
+                            removeTopPanel(d->onDiskChanged);
+                        });
+                        connect(tool, &MergeTool::finished, [=] {
+                            d->parentWindow->menuBar()->setEnabled(true);
+                        });
+                    #endif
                 } else {
                     //Merge resolution tool not needed
                     this->setPlainText(mergeFile);
