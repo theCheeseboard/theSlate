@@ -23,7 +23,6 @@ macx {
 unix:!macx {
     QT += thelib KSyntaxHighlighting
     TARGET = theslate
-    LIBS +=  -L../SyntaxHighlightingPlugins/ -lSyntaxHighlightingPlugins
     DEFINES += "THESLATE_END_OF_LINE=0"
 }
 

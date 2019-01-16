@@ -173,6 +173,10 @@ int main(int argc, char *argv[])
     #elif defined(Q_OS_WIN)
         highlightRepo->addCustomSearchPath(QApplication::applicationDirPath() + "/../../../theSlate/slate/ColorDefinitions/");
         highlightRepo->addCustomSearchPath(QApplication::applicationDirPath() + "/ColorDefinitions/");
+    #else
+        highlightRepo->addCustomSearchPath(QApplication::applicationDirPath() + "/../../theSlate/slate/ColorDefinitions/");
+        highlightRepo->addCustomSearchPath("/usr/share/theslate/ColorDefinitions/");
+        highlightRepo->addCustomSearchPath(QApplication::applicationDirPath() + "../share/theslate/ColorDefinitions/");
     #endif
 
 
