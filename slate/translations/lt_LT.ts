@@ -16,11 +16,16 @@
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="52"/>
-        <source>Copyright (c) Victor Tran 2018. Licensed under the terms of the GNU General Public License, version 3 or later.</source>
-        <translation>Autorinės teisės (c) Victor Tran 2018. Licencijuota po GNU General Public License, versija 3 arba vėlesne.</translation>
+        <source>theSlate uses KSyntaxHighlighting for the syntax highlighting definitions. KSyntaxHighlighting is licensed under the MIT license.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../aboutwindow.ui" line="77"/>
+        <location filename="../aboutwindow.ui" line="62"/>
+        <source>Copyright (c) Victor Tran 2019. Licensed under the terms of the GNU General Public License, version 3 or later.</source>
+        <translation type="unfinished">Autorinės teisės (c) Victor Tran 2018. Licencijuota po GNU General Public License, versija 3 arba vėlesne. {2019.?} {3 ?}</translation>
+    </message>
+    <message>
+        <location filename="../aboutwindow.ui" line="87"/>
         <source>OK</source>
         <translation>Gerai</translation>
     </message>
