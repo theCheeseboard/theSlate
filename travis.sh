@@ -16,7 +16,7 @@ if [ $STAGE = "script" ]; then
     cd extra-cmake-modules
     mkdir build
     cd build
-    cmake ../CMakeLists.txt
+    cmake ..
     make
     sudo make install
     cd ../..
@@ -26,7 +26,7 @@ if [ $STAGE = "script" ]; then
     cd syntax-highlighting
     mkdir build
     cd build
-    cmake ../CMakeLists.txt
+    cmake ..
     make
     sudo make install
     cd ../..
