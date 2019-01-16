@@ -745,29 +745,29 @@
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../textparts/mergetool.cpp" line="68"/>
+        <location filename="../textparts/mergetool.cpp" line="65"/>
         <source>%1 (Current changes)</source>
         <translation>%1 (Aktuelle Änderungen)</translation>
     </message>
     <message>
-        <location filename="../textparts/mergetool.cpp" line="93"/>
+        <location filename="../textparts/mergetool.cpp" line="90"/>
         <source>%1 (Incoming changes)</source>
         <translation>%1 (Eingehende Änderungen)</translation>
     </message>
     <message>
-        <location filename="../textparts/mergetool.cpp" line="173"/>
-        <location filename="../textparts/mergetool.cpp" line="190"/>
-        <location filename="../textparts/mergetool.cpp" line="200"/>
+        <location filename="../textparts/mergetool.cpp" line="174"/>
+        <location filename="../textparts/mergetool.cpp" line="191"/>
+        <location filename="../textparts/mergetool.cpp" line="201"/>
         <source>[Awaiting merge decision]</source>
         <translation>[Erwartung der Zusammenführung]</translation>
     </message>
     <message>
-        <location filename="../textparts/mergetool.cpp" line="192"/>
+        <location filename="../textparts/mergetool.cpp" line="193"/>
         <source>Unresolved Merge Conflicts</source>
         <translation>Ungelöste Zusammenführungskonflikte</translation>
     </message>
     <message>
-        <location filename="../textparts/mergetool.cpp" line="193"/>
+        <location filename="../textparts/mergetool.cpp" line="194"/>
         <source>You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?</source>
         <translation>Sie haben immer noch Zusammenführungskonflikte, für die Sie noch keine Auflösung ausgewählt haben. Sind Sie sicher, dass Sie diese Lösung noch akzeptieren möchten?</translation>
     </message>

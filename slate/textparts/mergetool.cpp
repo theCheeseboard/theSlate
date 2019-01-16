@@ -24,9 +24,6 @@ MergeTool::MergeTool(QString unmergedFile, KSyntaxHighlighting::Definition synta
     source = new TextEditor(mainWindow);
     remote = new TextEditor(mainWindow);
     endFile = new TextEditor(mainWindow);
-    //source->setHighlighter(syntaxHighlighting);
-    //remote->setHighlighter(syntaxHighlighting);
-    //endFile->setHighlighter(syntaxHighlighting);
 
     source->lockScrolling(remote);
     source->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -144,6 +141,10 @@ MergeTool::MergeTool(QString unmergedFile, KSyntaxHighlighting::Definition synta
 
     source->setMergedLines(mergeLines);
     remote->setMergedLines(mergeLines);
+
+    source->setHighlighter(syntaxHighlighting);
+    remote->setHighlighter(syntaxHighlighting);
+    endFile->setHighlighter(syntaxHighlighting);
 }
 
 MergeTool::~MergeTool()
