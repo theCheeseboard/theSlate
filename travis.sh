@@ -72,12 +72,12 @@ elif [ $STAGE = "before_install" ]; then
     sudo add-apt-repository 'deb https://vicr123.com/repo/apt/ubuntu bionic main'
     sudo add-apt-repository -y ppa:beineri/opt-qt-5.10.1-trusty
     sudo apt-get update -qq
-    sudo apt-get install qt510-meta-minimal qt510x11extras qt510tools qt510translations qt510svg qt510websockets xorg-dev libxcb-util0-dev libgl1-mesa-dev
+    sudo apt-get install qt510-meta-minimal qt510x11extras qt510tools qt510translations qt510svg qt510websockets xorg-dev libxcb-util0-dev libgl1-mesa-dev extra-cmake-modules
   else
     echo "[TRAVIS] Preparing to build for macOS"
     brew tap kde-mac/kde
     brew update
-    brew install qt5 kf5-syntax-highlighting extra-cmake-modules
+    brew install qt5 kf5-syntax-highlighting
   fi
 elif [ $STAGE = "after_success" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
