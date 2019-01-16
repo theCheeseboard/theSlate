@@ -26,7 +26,7 @@ if [ $STAGE = "script" ]; then
     cd syntax-highlighting
     mkdir build
     cd build
-    cmake -DCMAKE_INSTALL_PREFIX=/usr -DECM_MKSPECS_INSTALL_DIR=$(qmake -query QMAKE_INSTALL_PLUGINS)/../mkspecs ..
+    cmake -DCMAKE_INSTALL_PREFIX=/usr -DECM_MKSPECS_INSTALL_DIR=/opt/qt510/mkspecs/modules/ ..
     make
     sudo make install
     cd ../..
