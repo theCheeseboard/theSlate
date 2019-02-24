@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
     a.setOrganizationDomain("");
     a.setApplicationName("theSlate");
 
-    a.registerCrashTrap();
+    //a.registerCrashTrap();
 
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
