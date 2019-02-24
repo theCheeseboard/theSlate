@@ -17,14 +17,14 @@ PluginManager::PluginManager(QObject *parent) : QObject(parent)
     #elif (defined Q_OS_UNIX)
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/../FileBackends/");
         pluginSearchPaths.append("/usr/share/theslate/filebackends/");
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "../../share/theslate/filebackends/");
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../share/theslate/filebackends/");
     #endif
 
     QObjectList availablePlugins;
     availablePlugins.append(QPluginLoader::staticInstances());
 
     for (QString path : pluginSearchPaths) {
-        QDirIterator it(path, QDirIterator::Subdirectories);
+        QDirIterator it(QDir::cleanPath(path), QDirIterator::Subdirectories);
         while (it.hasNext()) {
             it.next();
             QPluginLoader loader(it.filePath());

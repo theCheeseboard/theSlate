@@ -166,7 +166,7 @@ unix:!macx {
     cols.files = ColorDefinitions/*
     cols.path = /usr/share/theslate/ColorDefinitions
 
-    INSTALLS += target translations desktop icon headers
+    INSTALLS += target translations desktop icon headers cols
 }
 
 macx {
@@ -191,7 +191,9 @@ DISTFILES += \
     theslate.desktop \
     app-dmg-background.png \
     icon.icns \
-    Info.plist
+    Info.plist \
+    ColorDefinitions/themes/Contemporary.theme \
+    ColorDefinitions/themes/ContemporaryDark.theme
 
 macx {
     sign.target = sign
