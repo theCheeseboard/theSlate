@@ -178,7 +178,7 @@ int main(int argc, char *argv[])
     #else
         highlightRepo->addCustomSearchPath(QDir::cleanPath(QApplication::applicationDirPath() + "/../../theSlate/slate/ColorDefinitions/"));
         highlightRepo->addCustomSearchPath("/usr/share/theslate/ColorDefinitions/");
-        highlightRepo->addCustomSearchPath(QDir::cleanPath(QApplication::applicationDirPath() + "../share/theslate/ColorDefinitions/"));
+        highlightRepo->addCustomSearchPath(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theslate/ColorDefinitions/"));
     #endif
 
     QColor background = QApplication::palette("QPlainTextEditor").color(QPalette::Window);
