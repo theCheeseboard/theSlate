@@ -17,7 +17,7 @@ PluginManager::PluginManager(QObject *parent) : QObject(parent)
     #elif (defined Q_OS_UNIX)
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/../FileBackends/");
         pluginSearchPaths.append("/usr/share/theslate/filebackends/");
-        pluginSearchPaths.append(QApplication::applicationDirPath() + "../share/theslate/filebackends/");
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "../../share/theslate/filebackends/");
     #endif
 
     QObjectList availablePlugins;

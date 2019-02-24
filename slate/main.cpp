@@ -77,6 +77,8 @@ int main(int argc, char *argv[])
     a.setOrganizationDomain("");
     a.setApplicationName("theSlate");
 
+    a.registerCrashTrap();
+
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     a.installTranslator(&qtTranslator);
@@ -176,7 +178,7 @@ int main(int argc, char *argv[])
     #else
         highlightRepo->addCustomSearchPath(QApplication::applicationDirPath() + "/../../theSlate/slate/ColorDefinitions/");
         highlightRepo->addCustomSearchPath("/usr/share/theslate/ColorDefinitions/");
-        highlightRepo->addCustomSearchPath(QApplication::applicationDirPath() + "../share/theslate/ColorDefinitions/");
+        highlightRepo->addCustomSearchPath(QApplication::applicationDirPath() + "../../share/theslate/ColorDefinitions/");
     #endif
 
 
