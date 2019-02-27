@@ -394,10 +394,7 @@ void MainWindow::newTab() {
         ui->tabButtons->addWidget(view->getTabButton());
     #endif
 
-    ui->closeButton->setVisible(true);
-    ui->actionSave->setEnabled(true);
-    ui->menuCode->setEnabled(true);
-    ui->actionClose->setEnabled(true);
+    updateDocumentDependantTabs();
 }
 
 void MainWindow::newTab(QString filename) {
@@ -548,12 +545,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
                 ui->tabs->removeWidget(tab);
                 tab->deleteLater();
 
-                if (ui->tabs->count() == 0) {
-                    ui->closeButton->setVisible(false);
-                    ui->actionSave->setEnabled(false);
-                    ui->menuCode->setEnabled(false);
-                    ui->actionClose->setEnabled(false);
-                }
+                updateDocumentDependantTabs();
             });
             dialog->show();
 
@@ -612,12 +604,7 @@ bool MainWindow::closeCurrentTab() {
     ui->tabs->removeWidget(current);
     current->deleteLater();
 
-    if (ui->tabs->count() == 0) {
-        ui->closeButton->setVisible(false);
-        ui->actionSave->setEnabled(false);
-        ui->menuCode->setEnabled(false);
-        ui->actionClose->setEnabled(false);
-    }
+    updateDocumentDependantTabs();
     return true;
 }
 
@@ -1074,4 +1061,16 @@ void MainWindow::on_actionUse_Menubar_toggled(bool arg1)
         ui->menuCode->setIcon(QIcon::fromTheme("commit", QIcon(":/icons/commit.svg")));
         ui->menuHelp->setIcon(QIcon::fromTheme("help-contents", QIcon(":/icons/help-contents.svg")));
     }
+}
+
+void MainWindow::updateDocumentDependantTabs() {
+    bool enabled = (ui->tabs->count() != 0);
+    ui->closeButton->setVisible(enabled);
+    ui->actionSave->setEnabled(enabled);
+    ui->actionSave_As->setEnabled(enabled);
+    ui->menuCode->setEnabled(enabled);
+    ui->actionClose->setEnabled(enabled);
+    ui->actionRevert->setEnabled(enabled);
+    ui->actionPrint->setEnabled(false);
+    ui->menuReload_Using_Encoding->setEnabled(enabled);
 }

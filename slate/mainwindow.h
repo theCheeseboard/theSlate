@@ -154,6 +154,8 @@ private:
         void dragMoveEvent(QDragMoveEvent* event);
         void dropEvent(QDropEvent* event);
 
+        void updateDocumentDependantTabs();
+
 #ifdef Q_OS_MAC
         void setupMacOS();
         void updateTouchBar();
