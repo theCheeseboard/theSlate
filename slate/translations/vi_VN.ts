@@ -10,7 +10,7 @@
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="32"/>
-        <location filename="../main.cpp" line="154"/>
+        <location filename="../main.cpp" line="156"/>
         <source>Text Editor</source>
         <translation>Bộ sửa chứ</translation>
     </message>
@@ -1103,22 +1103,22 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.cpp" line="160"/>
+        <location filename="../main.cpp" line="162"/>
         <source>Read from standard input</source>
         <translation>Đọc đầu vào tiêu chuẩn</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="163"/>
+        <location filename="../main.cpp" line="165"/>
         <source>files</source>
         <translation>tệp</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="163"/>
+        <location filename="../main.cpp" line="165"/>
         <source>Files to open</source>
         <translation>Tệp để mở</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="163"/>
+        <location filename="../main.cpp" line="165"/>
         <source>[files...]</source>
         <translation>[tệp...]</translation>
     </message>

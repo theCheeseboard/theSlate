@@ -24,6 +24,7 @@ if [ $STAGE = "script" ]; then
     echo "[TRAVIS] Building and installing KDE Syntax Highlighting"
     git clone git://anongit.kde.org/syntax-highlighting.git
     cd syntax-highlighting
+    git checkout v5.54.0
     mkdir build
     cd build
     cmake -DCMAKE_INSTALL_PREFIX=/usr -DECM_MKSPECS_INSTALL_DIR=/opt/qt510/mkspecs/modules/ ..
@@ -41,7 +42,6 @@ if [ $STAGE = "script" ]; then
     wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
     chmod a+x linuxdeployqt-continuous-x86_64.AppImage
     echo "[TRAVIS] Building AppImage"
-    ./linuxdeployqt-continuous-x86_64.AppImage ~/appdir/usr/share/applications/*.desktop -bundle-non-qt-libs -extra-plugins=iconengines/libqsvgicon.so,imageformats/libqsvg.so
     ./linuxdeployqt-continuous-x86_64.AppImage ~/appdir/usr/share/applications/*.desktop -appimage -extra-plugins=iconengines/libqsvgicon.so,imageformats/libqsvg.so
   else
     echo "[TRAVIS] Building for macOS"
@@ -84,7 +84,7 @@ elif [ $STAGE = "before_install" ]; then
     sudo add-apt-repository 'deb https://vicr123.com/repo/apt/ubuntu bionic main'
     sudo add-apt-repository -y ppa:beineri/opt-qt-5.10.1-trusty
     sudo apt-get update -qq
-    sudo apt-get install qt510-meta-minimal qt510x11extras qt510tools qt510translations qt510svg qt510websockets xorg-dev libxcb-util0-dev libgl1-mesa-dev
+    sudo apt-get install qt510-meta-minimal qt510x11extras qt510tools qt510translations qt510svg qt510websockets xorg-dev libxcb-util0-dev libgl1-mesa-dev cmake3
   else
     echo "[TRAVIS] Preparing to build for macOS"
     brew tap kde-mac/kde
