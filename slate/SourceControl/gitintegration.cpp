@@ -101,7 +101,7 @@ GitTask* GitIntegration::pull() {
     connect(proc, &QProcess::readyRead, [=] {
         task->appendToBuffer(proc->readAll());
     });
-    connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), [=](int exitCode, QProcess::ExitStatus exitStatus){
+    connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), [=](int exitCode, QProcess::ExitStatus exitStatus) {
         if (exitCode == 0) {
             emit task->finished();
         } else {
@@ -211,3 +211,118 @@ void GitTask::appendToBuffer(QByteArray append) {
 QByteArray GitTask::buffer() {
     return buf;
 }
+
+GitIntegration::CommitPointer GitIntegration::getCommit(QString hash, bool populate, bool iterateParents) {
+    CommitPointer commit;
+    if (knownCommits.contains(hash)) {
+        commit = knownCommits.value(hash);
+        if (!populate || commit->populated) {
+            return commit;
+        }
+    }
+    QProcess* show = git("show --format=\"format:%H;%an;%ae;%cn;%ce;%ct;%P;%s\" --quiet " + hash);
+    show->waitForFinished();
+
+    if (show->exitCode() != 0) {
+        return CommitPointer();
+    }
+
+    QStringList parts = QString(show->readLine()).trimmed().split(";");
+
+    if (knownCommits.contains(parts.at(0))) {
+        commit = knownCommits.value(parts.at(0));
+        if (!populate || commit->populated) {
+            return commit;
+        }
+    } else {
+        commit = CommitPointer(new Commit());
+    }
+
+    commit->hash = parts.at(0);
+
+    if (populate) {
+        commit->author = parts.at(1);
+        commit->authorEmail = parts.at(2);
+        commit->committer = parts.at(3);
+        commit->committerEmail = parts.at(4);
+        commit->commitDate = QDateTime::fromSecsSinceEpoch(parts.at(5).toInt());
+
+        if (iterateParents) {
+            QStringList parentIds = parts.at(6).split(" ");
+            for (QString parent : parentIds) {
+                commit->parents.append(getCommit(parent, false, true));
+            }
+            commit->parentsKnown = true;
+        }
+
+        commit->message = parts.at(7);
+        commit->populated = true;
+
+        emit commitInformationAvailable(commit->hash);
+    }
+
+    knownCommits.insert(commit->hash, commit);
+
+    return commit;
+}
+
+tPromise<GitIntegration::CommitList>* GitIntegration::commits(QString branch) {
+    return new tPromise<CommitList>([=](QString& error) -> CommitList {
+        CommitList commits;
+
+        QMutex* contMutex = new QMutex();
+        bool* cont = new bool(true);
+
+        QProcess* revlist = git("rev-list " + branch);
+        revlist->waitForFinished();
+
+        connect(this, &GitIntegration::commitsChanged, [=] {
+            contMutex->lock();
+            *cont = false;
+            contMutex->unlock();
+        });
+
+        contMutex->lock();
+        while (revlist->canReadLine() && *cont) {
+            contMutex->unlock();
+            commits.append(getCommit(revlist->readLine().trimmed(), false, false));
+            contMutex->lock();
+        }
+        contMutex->unlock();
+
+        revlist->deleteLater();
+
+        if (!*cont) {
+            error = "Cancelled";
+        }
+        delete cont;
+        return commits;
+    });
+}
+
+bool GitIntegration::setNewRootDir(QString rootDir) {
+    QString oldRootDir = this->rootDir;
+    this->setRootDir(rootDir);
+
+    QProcess* proc = git("rev-parse --show-toplevel");
+    proc->waitForFinished();
+
+    if (proc->exitCode() == 0) {
+        QString rootDir = proc->readAll().trimmed();
+        this->setRootDir(rootDir);
+
+        bool retval = false;
+        if (oldRootDir != rootDir) {
+            retval = true;
+
+            knownCommits.clear();
+            emit commitsChanged();
+        }
+        proc->deleteLater();
+
+        return retval;
+    } else {
+        return true;
+    }
+}
+

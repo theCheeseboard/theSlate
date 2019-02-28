@@ -31,5 +31,6 @@
         <file>icons/window-new.svg</file>
         <file>icons/window.svg</file>
         <file>icons/help-contents.svg</file>
+        <file>icons/branch.svg</file>
     </qresource>
 </RCC>

@@ -2,7 +2,7 @@
 
 TabButton::TabButton(QWidget *parent) : QPushButton(parent)
 {
-    this->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
+    this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 }
 
 TabButton::TabButton(TextEditor *editor, QWidget *parent) : QPushButton(parent)

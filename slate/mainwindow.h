@@ -96,22 +96,11 @@ class MainWindow : public QMainWindow
 
         void setCurrentDocumentHighlighting(KSyntaxHighlighting::Definition highlighter);
 
-        void on_initGitButton_clicked();
-
         void on_actionFind_and_Replace_triggered();
 
         void on_actionSave_As_triggered();
 
         void on_actionRevert_triggered();
-
-        void on_gitAbortMergeButton_clicked();
-
-        void on_actionPull_triggered();
-
-        void on_actionPush_triggered();
-
-        void on_commitButton_clicked();
-
 
         void on_actionPrint_triggered();
 

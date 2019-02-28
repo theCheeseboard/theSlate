@@ -71,7 +71,9 @@ SOURCES += \
     managers/recentfilesmanager.cpp \
     managers/updatemanager.cpp \
     messagebox.cpp \
-    managers/syntaxhighlighting.cpp
+    managers/syntaxhighlighting.cpp \
+    SourceControl/gitwidget.cpp \
+    SourceControl/commitsmodel.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -91,7 +93,9 @@ HEADERS += \
     plugins/pluginmanager.h \
     managers/recentfilesmanager.h \
     managers/updatemanager.h \
-    messagebox.h
+    messagebox.h \
+    SourceControl/gitwidget.h \
+    SourceControl/commitsmodel.h
 
 macx {
     SOURCES += \
@@ -108,7 +112,8 @@ FORMS += \
     textparts/mergetool.ui \
     textparts/printdialog.ui \
     settingsdialog.ui \
-    picturetabbar.ui
+    picturetabbar.ui \
+    SourceControl/gitwidget.ui
 
 RESOURCES += \
     icons.qrc \
