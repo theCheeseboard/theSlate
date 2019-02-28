@@ -2,7 +2,11 @@
 
 TabButton::TabButton(QWidget *parent) : QPushButton(parent)
 {
-    this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+    this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+    connect(this, &TabButton::toggled, [=] {
+        this->update();
+    });
 }
 
 TabButton::TabButton(TextEditor *editor, QWidget *parent) : QPushButton(parent)
@@ -47,7 +51,7 @@ void TabButton::paintEvent(QPaintEvent *event) {
         brush = QBrush(pal.color(QPalette::Button).lighter());
     }*/
 
-    if (this->active) {
+    if (this->active || this->isChecked()) {
 #if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
         brush = QBrush(pal.color(QPalette::Highlight).darker());
 #elif defined(Q_OS_LINUX)

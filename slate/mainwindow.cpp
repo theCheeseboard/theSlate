@@ -34,8 +34,6 @@ extern KSyntaxHighlighting::Repository* highlightRepo;
 
 QList<MainWindow*> MainWindow::openWindows = QList<MainWindow*>();
 
-
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)

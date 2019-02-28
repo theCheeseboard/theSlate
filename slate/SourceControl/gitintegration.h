@@ -60,10 +60,21 @@ class GitIntegration : public QObject
         void commitsChanged();
         void commitInformationAvailable(QString hash);
 
+        void headCommitChanged();
+        void currentBranchChanged();
+
     public slots:
         tPromise<QStringList>* reloadStatus();
 
         CommitPointer getCommit(QString hash, bool populate, bool iterateParents);
+
+        void checkout(QString item);
+        QString branch();
+        QString upstreamBranch();
+        int commitsPendingPush();
+        int commitsPendingPull();
+
+        QString myName();
 
         void add(QString file);
         void rm(QString file, bool cache = false);
@@ -82,12 +93,24 @@ class GitIntegration : public QObject
         bool setNewRootDir(QString rootDir);
         void setRootDir(QString rootDir);
 
+    private slots:
+        void watcherChanged();
+
     private:
         QString rootDir;
         QString gitInstance;
 
+        QString headCommit;
+        QString currentBranch;
+        QString upstream;
+        int pendingIn = 0;
+        int pendingOut = 0;
+
         QProcess* git(QString args);
         QMutex instanceLocker;
+
+        QFileSystemWatcher* watcher;
+        void updateWatcher();
 
         QMap<QString, CommitPointer> knownCommits;
 };

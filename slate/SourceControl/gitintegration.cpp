@@ -8,6 +8,10 @@ GitIntegration::GitIntegration(QString rootDir, QObject *parent) : QObject(paren
 {
     this->rootDir = rootDir;
 
+    watcher = new QFileSystemWatcher();
+    connect(watcher, &QFileSystemWatcher::directoryChanged, this, &GitIntegration::watcherChanged);
+    connect(watcher, &QFileSystemWatcher::fileChanged, this, &GitIntegration::watcherChanged);
+
     QTimer* timer = new QTimer(this);
     timer->setInterval(5000);
     connect(timer, SIGNAL(timeout()), this, SIGNAL(reloadStatusNeeded()));
@@ -316,7 +320,11 @@ bool GitIntegration::setNewRootDir(QString rootDir) {
             retval = true;
 
             knownCommits.clear();
-            emit commitsChanged();
+
+            //Reset the filesystem watcher
+            watcher->removePaths(watcher->files());
+            watcher->removePaths(watcher->directories());
+            watcherChanged();
         }
         proc->deleteLater();
 
@@ -326,3 +334,90 @@ bool GitIntegration::setNewRootDir(QString rootDir) {
     }
 }
 
+void GitIntegration::updateWatcher() {
+    QDirIterator iterator(rootDir + "/.git", QDirIterator::Subdirectories);
+    while (iterator.hasNext()) {
+        iterator.next();
+        if (iterator.fileName() == "." || iterator.fileName() == "..") continue;
+
+        watcher->addPath(iterator.filePath());
+    }
+}
+
+void GitIntegration::watcherChanged() {
+    knownCommits.remove("HEAD");
+    CommitPointer head = getCommit("HEAD", false, false);
+    if (head->hash != this->headCommit) {
+        this->headCommit = head->hash;
+        emit headCommitChanged();
+    }
+
+    QProcess* branchProc = git("rev-parse --abbrev-ref HEAD");
+    branchProc->waitForFinished();
+
+    QString branch = branchProc->readAll().trimmed();
+    if (branch != this->currentBranch) {
+        this->currentBranch = branch;
+        emit currentBranchChanged();
+    }
+    branchProc->deleteLater();
+
+    QProcess* upstreamBranchProc = git("rev-parse --abbrev-ref --symbolic-full-name @{u}");
+    upstreamBranchProc->waitForFinished();
+
+    if (upstreamBranchProc->exitCode() == 0) {
+        upstream = upstreamBranchProc->readAll().trimmed();
+
+        QProcess* inProc = git("rev-list --count HEAD.." + upstream);
+        inProc->waitForFinished();
+        pendingIn = inProc->readAll().trimmed().toInt();
+        inProc->deleteLater();
+
+        QProcess* outProc = git("rev-list --count " + upstream + "..HEAD");
+        outProc->waitForFinished();
+        pendingOut = outProc->readAll().trimmed().toInt();
+        outProc->deleteLater();
+    } else {
+        upstream = "";
+        pendingIn = 0;
+        pendingOut = 0;
+    }
+    upstreamBranchProc->deleteLater();
+
+    updateWatcher();
+}
+
+void GitIntegration::checkout(QString item) {
+    QProcess* proc = git("checkout " + item);
+    proc->waitForFinished();
+}
+
+QString GitIntegration::branch() {
+    return currentBranch;
+}
+
+QString GitIntegration::upstreamBranch() {
+    QProcess* proc = git("rev-parse --abbrev-ref --symbolic-full-name @{u}");
+    proc->waitForFinished();
+
+    if (proc->exitCode() == 0) {
+        return proc->readAll().trimmed();
+    } else {
+        return "";
+    }
+}
+
+QString GitIntegration::myName() {
+    QProcess* proc = git("config user.name");
+    proc->waitForFinished();
+
+    return proc->readAll().trimmed();
+}
+
+int GitIntegration::commitsPendingPush() {
+    return pendingOut;
+}
+
+int GitIntegration::commitsPendingPull() {
+    return pendingIn;
+}

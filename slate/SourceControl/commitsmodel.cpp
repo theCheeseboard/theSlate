@@ -3,6 +3,8 @@
 #include "gitintegration.h"
 #include <QPainter>
 
+extern void tintImage(QImage &image, QColor tint);
+
 struct CommitsModelPrivate {
     GitIntegration* gi;
 
@@ -15,7 +17,7 @@ CommitsModel::CommitsModel(GitIntegration* integration, QObject *parent)
     d = new CommitsModelPrivate();
     d->gi = integration;
 
-    connect(d->gi, &GitIntegration::commitsChanged, this, &CommitsModel::reloadData);
+    connect(d->gi, &GitIntegration::headCommitChanged, this, &CommitsModel::reloadData);
     connect(d->gi, &GitIntegration::commitInformationAvailable, this, [=](QString commitHash) {
         for (int i = 0; i < d->shownCommits.count(); i++) {
             if (d->shownCommits.at(i)->hash == commitHash) {
@@ -45,17 +47,69 @@ int CommitsModel::rowCount(const QModelIndex &parent) const
 
 QVariant CommitsModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid()) {
-        return QVariant();
+    if (!index.isValid()) return QVariant();
+
+    if (index.row() == 0) {
+        switch (role) {
+            case Qt::DecorationRole:
+                return QIcon::fromTheme("list-add", QIcon(":/icons/list-add.svg"));
+            case Qt::DisplayRole:
+                return tr("New Commit");
+            case Qt::UserRole:
+                return tr("Create new commit to %1").arg(d->gi->branch());
+        }
+    } else if (index.row() == 1) {
+        //Depending on the status of the repository, do different things
+        int pull = d->gi->commitsPendingPull();
+        int push = d->gi->commitsPendingPush();
+        if (d->gi->upstreamBranch() == "") {
+            switch (role) {
+                //case Qt::DecorationRole:
+                    //return QIcon::fromTheme("go-down", QIcon(":/icons/go-down.svg"));
+                case Qt::DisplayRole:
+                    return tr("No Upstream branch");
+                case Qt::UserRole:
+                    return tr("No upstream branch has been configured.");
+            }
+        } else if (pull > 0) {
+            switch (role) {
+                case Qt::DecorationRole:
+                    return QIcon::fromTheme("go-down", QIcon(":/icons/go-down.svg"));
+                case Qt::DisplayRole:
+                    return tr("Pull Remote Changes");
+                case Qt::UserRole:
+                    return tr("%n pending incoming commits", nullptr, pull);
+            }
+        } else if (push > 0) {
+            switch (role) {
+                case Qt::DecorationRole:
+                    return QIcon::fromTheme("go-up", QIcon(":/icons/go-up.svg"));
+                case Qt::DisplayRole:
+                    return tr("Push Local Changes");
+                case Qt::UserRole:
+                    return tr("%n pending outgoing commits", nullptr, push);
+            }
+        } else {
+            switch (role) {
+                case Qt::DecorationRole:
+                    return QIcon::fromTheme("dialog-ok", QIcon(":/icons/dialog-ok.svg"));
+                case Qt::DisplayRole:
+                    return tr("Up to date");
+                case Qt::UserRole:
+                    return tr("Your local repository is up to date");
+            }
+        }
+
+    } else {
+        GitIntegration::CommitPointer commit = d->shownCommits.at(index.row() - 1);
+        switch (role) {
+            case Qt::DisplayRole:
+                return commit->hash;
+            case Qt::UserRole:
+                return QVariant::fromValue(commit);
+        }
     }
 
-    GitIntegration::CommitPointer commit = d->shownCommits.at(index.row());
-    switch (role) {
-        case Qt::DisplayRole:
-            return commit->hash;
-        case Qt::UserRole:
-            return QVariant::fromValue(commit);
-    }
     return QVariant();
 }
 
@@ -85,7 +139,10 @@ QSize CommitsModelDelegate::sizeHint(const QStyleOptionViewItem &option, const Q
 }
 
 void CommitsModelDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
-    GitIntegration::CommitPointer commit = index.data(Qt::UserRole).value<GitIntegration::CommitPointer>();
+    GitIntegration::CommitPointer commit;
+    if (index.row() != 0) {
+        commit = index.data(Qt::UserRole).value<GitIntegration::CommitPointer>();
+    }
 
     QColor foregroundCol;
     QColor grayCol;
@@ -110,28 +167,54 @@ void CommitsModelDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
     painter->setBrush(Qt::transparent);
 
     QRect informationRect = option.rect;
-    informationRect.setX(3);
+    informationRect.setX(informationRect.height());
     informationRect.moveTop(informationRect.top() + 3);
     informationRect.setHeight(informationRect.height() - 6);
     informationRect.setWidth(informationRect.width() - 3);
 
+    //Draw any decorations
+    QIcon icon = index.data(Qt::DecorationRole).value<QIcon>();
+    if (!icon.isNull()) {
+        QRect iconRect = option.rect;
+        iconRect.setWidth(informationRect.left());
+
+        QRect realRect;
+        realRect.setSize(QSize(16, 16) * theLibsGlobal::getDPIScaling());
+        realRect.moveCenter(iconRect.center());
+
+        QImage image = icon.pixmap(realRect.size()).toImage();
+        tintImage(image, foregroundCol);
+        painter->drawImage(realRect, image);
+    }
+
     //Draw short hash
-    QString shortHash = commit->hash.left(7);
-    QRect shortHashRect;
-    shortHashRect.setTop(informationRect.top());
-    shortHashRect.setWidth(fm.width(shortHash));
-    shortHashRect.moveRight(informationRect.right());
-    shortHashRect.setHeight(fm.height());
+    if (!commit.isNull()) {
+        QString shortHash = commit->hash.left(7);
+        QRect shortHashRect;
+        shortHashRect.setTop(informationRect.top());
+        shortHashRect.setWidth(fm.width(shortHash));
+        shortHashRect.moveRight(informationRect.right());
+        shortHashRect.setHeight(fm.height());
 
-    painter->setFont(f);
-    painter->setPen(grayCol);
-    painter->drawText(shortHashRect, shortHash);
+        painter->setFont(f);
+        painter->setPen(grayCol);
+        painter->drawText(shortHashRect, shortHash);
 
-    //Make sure the commit is populated further before trying to draw anything else
-    if (!commit->populated) {
-        //Populate the commit in the background
-        commit = gi->getCommit(commit->hash, true, false);
-        //return;
+        //Make sure the commit is populated further before trying to draw anything else
+        if (!commit->populated) {
+            //Populate the commit
+            commit = gi->getCommit(commit->hash, true, false);
+        }
+    }
+
+    QString committer;
+    QString commitMessage;
+    if (commit.isNull()) {
+        committer = index.data(Qt::DisplayRole).toString();
+        commitMessage = index.data(Qt::UserRole).toString();
+    } else {
+        committer = commit->committer;
+        commitMessage = commit->message;
     }
 
     //Draw committer's name
@@ -144,7 +227,7 @@ void CommitsModelDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
     boldFont.setBold(true);
     painter->setPen(foregroundCol);
     painter->setFont(boldFont);
-    painter->drawText(nameRect, QFontMetrics(boldFont).elidedText(commit->committer, Qt::ElideRight, nameRect.width()));
+    painter->drawText(nameRect, QFontMetrics(boldFont).elidedText(committer, Qt::ElideRight, nameRect.width()));
 
     //Draw commit message
     QRect commitMessageRect;
@@ -154,5 +237,5 @@ void CommitsModelDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
     commitMessageRect.setHeight(fm.height());
 
     painter->setFont(f);
-    painter->drawText(commitMessageRect, fm.elidedText(commit->message, Qt::ElideRight, commitMessageRect.width()));
+    painter->drawText(commitMessageRect, fm.elidedText(commitMessage, Qt::ElideRight, commitMessageRect.width()));
 }

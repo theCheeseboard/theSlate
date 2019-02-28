@@ -21,7 +21,13 @@ class GitWidget : public QWidget
         void setCurrentDocument(QUrl currentDocument);
         void updateStatus();
 
-    private:
+private slots:
+
+        void on_branchesButton_toggled(bool checked);
+
+        void on_commitsButton_toggled(bool checked);
+
+private:
         Ui::GitWidget *ui;
 
         GitWidgetPrivate* d;

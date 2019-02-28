@@ -32,5 +32,8 @@
         <file>icons/window.svg</file>
         <file>icons/help-contents.svg</file>
         <file>icons/branch.svg</file>
+        <file>icons/list-add.svg</file>
+        <file>icons/go-down.svg</file>
+        <file>icons/go-up.svg</file>
     </qresource>
 </RCC>

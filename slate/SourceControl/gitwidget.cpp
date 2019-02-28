@@ -15,6 +15,13 @@ GitWidget::GitWidget(QWidget *parent) :
     ui->setupUi(this);
     d = new GitWidgetPrivate();
 
+    QPalette pal = ui->branchChunk->palette();
+    pal.setColor(QPalette::Window, QColor(0, 100, 0));
+    pal.setColor(QPalette::WindowText, Qt::white);
+    ui->branchChunk->setPalette(pal);
+    pal.setColor(QPalette::Window, QColor(0, 150, 0));
+    ui->commitChunk->setPalette(pal);
+
     ui->branchIcon->setPixmap(QIcon::fromTheme("branch", QIcon(":/icons/branch.svg")).pixmap(QSize(16, 16) * theLibsGlobal::getDPIScaling()));
     ui->commitIcon->setPixmap(QIcon::fromTheme("commit", QIcon(":/icons/commit.svg")).pixmap(QSize(16, 16) * theLibsGlobal::getDPIScaling()));
 
@@ -28,8 +35,11 @@ GitWidget::GitWidget(QWidget *parent) :
     ui->logList->setModel(new CommitsModel(d->gi));
     ui->logList->setItemDelegate(new CommitsModelDelegate(d->gi));
 
-    connect(d->gi, &GitIntegration::commitsChanged, [=] {
+    connect(d->gi, &GitIntegration::headCommitChanged, [=] {
         ui->currentCommit->setText(d->gi->getCommit("HEAD", false, false)->hash.left(7));
+    });
+    connect(d->gi, &GitIntegration::currentBranchChanged, [=] {
+        ui->currentBranch->setText(d->gi->branch());
     });
 }
 
@@ -58,4 +68,14 @@ void GitWidget::setCurrentDocument(QUrl currentDocument) {
 
 void GitWidget::updateStatus() {
 
+}
+
+void GitWidget::on_branchesButton_toggled(bool checked)
+{
+    if (checked) ui->gitPages->setCurrentIndex(0);
+}
+
+void GitWidget::on_commitsButton_toggled(bool checked)
+{
+    if (checked) ui->gitPages->setCurrentIndex(1);
 }
