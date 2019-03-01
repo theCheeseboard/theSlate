@@ -10,7 +10,6 @@ struct GitIntegrationPrivate {
 
     QString headCommit;
     GitIntegration::BranchPointer currentBranch;
-    GitIntegration::BranchPointer upstream;
     int pendingIn = 0;
     int pendingOut = 0;
 
@@ -27,9 +26,22 @@ GitIntegration::GitIntegration(QString rootDir, QObject *parent) : QObject(paren
     connect(watcher, &QFileSystemWatcher::directoryChanged, this, &GitIntegration::watcherChanged);
     connect(watcher, &QFileSystemWatcher::fileChanged, this, &GitIntegration::watcherChanged);
 
+    connect(this, &GitIntegration::headCommitChanged, [=] {
+        //Clear all the commit pointers
+        for (GitIntegration::CommitPointer commit : d->knownCommits.values()) {
+            commit->pointersKnown = false;
+        }
+    });
+
     QTimer* timer = new QTimer(this);
-    timer->setInterval(5000);
-    connect(timer, SIGNAL(timeout()), this, SIGNAL(reloadStatusNeeded()));
+    timer->setInterval(30000);
+    timer->setSingleShot(true);
+    connect(timer, &QTimer::timeout, [=] {
+        fetch()->then([=] {
+            //Restart the timer after fetching is done
+            timer->start();
+        });
+    });
     timer->start();
 
     reloadStatus();
@@ -68,7 +80,6 @@ void GitIntegration::add(QString file) {
     QProcess* proc = git("add -- " + file);
     proc->waitForFinished();
     proc->deleteLater();
-    emit reloadStatusNeeded();
 }
 
 void GitIntegration::rm(QString file, bool cache) {
@@ -80,14 +91,12 @@ void GitIntegration::rm(QString file, bool cache) {
     }
     proc->waitForFinished();
     proc->deleteLater();
-    emit reloadStatusNeeded();
 }
 
 void GitIntegration::unstage(QString file) {
     QProcess* proc = git("reset HEAD " + file);
     proc->waitForFinished();
     proc->deleteLater();
-    emit reloadStatusNeeded();
 }
 
 bool GitIntegration::needsInit() {
@@ -106,7 +115,6 @@ bool GitIntegration::needsInit() {
 void GitIntegration::abortMerge() {
     QProcess* proc = git("merge --abort");
     proc->waitForFinished();
-    emit reloadStatusNeeded();
 }
 
 void GitIntegration::init() {
@@ -114,7 +122,6 @@ void GitIntegration::init() {
         QProcess* proc = git("init");
         proc->waitForFinished();
         proc->deleteLater();
-        emit reloadStatusNeeded();
     }
 }
 
@@ -172,7 +179,6 @@ QString GitIntegration::commit(QString message) {
     QString retval = proc->readAll().trimmed();
     proc->deleteLater();
 
-    emit reloadStatusNeeded();
     return retval;
 }
 
@@ -280,6 +286,8 @@ GitIntegration::CommitPointer GitIntegration::getCommit(QString hash, bool popul
 
         commit->message = parts.at(7);
         commit->populated = true;
+
+        populatePointers(commit);
 
         emit commitInformationAvailable(commit->hash);
     }
@@ -403,27 +411,36 @@ void GitIntegration::watcherChanged() {
     }
     branchProc->deleteLater();
 
-    QProcess* upstreamBranchProc = git("rev-parse --abbrev-ref --symbolic-full-name @{u}");
-    upstreamBranchProc->waitForFinished();
+    if (!currentBranch->upstream.isNull()) {
+        bool didChange = false;
 
-    if (upstreamBranchProc->exitCode() == 0) {
-        d->upstream = branch(upstreamBranchProc->readAll().trimmed());
-
-        QProcess* inProc = git("rev-list --count HEAD.." + d->upstream->name);
+        QProcess* inProc = git("rev-list --count HEAD.." + currentBranch->upstream->name);
         inProc->waitForFinished();
-        d->pendingIn = inProc->readAll().trimmed().toInt();
+        int pendingIn = inProc->readAll().trimmed().toInt();
         inProc->deleteLater();
 
-        QProcess* outProc = git("rev-list --count " + d->upstream->name + "..HEAD");
+        if (d->pendingIn != pendingIn) {
+            d->pendingIn = pendingIn;
+            didChange = true;
+        }
+
+        QProcess* outProc = git("rev-list --count " + currentBranch->upstream->name + "..HEAD");
         outProc->waitForFinished();
-        d->pendingOut = outProc->readAll().trimmed().toInt();
+        int pendingOut = outProc->readAll().trimmed().toInt();
         outProc->deleteLater();
+
+        if (d->pendingOut != pendingOut) {
+            d->pendingOut = pendingOut;
+            didChange = true;
+        }
+
+        if (didChange) {
+            emit pendingCommitsChanged();
+        }
     } else {
-        d->upstream = BranchPointer();
         d->pendingIn = 0;
         d->pendingOut = 0;
     }
-    upstreamBranchProc->deleteLater();
 
     //Update commits
     d->knownCommits.remove("HEAD");
@@ -455,7 +472,7 @@ GitIntegration::BranchPointer GitIntegration::branch(QString name) {
         name = "HEAD";
     }
 
-    QProcess* proc = git("branch --list --all --format=\"%(refname:short);%(upstream:short)\" " + name);
+    QProcess* proc = git("branch --list --all --format=\"%(refname:short);%(upstream:short);%(objectname)\" " + name);
     proc->waitForFinished();
     if (proc->exitCode() != 0) return BranchPointer(); //Branch doesn't exist
 
@@ -467,6 +484,7 @@ GitIntegration::BranchPointer GitIntegration::branch(QString name) {
     if (parts.at(1) != "") {
         b->upstream = branch(parts.at(1));
     }
+    b->commit = getCommit(parts.at(2), false, false);
 
     d->knownBranches.insert(name, b);
     return b;
@@ -474,10 +492,6 @@ GitIntegration::BranchPointer GitIntegration::branch(QString name) {
 
 GitIntegration::BranchList GitIntegration::branches() {
     return d->knownBranches.values();
-}
-
-GitIntegration::BranchPointer GitIntegration::upstreamBranch() {
-    return d->upstream;
 }
 
 void GitIntegration::deleteBranch(BranchPointer branch) {
@@ -525,4 +539,33 @@ void GitIntegration::newBranch(QString name, BranchPointer from) {
     QProcess* proc = git(gitCommand);
     proc->waitForFinished();
     proc->deleteLater();
+}
+
+void GitIntegration::populatePointers(CommitPointer pointers) {
+    pointers->pointer = "";
+
+    if (pointers == getCommit("HEAD", false, false)) {
+        //This is the HEAD commit
+        pointers->pointer = "HEAD";
+        pointers->pointerColor = QColor(0, 150, 0);
+    } else {
+        for (GitIntegration::BranchPointer branch : branches()) {
+            if (branch->commit == pointers) {
+                //This is a commit with another branch pointing here
+                pointers->pointer = branch->name;
+                pointers->pointerColor = QColor(0, 150, 255);
+                break;
+            }
+        }
+    }
+    pointers->pointersKnown = true;
+}
+
+tPromise<void>* GitIntegration::fetch() {
+    return new tPromise<void>([=](QString error) {
+        if (branch().isNull() || branch()->upstream.isNull()) {
+            QProcess* proc = git("fetch");
+            proc->waitForFinished();
+        }
+    });
 }

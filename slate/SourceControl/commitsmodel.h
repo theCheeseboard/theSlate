@@ -21,6 +21,7 @@ public:
 
 public slots:
     void reloadData();
+    void reloadActions();
 
 private:
     CommitsModelPrivate* d;

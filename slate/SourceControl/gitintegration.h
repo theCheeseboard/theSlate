@@ -46,8 +46,12 @@ class GitIntegration : public QObject
 
             QString message;
 
+            QString pointer;
+            QColor pointerColor;
+
             bool populated = false;
             bool parentsKnown = false;
+            bool pointersKnown = false;
         };
         typedef QSharedPointer<Commit> CommitPointer;
         typedef QList<CommitPointer> CommitList;
@@ -55,6 +59,7 @@ class GitIntegration : public QObject
         struct Branch {
             QString name;
             QSharedPointer<Branch> upstream;
+            CommitPointer commit;
         };
         typedef QSharedPointer<Branch> BranchPointer;
         typedef QList<BranchPointer> BranchList;
@@ -65,11 +70,10 @@ class GitIntegration : public QObject
         static QStringList findGit();
 
     signals:
-        void reloadStatusNeeded();
-
         void commitsChanged();
         void headCommitChanged();
         void commitInformationAvailable(QString hash);
+        void pendingCommitsChanged();
 
         void branchesChanged();
         void currentBranchChanged();
@@ -79,11 +83,11 @@ class GitIntegration : public QObject
         tPromise<QStringList>* reloadStatus();
 
         CommitPointer getCommit(QString hash, bool populate, bool iterateParents);
+        void populatePointers(CommitPointer commit);
 
         void checkout(QString item);
         BranchPointer branch();
         BranchPointer branch(QString name);
-        BranchPointer upstreamBranch();
         BranchList branches();
         void newBranch(QString name, BranchPointer from = BranchPointer());
         void deleteBranch(BranchPointer branch);
@@ -93,6 +97,8 @@ class GitIntegration : public QObject
         bool isClean();
 
         QString myName();
+
+        tPromise<void>* fetch();
 
         void add(QString file);
         void rm(QString file, bool cache = false);

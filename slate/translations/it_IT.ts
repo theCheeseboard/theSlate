@@ -90,32 +90,32 @@
 <context>
     <name>CommitsModel</name>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="107"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="114"/>
         <source>New Commit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="107"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="114"/>
         <source>Create new commit to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="113"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="120"/>
         <source>No Upstream branch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="113"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="120"/>
         <source>No upstream branch has been configured.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="115"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="122"/>
         <source>Pull Remote Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../SourceControl/commitsmodel.cpp" line="115"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="122"/>
         <source>%n pending incoming commits</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -123,7 +123,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../SourceControl/commitsmodel.cpp" line="117"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="124"/>
         <source>%n pending outgoing commits</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -131,17 +131,17 @@
         </translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="117"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="124"/>
         <source>Push Local Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="119"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="126"/>
         <source>Up to date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="119"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="126"/>
         <source>Your local repository is up to date</source>
         <translation type="unfinished"></translation>
     </message>

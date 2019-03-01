@@ -34,6 +34,7 @@ CommitsModel::CommitsModel(GitIntegration* integration, QObject *parent)
             }
         }
     });
+    connect(d->gi, &GitIntegration::pendingCommitsChanged, this, &CommitsModel::reloadActions);
 
     reloadData();
 }
@@ -84,7 +85,6 @@ QVariant CommitsModel::data(const QModelIndex &index, int role) const
 
 void CommitsModel::reloadData() {
     d->shownCommits.clear();
-    d->actions.clear();
     emit dataChanged(index(0), index(rowCount()));
 
     if (!d->gi->needsInit()) {
@@ -96,29 +96,37 @@ void CommitsModel::reloadData() {
             emit dataChanged(index(0), index(rowCount()));
         });
 
-        //Create actions
-        QString branchName;
-        if (d->gi->branch().isNull()) {
-            branchName = "...";
-        } else {
-            branchName = d->gi->branch()->name;
-        }
-
-        d->actions.append({tr("New Commit"), tr("Create new commit to %1").arg(branchName), QIcon::fromTheme("list-add", QIcon(":/icons/list-add.svg")), "new"});
-
-        //Depending on the status of the repository, do different things
-        int pull = d->gi->commitsPendingPull();
-        int push = d->gi->commitsPendingPush();
-        if (d->gi->upstreamBranch().isNull()) {
-            d->actions.append({tr("No Upstream branch"), tr("No upstream branch has been configured."), QIcon(), "no-upstream"});
-        } else if (pull > 0) {
-            d->actions.append({tr("Pull Remote Changes"), tr("%n pending incoming commits", nullptr, pull), QIcon::fromTheme("go-down", QIcon(":/icons/go-down.svg")), "pull"});
-        } else if (push > 0) {
-            d->actions.append({tr("Push Local Changes"), tr("%n pending outgoing commits", nullptr, push), QIcon::fromTheme("go-up", QIcon(":/icons/go-up.svg")), "push"});
-        } else {
-            d->actions.append({tr("Up to date"), tr("Your local repository is up to date"), QIcon::fromTheme("dialog-ok", QIcon(":/icons/dialog-ok.svg")), "up-to-date"});
-        }
+        reloadActions();
     }
+}
+
+void CommitsModel::reloadActions() {
+    d->actions.clear();
+
+    //Create actions
+    QString branchName;
+    if (d->gi->branch().isNull()) {
+        branchName = "...";
+    } else {
+        branchName = d->gi->branch()->name;
+    }
+
+    d->actions.append({tr("New Commit"), tr("Create new commit to %1").arg(branchName), QIcon::fromTheme("list-add", QIcon(":/icons/list-add.svg")), "new"});
+
+    //Depending on the status of the repository, do different things
+    int pull = d->gi->commitsPendingPull();
+    int push = d->gi->commitsPendingPush();
+    if (d->gi->branch()->upstream.isNull()) {
+        d->actions.append({tr("No Upstream branch"), tr("No upstream branch has been configured."), QIcon(), "no-upstream"});
+    } else if (pull > 0) {
+        d->actions.append({tr("Pull Remote Changes"), tr("%n pending incoming commits", nullptr, pull), QIcon::fromTheme("go-down", QIcon(":/icons/go-down.svg")), "pull"});
+    } else if (push > 0) {
+        d->actions.append({tr("Push Local Changes"), tr("%n pending outgoing commits", nullptr, push), QIcon::fromTheme("go-up", QIcon(":/icons/go-up.svg")), "push"});
+    } else {
+        d->actions.append({tr("Up to date"), tr("Your local repository is up to date"), QIcon::fromTheme("dialog-ok", QIcon(":/icons/dialog-ok.svg")), "up-to-date"});
+    }
+
+    emit dataChanged(index(0), index(rowCount()));
 }
 
 QSize CommitsModelDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
@@ -179,10 +187,11 @@ void CommitsModelDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
     }
 
     //Draw short hash
+    int shortHashWidth = 0;
     if (!commit.isNull()) {
         QString shortHash = commit->hash.left(7);
         QRect shortHashRect;
-        shortHashRect.setTop(informationRect.top());
+        shortHashRect.setTop(informationRect.top() + fm.height());
         shortHashRect.setWidth(fm.width(shortHash));
         shortHashRect.moveRight(informationRect.right());
         shortHashRect.setHeight(fm.height());
@@ -190,6 +199,8 @@ void CommitsModelDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
         painter->setFont(f);
         painter->setPen(grayCol);
         painter->drawText(shortHashRect, shortHash);
+
+        shortHashWidth = shortHashRect.width();
 
         //Make sure the commit is populated further before trying to draw anything else
         if (!commit->populated) {
@@ -224,9 +235,42 @@ void CommitsModelDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
     QRect commitMessageRect;
     commitMessageRect.setTop(nameRect.bottom());
     commitMessageRect.setLeft(informationRect.left());
-    commitMessageRect.setWidth(informationRect.width());
+    commitMessageRect.setWidth(informationRect.width() - shortHashWidth);
     commitMessageRect.setHeight(fm.height());
 
     painter->setFont(f);
     painter->drawText(commitMessageRect, fm.elidedText(commitMessage, Qt::ElideRight, commitMessageRect.width()));
+
+    //Draw pointers if any
+    if (!commit.isNull()) {
+        if (!commit->pointersKnown) {
+            gi->populatePointers(commit);
+        }
+
+        if (commit->pointer != "") {
+            QRect pointerRect;
+            pointerRect.setWidth(fm.width(commit->pointer) + 6);
+            pointerRect.setHeight(fm.height());
+            pointerRect.moveTop(informationRect.top());
+            pointerRect.moveRight(option.rect.right());
+            painter->setPen(Qt::transparent);
+            painter->setBrush(commit->pointerColor);
+            painter->drawRect(pointerRect);
+
+            QPolygon triangle;
+            triangle.append(pointerRect.topLeft());
+            triangle.append(QPoint(pointerRect.left(), pointerRect.y() + pointerRect.height()));
+            triangle.append(QPoint(pointerRect.left() - pointerRect.height() / 2, pointerRect.center().y()));
+            painter->drawPolygon(triangle);
+
+            QRect upstreamTextRect;
+            upstreamTextRect.setWidth(fm.width(commit->pointer) + 1);
+            upstreamTextRect.setHeight(fm.height());
+            upstreamTextRect.moveCenter(pointerRect.center());
+
+            painter->setPen(Qt::white);
+            painter->setBrush(Qt::transparent);
+            painter->drawText(upstreamTextRect, commit->pointer);
+        }
+    }
 }
