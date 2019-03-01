@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>153</height>
+    <width>417</width>
+    <height>187</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Add a branch</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -111,6 +111,19 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Create a branch to keep track of different commits</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <property name="margin">
+      <number>9</number>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout">
      <property name="leftMargin">
       <number>9</number>
@@ -198,28 +211,12 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>32</x>
-     <y>40</y>
+     <x>23</x>
+     <y>31</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
      <y>65</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>acceptButton</sender>
-   <signal>clicked()</signal>
-   <receiver>AddBranchDialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>370</x>
-     <y>29</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>395</x>
-     <y>49</y>
     </hint>
    </hints>
   </connection>
@@ -230,12 +227,12 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>267</x>
-     <y>179</y>
+     <x>293</x>
+     <y>171</y>
     </hint>
     <hint type="destinationlabel">
-     <x>27</x>
-     <y>39</y>
+     <x>18</x>
+     <y>30</y>
     </hint>
    </hints>
   </connection>
@@ -250,8 +247,8 @@
      <y>177</y>
     </hint>
     <hint type="destinationlabel">
-     <x>377</x>
-     <y>30</y>
+     <x>403</x>
+     <y>21</y>
     </hint>
    </hints>
   </connection>

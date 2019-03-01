@@ -902,6 +902,6 @@ void MainWindow::updateDocumentDependantTabs() {
     ui->menuCode->setEnabled(enabled);
     ui->actionClose->setEnabled(enabled);
     ui->actionRevert->setEnabled(enabled);
-    ui->actionPrint->setEnabled(false);
+    ui->actionPrint->setEnabled(enabled);
     ui->menuReload_Using_Encoding->setEnabled(enabled);
 }

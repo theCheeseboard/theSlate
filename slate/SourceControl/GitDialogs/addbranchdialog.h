@@ -19,6 +19,9 @@ public:
     GitIntegration::BranchPointer from();
     QString name();
 
+private slots:
+    void on_acceptButton_clicked();
+
 private:
     Ui::AddBranchDialog *ui;
 };

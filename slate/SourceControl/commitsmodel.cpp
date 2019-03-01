@@ -9,6 +9,14 @@ struct CommitsModelPrivate {
     GitIntegration* gi;
 
     GitIntegration::CommitList shownCommits;
+
+    struct Action {
+        QString text;
+        QString description;
+        QIcon icon;
+        QString key;
+    };
+    QList<Action> actions;
 };
 
 CommitsModel::CommitsModel(GitIntegration* integration, QObject *parent)
@@ -42,73 +50,27 @@ int CommitsModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
-    return d->shownCommits.count() + 2;
+    return d->shownCommits.count() + d->actions.count();
 }
 
 QVariant CommitsModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) return QVariant();
 
-    if (index.row() == 0) {
+    if (index.row() < d->actions.count()) {
+        CommitsModelPrivate::Action action = d->actions.at(index.row());
         switch (role) {
-            case Qt::DecorationRole:
-                return QIcon::fromTheme("list-add", QIcon(":/icons/list-add.svg"));
             case Qt::DisplayRole:
-                return tr("New Commit");
-            case Qt::UserRole: {
-                QString branchName;
-                if (d->gi->branch().isNull()) {
-                    branchName = "...";
-                } else {
-                    branchName = d->gi->branch()->name;
-                }
-                return tr("Create new commit to %1").arg(branchName);
-            }
+                return action.text;
+            case Qt::DecorationRole:
+                return action.icon;
+            case Qt::UserRole:
+                return action.description;
+            case Qt::UserRole + 1:
+                return action.key;
         }
-    } else if (index.row() == 1) {
-        //Depending on the status of the repository, do different things
-        int pull = d->gi->commitsPendingPull();
-        int push = d->gi->commitsPendingPush();
-        if (d->gi->upstreamBranch().isNull()) {
-            switch (role) {
-                //case Qt::DecorationRole:
-                    //return QIcon::fromTheme("go-down", QIcon(":/icons/go-down.svg"));
-                case Qt::DisplayRole:
-                    return tr("No Upstream branch");
-                case Qt::UserRole:
-                    return tr("No upstream branch has been configured.");
-            }
-        } else if (pull > 0) {
-            switch (role) {
-                case Qt::DecorationRole:
-                    return QIcon::fromTheme("go-down", QIcon(":/icons/go-down.svg"));
-                case Qt::DisplayRole:
-                    return tr("Pull Remote Changes");
-                case Qt::UserRole:
-                    return tr("%n pending incoming commits", nullptr, pull);
-            }
-        } else if (push > 0) {
-            switch (role) {
-                case Qt::DecorationRole:
-                    return QIcon::fromTheme("go-up", QIcon(":/icons/go-up.svg"));
-                case Qt::DisplayRole:
-                    return tr("Push Local Changes");
-                case Qt::UserRole:
-                    return tr("%n pending outgoing commits", nullptr, push);
-            }
-        } else {
-            switch (role) {
-                case Qt::DecorationRole:
-                    return QIcon::fromTheme("dialog-ok", QIcon(":/icons/dialog-ok.svg"));
-                case Qt::DisplayRole:
-                    return tr("Up to date");
-                case Qt::UserRole:
-                    return tr("Your local repository is up to date");
-            }
-        }
-
     } else {
-        GitIntegration::CommitPointer commit = d->shownCommits.at(index.row() - 2);
+        GitIntegration::CommitPointer commit = d->shownCommits.at(index.row() - d->actions.count());
         switch (role) {
             case Qt::DisplayRole:
                 return commit->hash;
@@ -122,6 +84,7 @@ QVariant CommitsModel::data(const QModelIndex &index, int role) const
 
 void CommitsModel::reloadData() {
     d->shownCommits.clear();
+    d->actions.clear();
     emit dataChanged(index(0), index(rowCount()));
 
     if (!d->gi->needsInit()) {
@@ -132,6 +95,29 @@ void CommitsModel::reloadData() {
             d->shownCommits = commits;
             emit dataChanged(index(0), index(rowCount()));
         });
+
+        //Create actions
+        QString branchName;
+        if (d->gi->branch().isNull()) {
+            branchName = "...";
+        } else {
+            branchName = d->gi->branch()->name;
+        }
+
+        d->actions.append({tr("New Commit"), tr("Create new commit to %1").arg(branchName), QIcon::fromTheme("list-add", QIcon(":/icons/list-add.svg")), "new"});
+
+        //Depending on the status of the repository, do different things
+        int pull = d->gi->commitsPendingPull();
+        int push = d->gi->commitsPendingPush();
+        if (d->gi->upstreamBranch().isNull()) {
+            d->actions.append({tr("No Upstream branch"), tr("No upstream branch has been configured."), QIcon(), "no-upstream"});
+        } else if (pull > 0) {
+            d->actions.append({tr("Pull Remote Changes"), tr("%n pending incoming commits", nullptr, pull), QIcon::fromTheme("go-down", QIcon(":/icons/go-down.svg")), "pull"});
+        } else if (push > 0) {
+            d->actions.append({tr("Push Local Changes"), tr("%n pending outgoing commits", nullptr, push), QIcon::fromTheme("go-up", QIcon(":/icons/go-up.svg")), "push"});
+        } else {
+            d->actions.append({tr("Up to date"), tr("Your local repository is up to date"), QIcon::fromTheme("dialog-ok", QIcon(":/icons/dialog-ok.svg")), "up-to-date"});
+        }
     }
 }
 
@@ -147,9 +133,7 @@ QSize CommitsModelDelegate::sizeHint(const QStyleOptionViewItem &option, const Q
 
 void CommitsModelDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
     GitIntegration::CommitPointer commit;
-    if (index.row() > 1) {
-        commit = index.data(Qt::UserRole).value<GitIntegration::CommitPointer>();
-    }
+    commit = index.data(Qt::UserRole).value<GitIntegration::CommitPointer>();
 
     QColor foregroundCol;
     QColor grayCol;

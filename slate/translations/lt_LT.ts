@@ -39,32 +39,43 @@
     <name>AddBranchDialog</name>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="71"/>
         <source>Add a branch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="136"/>
+        <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="116"/>
+        <source>Create a branch to keep track of different commits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="149"/>
         <source>Branch From</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="143"/>
+        <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="156"/>
         <source>Branch Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="171"/>
+        <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="184"/>
         <source>Cancel</source>
         <translation type="unfinished">Atšaukti</translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="178"/>
+        <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="191"/>
         <source>Branch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/addbranchdialog.cpp" line="43"/>
+        <source>Can&apos;t branch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/addbranchdialog.cpp" line="44"/>
+        <source>The branch %1 already exists.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -79,32 +90,32 @@
 <context>
     <name>CommitsModel</name>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="57"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="107"/>
         <source>New Commit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="65"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="107"/>
         <source>Create new commit to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="77"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="113"/>
         <source>No Upstream branch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="79"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="113"/>
         <source>No upstream branch has been configured.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="86"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="115"/>
         <source>Pull Remote Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../SourceControl/commitsmodel.cpp" line="88"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="115"/>
         <source>%n pending incoming commits</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -113,7 +124,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../SourceControl/commitsmodel.cpp" line="97"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="117"/>
         <source>%n pending outgoing commits</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -122,17 +133,17 @@
         </translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="95"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="117"/>
         <source>Push Local Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="104"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="119"/>
         <source>Up to date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="106"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="119"/>
         <source>Your local repository is up to date</source>
         <translation type="unfinished"></translation>
     </message>
