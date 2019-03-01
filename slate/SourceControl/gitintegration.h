@@ -31,6 +31,7 @@ class GitTask : public QObject
         QByteArray buf;
 };
 
+struct GitIntegrationPrivate;
 class GitIntegration : public QObject
 {
     Q_OBJECT
@@ -51,17 +52,28 @@ class GitIntegration : public QObject
         typedef QSharedPointer<Commit> CommitPointer;
         typedef QList<CommitPointer> CommitList;
 
+        struct Branch {
+            QString name;
+            QSharedPointer<Branch> upstream;
+        };
+        typedef QSharedPointer<Branch> BranchPointer;
+        typedef QList<BranchPointer> BranchList;
+
         explicit GitIntegration(QString rootDir, QObject *parent = nullptr);
+        ~GitIntegration();
 
         static QStringList findGit();
 
     signals:
         void reloadStatusNeeded();
+
         void commitsChanged();
+        void headCommitChanged();
         void commitInformationAvailable(QString hash);
 
-        void headCommitChanged();
+        void branchesChanged();
         void currentBranchChanged();
+
 
     public slots:
         tPromise<QStringList>* reloadStatus();
@@ -69,10 +81,16 @@ class GitIntegration : public QObject
         CommitPointer getCommit(QString hash, bool populate, bool iterateParents);
 
         void checkout(QString item);
-        QString branch();
-        QString upstreamBranch();
+        BranchPointer branch();
+        BranchPointer branch(QString name);
+        BranchPointer upstreamBranch();
+        BranchList branches();
+        void newBranch(QString name, BranchPointer from = BranchPointer());
+        void deleteBranch(BranchPointer branch);
         int commitsPendingPush();
         int commitsPendingPull();
+
+        bool isClean();
 
         QString myName();
 
@@ -97,23 +115,15 @@ class GitIntegration : public QObject
         void watcherChanged();
 
     private:
-        QString rootDir;
-        QString gitInstance;
-
-        QString headCommit;
-        QString currentBranch;
-        QString upstream;
-        int pendingIn = 0;
-        int pendingOut = 0;
+        GitIntegrationPrivate* d;
 
         QProcess* git(QString args);
         QMutex instanceLocker;
 
         QFileSystemWatcher* watcher;
         void updateWatcher();
-
-        QMap<QString, CommitPointer> knownCommits;
 };
 Q_DECLARE_METATYPE(GitIntegration::CommitPointer)
+Q_DECLARE_METATYPE(GitIntegration::BranchPointer)
 
 #endif // GITINTEGRATION_H

@@ -437,7 +437,11 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="QListView" name="branchesList"/>
+            <widget class="QListView" name="branchesList">
+             <property name="contextMenuPolicy">
+              <enum>Qt::CustomContextMenu</enum>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>

@@ -27,6 +27,10 @@ private slots:
 
         void on_commitsButton_toggled(bool checked);
 
+        void on_branchesList_customContextMenuRequested(const QPoint &pos);
+
+        void on_branchesList_activated(const QModelIndex &index);
+
 private:
         Ui::GitWidget *ui;
 

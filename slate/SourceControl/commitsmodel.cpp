@@ -42,7 +42,7 @@ int CommitsModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
-    return d->shownCommits.count();
+    return d->shownCommits.count() + 2;
 }
 
 QVariant CommitsModel::data(const QModelIndex &index, int role) const
@@ -55,14 +55,21 @@ QVariant CommitsModel::data(const QModelIndex &index, int role) const
                 return QIcon::fromTheme("list-add", QIcon(":/icons/list-add.svg"));
             case Qt::DisplayRole:
                 return tr("New Commit");
-            case Qt::UserRole:
-                return tr("Create new commit to %1").arg(d->gi->branch());
+            case Qt::UserRole: {
+                QString branchName;
+                if (d->gi->branch().isNull()) {
+                    branchName = "...";
+                } else {
+                    branchName = d->gi->branch()->name;
+                }
+                return tr("Create new commit to %1").arg(branchName);
+            }
         }
     } else if (index.row() == 1) {
         //Depending on the status of the repository, do different things
         int pull = d->gi->commitsPendingPull();
         int push = d->gi->commitsPendingPush();
-        if (d->gi->upstreamBranch() == "") {
+        if (d->gi->upstreamBranch().isNull()) {
             switch (role) {
                 //case Qt::DecorationRole:
                     //return QIcon::fromTheme("go-down", QIcon(":/icons/go-down.svg"));
@@ -101,7 +108,7 @@ QVariant CommitsModel::data(const QModelIndex &index, int role) const
         }
 
     } else {
-        GitIntegration::CommitPointer commit = d->shownCommits.at(index.row() - 1);
+        GitIntegration::CommitPointer commit = d->shownCommits.at(index.row() - 2);
         switch (role) {
             case Qt::DisplayRole:
                 return commit->hash;
@@ -140,7 +147,7 @@ QSize CommitsModelDelegate::sizeHint(const QStyleOptionViewItem &option, const Q
 
 void CommitsModelDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
     GitIntegration::CommitPointer commit;
-    if (index.row() != 0) {
+    if (index.row() > 1) {
         commit = index.data(Qt::UserRole).value<GitIntegration::CommitPointer>();
     }
 

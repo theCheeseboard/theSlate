@@ -1,18 +1,18 @@
-#ifndef COMMITSMODEL_H
-#define COMMITSMODEL_H
+#ifndef BRANCHESMODEL_H
+#define BRANCHESMODEL_H
 
 #include <QAbstractListModel>
 #include <QAbstractItemDelegate>
 
-struct CommitsModelPrivate;
+struct BranchesModelPrivate;
 class GitIntegration;
-class CommitsModel : public QAbstractListModel
+class BranchesModel : public QAbstractListModel
 {
     Q_OBJECT
 
 public:
-    explicit CommitsModel(GitIntegration* integration, QObject *parent = nullptr);
-    ~CommitsModel() override;
+    explicit BranchesModel(GitIntegration* integration, bool includeActions = true, QObject *parent = nullptr);
+    ~BranchesModel() override;
 
     // Basic functionality:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -23,15 +23,15 @@ public slots:
     void reloadData();
 
 private:
-    CommitsModelPrivate* d;
+    BranchesModelPrivate* d;
 };
 
-class CommitsModelDelegate : public QAbstractItemDelegate
+class BranchesModelDelegate : public QAbstractItemDelegate
 {
     Q_OBJECT
 
 public:
-    explicit CommitsModelDelegate(GitIntegration* integration, QObject* parent = nullptr) : QAbstractItemDelegate(parent) {
+    explicit BranchesModelDelegate(GitIntegration* integration, QObject* parent = nullptr) : QAbstractItemDelegate(parent) {
         gi = integration;
     }
 
@@ -42,4 +42,4 @@ private:
     GitIntegration* gi;
 };
 
-#endif // COMMITSMODEL_H
+#endif // BRANCHESMODEL_H

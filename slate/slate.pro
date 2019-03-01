@@ -70,10 +70,11 @@ SOURCES += \
     plugins/pluginmanager.cpp \
     managers/recentfilesmanager.cpp \
     managers/updatemanager.cpp \
-    messagebox.cpp \
     managers/syntaxhighlighting.cpp \
     SourceControl/gitwidget.cpp \
-    SourceControl/commitsmodel.cpp
+    SourceControl/commitsmodel.cpp \
+    SourceControl/branchesmodel.cpp \
+    SourceControl/GitDialogs/addbranchdialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -93,9 +94,10 @@ HEADERS += \
     plugins/pluginmanager.h \
     managers/recentfilesmanager.h \
     managers/updatemanager.h \
-    messagebox.h \
     SourceControl/gitwidget.h \
-    SourceControl/commitsmodel.h
+    SourceControl/commitsmodel.h \
+    SourceControl/branchesmodel.h \
+    SourceControl/GitDialogs/addbranchdialog.h
 
 macx {
     SOURCES += \
@@ -113,7 +115,8 @@ FORMS += \
     textparts/printdialog.ui \
     settingsdialog.ui \
     picturetabbar.ui \
-    SourceControl/gitwidget.ui
+    SourceControl/gitwidget.ui \
+    SourceControl/GitDialogs/addbranchdialog.ui
 
 RESOURCES += \
     icons.qrc \

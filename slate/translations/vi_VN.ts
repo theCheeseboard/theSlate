@@ -36,6 +36,47 @@
     </message>
 </context>
 <context>
+    <name>AddBranchDialog</name>
+    <message>
+        <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="71"/>
+        <source>Add a branch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="136"/>
+        <source>Branch From</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="143"/>
+        <source>Branch Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="171"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Hủy</translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="178"/>
+        <source>Branch</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BranchesModel</name>
+    <message>
+        <location filename="../SourceControl/branchesmodel.cpp" line="30"/>
+        <source>New Branch</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CommitsModel</name>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="57"/>
@@ -43,51 +84,51 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="59"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="65"/>
         <source>Create new commit to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="70"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="77"/>
         <source>No Upstream branch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="72"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="79"/>
         <source>No upstream branch has been configured.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="79"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="86"/>
         <source>Pull Remote Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../SourceControl/commitsmodel.cpp" line="81"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="88"/>
         <source>%n pending incoming commits</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../SourceControl/commitsmodel.cpp" line="90"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="97"/>
         <source>%n pending outgoing commits</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="88"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="95"/>
         <source>Push Local Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="97"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="104"/>
         <source>Up to date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="99"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="106"/>
         <source>Your local repository is up to date</source>
         <translation type="unfinished"></translation>
     </message>
@@ -215,18 +256,54 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.ui" line="496"/>
+        <location filename="../SourceControl/gitwidget.ui" line="500"/>
         <source>Branch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.ui" line="519"/>
+        <location filename="../SourceControl/gitwidget.ui" line="523"/>
         <source>Commit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.ui" line="526"/>
+        <location filename="../SourceControl/gitwidget.ui" line="530"/>
         <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="97"/>
+        <source>For %1</source>
+        <translation type="unfinished">Cho %1</translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="98"/>
+        <source>Checkout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="101"/>
+        <source>Delete</source>
+        <translation type="unfinished">Xóa</translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="103"/>
+        <source>Delete Branch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="104"/>
+        <source>Delete the %1 branch?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="117"/>
+        <source>With %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="118"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="121"/>
+        <source>Merge %1 into %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

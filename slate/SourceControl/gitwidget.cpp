@@ -3,6 +3,9 @@
 
 #include "gitintegration.h"
 #include "commitsmodel.h"
+#include "branchesmodel.h"
+#include "GitDialogs/addbranchdialog.h"
+#include <tmessagebox.h>
 
 struct GitWidgetPrivate {
     GitIntegration* gi;
@@ -34,12 +37,14 @@ GitWidget::GitWidget(QWidget *parent) :
 
     ui->logList->setModel(new CommitsModel(d->gi));
     ui->logList->setItemDelegate(new CommitsModelDelegate(d->gi));
+    ui->branchesList->setModel(new BranchesModel(d->gi));
+    ui->branchesList->setItemDelegate(new BranchesModelDelegate(d->gi));
 
     connect(d->gi, &GitIntegration::headCommitChanged, [=] {
         ui->currentCommit->setText(d->gi->getCommit("HEAD", false, false)->hash.left(7));
     });
     connect(d->gi, &GitIntegration::currentBranchChanged, [=] {
-        ui->currentBranch->setText(d->gi->branch());
+        ui->currentBranch->setText(this->fontMetrics().elidedText(d->gi->branch()->name, Qt::ElideRight, 200 * theLibsGlobal::getDPIScaling()));
     });
 }
 
@@ -78,4 +83,62 @@ void GitWidget::on_branchesButton_toggled(bool checked)
 void GitWidget::on_commitsButton_toggled(bool checked)
 {
     if (checked) ui->gitPages->setCurrentIndex(1);
+}
+
+void GitWidget::on_branchesList_customContextMenuRequested(const QPoint &pos)
+{
+    QModelIndex index = ui->branchesList->indexAt(pos);
+    if (index.data(Qt::UserRole + 1).isNull()) {
+        //This is an action
+    } else {
+        GitIntegration::BranchPointer branch = index.data(Qt::UserRole + 1).value<GitIntegration::BranchPointer>();
+        GitIntegration::BranchPointer currentBranch = d->gi->branch();
+        QMenu* menu = new QMenu();
+        menu->addSection(tr("For %1").arg(branch->name));
+        menu->addAction(tr("Checkout"), [=] {
+            d->gi->checkout(branch->name);
+        });
+        QAction* deleteAction = menu->addAction(tr("Delete"), [=] {
+            tMessageBox* messageBox = new tMessageBox(this->window());
+            messageBox->setWindowTitle(tr("Delete Branch"));
+            messageBox->setText(tr("Delete the %1 branch?").arg(branch->name));
+            messageBox->setIcon(tMessageBox::Warning);
+            messageBox->setWindowFlags(Qt::Sheet);
+            messageBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            messageBox->setDefaultButton(QMessageBox::No);
+            if (messageBox->exec() == QMessageBox::Yes) {
+                //Delete the branch
+                d->gi->deleteBranch(branch);
+            }
+        });
+        if (branch == currentBranch) deleteAction->setEnabled(false);
+
+        if (currentBranch != branch) {
+            menu->addSection(tr("With %1").arg(currentBranch->name));
+            menu->addAction(tr("Merge %1 into %2").arg(branch->name, currentBranch->name), [=] {
+
+            });
+            menu->addAction(tr("Merge %1 into %2").arg(currentBranch->name, branch->name), [=] {
+
+            });
+        }
+        menu->exec(ui->branchesList->mapToGlobal(pos));
+    }
+}
+
+void GitWidget::on_branchesList_activated(const QModelIndex &index)
+{
+    if (index.data(Qt::UserRole + 1).isNull()) {
+        //This is an action
+        QString action = index.data(Qt::UserRole).toString();
+        if (action == "new") {
+            //Create a new branch
+            AddBranchDialog* dialog = new AddBranchDialog(d->gi, this->window());
+            dialog->setWindowFlags(Qt::Sheet);
+            if (dialog->exec() == AddBranchDialog::Accepted) {
+                //Make the branch
+                d->gi->newBranch(dialog->name(), dialog->from());
+            }
+        }
+    }
 }

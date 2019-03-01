@@ -2,7 +2,7 @@
 #include "ui_mergetool.h"
 
 #include <QBuffer>
-#include "messagebox.h"
+#include <tmessagebox.h>
 
 #include <SyntaxHighlighter>
 
@@ -189,14 +189,14 @@ void MergeTool::on_acceptButton_clicked()
 {
     QString finalFile = endFile->toPlainText();
     if (finalFile.contains(tr("[Awaiting merge decision]"))) {
-        MessageBox* messageBox = new MessageBox(this);
+        tMessageBox* messageBox = new tMessageBox(this);
         messageBox->setWindowTitle(tr("Unresolved Merge Conflicts"));
         messageBox->setText(tr("You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?"));
-        messageBox->setIcon(MessageBox::Warning);
+        messageBox->setIcon(tMessageBox::Warning);
         messageBox->setWindowFlags(Qt::Sheet);
-        messageBox->setStandardButtons(MessageBox::Yes | MessageBox::No);
-        messageBox->setDefaultButton(MessageBox::Yes);
-        if (messageBox->exec() == MessageBox::No) return;
+        messageBox->setStandardButtons(tMessageBox::Yes | tMessageBox::No);
+        messageBox->setDefaultButton(tMessageBox::Yes);
+        if (messageBox->exec() == tMessageBox::No) return;
     }
     finalFile.remove(tr("[Awaiting merge decision]") + "\n");
 

@@ -1,7 +1,7 @@
 #include "texteditor.h"
 
 #include <QStyle>
-#include "messagebox.h"
+#include <tmessagebox.h>
 #include <QMimeData>
 #include <QScrollBar>
 #include <QMenuBar>
@@ -453,26 +453,26 @@ bool TextEditor::saveFile() {
     if (d->currentBackend == nullptr) {
         return false;
     } else if (d->currentBackend->readOnly()) {
-        MessageBox* messageBox = new MessageBox(this->window());
+        tMessageBox* messageBox = new tMessageBox(this->window());
         messageBox->setWindowTitle(tr("Read Only File"));
         messageBox->setText(tr("This file is read only. You'll need to save it as a different file."));
-        messageBox->setIcon(MessageBox::Warning);
+        messageBox->setIcon(tMessageBox::Warning);
         messageBox->setWindowFlags(Qt::Sheet);
-        messageBox->setStandardButtons(MessageBox::Ok);
-        messageBox->setDefaultButton(MessageBox::Ok);
+        messageBox->setStandardButtons(tMessageBox::Ok);
+        messageBox->setDefaultButton(tMessageBox::Ok);
         messageBox->exec();
         return true;
     } else {
         QByteArray saveData = formatForSaving(this->toPlainText());
         if (!d->textCodec->canEncode(this->toPlainText())) {
-            MessageBox* messageBox = new MessageBox(this->window());
+            tMessageBox* messageBox = new tMessageBox(this->window());
             messageBox->setWindowTitle(tr("Encoding Error"));
             messageBox->setText(tr("Some characters used in this file cannot be encoded in the selected encoding. Saving this file will remove any invalid characters and may result in possible data loss."));
-            messageBox->setIcon(MessageBox::Warning);
+            messageBox->setIcon(tMessageBox::Warning);
             messageBox->setWindowFlags(Qt::Sheet);
-            messageBox->setStandardButtons(MessageBox::Cancel | MessageBox::Save);
-            messageBox->setDefaultButton(MessageBox::Ok);
-            if (messageBox->exec() == MessageBox::Cancel) return true;
+            messageBox->setStandardButtons(tMessageBox::Cancel | tMessageBox::Save);
+            messageBox->setDefaultButton(tMessageBox::Ok);
+            if (messageBox->exec() == tMessageBox::Cancel) return true;
         }
         d->currentBackend->save(saveData)->then([=] {
             removeTopPanel(d->onDiskChanged);
@@ -511,13 +511,13 @@ bool TextEditor::saveFile() {
 
             text.append(tr("\n\nDo not exit theSlate until you've managed to write the file, otherwise you may lose data."));
 
-            MessageBox* messageBox = new MessageBox(this->window());
+            tMessageBox* messageBox = new tMessageBox(this->window());
             messageBox->setWindowTitle(tr("Couldn't save the file"));
             messageBox->setText(text);
-            messageBox->setIcon(MessageBox::Critical);
+            messageBox->setIcon(tMessageBox::Critical);
             messageBox->setWindowFlags(Qt::Sheet);
-            messageBox->setStandardButtons(MessageBox::Ok);
-            messageBox->setDefaultButton(MessageBox::Ok);
+            messageBox->setStandardButtons(tMessageBox::Ok);
+            messageBox->setDefaultButton(tMessageBox::Ok);
             messageBox->exec();
         });
         return true;
@@ -1024,16 +1024,16 @@ void TextEditor::toggleFindReplace() {
 
 void TextEditor::revertFile(QTextCodec* codec) {
     if (d->currentBackend != nullptr) {
-        MessageBox* messageBox = new MessageBox(this->window());
+        tMessageBox* messageBox = new tMessageBox(this->window());
         messageBox->setWindowTitle(tr("Revert Changes?"));
         messageBox->setText(tr("Do you want to revert all the edits made to this document?"));
-        messageBox->setIcon(MessageBox::Warning);
+        messageBox->setIcon(tMessageBox::Warning);
         messageBox->setWindowFlags(Qt::Sheet);
-        messageBox->setStandardButtons(MessageBox::Yes | MessageBox::No);
-        messageBox->setDefaultButton(MessageBox::Save);
+        messageBox->setStandardButtons(tMessageBox::Yes | tMessageBox::No);
+        messageBox->setDefaultButton(tMessageBox::Save);
         int button = messageBox->exec();
 
-        if (button == MessageBox::Yes) {
+        if (button == tMessageBox::Yes) {
             if (codec != nullptr) d->textCodec = codec;
             openFile(d->currentBackend);
         }

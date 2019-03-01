@@ -4,7 +4,7 @@
 #include "exitsavedialog.h"
 #include <QMimeData>
 #include <QFileIconProvider>
-#include "messagebox.h"
+#include <tmessagebox.h>
 #include <QLineEdit>
 #include <ttoast.h>
 #include <QDesktopServices>
@@ -571,20 +571,20 @@ bool MainWindow::saveCurrentDocument(bool saveAs) {
 
 bool MainWindow::closeCurrentTab() {
     if (currentDocument()->isEdited()) {
-        MessageBox* messageBox = new MessageBox(this);
+        tMessageBox* messageBox = new tMessageBox(this);
         messageBox->setWindowTitle(tr("Save Changes?"));
         messageBox->setText(tr("Do you want to save your changes to this document?"));
-        messageBox->setIcon(MessageBox::Warning);
+        messageBox->setIcon(tMessageBox::Warning);
         messageBox->setWindowFlags(Qt::Sheet);
-        messageBox->setStandardButtons(MessageBox::Discard | MessageBox::Save | MessageBox::Cancel);
-        messageBox->setDefaultButton(MessageBox::Save);
+        messageBox->setStandardButtons(tMessageBox::Discard | tMessageBox::Save | tMessageBox::Cancel);
+        messageBox->setDefaultButton(tMessageBox::Save);
         int button = messageBox->exec();
 
-        if (button == MessageBox::Save) {
+        if (button == tMessageBox::Save) {
             if (!saveCurrentDocument()) {
                 return false;
             }
-        } else if (button == MessageBox::Cancel) {
+        } else if (button == tMessageBox::Cancel) {
             return false;
         }
     }
