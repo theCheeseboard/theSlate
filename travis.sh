@@ -95,7 +95,9 @@ elif [ $STAGE = "after_success" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
     echo "[TRAVIS] Publishing AppImage"
     wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-    bash upload.sh theSlate*.AppImage*
+    cp theSlate*.AppImage theSlate-linux.AppImage
+    cp theSlate*.AppImage.zsync theSlate-linux.AppImage.zsync
+    bash upload.sh theSlate-linux.AppImage*
   else
     echo "[TRAVIS] Publishing Disk Image"
     cd ~
