@@ -80,8 +80,6 @@ class GitIntegration : public QObject
 
 
     public slots:
-        tPromise<QStringList>* reloadStatus();
-
         CommitPointer getCommit(QString hash, bool populate, bool iterateParents);
         void populatePointers(CommitPointer commit);
 
@@ -98,13 +96,19 @@ class GitIntegration : public QObject
 
         QString myName();
 
-        tPromise<void>* fetch();
+        tPromise<void>* fetch(bool interactive = false);
 
+        QByteArray status(bool porcelain = true);
+        QByteArray show(QString item);
+
+        void reset(QString files = "");
         void add(QString file);
+
+        void commit(QString message);
+
         void rm(QString file, bool cache = false);
         void unstage(QString file);
         void abortMerge();
-        QString commit(QString message);
 
         GitTask* pull();
         GitTask* push();
@@ -116,6 +120,7 @@ class GitIntegration : public QObject
 
         bool setNewRootDir(QString rootDir);
         void setRootDir(QString rootDir);
+        QString rootDir();
 
     private slots:
         void watcherChanged();

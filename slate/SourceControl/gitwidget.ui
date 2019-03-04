@@ -461,6 +461,9 @@
            </property>
            <item>
             <widget class="QListView" name="logList">
+             <property name="contextMenuPolicy">
+              <enum>Qt::CustomContextMenu</enum>
+             </property>
              <property name="frameShape">
               <enum>QFrame::NoFrame</enum>
              </property>

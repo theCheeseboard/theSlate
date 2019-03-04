@@ -165,11 +165,10 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
         fixMergeButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         connect(fixMergeButton, &QPushButton::clicked, [=] {
             //Open the merge resolution tool
-            MergeTool* tool = new MergeTool(this->toPlainText(), d->hlDef, d->parentWindow);
+            MergeTool* tool = new MergeTool(this->toPlainText(), d->hlDef, d->parentWindow, this->window());
             tool->setTitle(tr("Resolve a Merge Conflict"));
-            tool->setParent(this);
-            #if THE_LIBS_API_VERSION >= 3 && !defined(Q_OS_MAC)
-                tool->setWindowFlags(Qt::Widget);
+            tool->resize(this->width() - 20, this->height() - 50);
+            //#if THE_LIBS_API_VERSION >= 3 && !defined(Q_OS_MAC)
                 tPopover* popover = new tPopover(tool);
                 popover->setPopoverWidth(-100 * theLibsGlobal::getDPIScaling());
                 popover->show(this->window());
@@ -185,9 +184,9 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
                 connect(popover, &tPopover::dismissed, [=] {
                     tool->reject();
                 });
-            #else
+            /*#else
                 tool->setWindowFlag(Qt::Sheet);
-                tool->setModal(Qt::WindowModal);
+                tool->setWindowModality(Qt::WindowModal);
                 tool->show();
                 d->parentWindow->menuBar()->setEnabled(false);
 
@@ -198,7 +197,7 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
                 connect(tool, &MergeTool::finished, [=] {
                     d->parentWindow->menuBar()->setEnabled(true);
                 });
-            #endif
+            #endif*/
         });;
         d->mergeConflictsNotification->addButton(fixMergeButton);
 

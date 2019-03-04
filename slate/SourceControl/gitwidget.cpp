@@ -5,7 +5,10 @@
 #include "commitsmodel.h"
 #include "branchesmodel.h"
 #include "GitDialogs/addbranchdialog.h"
+#include "GitDialogs/commitdialog.h"
+#include <tpopover.h>
 #include <tmessagebox.h>
+#include "mainwindow.h"
 
 struct GitWidgetPrivate {
     GitIntegration* gi;
@@ -41,10 +44,19 @@ GitWidget::GitWidget(QWidget *parent) :
     ui->branchesList->setItemDelegate(new BranchesModelDelegate(d->gi));
 
     connect(d->gi, &GitIntegration::headCommitChanged, [=] {
-        ui->currentCommit->setText(d->gi->getCommit("HEAD", false, false)->hash.left(7));
+        GitIntegration::CommitPointer commit = d->gi->getCommit("HEAD", false, false);
+        if (commit.isNull()) {
+            ui->currentCommit->setText("...");
+        } else {
+            ui->currentCommit->setText(commit->hash.left(7));
+        }
     });
     connect(d->gi, &GitIntegration::currentBranchChanged, [=] {
-        ui->currentBranch->setText(this->fontMetrics().elidedText(d->gi->branch()->name, Qt::ElideRight, 200 * theLibsGlobal::getDPIScaling()));
+        if (d->gi->branch().isNull()) {
+            ui->currentBranch->setText("...");
+        } else {
+            ui->currentBranch->setText(this->fontMetrics().elidedText(d->gi->branch()->name, Qt::ElideRight, 200 * theLibsGlobal::getDPIScaling()));
+        }
     });
 }
 
@@ -139,6 +151,49 @@ void GitWidget::on_branchesList_activated(const QModelIndex &index)
                 //Make the branch
                 d->gi->newBranch(dialog->name(), dialog->from());
             }
+        }
+    }
+}
+
+void GitWidget::on_logList_customContextMenuRequested(const QPoint &pos)
+{
+    QModelIndex index = ui->logList->indexAt(pos);
+    if (!index.data(Qt::UserRole + 1).isNull()) {
+        //This is an action
+        QString action = index.data(Qt::UserRole + 1).toString();
+        if (action == "pull" || action == "push" || action == "up-to-date") {
+            QMenu* menu = new QMenu();
+            menu->addSection(tr("For repository"));
+            menu->addAction(tr("Push"));
+            menu->addAction(tr("Pull"));
+            menu->addSeparator();
+            menu->addAction(tr("Fetch"));
+            menu->exec(ui->branchesList->mapToGlobal(pos));
+        }
+    }
+}
+
+void GitWidget::on_logList_activated(const QModelIndex &index)
+{
+    if (!index.data(Qt::UserRole + 1).isNull()) {
+        //This is an action
+        QString action = index.data(Qt::UserRole + 1).toString();
+        if (action == "new") {
+            //Create a new commit
+            CommitDialog* dialog = new CommitDialog(d->gi, static_cast<MainWindow*>(this->window()), this->window());
+            dialog->resize(this->window()->width() - 20, this->window()->height() - 50);
+
+            tPopover* p = new tPopover(dialog);
+            p->setPopoverWidth(-100 * theLibsGlobal::getDPIScaling());
+            connect(dialog, &CommitDialog::finished, [=] {
+                p->dismiss();
+            });
+            connect(p, &tPopover::dismissed, [=] {
+                p->deleteLater();
+                dialog->deleteLater();
+            });
+            p->show(this->window());
+            dialog->activateWindow();
         }
     }
 }

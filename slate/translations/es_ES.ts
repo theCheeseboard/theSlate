@@ -10,7 +10,7 @@
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="32"/>
-        <location filename="../main.cpp" line="156"/>
+        <location filename="../main.cpp" line="157"/>
         <source>Text Editor</source>
         <translation type="unfinished"></translation>
     </message>
@@ -88,6 +88,75 @@
     </message>
 </context>
 <context>
+    <name>CommitDialog</name>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="71"/>
+        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="321"/>
+        <source>Commit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="116"/>
+        <source>Ready to commit files?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="194"/>
+        <source>Commit Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="209"/>
+        <source>Branch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="232"/>
+        <source>User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="314"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="79"/>
+        <source>File deleted from disk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="85"/>
+        <source>New file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="114"/>
+        <source>Nothing to commit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="115"/>
+        <source>You haven&apos;t added any files to this commit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="127"/>
+        <source>No Commit Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="128"/>
+        <source>You&apos;ll need to set a commit message to commit these files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CommitsModel</name>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="114"/>
@@ -96,17 +165,17 @@
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="114"/>
-        <source>Create new commit to %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="120"/>
-        <source>No Upstream branch</source>
+        <source>Create new commit on %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="120"/>
         <source>No upstream branch has been configured.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/commitsmodel.cpp" line="120"/>
+        <source>No Upstream Branch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -116,15 +185,7 @@
     </message>
     <message numerus="yes">
         <location filename="../SourceControl/commitsmodel.cpp" line="122"/>
-        <source>%n pending incoming commits</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../SourceControl/commitsmodel.cpp" line="124"/>
-        <source>%n pending outgoing commits</source>
+        <source>%n incoming commits</source>
         <translation type="unfinished">
             <numerusform></numerusform>
             <numerusform></numerusform>
@@ -134,6 +195,14 @@
         <location filename="../SourceControl/commitsmodel.cpp" line="124"/>
         <source>Push Local Changes</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../SourceControl/commitsmodel.cpp" line="124"/>
+        <source>%n outgoing commits</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="126"/>
@@ -272,54 +341,74 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.ui" line="500"/>
+        <location filename="../SourceControl/gitwidget.ui" line="503"/>
         <source>Branch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.ui" line="523"/>
+        <location filename="../SourceControl/gitwidget.ui" line="526"/>
         <source>Commit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.ui" line="530"/>
+        <location filename="../SourceControl/gitwidget.ui" line="533"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="97"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="109"/>
         <source>For %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="98"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="110"/>
         <source>Checkout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="101"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="113"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="103"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="115"/>
         <source>Delete Branch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="104"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="116"/>
         <source>Delete the %1 branch?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="117"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="129"/>
         <source>With %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="118"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="121"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="130"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="133"/>
         <source>Merge %1 into %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="166"/>
+        <source>For repository</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="167"/>
+        <source>Push</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="168"/>
+        <source>Pull</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="170"/>
+        <source>Fetch</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1001,6 +1090,44 @@
     </message>
 </context>
 <context>
+    <name>StatusModel</name>
+    <message>
+        <location filename="../SourceControl/statusmodel.cpp" line="51"/>
+        <source>conflicting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/statusmodel.cpp" line="61"/>
+        <source>untracked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/statusmodel.cpp" line="62"/>
+        <source>modified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/statusmodel.cpp" line="63"/>
+        <source>added</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/statusmodel.cpp" line="64"/>
+        <source>deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/statusmodel.cpp" line="65"/>
+        <source>renamed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/statusmodel.cpp" line="66"/>
+        <source>copied</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TextEditor</name>
     <message>
         <location filename="../texteditor.cpp" line="105"/>
@@ -1023,124 +1150,124 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="213"/>
+        <location filename="../texteditor.cpp" line="212"/>
         <source>File on disk changed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="214"/>
+        <location filename="../texteditor.cpp" line="213"/>
         <source>The file on the disk has changed. If you save this file you will lose the changes on disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="217"/>
+        <location filename="../texteditor.cpp" line="216"/>
         <source>Reload File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="223"/>
+        <location filename="../texteditor.cpp" line="222"/>
         <source>Merge Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="228"/>
+        <location filename="../texteditor.cpp" line="227"/>
         <source>File on Disk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="228"/>
+        <location filename="../texteditor.cpp" line="227"/>
         <source>Currently open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="233"/>
+        <location filename="../texteditor.cpp" line="232"/>
         <source>Resolve a Save Conflict</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="285"/>
+        <location filename="../texteditor.cpp" line="284"/>
         <source>File on disk deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="286"/>
+        <location filename="../texteditor.cpp" line="285"/>
         <source>The file on the disk has been deleted. If you save this file you will recreate the file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="295"/>
+        <location filename="../texteditor.cpp" line="294"/>
         <source>Can&apos;t open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="304"/>
+        <location filename="../texteditor.cpp" line="303"/>
         <source>Mixed Line Endings detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="305"/>
+        <location filename="../texteditor.cpp" line="304"/>
         <source>If you save this file, we&apos;ll change all the line endings to your configuration in Settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="395"/>
+        <location filename="../texteditor.cpp" line="394"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="457"/>
+        <location filename="../texteditor.cpp" line="456"/>
         <source>Read Only File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="458"/>
+        <location filename="../texteditor.cpp" line="457"/>
         <source>This file is read only. You&apos;ll need to save it as a different file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="469"/>
+        <location filename="../texteditor.cpp" line="468"/>
         <source>Encoding Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="470"/>
+        <location filename="../texteditor.cpp" line="469"/>
         <source>Some characters used in this file cannot be encoded in the selected encoding. Saving this file will remove any invalid characters and may result in possible data loss.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="505"/>
+        <location filename="../texteditor.cpp" line="504"/>
         <source>There&apos;s no more space on this disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="507"/>
+        <location filename="../texteditor.cpp" line="506"/>
         <source>You don&apos;t have permission to save this file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="509"/>
+        <location filename="../texteditor.cpp" line="508"/>
         <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="512"/>
+        <location filename="../texteditor.cpp" line="511"/>
         <source>
 
 Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="515"/>
+        <location filename="../texteditor.cpp" line="514"/>
         <source>Couldn&apos;t save the file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="1028"/>
+        <location filename="../texteditor.cpp" line="1027"/>
         <source>Revert Changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="1029"/>
+        <location filename="../texteditor.cpp" line="1028"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1166,22 +1293,22 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.cpp" line="162"/>
+        <location filename="../main.cpp" line="163"/>
         <source>Read from standard input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="165"/>
+        <location filename="../main.cpp" line="166"/>
         <source>files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="165"/>
+        <location filename="../main.cpp" line="166"/>
         <source>Files to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="165"/>
+        <location filename="../main.cpp" line="166"/>
         <source>[files...]</source>
         <translation type="unfinished"></translation>
     </message>

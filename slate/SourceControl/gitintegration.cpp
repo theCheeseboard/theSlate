@@ -43,43 +43,10 @@ GitIntegration::GitIntegration(QString rootDir, QObject *parent) : QObject(paren
         });
     });
     timer->start();
-
-    reloadStatus();
 }
 
 GitIntegration::~GitIntegration() {
     delete d;
-}
-
-tPromise<QStringList>* GitIntegration::reloadStatus() {
-    return new tPromise<QStringList>([=](QString& error) {
-        QProcess* proc = git("rev-parse --show-toplevel");
-        proc->waitForFinished();
-
-        if (proc->exitCode() == 0) {
-            QString rootDir = proc->readAll().trimmed();
-            if (d->rootDir != rootDir) {
-                this->setRootDir(rootDir);
-            }
-            proc->deleteLater();
-
-            proc = git("status --porcelain=1");
-            proc->waitForFinished();
-            QString status = proc->readAll();
-            proc->deleteLater();
-
-            return status.split('\n');
-        } else {
-            proc->deleteLater();
-            return QStringList();
-        }
-    });
-}
-
-void GitIntegration::add(QString file) {
-    QProcess* proc = git("add -- " + file);
-    proc->waitForFinished();
-    proc->deleteLater();
 }
 
 void GitIntegration::rm(QString file, bool cache) {
@@ -169,19 +136,6 @@ GitTask* GitIntegration::push() {
     return task;
 }
 
-QString GitIntegration::commit(QString message) {
-    QProcess* proc = git("commit -m \"" + message + "\"");
-    proc->waitForFinished();
-    proc->deleteLater();
-
-    proc = git("rev-parse --short HEAD");
-    proc->waitForFinished();
-    QString retval = proc->readAll().trimmed();
-    proc->deleteLater();
-
-    return retval;
-}
-
 QStringList GitIntegration::findGit() {
     #ifdef Q_OS_WIN
         //Search the registry for Git
@@ -210,9 +164,13 @@ QProcess* GitIntegration::git(QString args) {
         }
     }
 
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    env.insert("GIT_TERMINAL_PROMPT", "0");
+
     QProcess* proc = new QProcess();
     proc->setProcessChannelMode(QProcess::MergedChannels);
     proc->setWorkingDirectory(d->rootDir);
+    proc->setProcessEnvironment(env);
     proc->start(d->gitInstance + " " + args);
 
     return proc;
@@ -222,6 +180,10 @@ void GitIntegration::setRootDir(QString rootDir) {
     QMutexLocker locker(&instanceLocker);
     d->rootDir.clear();
     d->rootDir.append(rootDir);
+}
+
+QString GitIntegration::rootDir() {
+    return d->rootDir;
 }
 
 GitTask::GitTask(QObject* parent) : QObject(parent) {
@@ -373,6 +335,9 @@ void GitIntegration::updateWatcher() {
 }
 
 void GitIntegration::watcherChanged() {
+    if (needsInit()) {
+        return;
+    }
     //Update list of branches
     bool branchesUpdated = false;
     QProcess* branchesProc = git("branch --format=\"%(refname:short)\" -a");
@@ -403,15 +368,19 @@ void GitIntegration::watcherChanged() {
     QProcess* branchProc = git("rev-parse --abbrev-ref HEAD");
     branchProc->waitForFinished();
 
-    QString currentBranchName = branchProc->readAll().trimmed();
-    BranchPointer currentBranch = branch(currentBranchName);
+    BranchPointer currentBranch;
+    if (branchProc->exitCode() == 0) {
+        QString currentBranchName = branchProc->readAll().trimmed();
+        currentBranch = branch(currentBranchName);
+    }
+
     if (currentBranch != d->currentBranch) {
         d->currentBranch = currentBranch;
         emit currentBranchChanged();
     }
     branchProc->deleteLater();
 
-    if (!currentBranch->upstream.isNull()) {
+    if (!currentBranch.isNull() && !currentBranch->upstream.isNull()) {
         bool didChange = false;
 
         QProcess* inProc = git("rev-list --count HEAD.." + currentBranch->upstream->name);
@@ -445,7 +414,7 @@ void GitIntegration::watcherChanged() {
     //Update commits
     d->knownCommits.remove("HEAD");
     CommitPointer head = getCommit("HEAD", false, false);
-    if (head->hash != d->headCommit) {
+    if (!head.isNull() && head->hash != d->headCommit) {
         d->headCommit = head->hash;
         emit headCommitChanged();
     }
@@ -561,11 +530,48 @@ void GitIntegration::populatePointers(CommitPointer pointers) {
     pointers->pointersKnown = true;
 }
 
-tPromise<void>* GitIntegration::fetch() {
+tPromise<void>* GitIntegration::fetch(bool interactive) {
     return new tPromise<void>([=](QString error) {
         if (branch().isNull() || branch()->upstream.isNull()) {
             QProcess* proc = git("fetch");
             proc->waitForFinished();
         }
     });
+}
+
+QByteArray GitIntegration::status(bool porcelain) {
+    QProcess* proc;
+    if (porcelain) {
+        proc = git("status --porcelain -z");
+    } else {
+        proc = git("status");
+    }
+    proc->waitForFinished();
+    return proc->readAll();
+}
+
+QByteArray GitIntegration::show(QString item) {
+    QProcess* proc = git("show " + item);
+    proc->waitForFinished();
+    return proc->readAll();
+}
+
+void GitIntegration::reset(QString files) {
+    QProcess* proc = git("reset " + files);
+    proc->waitForFinished();
+    proc->deleteLater();
+}
+
+void GitIntegration::add(QString file) {
+    QProcess* proc = git("add -- " + file);
+    proc->waitForFinished();
+    proc->deleteLater();
+}
+
+void GitIntegration::commit(QString message) {
+    QProcess* proc = git("commit -F -");
+    proc->write(message.toUtf8());
+    proc->closeWriteChannel();
+    proc->waitForFinished();
+    proc->deleteLater();
 }

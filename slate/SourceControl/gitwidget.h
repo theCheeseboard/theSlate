@@ -31,6 +31,10 @@ private slots:
 
         void on_branchesList_activated(const QModelIndex &index);
 
+        void on_logList_customContextMenuRequested(const QPoint &pos);
+
+        void on_logList_activated(const QModelIndex &index);
+
 private:
         Ui::GitWidget *ui;
 

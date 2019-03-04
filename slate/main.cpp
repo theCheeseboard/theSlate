@@ -76,6 +76,7 @@ int main(int argc, char *argv[])
     a.setOrganizationName("theSuite");
     a.setOrganizationDomain("");
     a.setApplicationName("theSlate");
+    a.setApplicationIcon(QIcon::fromTheme("theslate", QIcon(":/icons/icon.svg")));
 
     //a.registerCrashTrap();
 
