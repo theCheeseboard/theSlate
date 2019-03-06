@@ -22,7 +22,8 @@ class GitWidget : public QWidget
         void updateStatus();
 
         void commit();
-        void pull();
+        void pull(QString from = "");
+        void push(QString to = "");
 
 private slots:
 

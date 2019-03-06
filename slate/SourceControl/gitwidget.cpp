@@ -169,7 +169,9 @@ void GitWidget::on_logList_customContextMenuRequested(const QPoint &pos)
         if (action == "pull" || action == "push" || action == "up-to-date") {
             QMenu* menu = new QMenu();
             menu->addSection(tr("For repository"));
-            menu->addAction(tr("Push"));
+            menu->addAction(tr("Push"), [=] {
+                this->push();
+            });
             menu->addAction(tr("Pull"), [=] {
                 this->pull();
             });
@@ -191,6 +193,9 @@ void GitWidget::on_logList_activated(const QModelIndex &index)
         } else if (action == "pull") {
             //Pull from upstream
             pull();
+        } else if (action == "push") {
+            //Push to upstream
+            push();
         } else if (action == "merge-abort") {
             //Abort merge
             tMessageBox* messageBox = new tMessageBox(this->window());
@@ -224,7 +229,7 @@ void GitWidget::commit() {
     p->show(this->window());
 }
 
-void GitWidget::pull() {
+void GitWidget::pull(QString from) {
     if (!d->gi->status().trimmed().isEmpty()) {
         tMessageBox* messageBox = new tMessageBox(this->window());
         messageBox->setWindowTitle(tr("Unclean Working Directory"));
@@ -248,10 +253,13 @@ void GitWidget::pull() {
         }
     }
 
+    QString pullRepo = from;
+    if (pullRepo == "") pullRepo = tr("remote repository");
+
     //Show a dialog
     ProgressDialog* dialog = new ProgressDialog();
     dialog->setTitle(tr("Pull"));
-    dialog->setMessage(tr("Pulling from remote repository..."));
+    dialog->setMessage(tr("Pulling from %1...").arg(pullRepo));
     dialog->setCancelable(false);
     dialog->resize(dialog->sizeHint());
 
@@ -264,7 +272,7 @@ void GitWidget::pull() {
     p->show(this->window());
 
     //Pull in everything
-    d->gi->pull()->then([=] {
+    d->gi->pull(from)->then([=] {
         p->dismiss();
     })->error([=](QString error) {
         p->dismiss();
@@ -330,6 +338,69 @@ void GitWidget::pull() {
             messageBox->deleteLater();
 
             d->commitsModel->reloadActions();
+        } else {
+            tMessageBox* messageBox = new tMessageBox(this->window());
+            messageBox->setWindowTitle(tr("Git Error"));
+            messageBox->setText(error);
+            messageBox->setStandardButtons(tMessageBox::Ok);
+            messageBox->setIcon(tMessageBox::Warning);
+            messageBox->setWindowFlags(Qt::Sheet);
+            messageBox->exec();
+            messageBox->deleteLater();
+        }
+    });
+}
+
+void GitWidget::push(QString to) {
+    QString pushRepo = to;
+    if (pushRepo == "") pushRepo = tr("remote repository");
+
+    //Show a dialog
+    ProgressDialog* dialog = new ProgressDialog();
+    dialog->setTitle(tr("Push"));
+    dialog->setMessage(tr("Pushing to %1...").arg(pushRepo));
+    dialog->setCancelable(false);
+    dialog->resize(dialog->sizeHint());
+
+    tPopover* p = new tPopover(dialog);
+    p->setDismissable(false);
+    connect(p, &tPopover::dismissed, [=] {
+        p->deleteLater();
+        dialog->deleteLater();
+    });
+    p->show(this->window());
+
+    //Perform the push
+    d->gi->push(to)->then([=] {
+        p->dismiss();
+    })->error([=](QString error) {
+        p->dismiss();
+        if (error == "out-of-date") {
+            tMessageBox* messageBox = new tMessageBox(this->window());
+            messageBox->setWindowTitle(tr("Out of date"));
+            messageBox->setText(tr("Your local repository is out of date and needs to be updated by pulling."));
+            QPushButton* pullButton = messageBox->addButton(tr("Pull"), tMessageBox::DestructiveRole);
+            messageBox->addButton(tMessageBox::Ok);
+            messageBox->setIcon(tMessageBox::Warning);
+            messageBox->setWindowFlags(Qt::Sheet);
+
+            connect(pullButton, &QPushButton::clicked, [=] {
+                pull(to);
+            });
+
+            messageBox->exec();
+            messageBox->deleteLater();
+        } else if (error.startsWith("message")) {
+            QStringList parts = error.split("\n");
+
+            tMessageBox* messageBox = new tMessageBox(this->window());
+            messageBox->setWindowTitle(parts.at(1));
+            messageBox->setText(parts.mid(2).join("\n"));
+            messageBox->setStandardButtons(tMessageBox::Ok);
+            messageBox->setIcon(tMessageBox::Warning);
+            messageBox->setWindowFlags(Qt::Sheet);
+            messageBox->exec();
+            messageBox->deleteLater();
         } else {
             tMessageBox* messageBox = new tMessageBox(this->window());
             messageBox->setWindowTitle(tr("Git Error"));

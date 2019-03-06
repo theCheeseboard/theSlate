@@ -111,7 +111,8 @@ class GitIntegration : public QObject
         void abortMerge();
         bool isConflicting();
 
-        tPromise<void>* pull();
+        tPromise<void>* pull(QString from = "");
+        tPromise<void>* push(QString to = "");
 
         void init();
         bool needsInit();

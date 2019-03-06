@@ -1117,10 +1117,10 @@ void TextEditor::removeTopPanel(QWidget* topPanel) {
 }
 
 void TextEditor::connectBackend() {
-    connect(d->currentBackend, &FileBackend::remoteFileEdited, [=] {
+    connect(d->currentBackend, &FileBackend::remoteFileEdited, this, [=] {
         addTopPanel(d->onDiskChanged);
     });
-    connect(d->currentBackend, &FileBackend::remoteFileRemoved, [=] {
+    connect(d->currentBackend, &FileBackend::remoteFileRemoved, this, [=] {
         addTopPanel(d->onDiskDeleted);
     });
 }

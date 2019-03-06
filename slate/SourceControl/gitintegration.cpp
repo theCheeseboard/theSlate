@@ -527,9 +527,9 @@ void GitIntegration::commit(QString message) {
     proc->deleteLater();
 }
 
-tPromise<void>* GitIntegration::pull() {
+tPromise<void>* GitIntegration::pull(QString from) {
     return new tPromise<void>([=](QString& error) {
-        QProcess* proc = git("pull");
+        QProcess* proc = git("pull " + from);
         proc->waitForFinished();
 
         //We're not reading machine readable output here...
@@ -540,6 +540,41 @@ tPromise<void>* GitIntegration::pull() {
             return;
         } else if (output.contains("fix conflicts and then commit the result")) {
             error = "conflicting";
+            return;
+        } else if (proc->exitCode() != 0) {
+            error = output;
+            return;
+        }
+    });
+}
+
+tPromise<void>* GitIntegration::push(QString to) {
+    return new tPromise<void>([=](QString& error) {
+        QProcess* proc = git("push");
+        proc->waitForFinished();
+
+        //We're not reading machine readable output here...
+        QByteArray output = proc->readAll();
+        proc->deleteLater();
+        if (output.contains("non-fast-forward") && output.contains("[rejected]")) {
+            error = "out-of-date";
+            return;
+        } else if (output.contains("failed to push some refs to")) {
+            error = "message\n";
+            error += tr("Failed to push refs") + "\n";
+
+            if (output.contains("hint:")) {
+                QString hints;
+
+                for (QByteArray line : output.split('\n')) {
+                    if (line.startsWith("hint: ")) {
+                        hints.append(line.mid(6) + " ");
+                    }
+                }
+                error += hints;
+            } else {
+                error += output;
+            }
             return;
         } else if (proc->exitCode() != 0) {
             error = output;
