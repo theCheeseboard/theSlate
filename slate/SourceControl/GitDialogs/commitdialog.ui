@@ -55,7 +55,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="titleLabel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -111,7 +111,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="messageLabel">
      <property name="text">
       <string>Ready to commit files?</string>
      </property>
@@ -316,7 +316,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="macCommitButton">
             <property name="text">
              <string>Commit</string>
             </property>
@@ -355,7 +355,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>macCommitButton</sender>
    <signal>clicked()</signal>
    <receiver>acceptButton</receiver>
    <slot>click()</slot>

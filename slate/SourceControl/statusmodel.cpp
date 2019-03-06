@@ -70,7 +70,12 @@ QVariant StatusModel::data(const QModelIndex &index, int role) const
         case Qt::UserRole + 1:
             return QVariant::fromValue(s);
         case Qt::CheckStateRole:
-            return s.staged;
+            if (!canChangeCheckState(index.row())) {
+                //Can't have partial commits during a conflict
+                return true;
+            } else {
+                return s.staged;
+            }
     }
     return QVariant();
 }
@@ -87,7 +92,19 @@ bool StatusModel::setData(const QModelIndex &index, const QVariant &value, int r
 
 Qt::ItemFlags StatusModel::flags(const QModelIndex &index) const {
     if (!index.isValid()) return 0;
-    return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable;
+
+    Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+    if (canChangeCheckState(index.row())) {
+        flags |= Qt::ItemIsUserCheckable;
+    }
+    return flags;
+}
+
+bool StatusModel::canChangeCheckState(int row) const {
+    if (!d->gi->isConflicting()) return true;
+    if (d->currentStatus.value(row).status == "??") return true;
+
+    return false;
 }
 
 void StatusModel::reloadStatus() {
@@ -154,7 +171,11 @@ void StatusModelDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     } else {
         checkboxOptions.state |= QStyle::State_Off;
     }
-    checkboxOptions.state |= QStyle::State_Enabled;
+
+    if (index.flags() & Qt::ItemIsUserCheckable) {
+        checkboxOptions.state |= QStyle::State_Enabled;
+    }
+
     QApplication::style()->drawControl(QStyle::CE_CheckBox, &checkboxOptions, painter);
 
     QRect informationRect = option.rect;

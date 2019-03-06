@@ -26,9 +26,12 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const override;
 
     void reloadStatus();
+    void setIsMerging(bool merging);
 
 private:
     StatusModelPrivate* d;
+
+    bool canChangeCheckState(int row) const;
 };
 Q_DECLARE_METATYPE(StatusModel::Status);
 

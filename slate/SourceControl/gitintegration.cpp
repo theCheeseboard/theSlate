@@ -49,23 +49,6 @@ GitIntegration::~GitIntegration() {
     delete d;
 }
 
-void GitIntegration::rm(QString file, bool cache) {
-    QProcess* proc;
-    if (cache) {
-        proc = git("rm --cached -- " + file);
-    } else {
-        proc = git("rm -- " + file);
-    }
-    proc->waitForFinished();
-    proc->deleteLater();
-}
-
-void GitIntegration::unstage(QString file) {
-    QProcess* proc = git("reset HEAD " + file);
-    proc->waitForFinished();
-    proc->deleteLater();
-}
-
 bool GitIntegration::needsInit() {
     QProcess* proc = git("rev-parse --show-toplevel");
     proc->waitForFinished();
@@ -82,6 +65,7 @@ bool GitIntegration::needsInit() {
 void GitIntegration::abortMerge() {
     QProcess* proc = git("merge --abort");
     proc->waitForFinished();
+    proc->deleteLater();
 }
 
 void GitIntegration::init() {
@@ -90,50 +74,6 @@ void GitIntegration::init() {
         proc->waitForFinished();
         proc->deleteLater();
     }
-}
-
-GitTask* GitIntegration::pull() {
-    GitTask* task = new GitTask;
-    QProcess* proc = git("pull");
-    connect(proc, &QProcess::readyRead, [=] {
-        task->appendToBuffer(proc->readAll());
-    });
-    connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), [=](int exitCode, QProcess::ExitStatus exitStatus) {
-        if (exitCode == 0) {
-            emit task->finished();
-        } else {
-            QString output = task->buffer();
-            if (output.contains("CONFLICT")) {
-                emit task->failed("CONFLICT");
-            } else if (output.contains("Please commit")) {
-                emit task->failed("UNCLEAN");
-            }
-        }
-        proc->deleteLater();
-        task->deleteLater();
-    });
-    return task;
-}
-
-GitTask* GitIntegration::push() {
-    GitTask* task = new GitTask;
-    QProcess* proc = git("push");
-    connect(proc, &QProcess::readyRead, [=] {
-        task->appendToBuffer(proc->readAll());
-    });
-    connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), [=](int exitCode, QProcess::ExitStatus exitStatus){
-        if (exitCode == 0) {
-            emit task->finished();
-        } else {
-            QString output = task->buffer();
-            if (output.contains("(fetch first)") || output.contains("(non-fast-forward)")) {
-                emit task->failed("UPDATE");
-            }
-        }
-        proc->deleteLater();
-        task->deleteLater();
-    });
-    return task;
 }
 
 QStringList GitIntegration::findGit() {
@@ -166,6 +106,9 @@ QProcess* GitIntegration::git(QString args) {
 
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     env.insert("GIT_TERMINAL_PROMPT", "0");
+    env.insert("LC_ALL", "C");
+    env.insert("LANG", "en_US.UTF-8");
+    env.insert("LANGUAGE", "en");
 
     QProcess* proc = new QProcess();
     proc->setProcessChannelMode(QProcess::MergedChannels);
@@ -325,10 +268,12 @@ bool GitIntegration::setNewRootDir(QString rootDir) {
 }
 
 void GitIntegration::updateWatcher() {
+    QSignalBlocker blocker(watcher);
     QDirIterator iterator(d->rootDir + "/.git", QDirIterator::Subdirectories);
     while (iterator.hasNext()) {
         iterator.next();
         if (iterator.fileName() == "." || iterator.fileName() == "..") continue;
+        if (watcher->files().contains(iterator.filePath()) || watcher->directories().contains(iterator.filePath())) continue;
 
         watcher->addPath(iterator.filePath());
     }
@@ -422,8 +367,8 @@ void GitIntegration::watcherChanged() {
     updateWatcher();
 }
 
-void GitIntegration::checkout(QString item) {
-    QProcess* proc = git("checkout " + item);
+void GitIntegration::checkout(QString item, QString args) {
+    QProcess* proc = git("checkout " + args + " -- " + item);
     proc->waitForFinished();
     proc->deleteLater();
 }
@@ -570,8 +515,63 @@ void GitIntegration::add(QString file) {
 
 void GitIntegration::commit(QString message) {
     QProcess* proc = git("commit -F -");
-    proc->write(message.toUtf8());
+
+    QStringList lines = message.split("\n");
+    for (QString line : lines) {
+        if (!line.startsWith("#")) {
+            proc->write(QString(line + "\n").toUtf8());
+        }
+    }
     proc->closeWriteChannel();
     proc->waitForFinished();
     proc->deleteLater();
+}
+
+tPromise<void>* GitIntegration::pull() {
+    return new tPromise<void>([=](QString& error) {
+        QProcess* proc = git("pull");
+        proc->waitForFinished();
+
+        //We're not reading machine readable output here...
+        QByteArray output = proc->readAll();
+        proc->deleteLater();
+        if (output.contains("The following untracked working tree files would be overwritten by merge") || output.contains("Please commit your changes or stash them before you merge")) {
+            error = "unclean";
+            return;
+        } else if (output.contains("fix conflicts and then commit the result")) {
+            error = "conflicting";
+            return;
+        } else if (proc->exitCode() != 0) {
+            error = output;
+            return;
+        }
+    });
+}
+
+bool GitIntegration::isConflicting() {
+    if (QFile(rootDir() + "/.git/MERGE_HEAD").exists()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void GitIntegration::resetAll() {
+    QProcess* proc = git("reset --hard");
+    proc->waitForFinished();
+    proc->deleteLater();
+
+    proc = git("clean -df");
+    proc->waitForFinished();
+    proc->deleteLater();
+}
+
+QString GitIntegration::defaultCommitMessage() {
+    if (QFile(rootDir() + "/.git/MERGE_MSG").exists()) {
+        //Use merge message
+        QFile msg(rootDir() + "/.git/MERGE_MSG");
+        msg.open(QFile::ReadOnly);
+        return msg.readAll();
+    }
+    return "";
 }

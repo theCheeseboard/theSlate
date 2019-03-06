@@ -668,7 +668,7 @@ void MainWindow::on_modifiedChanges_itemChanged(QListWidgetItem *item)
     if (item->checkState() == Qt::Checked) {
         currentDocument()->git->add(item->data(Qt::UserRole).toString());
     } else {
-        currentDocument()->git->unstage(item->data(Qt::UserRole).toString());
+
     }
 }
 

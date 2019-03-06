@@ -126,32 +126,47 @@
         <translation type="unfinished">Abbrechen</translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="79"/>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="53"/>
+        <source>Conclude Merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="54"/>
+        <source>Review your resolutions and complete the ongoing merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="55"/>
+        <source>Merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="87"/>
         <source>File deleted from disk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="85"/>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="93"/>
         <source>New file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="114"/>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="122"/>
         <source>Nothing to commit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="115"/>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="123"/>
         <source>You haven&apos;t added any files to this commit.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="127"/>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="135"/>
         <source>No Commit Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="128"/>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="136"/>
         <source>You&apos;ll need to set a commit message to commit these files.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -159,32 +174,52 @@
 <context>
     <name>CommitsModel</name>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="114"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="109"/>
+        <source>Conclude Merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/commitsmodel.cpp" line="109"/>
+        <source>Create merge commit and conclude merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/commitsmodel.cpp" line="110"/>
+        <source>Abort Merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/commitsmodel.cpp" line="110"/>
+        <source>Revert to state before merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/commitsmodel.cpp" line="120"/>
         <source>New Commit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="114"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="120"/>
         <source>Create new commit on %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="120"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="126"/>
         <source>No upstream branch has been configured.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="120"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="126"/>
         <source>No Upstream Branch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="122"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="128"/>
         <source>Pull Remote Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../SourceControl/commitsmodel.cpp" line="122"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="128"/>
         <source>%n incoming commits</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -192,12 +227,12 @@
         </translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="124"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
         <source>Push Local Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../SourceControl/commitsmodel.cpp" line="124"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
         <source>%n outgoing commits</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -205,12 +240,12 @@
         </translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="126"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
         <source>Up to date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="126"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
         <source>Your local repository is up to date</source>
         <translation type="unfinished"></translation>
     </message>
@@ -356,59 +391,141 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="109"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="114"/>
         <source>For %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="110"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="115"/>
         <source>Checkout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="113"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="118"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="115"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="120"/>
         <source>Delete Branch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="116"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="121"/>
         <source>Delete the %1 branch?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="129"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="134"/>
         <source>With %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="130"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="133"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="135"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="138"/>
         <source>Merge %1 into %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="166"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="171"/>
         <source>For repository</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="167"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="172"/>
         <source>Push</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="168"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="173"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="253"/>
         <source>Pull</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="170"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="177"/>
         <source>Fetch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="197"/>
+        <source>Abort Merge?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="198"/>
+        <source>Any actions taken to resolve conflict resolution will be undone, and the state of your repository will be set back to how it was before the merge operation started.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="230"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="273"/>
+        <source>Unclean Working Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="231"/>
+        <source>Your working directory is not clean and upstream changes may not merge properly. Do you still want to attempt to pull in upstream changes?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="234"/>
+        <source>Discard All Changes and Pull</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="235"/>
+        <source>Pull Anyway</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="254"/>
+        <source>Pulling from remote repository...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="274"/>
+        <source>Commit or discard changes in your working directory in order to pull.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="295"/>
+        <source>Conflicting Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="296"/>
+        <source>The pull operation resulted in these files conflicting:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="296"/>
+        <source>What do you want to do now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="299"/>
+        <source>Undo Pull</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="300"/>
+        <source>Manually Resolve Changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="301"/>
+        <source>Use Local Changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="302"/>
+        <source>Use Remote Changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="335"/>
+        <source>Git Error</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1001,6 +1118,14 @@
         <location filename="../textparts/printdialog.ui" line="367"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
+    </message>
+</context>
+<context>
+    <name>ProgressDialog</name>
+    <message>
+        <location filename="../SourceControl/GitDialogs/progressdialog.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

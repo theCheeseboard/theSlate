@@ -49,6 +49,14 @@ CommitDialog::CommitDialog(GitIntegration* integration, MainWindow* mainWin, QWi
 
     d->model = new StatusModel(d->gi);
 
+    if (d->gi->isConflicting()) {
+        ui->titleLabel->setText(tr("Conclude Merge"));
+        ui->messageLabel->setText(tr("Review your resolutions and complete the ongoing merge"));
+        ui->macCommitButton->setText(tr("Merge"));
+
+        ui->commitMessage->setPlainText(d->gi->defaultCommitMessage());
+    }
+
     ui->filesView->setModel(d->model);
     ui->filesView->setItemDelegate(new StatusModelDelegate(d->gi));
     ui->leftPane->setFixedWidth(300 * theLibsGlobal::getDPIScaling());
@@ -135,8 +143,10 @@ void CommitDialog::on_acceptButton_clicked()
         return;
     }
 
-    //Reset all staged changes to prepare for commit
-    d->gi->reset();
+    if (!d->gi->isConflicting()) {
+        //Reset all staged changes to prepare for commit
+        d->gi->reset();
+    }
 
     //Add each change
     for (int i = 0; i < d->model->rowCount(); i++) {

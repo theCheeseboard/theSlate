@@ -21,6 +21,9 @@ class GitWidget : public QWidget
         void setCurrentDocument(QUrl currentDocument);
         void updateStatus();
 
+        void commit();
+        void pull();
+
 private slots:
 
         void on_branchesButton_toggled(bool checked);

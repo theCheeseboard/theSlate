@@ -83,7 +83,7 @@ class GitIntegration : public QObject
         CommitPointer getCommit(QString hash, bool populate, bool iterateParents);
         void populatePointers(CommitPointer commit);
 
-        void checkout(QString item);
+        void checkout(QString item, QString args = "");
         BranchPointer branch();
         BranchPointer branch(QString name);
         BranchList branches();
@@ -102,16 +102,16 @@ class GitIntegration : public QObject
         QByteArray show(QString item);
 
         void reset(QString files = "");
+        void resetAll();
         void add(QString file);
 
         void commit(QString message);
+        QString defaultCommitMessage();
 
-        void rm(QString file, bool cache = false);
-        void unstage(QString file);
         void abortMerge();
+        bool isConflicting();
 
-        GitTask* pull();
-        GitTask* push();
+        tPromise<void>* pull();
 
         void init();
         bool needsInit();

@@ -76,7 +76,8 @@ SOURCES += \
     SourceControl/branchesmodel.cpp \
     SourceControl/GitDialogs/addbranchdialog.cpp \
     SourceControl/GitDialogs/commitdialog.cpp \
-    SourceControl/statusmodel.cpp
+    SourceControl/statusmodel.cpp \
+    SourceControl/GitDialogs/progressdialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -101,7 +102,8 @@ HEADERS += \
     SourceControl/branchesmodel.h \
     SourceControl/GitDialogs/addbranchdialog.h \
     SourceControl/GitDialogs/commitdialog.h \
-    SourceControl/statusmodel.h
+    SourceControl/statusmodel.h \
+    SourceControl/GitDialogs/progressdialog.h
 
 macx {
     SOURCES += \
@@ -121,7 +123,8 @@ FORMS += \
     picturetabbar.ui \
     SourceControl/gitwidget.ui \
     SourceControl/GitDialogs/addbranchdialog.ui \
-    SourceControl/GitDialogs/commitdialog.ui
+    SourceControl/GitDialogs/commitdialog.ui \
+    SourceControl/GitDialogs/progressdialog.ui
 
 RESOURCES += \
     icons.qrc \

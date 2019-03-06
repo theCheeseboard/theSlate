@@ -6,12 +6,15 @@
 #include "branchesmodel.h"
 #include "GitDialogs/addbranchdialog.h"
 #include "GitDialogs/commitdialog.h"
+#include "GitDialogs/progressdialog.h"
 #include <tpopover.h>
 #include <tmessagebox.h>
 #include "mainwindow.h"
 
 struct GitWidgetPrivate {
     GitIntegration* gi;
+
+    CommitsModel* commitsModel;
 };
 
 GitWidget::GitWidget(QWidget *parent) :
@@ -38,7 +41,9 @@ GitWidget::GitWidget(QWidget *parent) :
         ui->mainStack->setCurrentIndex(2);
     }
 
-    ui->logList->setModel(new CommitsModel(d->gi));
+    d->commitsModel = new CommitsModel(d->gi);
+
+    ui->logList->setModel(d->commitsModel);
     ui->logList->setItemDelegate(new CommitsModelDelegate(d->gi));
     ui->branchesList->setModel(new BranchesModel(d->gi));
     ui->branchesList->setItemDelegate(new BranchesModelDelegate(d->gi));
@@ -165,7 +170,9 @@ void GitWidget::on_logList_customContextMenuRequested(const QPoint &pos)
             QMenu* menu = new QMenu();
             menu->addSection(tr("For repository"));
             menu->addAction(tr("Push"));
-            menu->addAction(tr("Pull"));
+            menu->addAction(tr("Pull"), [=] {
+                this->pull();
+            });
             menu->addSeparator();
             menu->addAction(tr("Fetch"));
             menu->exec(ui->branchesList->mapToGlobal(pos));
@@ -180,20 +187,158 @@ void GitWidget::on_logList_activated(const QModelIndex &index)
         QString action = index.data(Qt::UserRole + 1).toString();
         if (action == "new") {
             //Create a new commit
-            CommitDialog* dialog = new CommitDialog(d->gi, static_cast<MainWindow*>(this->window()), this->window());
-            dialog->resize(this->window()->width() - 20, this->window()->height() - 50);
-
-            tPopover* p = new tPopover(dialog);
-            p->setPopoverWidth(-100 * theLibsGlobal::getDPIScaling());
-            connect(dialog, &CommitDialog::finished, [=] {
-                p->dismiss();
-            });
-            connect(p, &tPopover::dismissed, [=] {
-                p->deleteLater();
-                dialog->deleteLater();
-            });
-            p->show(this->window());
-            dialog->activateWindow();
+            commit();
+        } else if (action == "pull") {
+            //Pull from upstream
+            pull();
+        } else if (action == "merge-abort") {
+            //Abort merge
+            tMessageBox* messageBox = new tMessageBox(this->window());
+            messageBox->setWindowTitle(tr("Abort Merge?"));
+            messageBox->setText(tr("Any actions taken to resolve conflict resolution will be undone, and the state of your repository will be set back to how it was before the merge operation started."));
+            messageBox->setIcon(tMessageBox::Warning);
+            messageBox->setWindowFlags(Qt::Sheet);
+            messageBox->setStandardButtons(tMessageBox::Yes | tMessageBox::No);
+            if (messageBox->exec() == tMessageBox::Yes) {
+                d->gi->abortMerge();
+                d->commitsModel->reloadActions();
+            }
+            messageBox->deleteLater();
         }
     }
+}
+
+void GitWidget::commit() {
+    CommitDialog* dialog = new CommitDialog(d->gi, static_cast<MainWindow*>(this->window()), this->window());
+    dialog->resize(this->window()->width() - 20, this->window()->height() - 50);
+
+    tPopover* p = new tPopover(dialog);
+    p->setPopoverWidth(-100 * theLibsGlobal::getDPIScaling());
+    connect(dialog, &CommitDialog::finished, [=] {
+        p->dismiss();
+    });
+    connect(p, &tPopover::dismissed, [=] {
+        p->deleteLater();
+        dialog->deleteLater();
+    });
+    p->show(this->window());
+}
+
+void GitWidget::pull() {
+    if (!d->gi->status().trimmed().isEmpty()) {
+        tMessageBox* messageBox = new tMessageBox(this->window());
+        messageBox->setWindowTitle(tr("Unclean Working Directory"));
+        messageBox->setText(tr("Your working directory is not clean and upstream changes may not merge properly. Do you still want to attempt to pull in upstream changes?"));
+        messageBox->setIcon(tMessageBox::Warning);
+        messageBox->setWindowFlags(Qt::Sheet);
+        QPushButton* discardAll = messageBox->addButton(tr("Discard All Changes and Pull"), tMessageBox::DestructiveRole);
+        messageBox->addButton(tr("Pull Anyway"), tMessageBox::AcceptRole);
+        messageBox->addButton(tMessageBox::Cancel);
+
+        connect(discardAll, &QPushButton::clicked, discardAll, [=] {
+            //Discard
+            d->gi->resetAll();
+        });
+
+        int button = messageBox->exec();
+        messageBox->deleteLater();
+        if (button == QMessageBox::Cancel) {
+            //Stop here
+            return;
+        }
+    }
+
+    //Show a dialog
+    ProgressDialog* dialog = new ProgressDialog();
+    dialog->setTitle(tr("Pull"));
+    dialog->setMessage(tr("Pulling from remote repository..."));
+    dialog->setCancelable(false);
+    dialog->resize(dialog->sizeHint());
+
+    tPopover* p = new tPopover(dialog);
+    p->setDismissable(false);
+    connect(p, &tPopover::dismissed, [=] {
+        p->deleteLater();
+        dialog->deleteLater();
+    });
+    p->show(this->window());
+
+    //Pull in everything
+    d->gi->pull()->then([=] {
+        p->dismiss();
+    })->error([=](QString error) {
+        p->dismiss();
+        if (error == "unclean") {
+            tMessageBox* messageBox = new tMessageBox(this->window());
+            messageBox->setWindowTitle(tr("Unclean Working Directory"));
+            messageBox->setText(tr("Commit or discard changes in your working directory in order to pull."));
+            messageBox->setIcon(tMessageBox::Warning);
+            messageBox->setWindowFlags(Qt::Sheet);
+            messageBox->setStandardButtons(tMessageBox::Ok);
+            messageBox->exec();
+            messageBox->deleteLater();
+        } else if (error == "conflicting") {
+            //Find the files that are conflicting
+            QStringList conflictingFiles;
+            QList<QByteArray> files = d->gi->status().split('\0');
+            for (QByteArray file : files) {
+                if (file.isEmpty()) continue;
+                QString status = file.left(2);
+                QString filename = file.mid(3);
+
+                if (status.contains("U") || status == "AA" || status == "DD") {
+                    conflictingFiles.append(filename);
+                }
+            }
+
+            tMessageBox* messageBox = new tMessageBox(this->window());
+            messageBox->setWindowTitle(tr("Conflicting Files"));
+            messageBox->setText(tr("The pull operation resulted in these files conflicting:") + "\n" + conflictingFiles.join("\n") + "\n\n" + tr("What do you want to do now?"));
+            messageBox->setIcon(tMessageBox::Warning);
+            messageBox->setWindowFlags(Qt::Sheet);
+            QPushButton* undoButton = messageBox->addButton(tr("Undo Pull"), tMessageBox::DestructiveRole);
+            QPushButton* resolveButton = messageBox->addButton(tr("Manually Resolve Changes"), tMessageBox::AcceptRole);
+            QPushButton* localButton = messageBox->addButton(tr("Use Local Changes"), tMessageBox::YesRole);
+            QPushButton* remoteButton = messageBox->addButton(tr("Use Remote Changes"), tMessageBox::NoRole);
+
+            connect(undoButton, &QPushButton::clicked, undoButton, [=] {
+                //Abort Merge
+                d->gi->abortMerge();
+            });
+            connect(localButton, &QPushButton::clicked, localButton, [=] {
+                //Checkout all of our files
+                for (QString file : conflictingFiles) {
+                    d->gi->checkout(file, "--ours");
+                    d->gi->add(file);
+                }
+
+                //Commit the result
+                d->gi->commit(d->gi->defaultCommitMessage());
+            });
+            connect(remoteButton, &QPushButton::clicked, remoteButton, [=] {
+                //Checkout all of their files
+                for (QString file : conflictingFiles) {
+                    d->gi->checkout(file, "--theirs");
+                    d->gi->add(file);
+                }
+
+                //Commit the result
+                d->gi->commit(d->gi->defaultCommitMessage());
+            });
+
+            messageBox->exec();
+            messageBox->deleteLater();
+
+            d->commitsModel->reloadActions();
+        } else {
+            tMessageBox* messageBox = new tMessageBox(this->window());
+            messageBox->setWindowTitle(tr("Git Error"));
+            messageBox->setText(error);
+            messageBox->setStandardButtons(tMessageBox::Ok);
+            messageBox->setIcon(tMessageBox::Warning);
+            messageBox->setWindowFlags(Qt::Sheet);
+            messageBox->exec();
+            messageBox->deleteLater();
+        }
+    });
 }
