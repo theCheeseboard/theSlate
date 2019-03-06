@@ -22,7 +22,7 @@
     <message>
         <location filename="../aboutwindow.ui" line="62"/>
         <source>Copyright (c) Victor Tran 2019. Licensed under the terms of the GNU General Public License, version 3 or later.</source>
-        <translation type="unfinished">Bản quyền (c) Victor Tran 2018. Cấp phép với giấy phép Công cộng GNU, phiên bản 3 hoặc mới hơn. {2019.?} {3 ?}</translation>
+        <translation>Bản quyền (c) Victor Tran 2019. Cấp phép với giấy phép Công cộng GNU, phiên bản 3 hoặc mới hơn.</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="87"/>
@@ -41,42 +41,42 @@
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="14"/>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="71"/>
         <source>Add a branch</source>
-        <translation type="unfinished"></translation>
+        <translation>Thêm nhánh</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="116"/>
         <source>Create a branch to keep track of different commits</source>
-        <translation type="unfinished"></translation>
+        <translation>Tạo nhánh để theo dõi commit khác nhau</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="149"/>
         <source>Branch From</source>
-        <translation type="unfinished"></translation>
+        <translation>Tách khỏi</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="156"/>
         <source>Branch Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Tên nhánh</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="184"/>
         <source>Cancel</source>
-        <translation type="unfinished">Hủy</translation>
+        <translation>Hủy</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="191"/>
         <source>Branch</source>
-        <translation type="unfinished"></translation>
+        <translation>Nhánh</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.cpp" line="43"/>
         <source>Can&apos;t branch</source>
-        <translation type="unfinished"></translation>
+        <translation>Không thể tạo nhánh</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.cpp" line="44"/>
         <source>The branch %1 already exists.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nhánh %1 đã tồn tại.</translation>
     </message>
 </context>
 <context>
@@ -89,27 +89,27 @@
     <message>
         <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="71"/>
         <source>Authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Xác thực</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="134"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Tên người dùng</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="144"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Mật khẩu</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="169"/>
         <source>Cancel</source>
-        <translation type="unfinished">Hủy</translation>
+        <translation>Hủy</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="176"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -117,7 +117,7 @@
     <message>
         <location filename="../SourceControl/branchesmodel.cpp" line="30"/>
         <source>New Branch</source>
-        <translation type="unfinished"></translation>
+        <translation>Nhánh mới</translation>
     </message>
 </context>
 <context>
@@ -131,17 +131,17 @@
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="71"/>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="321"/>
         <source>Commit</source>
-        <translation type="unfinished"></translation>
+        <translation>Commit</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="116"/>
         <source>Ready to commit files?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bạn có sẵn sàng commit tệp chưa?</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="194"/>
         <source>Commit Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Tin nhắn commit</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="209"/>
@@ -156,52 +156,52 @@
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="314"/>
         <source>Cancel</source>
-        <translation type="unfinished">Hủy</translation>
+        <translation>Hủy</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="53"/>
         <source>Conclude Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Kết thúc hợp nhất</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="54"/>
         <source>Review your resolutions and complete the ongoing merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Xem lại việc giải quyết và kết thúc việc hợp nhất</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="55"/>
         <source>Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Hợp nhất</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="87"/>
         <source>File deleted from disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp bị xóa khỏi đĩa</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="93"/>
         <source>New file</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp mới</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="122"/>
         <source>Nothing to commit</source>
-        <translation type="unfinished"></translation>
+        <translation>Không có gì để commit</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="123"/>
         <source>You haven&apos;t added any files to this commit.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bạn chưa thêm tệp nào trong commit này.</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="135"/>
         <source>No Commit Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Không có tin nhắn commit</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="136"/>
         <source>You&apos;ll need to set a commit message to commit these files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bạn cần đặt tin nhắn commit để commit tệp này.</translation>
     </message>
 </context>
 <context>
@@ -209,76 +209,72 @@
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="109"/>
         <source>Conclude Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Kết thúc hợp nhất</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="109"/>
         <source>Create merge commit and conclude merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Tao commit hợp nhất và kết thúc việc hợp nhất</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="110"/>
         <source>Abort Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Bỏ việc hợp nhất</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="110"/>
         <source>Revert to state before merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Khôi phục trạng thái lại trước khi việc hợp nhất</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="120"/>
         <source>New Commit</source>
-        <translation type="unfinished"></translation>
+        <translation>Commit mới</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="120"/>
         <source>Create new commit on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tao commit mới trên %1</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="126"/>
         <source>No upstream branch has been configured.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chưa đặt nhánh thượng nguồn.</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="126"/>
         <source>No Upstream Branch</source>
-        <translation type="unfinished"></translation>
+        <translation>Không có nhánh thượng nguồn</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="128"/>
         <source>Pull Remote Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Kéo thay đổi cả</translation>
     </message>
     <message numerus="yes">
         <location filename="../SourceControl/commitsmodel.cpp" line="128"/>
         <source>%n incoming commits</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n commit đến</numerusform>
+        </translation></message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
         <source>Push Local Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Đẩy thay đổi đây</translation>
     </message>
     <message numerus="yes">
         <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
         <source>%n outgoing commits</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n commit đi</numerusform>
+        </translation></message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
         <source>Up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>Đã cập nhật</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
         <source>Your local repository is up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>Kho đây của bạn đã cập nhật</translation>
     </message>
 </context>
 <context>
@@ -366,7 +362,7 @@
     <message>
         <location filename="../SourceControl/gitintegration.cpp" line="591"/>
         <source>Failed to push refs</source>
-        <translation type="unfinished"></translation>
+        <translation>Không thể đẩy refs</translation>
     </message>
 </context>
 <context>
@@ -379,37 +375,37 @@
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="95"/>
         <source>No Repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Không có kho</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="102"/>
         <source>Initialize a Git repository to start tracking files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Khởi tạo kho Git mới để bắt đầu theo dõi tệp.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="127"/>
         <source>Initialize a new repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Khởi tạo kho Git mới</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="196"/>
         <source>File Not Saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp chưa lưu</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="203"/>
         <source>Save this file to start tracking it in Git</source>
-        <translation type="unfinished"></translation>
+        <translation>Lưu tệp này để theo dõi trong Git</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="286"/>
         <source>Git not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Không tìm thấy Git</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="293"/>
         <source>You&apos;ll need to install Git on your computer to start tracking files with it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bạn cần cài đặt Git trên máy tính để theo dõi tệp.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="503"/>
@@ -429,103 +425,103 @@
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="115"/>
         <source>For %1</source>
-        <translation type="unfinished">Cho %1</translation>
+        <translation>Cho %1</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="116"/>
         <source>Checkout</source>
-        <translation type="unfinished"></translation>
+        <translation>Checkout</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="119"/>
         <source>Delete</source>
-        <translation type="unfinished">Xóa</translation>
+        <translation>Xóa</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="121"/>
         <source>Delete Branch</source>
-        <translation type="unfinished"></translation>
+        <translation>Xóa nhánh</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="122"/>
         <source>Delete the %1 branch?</source>
-        <translation type="unfinished"></translation>
+        <translation>Xóa nhánh %1?</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="135"/>
         <source>With %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Với %1</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="136"/>
         <location filename="../SourceControl/gitwidget.cpp" line="139"/>
         <source>Merge %1 into %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Hợp nhất %1 vào %2</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="172"/>
         <source>For repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Cho kho</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="173"/>
         <location filename="../SourceControl/gitwidget.cpp" line="366"/>
         <source>Push</source>
-        <translation type="unfinished"></translation>
+        <translation>Đẩy</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="176"/>
         <location filename="../SourceControl/gitwidget.cpp" line="262"/>
         <location filename="../SourceControl/gitwidget.cpp" line="389"/>
         <source>Pull</source>
-        <translation type="unfinished"></translation>
+        <translation>Kéo</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="180"/>
         <source>Fetch</source>
-        <translation type="unfinished"></translation>
+        <translation>Tìm nạp</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="203"/>
         <source>Abort Merge?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bỏ việc hợp nhất?</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="204"/>
         <source>Any actions taken to resolve conflict resolution will be undone, and the state of your repository will be set back to how it was before the merge operation started.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hành động giải quyết sẽ bị hoàn tác, và trạng thái kho của bạn sẽ bị đặt như trước khi hoạt đồng hợp nhất bắt đầu.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="236"/>
         <location filename="../SourceControl/gitwidget.cpp" line="283"/>
         <source>Unclean Working Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Thư mục hoạt động không sạch</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="237"/>
         <source>Your working directory is not clean and upstream changes may not merge properly. Do you still want to attempt to pull in upstream changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Thư mục hoạt động của bạn không sạch, và thay đổi thượng nguồn có thể không hợp nhất thành công. Bạn có chắc chắn muốn kéo thay đổi thượng nguồn vào?</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="240"/>
         <source>Discard All Changes and Pull</source>
-        <translation type="unfinished"></translation>
+        <translation>Bỏ các thay đổi và kéo</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="241"/>
         <source>Pull Anyway</source>
-        <translation type="unfinished"></translation>
+        <translation>Vẫn kéo</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="258"/>
         <location filename="../SourceControl/gitwidget.cpp" line="362"/>
         <source>remote repository</source>
-        <translation type="unfinished"></translation>
+        <translation>kho xa</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="263"/>
         <source>Pulling from %1...</source>
-        <translation type="unfinished"></translation>
+        <translation>Đang kéo từ %1...</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="344"/>
@@ -535,17 +531,17 @@
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="367"/>
         <source>Pushing to %1...</source>
-        <translation type="unfinished"></translation>
+        <translation>Đang đẩy đén %1...</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="387"/>
         <source>Out of date</source>
-        <translation type="unfinished"></translation>
+        <translation>Hết hạn</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="388"/>
         <source>Your local repository is out of date and needs to be updated by pulling.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kho đây của bạn đã hết hạn và cần phải cập nhật.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="412"/>
@@ -555,48 +551,48 @@
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="284"/>
         <source>Commit or discard changes in your working directory in order to pull.</source>
-        <translation type="unfinished"></translation>
+        <translation>Commit hoặc bỏ thay đổi trong thư mục hoạt động để kéo.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="305"/>
         <source>Conflicting Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp xung đột</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="306"/>
         <source>The pull operation resulted in these files conflicting:</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoạt động kéo dẫn đến tệp này bị xung đột:</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="306"/>
         <source>What do you want to do now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bạn muốn làm gì bây giờ?</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="309"/>
         <source>Undo Pull</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoàn tác hoạt động kéo</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="310"/>
         <source>Manually Resolve Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Giải quét thủ công</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="311"/>
         <source>Use Local Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Dùng thay đổi đây</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="312"/>
         <source>Use Remote Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Dùng thay đổi xa</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="349"/>
         <location filename="../SourceControl/gitwidget.cpp" line="417"/>
         <source>Git Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Lỗi Git</translation>
     </message>
 </context>
 <context>
@@ -1289,37 +1285,37 @@
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="51"/>
         <source>conflicting</source>
-        <translation type="unfinished"></translation>
+        <translation>xung đột</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="61"/>
         <source>untracked</source>
-        <translation type="unfinished"></translation>
+        <translation>không theo dõi</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="62"/>
         <source>modified</source>
-        <translation type="unfinished"></translation>
+        <translation>sửa</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="63"/>
         <source>added</source>
-        <translation type="unfinished"></translation>
+        <translation>thêm vào</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="64"/>
         <source>deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>xóa</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="65"/>
         <source>renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>đổi tên</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="66"/>
         <source>copied</source>
-        <translation type="unfinished"></translation>
+        <translation>chép</translation>
     </message>
 </context>
 <context>
