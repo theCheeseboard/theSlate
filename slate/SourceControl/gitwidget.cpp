@@ -152,11 +152,22 @@ void GitWidget::on_branchesList_activated(const QModelIndex &index)
         if (action == "new") {
             //Create a new branch
             AddBranchDialog* dialog = new AddBranchDialog(d->gi, this->window());
-            dialog->setWindowFlags(Qt::Sheet);
-            if (dialog->exec() == AddBranchDialog::Accepted) {
-                //Make the branch
+
+            tPopover* p = new tPopover(dialog);
+            p->setPopoverWidth(300 * theLibsGlobal::getDPIScaling());
+            p->setDismissable(false);
+            connect(p, &tPopover::dismissed, [=] {
+                p->deleteLater();
+                dialog->deleteLater();
+            });
+            connect(dialog, &AddBranchDialog::accepted, p, [=] {
                 d->gi->newBranch(dialog->name(), dialog->from());
-            }
+                p->dismiss();
+            });
+            connect(dialog, &AddBranchDialog::rejected, p, [=] {
+                p->dismiss();
+            });
+            p->show(this->window());
         }
     }
 }
@@ -255,7 +266,7 @@ void GitWidget::pull(QString from) {
     }
 
     QString pullRepo = from;
-    if (pullRepo == "") pullRepo = tr("remote repository");
+    if (pullRepo == "") pullRepo = d->gi->branch()->upstream->name;
 
     //Show a dialog
     ProgressDialog* dialog = new ProgressDialog();
@@ -341,7 +352,7 @@ void GitWidget::pull(QString from) {
 
             d->commitsModel->reloadActions();
         } else if (error == "authenticate") {
-            setAuthenticationDetails(tr("Authenticate to pull from ..."), [=] {
+            setAuthenticationDetails(tr("Authenticate to pull from %1").arg(pullRepo), [=] {
                 pull(from);
             });
         } else {
@@ -359,7 +370,7 @@ void GitWidget::pull(QString from) {
 
 void GitWidget::push(QString to) {
     QString pushRepo = to;
-    if (pushRepo == "") pushRepo = tr("remote repository");
+    if (pushRepo == "") pushRepo = d->gi->branch()->upstream->name;
 
     //Show a dialog
     ProgressDialog* dialog = new ProgressDialog();
@@ -409,7 +420,7 @@ void GitWidget::push(QString to) {
             messageBox->exec();
             messageBox->deleteLater();
         } else if (error == "authenticate") {
-            setAuthenticationDetails(tr("Authenticate to push to ..."), [=] {
+            setAuthenticationDetails(tr("Authenticate to push to %1").arg(pushRepo), [=] {
                 push(to);
             });
         } else {
