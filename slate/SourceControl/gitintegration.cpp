@@ -2,7 +2,7 @@
 
 #include <QSettings>
 #include <QDirIterator>
-#include <the-libs_global.h>
+#include <tapplication.h>
 
 struct GitIntegrationPrivate {
     QString rootDir;
@@ -15,6 +15,9 @@ struct GitIntegrationPrivate {
 
     QMap<QString, GitIntegration::CommitPointer> knownCommits;
     QMap<QString, GitIntegration::BranchPointer> knownBranches;
+
+    QString username;
+    QString password;
 };
 
 GitIntegration::GitIntegration(QString rootDir, QObject *parent) : QObject(parent)
@@ -104,8 +107,9 @@ QProcess* GitIntegration::git(QString args) {
         }
     }
 
+    QStringList internalArgs;
+
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    env.insert("GIT_TERMINAL_PROMPT", "0");
     env.insert("LC_ALL", "C");
     env.insert("LANG", "en_US.UTF-8");
     env.insert("LANGUAGE", "en");
@@ -113,8 +117,23 @@ QProcess* GitIntegration::git(QString args) {
     QProcess* proc = new QProcess();
     proc->setProcessChannelMode(QProcess::MergedChannels);
     proc->setWorkingDirectory(d->rootDir);
+
+    if (d->password == "") {
+        env.insert("GIT_TERMINAL_PROMPT", "0");
+    } else {
+        env.insert("THESLATE_PLEASE_ECHO_AND_RETURN", d->password);
+        env.insert("GIT_ASKPASS", tApplication::applicationFilePath());
+
+        internalArgs.append({
+            "-c", "credential.username=\"" + d->username + "\"",
+            "-c", "credential.helper=\"\""
+        });
+    }
+
     proc->setProcessEnvironment(env);
-    proc->start(d->gitInstance + " " + args);
+
+    internalArgs.append(args);
+    proc->start(d->gitInstance + " " + internalArgs.join(" "));
 
     return proc;
 }
@@ -531,6 +550,7 @@ tPromise<void>* GitIntegration::pull(QString from) {
     return new tPromise<void>([=](QString& error) {
         QProcess* proc = git("pull " + from);
         proc->waitForFinished();
+        clearCredentials();
 
         //We're not reading machine readable output here...
         QByteArray output = proc->readAll();
@@ -540,6 +560,9 @@ tPromise<void>* GitIntegration::pull(QString from) {
             return;
         } else if (output.contains("fix conflicts and then commit the result")) {
             error = "conflicting";
+            return;
+        } else if (output.contains("terminal prompts disabled")) {
+            error = "authenticate";
             return;
         } else if (proc->exitCode() != 0) {
             error = output;
@@ -552,12 +575,16 @@ tPromise<void>* GitIntegration::push(QString to) {
     return new tPromise<void>([=](QString& error) {
         QProcess* proc = git("push");
         proc->waitForFinished();
+        clearCredentials();
 
         //We're not reading machine readable output here...
         QByteArray output = proc->readAll();
         proc->deleteLater();
         if (output.contains("non-fast-forward") && output.contains("[rejected]")) {
             error = "out-of-date";
+            return;
+        } else if (output.contains("terminal prompts disabled")) {
+            error = "authenticate";
             return;
         } else if (output.contains("failed to push some refs to")) {
             error = "message\n";
@@ -575,6 +602,9 @@ tPromise<void>* GitIntegration::push(QString to) {
             } else {
                 error += output;
             }
+            return;
+        } else if (output.contains("terminal prompts disabled")) {
+            error = "authenticate";
             return;
         } else if (proc->exitCode() != 0) {
             error = output;
@@ -609,4 +639,13 @@ QString GitIntegration::defaultCommitMessage() {
         return msg.readAll();
     }
     return "";
+}
+
+void GitIntegration::setNextCredentials(QString username, QString password) {
+    d->username = username;
+    d->password = password;
+}
+
+void GitIntegration::clearCredentials() {
+    d->password = "";
 }

@@ -113,6 +113,7 @@ class GitIntegration : public QObject
 
         tPromise<void>* pull(QString from = "");
         tPromise<void>* push(QString to = "");
+        void setNextCredentials(QString username, QString password);
 
         void init();
         bool needsInit();
@@ -130,6 +131,7 @@ class GitIntegration : public QObject
         GitIntegrationPrivate* d;
 
         QProcess* git(QString args);
+        void clearCredentials();
         QMutex instanceLocker;
 
         QFileSystemWatcher* watcher;

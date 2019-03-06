@@ -7,6 +7,7 @@
 #include "GitDialogs/addbranchdialog.h"
 #include "GitDialogs/commitdialog.h"
 #include "GitDialogs/progressdialog.h"
+#include "GitDialogs/authenticationdialog.h"
 #include <tpopover.h>
 #include <tmessagebox.h>
 #include "mainwindow.h"
@@ -264,6 +265,7 @@ void GitWidget::pull(QString from) {
     dialog->resize(dialog->sizeHint());
 
     tPopover* p = new tPopover(dialog);
+    p->setPopoverWidth(300 * theLibsGlobal::getDPIScaling());
     p->setDismissable(false);
     connect(p, &tPopover::dismissed, [=] {
         p->deleteLater();
@@ -338,6 +340,10 @@ void GitWidget::pull(QString from) {
             messageBox->deleteLater();
 
             d->commitsModel->reloadActions();
+        } else if (error == "authenticate") {
+            setAuthenticationDetails(tr("Authenticate to pull from ..."), [=] {
+                pull(from);
+            });
         } else {
             tMessageBox* messageBox = new tMessageBox(this->window());
             messageBox->setWindowTitle(tr("Git Error"));
@@ -363,6 +369,7 @@ void GitWidget::push(QString to) {
     dialog->resize(dialog->sizeHint());
 
     tPopover* p = new tPopover(dialog);
+    p->setPopoverWidth(300 * theLibsGlobal::getDPIScaling());
     p->setDismissable(false);
     connect(p, &tPopover::dismissed, [=] {
         p->deleteLater();
@@ -401,6 +408,10 @@ void GitWidget::push(QString to) {
             messageBox->setWindowFlags(Qt::Sheet);
             messageBox->exec();
             messageBox->deleteLater();
+        } else if (error == "authenticate") {
+            setAuthenticationDetails(tr("Authenticate to push to ..."), [=] {
+                push(to);
+            });
         } else {
             tMessageBox* messageBox = new tMessageBox(this->window());
             messageBox->setWindowTitle(tr("Git Error"));
@@ -412,4 +423,38 @@ void GitWidget::push(QString to) {
             messageBox->deleteLater();
         }
     });
+}
+
+void GitWidget::setAuthenticationDetails(QString message, std::function<void()> callback) {
+    //Show a dialog
+    AuthenticationDialog* dialog = new AuthenticationDialog();
+    dialog->setMessage(message);
+    dialog->resize(300 * theLibsGlobal::getDPIScaling(), dialog->sizeHint().height());
+
+    QEventLoop* loop = new QEventLoop();
+    bool* cont = new bool(false);
+
+    tPopover* p = new tPopover(dialog);
+    p->setPopoverWidth(300 * theLibsGlobal::getDPIScaling());
+    p->setDismissable(false);
+    connect(p, &tPopover::dismissed, p, [=] {
+        loop->quit();
+    });
+    connect(dialog, &AuthenticationDialog::rejected, p, [=] {
+        p->dismiss();
+    });
+    connect(dialog, &AuthenticationDialog::accepted, p, [=] {
+        *cont = true;
+        p->dismiss();
+    });
+    p->show(this->window());
+
+    loop->exec();
+    loop->deleteLater();
+
+    if (*cont) {
+        d->gi->setNextCredentials(dialog->username(), dialog->password());
+        callback();
+    }
+    delete cont;
 }

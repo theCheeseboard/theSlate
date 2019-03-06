@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QUrl>
+#include <tpromise.h>
+#include <functional>
 
 namespace Ui {
 class GitWidget;
@@ -25,8 +27,7 @@ class GitWidget : public QWidget
         void pull(QString from = "");
         void push(QString to = "");
 
-private slots:
-
+    private slots:
         void on_branchesButton_toggled(bool checked);
 
         void on_commitsButton_toggled(bool checked);
@@ -39,10 +40,11 @@ private slots:
 
         void on_logList_activated(const QModelIndex &index);
 
-private:
+    private:
         Ui::GitWidget *ui;
 
         GitWidgetPrivate* d;
+        void setAuthenticationDetails(QString message, std::function<void()> callback);
 };
 
 #endif // GITWIDGET_H

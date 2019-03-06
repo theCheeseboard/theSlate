@@ -73,6 +73,12 @@ int main(int argc, char *argv[])
 {
     tApplication a(argc, argv);
 
+    if (!qgetenv("THESLATE_PLEASE_ECHO_AND_RETURN").isEmpty()) {
+        QTextStream out(stdout);
+        out << qgetenv("THESLATE_PLEASE_ECHO_AND_RETURN");
+        return 0;
+    }
+
     a.setOrganizationName("theSuite");
     a.setOrganizationDomain("");
     a.setApplicationName("theSlate");
