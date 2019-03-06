@@ -92,22 +92,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="134"/>
+        <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="146"/>
         <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="144"/>
+        <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="156"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="169"/>
+        <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="194"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="176"/>
+        <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="201"/>
         <source>OK</source>
         <translation type="unfinished">OK</translation>
     </message>
@@ -468,138 +468,132 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="172"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="183"/>
         <source>For repository</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="173"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="366"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="184"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="377"/>
         <source>Push</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="176"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="262"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="389"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="187"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="273"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="400"/>
         <source>Pull</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="180"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="191"/>
         <source>Fetch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="203"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="214"/>
         <source>Abort Merge?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="204"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="215"/>
         <source>Any actions taken to resolve conflict resolution will be undone, and the state of your repository will be set back to how it was before the merge operation started.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="236"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="283"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="247"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="294"/>
         <source>Unclean Working Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="237"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="248"/>
         <source>Your working directory is not clean and upstream changes may not merge properly. Do you still want to attempt to pull in upstream changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="240"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="251"/>
         <source>Discard All Changes and Pull</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="241"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="252"/>
         <source>Pull Anyway</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="258"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="362"/>
-        <source>remote repository</source>
+        <location filename="../SourceControl/gitwidget.cpp" line="423"/>
+        <source>Authenticate to push to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="263"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="274"/>
         <source>Pulling from %1...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="344"/>
-        <source>Authenticate to pull from ...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="367"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="378"/>
         <source>Pushing to %1...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="387"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="398"/>
         <source>Out of date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="388"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="399"/>
         <source>Your local repository is out of date and needs to be updated by pulling.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="412"/>
-        <source>Authenticate to push to ...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="284"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="295"/>
         <source>Commit or discard changes in your working directory in order to pull.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="305"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="316"/>
         <source>Conflicting Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="306"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="317"/>
         <source>The pull operation resulted in these files conflicting:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="306"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="317"/>
         <source>What do you want to do now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="309"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="320"/>
         <source>Undo Pull</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="310"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="321"/>
         <source>Manually Resolve Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="311"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="322"/>
         <source>Use Local Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="312"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="323"/>
         <source>Use Remote Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="349"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="417"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="355"/>
+        <source>Authenticate to pull from %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="360"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="428"/>
         <source>Git Error</source>
         <translation type="unfinished"></translation>
     </message>
