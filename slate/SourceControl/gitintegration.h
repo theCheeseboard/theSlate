@@ -108,6 +108,7 @@ class GitIntegration : public QObject
         void commit(QString message);
         QString defaultCommitMessage();
 
+        tPromise<void>* merge(QString other);
         void abortMerge();
         bool isConflicting();
 

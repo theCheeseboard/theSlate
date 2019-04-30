@@ -10,6 +10,7 @@
 #include "GitDialogs/authenticationdialog.h"
 #include <tpopover.h>
 #include <tmessagebox.h>
+#include <QClipboard>
 #include "mainwindow.h"
 
 struct GitWidgetPrivate {
@@ -134,10 +135,11 @@ void GitWidget::on_branchesList_customContextMenuRequested(const QPoint &pos)
         if (currentBranch != branch) {
             menu->addSection(tr("With %1").arg(currentBranch->name));
             menu->addAction(tr("Merge %1 into %2").arg(branch->name, currentBranch->name), [=] {
-
+                merge(branch->name);
             });
             menu->addAction(tr("Merge %1 into %2").arg(currentBranch->name, branch->name), [=] {
-
+                d->gi->checkout(branch->name);
+                merge(currentBranch->name);
             });
         }
         menu->exec(ui->branchesList->mapToGlobal(pos));
@@ -191,6 +193,21 @@ void GitWidget::on_logList_customContextMenuRequested(const QPoint &pos)
             menu->addAction(tr("Fetch"));
             menu->exec(ui->branchesList->mapToGlobal(pos));
         }
+    } else {
+        //This is a commit
+        GitIntegration::CommitPointer commit = index.data(Qt::UserRole).value<GitIntegration::CommitPointer>();
+        QMenu* menu = new QMenu();
+        menu->addSection(tr("For commit %1").arg(commit->hash.left(7)));
+        menu->addAction(tr("Copy Identifier"), [=] {
+            QApplication::clipboard()->setText(commit->hash);
+        });
+        menu->addAction(tr("Copy Commit Message"), [=] {
+            QApplication::clipboard()->setText(commit->message);
+        });
+        menu->addAction(tr("Checkout"), [=] {
+            d->gi->checkout(commit->hash);
+        });
+        menu->exec(ui->branchesList->mapToGlobal(pos));
     }
 }
 
@@ -299,58 +316,7 @@ void GitWidget::pull(QString from) {
             messageBox->exec();
             messageBox->deleteLater();
         } else if (error == "conflicting") {
-            //Find the files that are conflicting
-            QStringList conflictingFiles;
-            QList<QByteArray> files = d->gi->status().split('\0');
-            for (QByteArray file : files) {
-                if (file.isEmpty()) continue;
-                QString status = file.left(2);
-                QString filename = file.mid(3);
-
-                if (status.contains("U") || status == "AA" || status == "DD") {
-                    conflictingFiles.append(filename);
-                }
-            }
-
-            tMessageBox* messageBox = new tMessageBox(this->window());
-            messageBox->setWindowTitle(tr("Conflicting Files"));
-            messageBox->setText(tr("The pull operation resulted in these files conflicting:") + "\n" + conflictingFiles.join("\n") + "\n\n" + tr("What do you want to do now?"));
-            messageBox->setIcon(tMessageBox::Warning);
-            messageBox->setWindowFlags(Qt::Sheet);
-            QPushButton* undoButton = messageBox->addButton(tr("Undo Pull"), tMessageBox::DestructiveRole);
-            QPushButton* resolveButton = messageBox->addButton(tr("Manually Resolve Changes"), tMessageBox::AcceptRole);
-            QPushButton* localButton = messageBox->addButton(tr("Use Local Changes"), tMessageBox::YesRole);
-            QPushButton* remoteButton = messageBox->addButton(tr("Use Remote Changes"), tMessageBox::NoRole);
-
-            connect(undoButton, &QPushButton::clicked, undoButton, [=] {
-                //Abort Merge
-                d->gi->abortMerge();
-            });
-            connect(localButton, &QPushButton::clicked, localButton, [=] {
-                //Checkout all of our files
-                for (QString file : conflictingFiles) {
-                    d->gi->checkout(file, "--ours");
-                    d->gi->add(file);
-                }
-
-                //Commit the result
-                d->gi->commit(d->gi->defaultCommitMessage());
-            });
-            connect(remoteButton, &QPushButton::clicked, remoteButton, [=] {
-                //Checkout all of their files
-                for (QString file : conflictingFiles) {
-                    d->gi->checkout(file, "--theirs");
-                    d->gi->add(file);
-                }
-
-                //Commit the result
-                d->gi->commit(d->gi->defaultCommitMessage());
-            });
-
-            messageBox->exec();
-            messageBox->deleteLater();
-
-            d->commitsModel->reloadActions();
+            showConflictDialog(tr("pull"));
         } else if (error == "authenticate") {
             setAuthenticationDetails(tr("Authenticate to pull from %1").arg(pullRepo), [=] {
                 pull(from);
@@ -468,4 +434,88 @@ void GitWidget::setAuthenticationDetails(QString message, std::function<void()> 
         callback();
     }
     delete cont;
+}
+
+void GitWidget::showConflictDialog(QString operation) {
+    //Find the files that are conflicting
+    QStringList conflictingFiles;
+    QList<QByteArray> files = d->gi->status().split('\0');
+    for (QByteArray file : files) {
+        if (file.isEmpty()) continue;
+        QString status = file.left(2);
+        QString filename = file.mid(3);
+
+        if (status.contains("U") || status == "AA" || status == "DD") {
+            conflictingFiles.append(filename);
+        }
+    }
+
+    tMessageBox* messageBox = new tMessageBox(this->window());
+    messageBox->setWindowTitle(tr("Conflicting Files"));
+    messageBox->setText(tr("The %1 operation resulted in these files conflicting:").arg(operation) + "\n" + conflictingFiles.join("\n") + "\n\n" + tr("What do you want to do now?"));
+    messageBox->setIcon(tMessageBox::Warning);
+    messageBox->setWindowFlags(Qt::Sheet);
+    QPushButton* undoButton = messageBox->addButton(tr("Undo %1").arg(operation), tMessageBox::DestructiveRole);
+    QPushButton* resolveButton = messageBox->addButton(tr("Manually Resolve Changes"), tMessageBox::AcceptRole);
+    QPushButton* localButton = messageBox->addButton(tr("Use Local Changes"), tMessageBox::YesRole);
+    QPushButton* remoteButton = messageBox->addButton(tr("Use Remote Changes"), tMessageBox::NoRole);
+
+    connect(undoButton, &QPushButton::clicked, undoButton, [=] {
+        //Abort Merge
+        d->gi->abortMerge();
+    });
+    connect(localButton, &QPushButton::clicked, localButton, [=] {
+        //Checkout all of our files
+        for (QString file : conflictingFiles) {
+            d->gi->checkout(file, "--ours");
+            d->gi->add(file);
+        }
+
+        //Commit the result
+        d->gi->commit(d->gi->defaultCommitMessage());
+    });
+    connect(remoteButton, &QPushButton::clicked, remoteButton, [=] {
+        //Checkout all of their files
+        for (QString file : conflictingFiles) {
+            d->gi->checkout(file, "--theirs");
+            d->gi->add(file);
+        }
+
+        //Commit the result
+        d->gi->commit(d->gi->defaultCommitMessage());
+    });
+
+    messageBox->exec();
+    messageBox->deleteLater();
+
+    d->commitsModel->reloadActions();
+}
+
+void GitWidget::merge(QString other) {
+    //Pull in everything
+    d->gi->merge(other)->then([=] {
+
+    })->error([=](QString error) {
+        if (error == "conflicting") {
+            showConflictDialog(tr("merge"));
+        } else if (error == "unrelated") {
+            tMessageBox* messageBox = new tMessageBox(this->window());
+            messageBox->setWindowTitle(tr("Unrelated Histories"));
+            messageBox->setText(tr("You're trying to merge two branches which do not have a common base"));
+            messageBox->setStandardButtons(tMessageBox::Ok);
+            messageBox->setIcon(tMessageBox::Warning);
+            messageBox->setWindowFlags(Qt::Sheet);
+            messageBox->exec();
+            messageBox->deleteLater();
+        } else {
+            tMessageBox* messageBox = new tMessageBox(this->window());
+            messageBox->setWindowTitle(tr("Git Error"));
+            messageBox->setText(error);
+            messageBox->setStandardButtons(tMessageBox::Ok);
+            messageBox->setIcon(tMessageBox::Warning);
+            messageBox->setWindowFlags(Qt::Sheet);
+            messageBox->exec();
+            messageBox->deleteLater();
+        }
+    });
 }

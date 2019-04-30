@@ -387,7 +387,7 @@ void GitIntegration::watcherChanged() {
 }
 
 void GitIntegration::checkout(QString item, QString args) {
-    QProcess* proc = git("checkout " + args + " -- " + item);
+    QProcess* proc = git("checkout " + args + " " + item);
     proc->waitForFinished();
     proc->deleteLater();
 }
@@ -648,4 +648,25 @@ void GitIntegration::setNextCredentials(QString username, QString password) {
 
 void GitIntegration::clearCredentials() {
     d->password = "";
+}
+
+tPromise<void>* GitIntegration::merge(QString other) {
+    return new tPromise<void>([=](QString& error) {
+        QProcess* proc = git("merge " + other);
+        proc->waitForFinished();
+
+        //We're not reading machine readable output here...
+        QByteArray output = proc->readAll();
+        proc->deleteLater();
+        if (output.contains("fix conflicts and then commit the result")) {
+            error = "conflicting";
+            return;
+        } else if (output.contains("refusing to merge unrelated histories")) {
+            error = "unrelated";
+            return;
+        } else if (proc->exitCode() != 0) {
+            error = output;
+            return;
+        }
+    });
 }

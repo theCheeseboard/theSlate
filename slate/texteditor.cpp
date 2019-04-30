@@ -542,8 +542,58 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
         spacingCharacters = "\t";
     }
 
-    if (event->key() == Qt::Key_Tab) {
-        cursor.insertText(spacingCharacters);
+    if (event->key() == Qt::Key_Tab || event->key() == Qt::Key_Backtab) {
+        QTextCursor startCursor(this->document());
+        startCursor.setPosition(cursor.selectionStart());
+
+        QTextCursor endCursor(this->document());
+        endCursor.setPosition(cursor.selectionEnd());
+
+        if (startCursor.blockNumber() == endCursor.blockNumber()) {
+            //Insert a tab
+            if (event->key() == Qt::Key_Tab) cursor.insertText(spacingCharacters);
+        } else {
+            startCursor.beginEditBlock();
+            if (event->key() == Qt::Key_Backtab) {
+                //Outdent each line
+                do {
+                    startCursor.movePosition(QTextCursor::StartOfBlock);
+
+                    for (int i = 0; i < spaceNum; i++) {
+                        startCursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+                        if (startCursor.selectedText() == spacingCharacters.at(0)) {
+                            startCursor.removeSelectedText();
+                        }
+                        startCursor.movePosition(QTextCursor::StartOfBlock);
+                    }
+
+                    startCursor.movePosition(QTextCursor::NextBlock);
+                } while (startCursor.blockNumber() != endCursor.blockNumber());
+
+                //Outdent one more line
+                startCursor.movePosition(QTextCursor::StartOfBlock);
+
+                for (int i = 0; i < spaceNum; i++) {
+                    startCursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+                    if (startCursor.selectedText() == spacingCharacters.at(0)) {
+                        startCursor.removeSelectedText();
+                    }
+                    startCursor.movePosition(QTextCursor::StartOfBlock);
+                }
+            } else {
+                //Indent each line
+                do {
+                    startCursor.movePosition(QTextCursor::StartOfBlock);
+                    startCursor.insertText(spacingCharacters);
+                    startCursor.movePosition(QTextCursor::NextBlock);
+                } while (startCursor.blockNumber() != endCursor.blockNumber());
+
+                //Indent one more line
+                startCursor.movePosition(QTextCursor::StartOfBlock);
+                startCursor.insertText(spacingCharacters);
+            }
+            startCursor.endEditBlock();
+        }
         handle = true;
     } else if (event->key() == Qt::Key_Backspace) {
         cursor.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor);
@@ -1259,9 +1309,8 @@ QByteArray TextEditor::formatForSaving(QString text) {
         case 2: //Windows
             a.replace("\n", "\r\n");
     }
+
     return a;
-
-
 }
 
 void TextEditor::setTextCodec(QTextCodec* codec) {
