@@ -11,6 +11,7 @@
 #include "mainwindow.h"
 #include "plugins/pluginmanager.h"
 #include "managers/recentfilesmanager.h"
+#include "textparts/textstatusbar.h"
 
 #include <Repository>
 #include <SyntaxHighlighter>
@@ -61,9 +62,8 @@ class TextEditorPrivate {
 
         QWidget* cover;
 
-        int currentLineEndings = -2;
-
         FileBackend* currentBackend = nullptr;
+        TextStatusBar* statusBar = nullptr;
 
         QString getIndentCharacters() {
             QString spacingCharacters;
@@ -167,7 +167,11 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorLocationChanged()));
 
     d->leftMargin->setVisible(true);
-    highlightCurrentLine();
+
+    d->statusBar = new TextStatusBar(this);
+    d->statusBar->setVisible(true);
+
+    cursorLocationChanged();
 
     d->findReplaceWidget = new FindReplace(this);
     d->findReplaceWidget->setFont(normalFont);
@@ -363,6 +367,8 @@ TextEditor::~TextEditor() {
     if (d->button != nullptr) {
         d->button->setVisible(false);
     }
+    d->statusBar->deleteLater();
+    d->leftMargin->deleteLater();
     delete d;
 }
 
@@ -463,19 +469,19 @@ void TextEditor::loadText(QByteArray data) {
 
     switch (endings) {
         case 0b000: //No line endings
-            d->currentLineEndings = -2;
+            d->statusBar->setLineEndings(-1);
             break;
         case 0b001: //Windows
-            d->currentLineEndings = 2;
+            d->statusBar->setLineEndings(2);
             break;
         case 0b010: //Macintosh
-            d->currentLineEndings = 1;
+            d->statusBar->setLineEndings(1);
             break;
         case 0b100: //UNIX
-            d->currentLineEndings = 0;
+            d->statusBar->setLineEndings(0);
             break;
         default: //Mixed line endings
-            d->currentLineEndings = -1;
+            d->statusBar->setLineEndings(-1);
             addTopPanel(d->mixedLineEndings);
     }
 
@@ -745,7 +751,7 @@ void TextEditor::updateLeftMarginAreaWidth()
     d->topPanelWidget->updateGeometry();
     int height = d->topPanelWidget->sizeHint().height();
     d->topPanelWidget->setFixedHeight(height);
-    setViewportMargins(leftMarginWidth(), height, 0, 0);
+    setViewportMargins(leftMarginWidth(), height, 0, d->statusBar->height());
 }
 
 void TextEditor::updateLeftMarginArea(const QRect &rect, int dy)
@@ -772,6 +778,8 @@ void TextEditor::resizeEvent(QResizeEvent *event)
     d->findReplaceWidget->move(this->width() - d->findReplaceWidget->width() - 9 - QApplication::style()->pixelMetric(QStyle::PM_ScrollBarExtent), 9);
 
     d->topPanelWidget->setFixedWidth(this->width());
+
+    d->statusBar->setGeometry(0, this->height() - d->statusBar->sizeHint().height(), this->width(), d->statusBar->sizeHint().height());
 
     d->cover->resize(this->size());
 }
@@ -807,6 +815,7 @@ void TextEditor::highlightCurrentLine()
 void TextEditor::cursorLocationChanged() {
     //if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
     highlightCurrentLine();
+    d->statusBar->setPosition(this->textCursor().blockNumber(), this->textCursor().columnNumber());
 
     clearExtraSelectionGroup("bracketLocation");
     QTextCursor c(textCursor());
@@ -1252,6 +1261,8 @@ void TextEditor::reloadSettings() {
     //pal.setColor(QPalette::WindowText, getSyntaxHighlighterColor("editor/fg"));
     //pal.setColor(QPalette::Text, getSyntaxHighlighterColor("editor/fg"));
     this->setPalette(pal);
+
+    d->statusBar->setSpacing(d->settings.value("behaviour/tabSpaces", true).toBool(), d->settings.value("behaviour/tabWidth").toInt());
 }
 
 QUrl TextEditor::fileUrl() {
@@ -1271,13 +1282,13 @@ QByteArray TextEditor::formatForSaving(QString text) {
     QByteArray a = d->textCodec->fromUnicode(text);
     int lineEndingsToSaveAs;
 
-    if (d->currentLineEndings < 0) { //Use settings
+    /*if (d->currentLineEndings < 0) { //Use settings
         lineEndingsToSaveAs = d->settings.value("behaviour/endOfLine", THESLATE_END_OF_LINE).toInt();
     } else { //Use detected line endings
         lineEndingsToSaveAs = d->currentLineEndings;
-    }
+    }*/
 
-    switch (lineEndingsToSaveAs) {
+    switch (d->statusBar->lineEndings()) {
         case 0: //Unix
             //do nothing
             break;
