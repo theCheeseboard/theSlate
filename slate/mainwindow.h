@@ -128,6 +128,10 @@ class MainWindow : public QMainWindow
 
         void on_actionUse_Menubar_toggled(bool arg1);
 
+        void on_actionComment_triggered();
+
+        void on_actionUncomment_triggered();
+
     signals:
 #ifdef Q_OS_MAC
         void changeTouchBarTopNotification(TopNotification* topNotification);

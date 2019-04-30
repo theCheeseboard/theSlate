@@ -156,6 +156,11 @@ MainWindow::MainWindow(QWidget *parent) :
         setupMacOS();
     #else
         //Set up single menu except on macOS
+        QMenu* editMenu = new QMenu();
+        editMenu->setTitle(tr("Edit"));
+        editMenu->addAction(ui->actionComment);
+        editMenu->addAction(ui->actionUncomment);
+
         QMenu* singleMenu = new QMenu();
         singleMenu->addAction(ui->actionNew);
         singleMenu->addAction(ui->actionNew_Window);
@@ -171,6 +176,7 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionUndo);
         singleMenu->addAction(ui->actionRedo);
+        singleMenu->addMenu(editMenu);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionCut);
         singleMenu->addAction(ui->actionCopy);
@@ -904,4 +910,14 @@ void MainWindow::updateDocumentDependantTabs() {
     ui->actionRevert->setEnabled(enabled);
     ui->actionPrint->setEnabled(enabled);
     ui->menuReload_Using_Encoding->setEnabled(enabled);
+}
+
+void MainWindow::on_actionComment_triggered()
+{
+    currentDocument()->commentSelectedText();
+}
+
+void MainWindow::on_actionUncomment_triggered()
+{
+    currentDocument()->commentSelectedText(true);
 }
