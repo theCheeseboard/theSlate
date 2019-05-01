@@ -466,8 +466,8 @@ void TextEditor::loadText(QByteArray data) {
     //Detect line endings;
     char endings = 0;
     if (data.contains("\r\n"))                                    endings |= 0b001;
-    if (QRegularExpression("(?<!\\r)\\n").match(data).hasMatch()) endings |= 0b010;
-    if (QRegularExpression("\\r(?!\\n)").match(data).hasMatch())  endings |= 0b100;
+    if (QRegularExpression("\\r(?!\\n)").match(data).hasMatch())  endings |= 0b010;
+    if (QRegularExpression("(?<!\\r)\\n").match(data).hasMatch()) endings |= 0b100;
 
     switch (endings) {
         case 0b000: //No line endings
