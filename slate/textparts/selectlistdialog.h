@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QVariant>
+#include <QIcon>
 
 namespace Ui {
     class SelectListDialog;
@@ -15,6 +16,7 @@ struct SelectListItem {
     QString text;
     QVariant data;
     QStringList tags;
+    QIcon icon;
 };
 
 struct SelectListDialogPrivate;

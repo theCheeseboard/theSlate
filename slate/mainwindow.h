@@ -130,6 +130,10 @@ class MainWindow : public QMainWindow
 
         void on_actionChange_Syntax_Highlighting_triggered();
 
+        void on_actionChange_File_Encoding_triggered();
+
+        void on_actionReload_Using_Encoding_triggered();
+
     signals:
 #ifdef Q_OS_MAC
         void changeTouchBarTopNotification(TopNotification* topNotification);

@@ -101,6 +101,7 @@ class TextEditor : public QPlainTextEdit
         void commentSelectedText(bool uncomment = false);
 
         void chooseHighlighter();
+        void chooseCodec(bool reload = false);
         void setTextCodec(QTextCodec* codec);
 
         void reloadSettings();

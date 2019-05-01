@@ -6,6 +6,7 @@
 #include <QScrollBar>
 #include <QMenuBar>
 #include <QSignalBlocker>
+#include <QMimeDatabase>
 #include <tcircularspinner.h>
 #include "the-libs_global.h"
 #include "mainwindow.h"
@@ -460,7 +461,7 @@ void TextEditor::openFile(FileBackend *backend) {
 
 void TextEditor::loadText(QByteArray data) {
     if (d->textCodec == nullptr) {
-        d->textCodec = QTextCodec::codecForUtfText(data, QTextCodec::codecForName("UTF-8"));
+        setTextCodec(QTextCodec::codecForUtfText(data, QTextCodec::codecForName("UTF-8")));
     }
 
     this->setPlainText(d->textCodec->toUnicode(data));
@@ -1075,7 +1076,7 @@ void TextEditor::revertFile(QTextCodec* codec) {
         int button = messageBox->exec();
 
         if (button == tMessageBox::Yes) {
-            if (codec != nullptr) d->textCodec = codec;
+            if (codec != nullptr) setTextCodec(codec);
             openFile(d->currentBackend);
         }
     }
@@ -1282,7 +1283,7 @@ QUrl TextEditor::fileUrl() {
 
 QByteArray TextEditor::formatForSaving(QString text) {
     if (d->textCodec == nullptr) {
-        d->textCodec = QTextCodec::codecForName("UTF-8");
+        setTextCodec(QTextCodec::codecForName("UTF-8"));
     }
 
     removeTopPanel(d->mixedLineEndings);
@@ -1430,12 +1431,19 @@ void TextEditor::commentSelectedText(bool uncomment) {
 }
 
 void TextEditor::chooseHighlighter() {
+    QMimeDatabase db;
     QList<SelectListItem> items;
 
     //Load Syntax Highlighters
     for (KSyntaxHighlighting::Definition d : highlightRepo->definitions()) {
         if (d.name() == "None") continue;
-        items.append(SelectListItem(d.translatedName(), d.name()));
+
+        SelectListItem item(d.translatedName(), d.name());
+        if (!d.mimeTypes().isEmpty()) {
+            QMimeType mimeType = db.mimeTypeForName(d.mimeTypes().first());
+            item.icon = QIcon::fromTheme(mimeType.iconName());
+        }
+        items.append(item);
     }
 
     std::sort(items.begin(), items.end(), [](const SelectListItem &a, const SelectListItem &b) {
@@ -1458,6 +1466,47 @@ void TextEditor::chooseHighlighter() {
     connect(dialog, &SelectListDialog::rejected, popover, &tPopover::dismiss);
     connect(dialog, &SelectListDialog::accepted, this, [=](QVariant highlighting) {
         this->setHighlighter(highlightRepo->definitionForName(highlighting.toString()));
+        popover->dismiss();
+    });
+    connect(popover, &tPopover::dismissed, dialog, &SelectListDialog::deleteLater);
+    connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
+    popover->show(this->window());
+}
+
+void TextEditor::chooseCodec(bool reload) {
+    QMimeDatabase db;
+    QList<SelectListItem> items;
+
+    //Load encodings
+    for (QByteArray codec : QTextCodec::availableCodecs()) {
+        SelectListItem item(codec, codec);
+        items.append(item);
+    }
+
+    std::sort(items.begin(), items.end(), [](const SelectListItem &a, const SelectListItem &b) {
+        if (a.text.localeAwareCompare(b.text) < 0) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    SelectListDialog* dialog = new SelectListDialog();
+    dialog->setTitle(tr("Select Encoding"));
+    dialog->setText(tr("What file encoding do you want to use?"));
+    dialog->setItems(items);
+
+    tPopover* popover = new tPopover(dialog);
+    popover->setPopoverWidth(300 * theLibsGlobal::getDPIScaling());
+    connect(dialog, &SelectListDialog::rejected, popover, &tPopover::dismiss);
+    connect(dialog, &SelectListDialog::accepted, this, [=](QVariant codec) {
+        QTimer::singleShot(0, [=] {
+            if (reload) {
+                revertFile(QTextCodec::codecForName(codec.toByteArray()));
+            } else {
+                setTextCodec(QTextCodec::codecForName(codec.toByteArray()));
+            }
+        });
         popover->dismiss();
     });
     connect(popover, &tPopover::dismissed, dialog, &SelectListDialog::deleteLater);

@@ -259,15 +259,6 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->menuHelp->insertAction(ui->actionAbout, updateManager->getCheckForUpdatesAction());
     #endif
 
-    for (QByteArray codec : QTextCodec::availableCodecs()) {
-        ui->menuReload_Using_Encoding->addAction(codec, [=] {
-            if (currentDocument() != nullptr) currentDocument()->revertFile(QTextCodec::codecForName(codec));
-        });
-        ui->menuChange_File_Encoding->addAction(codec, [=] {
-            if (currentDocument() != nullptr) currentDocument()->setTextCodec(QTextCodec::codecForName(codec));
-        });
-    }
-
     if (settings.contains("window/state")) {
         this->restoreState(settings.value("window/state").toByteArray());
     }
@@ -868,7 +859,8 @@ void MainWindow::updateDocumentDependantTabs() {
     ui->actionClose->setEnabled(enabled);
     ui->actionRevert->setEnabled(enabled);
     ui->actionPrint->setEnabled(enabled);
-    ui->menuReload_Using_Encoding->setEnabled(enabled);
+    ui->actionReload_Using_Encoding->setEnabled(enabled);
+    ui->actionChange_File_Encoding->setEnabled(enabled);
 }
 
 void MainWindow::on_actionComment_triggered()
@@ -884,4 +876,14 @@ void MainWindow::on_actionUncomment_triggered()
 void MainWindow::on_actionChange_Syntax_Highlighting_triggered()
 {
     currentDocument()->chooseHighlighter();
+}
+
+void MainWindow::on_actionChange_File_Encoding_triggered()
+{
+    currentDocument()->chooseCodec();
+}
+
+void MainWindow::on_actionReload_Using_Encoding_triggered()
+{
+    currentDocument()->chooseCodec(true);
 }

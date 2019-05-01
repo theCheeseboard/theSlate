@@ -183,16 +183,6 @@
        <normaloff>:/icons/document-open-recent.svg</normaloff>:/icons/document-open-recent.svg</iconset>
      </property>
     </widget>
-    <widget class="QMenu" name="menuReload_Using_Encoding">
-     <property name="title">
-      <string>Reload Using Encoding</string>
-     </property>
-    </widget>
-    <widget class="QMenu" name="menuChange_File_Encoding">
-     <property name="title">
-      <string>Change File Encoding</string>
-     </property>
-    </widget>
     <addaction name="actionNew"/>
     <addaction name="separator"/>
     <addaction name="actionOpen"/>
@@ -202,10 +192,10 @@
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
     <addaction name="actionSave_All"/>
-    <addaction name="menuChange_File_Encoding"/>
+    <addaction name="actionChange_File_Encoding"/>
     <addaction name="separator"/>
     <addaction name="actionRevert"/>
-    <addaction name="menuReload_Using_Encoding"/>
+    <addaction name="actionReload_Using_Encoding"/>
     <addaction name="actionClose"/>
     <addaction name="separator"/>
     <addaction name="actionPrint"/>
@@ -747,6 +737,16 @@
   <action name="actionChange_Syntax_Highlighting">
    <property name="text">
     <string>Change Syntax Highlighting</string>
+   </property>
+  </action>
+  <action name="actionChange_File_Encoding">
+   <property name="text">
+    <string>Change File Encoding</string>
+   </property>
+  </action>
+  <action name="actionReload_Using_Encoding">
+   <property name="text">
+    <string>Reload Using Encoding</string>
    </property>
   </action>
  </widget>

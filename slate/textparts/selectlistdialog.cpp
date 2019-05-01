@@ -61,7 +61,10 @@ void SelectListDialog::setItems(QList<SelectListItem> items) {
 
     ui->listOptions->clear();
     for (SelectListItem item : items) {
-        ui->listOptions->addItem(item.text);
+        QListWidgetItem* i = new QListWidgetItem();
+        i->setText(item.text);
+        i->setIcon(item.icon);
+        ui->listOptions->addItem(i);
     }
 }
 
@@ -79,7 +82,11 @@ void SelectListDialog::on_searchEdit_textChanged(const QString &arg1)
             //Start searching all tags and language name
             for (QString search : searches) {
                 if (search.contains(arg1, Qt::CaseInsensitive)) {
-                    ui->listOptions->addItem(item.text);
+                    QListWidgetItem* i = new QListWidgetItem();
+                    i->setText(item.text);
+                    i->setIcon(item.icon);
+                    ui->listOptions->addItem(i);
+
                     d->shownItems.append(item);
                     break;
                 }
