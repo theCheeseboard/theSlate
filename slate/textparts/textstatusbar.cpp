@@ -151,3 +151,8 @@ void TextStatusBar::on_encodingButton_clicked()
 {
     d->editor->chooseCodec();
 }
+
+void TextStatusBar::on_positionButton_clicked()
+{
+    d->editor->gotoLine();
+}

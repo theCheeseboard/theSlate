@@ -7,6 +7,7 @@
 #include <QMenuBar>
 #include <QSignalBlocker>
 #include <QMimeDatabase>
+#include <QInputDialog>
 #include <tcircularspinner.h>
 #include "the-libs_global.h"
 #include "mainwindow.h"
@@ -1443,10 +1444,6 @@ void TextEditor::chooseHighlighter() {
         if (d.name() == "None") continue;
 
         SelectListItem item(d.translatedName(), d.name());
-        if (!d.mimeTypes().isEmpty()) {
-            QMimeType mimeType = db.mimeTypeForName(d.mimeTypes().first());
-            item.icon = QIcon::fromTheme(mimeType.iconName());
-        }
         items.append(item);
     }
 
@@ -1516,6 +1513,15 @@ void TextEditor::chooseCodec(bool reload) {
     connect(popover, &tPopover::dismissed, dialog, &SelectListDialog::deleteLater);
     connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
     popover->show(this->window());
+}
+
+void TextEditor::gotoLine() {
+    bool ok;
+    int line = QInputDialog::getInt(this, tr("Go To Line"), tr("What line do you want to go to?"), this->textCursor().blockNumber() + 1, 0, this->document()->blockCount(), 1, &ok);
+    if (ok) {
+        line--;
+        this->setTextCursor(QTextCursor(this->document()->findBlockByLineNumber(line)));
+    }
 }
 
 TextEditorLeftMargin::TextEditorLeftMargin(TextEditor* editor) : QWidget(editor) {

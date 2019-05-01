@@ -49,6 +49,8 @@ class SelectListDialog : public QWidget
 
         void on_searchEdit_returnPressed();
 
+        void on_listOptions_activated(const QModelIndex &index);
+
     private:
         Ui::SelectListDialog *ui;
 

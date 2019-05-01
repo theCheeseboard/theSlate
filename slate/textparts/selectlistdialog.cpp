@@ -118,3 +118,9 @@ void SelectListDialog::on_searchEdit_returnPressed()
 {
     if (ui->acceptButton->isEnabled()) ui->acceptButton->click();
 }
+
+void SelectListDialog::on_listOptions_activated(const QModelIndex &index)
+{
+    SelectListItem item = d->shownItems.at(index.row());
+    emit accepted(item.data);
+}

@@ -105,6 +105,8 @@ class TextEditor : public QPlainTextEdit
         void chooseCodec(bool reload = false);
         void setTextCodec(QTextCodec* codec);
 
+        void gotoLine();
+
         void reloadSettings();
 
     private slots:

@@ -34,6 +34,8 @@ class TextStatusBar : public QWidget
 
         void on_encodingButton_clicked();
 
+        void on_positionButton_clicked();
+
     private:
         Ui::TextStatusBar *ui;
 
