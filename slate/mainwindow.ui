@@ -269,9 +269,16 @@
     <addaction name="separator"/>
     <addaction name="actionChange_Syntax_Highlighting"/>
    </widget>
+   <widget class="QMenu" name="menuGo">
+    <property name="title">
+     <string>Go</string>
+    </property>
+    <addaction name="actionLine"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
+   <addaction name="menuGo"/>
    <addaction name="menuSource_Control"/>
    <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
@@ -747,6 +754,14 @@
   <action name="actionReload_Using_Encoding">
    <property name="text">
     <string>Reload Using Encoding</string>
+   </property>
+  </action>
+  <action name="actionLine">
+   <property name="text">
+    <string>Line</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
    </property>
   </action>
  </widget>

@@ -16,14 +16,12 @@
 #include <QTextCodec>
 #include "tabbutton.h"
 #include "SourceControl/gitintegration.h"
-#include "textparts/findreplace.h"
 #include "textparts/topnotification.h"
 #include "textparts/mergetool.h"
 
 #include <Definition>
 
 class TabButton;
-class FindReplace;
 class MainWindow;
 class FileBackend;
 struct MergeLines;
@@ -92,7 +90,6 @@ class TextEditor : public QPlainTextEdit
         QList<QTextEdit::ExtraSelection> extraSelectionGroup(QString extraSelectionGroup);
         void clearExtraSelectionGroup(QString extraSelectionGroups);
 
-        void toggleFindReplace();
         void lockScrolling(TextEditor* other);
         void setMergedLines(QList<MergeLines> mergedLines);
         bool mergedLineIsAccepted(MergeLines mergedLine);

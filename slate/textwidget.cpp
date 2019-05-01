@@ -15,7 +15,10 @@ TextWidget::TextWidget(MainWindow *parent) :
 
     ui->editor->setMainWindow(parent);
     ui->editor->setStatusBar(ui->statusBar);
+    ui->findReplaceWidget->setEditor(ui->editor);
     ui->statusBar->setEditor(ui->editor);
+
+    ui->findReplaceWidget->hide();
 }
 
 TextWidget::~TextWidget()
@@ -26,4 +29,9 @@ TextWidget::~TextWidget()
 
 TextEditor* TextWidget::editor() {
     return ui->editor;
+}
+
+void TextWidget::showFindReplace() {
+    ui->findReplaceWidget->show();
+    ui->findReplaceWidget->setFocus();
 }

@@ -40,6 +40,7 @@ namespace Ui {
 }
 
 class TextWidget;
+struct MainWindowPrivate;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -134,6 +135,8 @@ class MainWindow : public QMainWindow
 
         void on_actionReload_Using_Encoding_triggered();
 
+        void on_actionLine_triggered();
+
     signals:
 #ifdef Q_OS_MAC
         void changeTouchBarTopNotification(TopNotification* topNotification);
@@ -141,6 +144,7 @@ class MainWindow : public QMainWindow
 
 private:
         Ui::MainWindow *ui;
+        MainWindowPrivate* d;
 
         void closeEvent(QCloseEvent* event);
 
@@ -155,15 +159,6 @@ private:
         void setupMacOS();
         void updateTouchBar();
 #endif
-
-        QFileSystemModel* fileModel;
-        QString currentProjectFile = "";
-        QString projectType = "";
-        QSettings settings;
-        QTabBar* tabBar;
-        QToolButton* menuButton;
-        QAction* menuAction = nullptr;
-        QMap<TextWidget*, TopNotification*> primaryTopNotifications;
 };
 
 #endif // MAINWINDOW_H

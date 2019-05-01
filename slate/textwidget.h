@@ -20,6 +20,9 @@ class TextWidget : public QWidget
 
         TextEditor* editor();
 
+    public slots:
+        void showFindReplace();
+
     private:
         Ui::TextWidget *ui;
 

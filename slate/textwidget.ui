@@ -33,6 +33,9 @@
     <widget class="TextEditor" name="editor"/>
    </item>
    <item>
+    <widget class="FindReplace" name="findReplaceWidget" native="true"/>
+   </item>
+   <item>
     <widget class="TextStatusBar" name="statusBar" native="true"/>
    </item>
   </layout>
@@ -47,6 +50,12 @@
    <class>TextStatusBar</class>
    <extends>QWidget</extends>
    <header>textparts/textstatusbar.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FindReplace</class>
+   <extends>QWidget</extends>
+   <header>textparts/findreplace.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

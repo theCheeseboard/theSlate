@@ -46,7 +46,6 @@ class TextEditorPrivate {
         TextEditorLeftMargin *leftMargin = nullptr;
         int brokenLine = -1;
 
-        FindReplace* findReplaceWidget;
         QMap<QString, QList<QTextEdit::ExtraSelection>> extraSelectionGroups;
 
         QList<QWidget*> topPanels;
@@ -172,13 +171,6 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorLocationChanged()));
 
     d->leftMargin->setVisible(true);
-
-    d->findReplaceWidget = new FindReplace(this);
-    d->findReplaceWidget->setFont(normalFont);
-    d->findReplaceWidget->setFixedWidth(500 * theLibsGlobal::getDPIScaling());
-    d->findReplaceWidget->setFixedHeight(d->findReplaceWidget->sizeHint().height());
-    d->findReplaceWidget->hide();
-    //findReplaceWidget->show();
 
     d->cover = new QWidget();
     d->cover->setParent(this);
@@ -793,9 +785,6 @@ void TextEditor::resizeEvent(QResizeEvent *event)
     QRect cr = contentsRect();
     d->leftMargin->setGeometry(QRect(cr.left(), cr.top() + d->topPanelWidget->sizeHint().height(), leftMarginWidth(), cr.height()));
 
-    d->findReplaceWidget->setFixedHeight(d->findReplaceWidget->sizeHint().height());
-    d->findReplaceWidget->move(this->width() - d->findReplaceWidget->width() - 9 - QApplication::style()->pixelMetric(QStyle::PM_ScrollBarExtent), 9);
-
     d->topPanelWidget->setFixedWidth(this->width());
 
     d->cover->resize(this->size());
@@ -1066,15 +1055,6 @@ void TextEditor::openFileFake(QString contents) {
     emit editedChanged();
 }
 
-void TextEditor::toggleFindReplace() {
-    if (d->findReplaceWidget->isVisible()) {
-        d->findReplaceWidget->setVisible(false);
-    } else {
-        d->findReplaceWidget->setVisible(true);
-        d->findReplaceWidget->setFocus();
-    }
-}
-
 void TextEditor::revertFile(QTextCodec* codec) {
     if (d->currentBackend != nullptr) {
         tMessageBox* messageBox = new tMessageBox(this->window());
@@ -1281,7 +1261,7 @@ void TextEditor::reloadSettings() {
     //pal.setColor(QPalette::Text, getSyntaxHighlighterColor("editor/fg"));
     this->setPalette(pal);
 
-    if (d->statusBar != nullptr) d->statusBar->setSpacing(d->settings.value("behaviour/tabSpaces", true).toBool(), d->settings.value("behaviour/tabWidth").toInt());
+    if (d->statusBar != nullptr) d->statusBar->setSpacing(d->settings.value("behaviour/tabSpaces", true).toBool(), d->settings.value("behaviour/tabSpaceNumber", 4).toInt());
 }
 
 QUrl TextEditor::fileUrl() {
@@ -1517,7 +1497,7 @@ void TextEditor::chooseCodec(bool reload) {
 
 void TextEditor::gotoLine() {
     bool ok;
-    int line = QInputDialog::getInt(this, tr("Go To Line"), tr("What line do you want to go to?"), this->textCursor().blockNumber() + 1, 0, this->document()->blockCount(), 1, &ok);
+    int line = QInputDialog::getInt(this, tr("Go To Line"), tr("What line do you want to go to?"), this->textCursor().blockNumber() + 1, 1, this->document()->blockCount(), 1, &ok);
     if (ok) {
         line--;
         this->setTextCursor(QTextCursor(this->document()->findBlockByLineNumber(line)));

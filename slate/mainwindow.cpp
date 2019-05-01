@@ -35,11 +35,23 @@ extern KSyntaxHighlighting::Repository* highlightRepo;
 
 QList<MainWindow*> MainWindow::openWindows = QList<MainWindow*>();
 
+struct MainWindowPrivate {
+    QFileSystemModel* fileModel;
+    QString currentProjectFile = "";
+    QString projectType = "";
+    QSettings settings;
+    QTabBar* tabBar;
+    QToolButton* menuButton;
+    QAction* menuAction = nullptr;
+    QMap<TextWidget*, TopNotification*> primaryTopNotifications;
+};
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    d = new MainWindowPrivate();
 
     openWindows.append(this);
 
@@ -99,23 +111,23 @@ MainWindow::MainWindow(QWidget *parent) :
 
         ui->tabFrame->setVisible(false);
 
-        tabBar = new QTabBar(this);
-        tabBar->setDocumentMode(true);
-        tabBar->setTabsClosable(true);
-        tabBar->setMovable(true);
-        connect(tabBar, &QTabBar::currentChanged, [=](int index) {
+        d->tabBar = new QTabBar(this);
+        d->tabBar->setDocumentMode(true);
+        d->tabBar->setTabsClosable(true);
+        d->tabBar->setMovable(true);
+        connect(d->tabBar, &QTabBar::currentChanged, [=](int index) {
             ui->tabs->setCurrentIndex(index);
         });
-        connect(tabBar, &QTabBar::tabCloseRequested, [=](int index) {
+        connect(d->tabBar, &QTabBar::tabCloseRequested, [=](int index) {
             ui->tabs->setCurrentIndex(index);
             closeCurrentTab();
         });
-        connect(tabBar, &QTabBar::tabMoved, [=](int from, int to) {
+        connect(d->tabBar, &QTabBar::tabMoved, [=](int from, int to) {
             QWidget* w = ui->tabs->widget(from);
             ui->tabs->removeWidget(w);
             ui->tabs->insertWidget(to, w);
         });
-        ((QBoxLayout*) ui->centralWidget->layout())->insertWidget(0, tabBar);
+        ((QBoxLayout*) ui->centralWidget->layout())->insertWidget(0, d->tabBar);
 
         /*PictureTabBar* b = new PictureTabBar(this);
 
@@ -163,18 +175,19 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionChange_Syntax_Highlighting);
         singleMenu->addMenu(ui->menuWindow);
+        singleMenu->addMenu(ui->menuGo);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionSettings);
         singleMenu->addMenu(ui->menuHelp);
         singleMenu->addAction(ui->actionExit);
 
-        menuButton = new QToolButton();
-        menuButton->setPopupMode(QToolButton::InstantPopup);
-        menuButton->setMenu(singleMenu);
-        menuButton->setArrowType(Qt::NoArrow);
-        menuButton->setIcon(QIcon::fromTheme("theslate", QIcon(":/icons/icon.svg")));
-        menuButton->setIconSize(ui->mainToolBar->iconSize());
-        menuAction = ui->mainToolBar->insertWidget(ui->actionNew, menuButton);
+        d->menuButton = new QToolButton();
+        d->menuButton->setPopupMode(QToolButton::InstantPopup);
+        d->menuButton->setMenu(singleMenu);
+        d->menuButton->setArrowType(Qt::NoArrow);
+        d->menuButton->setIcon(QIcon::fromTheme("theslate", QIcon(":/icons/icon.svg")));
+        d->menuButton->setIconSize(ui->mainToolBar->iconSize());
+        d->menuAction = ui->mainToolBar->insertWidget(ui->actionNew, menuButton);
         connect(updateManager, &UpdateManager::updateAvailable, [=] {
             //Create icon to notify user that an update is available
 
@@ -191,7 +204,7 @@ MainWindow::MainWindow(QWidget *parent) :
                 p.setBrush(QColor(200, 0, 0));
                 p.drawEllipse(circleRect);
 
-                menuButton->setIcon(QIcon(pixmap));
+                d->menuButton->setIcon(QIcon(pixmap));
             }
 
             //Change the help menu icon
@@ -216,8 +229,8 @@ MainWindow::MainWindow(QWidget *parent) :
             }
         });
 
-        ui->actionUse_Menubar->setChecked(settings.value("appearance/menubar", false).toBool());
-        on_actionUse_Menubar_toggled(settings.value("appearance/menubar", false).toBool());
+        ui->actionUse_Menubar->setChecked(d->settings.value("appearance/menubar", false).toBool());
+        on_actionUse_Menubar_toggled(d->settings.value("appearance/menubar", false).toBool());
     #endif
 
     connect(ui->menuPaste_from_Clipboard_History, &QMenu::aboutToShow, [=] {
@@ -260,8 +273,8 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->menuHelp->insertAction(ui->actionAbout, updateManager->getCheckForUpdatesAction());
     #endif
 
-    if (settings.contains("window/state")) {
-        this->restoreState(settings.value("window/state").toByteArray());
+    if (d->settings.contains("window/state")) {
+        this->restoreState(d->settings.value("window/state").toByteArray());
     }
 
     ui->menuWindow->addAction(ui->filesDock->toggleViewAction());
@@ -279,28 +292,29 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->menuSource_Control->setEnabled(true);
 
-    fileModel = new QFileSystemModel();
-    fileModel->setRootPath(QDir::rootPath());
-    fileModel->setReadOnly(false);
-    ui->projectTree->setModel(fileModel);
+    d->fileModel = new QFileSystemModel();
+    d->fileModel->setRootPath(QDir::rootPath());
+    d->fileModel->setReadOnly(false);
+    ui->projectTree->setModel(d->fileModel);
     ui->projectTree->hideColumn(1);
     ui->projectTree->hideColumn(2);
     ui->projectTree->hideColumn(3);
-    ui->projectTree->setRootIndex(fileModel->index(QDir::rootPath()));
-    ui->projectTree->scrollTo(fileModel->index(QDir::homePath()));
-    ui->projectTree->expand(fileModel->index(QDir::homePath()));
+    ui->projectTree->setRootIndex(d->fileModel->index(QDir::rootPath()));
+    ui->projectTree->scrollTo(d->fileModel->index(QDir::homePath()));
+    ui->projectTree->expand(d->fileModel->index(QDir::homePath()));
     QScroller::grabGesture(ui->projectTree, QScroller::LeftMouseButtonGesture);
 
     updateRecentFiles();
     connect(recentFiles, &RecentFilesManager::filesUpdated, this, &MainWindow::updateRecentFiles);
 
-    if (settings.value("files/showHidden").toBool()) {
-        fileModel->setFilter(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Hidden);
+    if (d->settings.value("files/showHidden").toBool()) {
+        d->fileModel->setFilter(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Hidden);
     }
 }
 
 MainWindow::~MainWindow()
 {
+    delete d;
     delete ui;
 }
 
@@ -328,20 +342,20 @@ void MainWindow::newTab() {
             if (url.isLocalFile()) {
                 QString file = url.toLocalFile();
                 this->setWindowFilePath(file);
-                ui->projectTree->scrollTo(fileModel->index(file));
-                ui->projectTree->expand(fileModel->index(file));
+                ui->projectTree->scrollTo(d->fileModel->index(file));
+                ui->projectTree->expand(d->fileModel->index(file));
             }
         }
     });
 
     #ifdef Q_OS_MAC
-        int index = tabBar->addTab(view->editor()->getTabButton()->text());
-        tabBar->setCurrentIndex(index);
+        int index = d->tabBar->addTab(view->editor()->getTabButton()->text());
+        d->tabBar->setCurrentIndex(index);
         connect(view->editor(), &TextEditor::titleChanged, [=](QString title) {
-            tabBar->setTabText(ui->tabs->indexOf(view), title);
+            d->tabBar->setTabText(ui->tabs->indexOf(view), title);
         });
         connect(view->editor(), &TextEditor::primaryTopNotificationChanged, [=](TopNotification* topNotification) {
-            primaryTopNotifications.insert(view, topNotification);
+            d->primaryTopNotifications.insert(view, topNotification);
 
             if (currentDocument() == view) {
                 emit changeTouchBarTopNotification(topNotification);
@@ -354,7 +368,7 @@ void MainWindow::newTab() {
                 primaryTopNotifications.remove(view);
             }
         });*/
-        primaryTopNotifications.insert(view, nullptr);
+        d->primaryTopNotifications.insert(view, nullptr);
     #else
         connect(view->editor()->getTabButton(), &QPushButton::clicked, [=]{
             ui->tabs->setCurrentWidget(view);
@@ -394,7 +408,7 @@ void MainWindow::newTab(QByteArray contents) {
 
 void MainWindow::on_actionNew_triggered()
 {
-    if (currentProjectFile == "") {
+    if (d->currentProjectFile == "") {
         newTab();
     } else {
         MainWindow* newWin = new MainWindow();
@@ -430,13 +444,13 @@ void MainWindow::on_tabs_currentChanged(int arg1)
                 this->setWindowFilePath("");
             }
 
-            tabBar->setCurrentIndex(arg1);
+            d->tabBar->setCurrentIndex(arg1);
         #endif
 
         if (url.isLocalFile()) {
             QString file = url.toLocalFile();
-            ui->projectTree->scrollTo(fileModel->index(file));
-            ui->projectTree->expand(fileModel->index(file));
+            ui->projectTree->scrollTo(d->fileModel->index(file));
+            ui->projectTree->expand(d->fileModel->index(file));
         }
 
         updateGit();
@@ -444,7 +458,7 @@ void MainWindow::on_tabs_currentChanged(int arg1)
 
 #ifdef Q_OS_MAC
     if (current != nullptr) {
-        emit changeTouchBarTopNotification(primaryTopNotifications.value(current));
+        emit changeTouchBarTopNotification(d->primaryTopNotifications.value(current));
     } else {
         emit changeTouchBarTopNotification(nullptr);
     }
@@ -531,7 +545,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
         }
     }
 
-    settings.setValue("window/state", this->saveState());
+    d->settings.setValue("window/state", this->saveState());
     event->accept();
     this->deleteLater();
     openWindows.removeOne(this);
@@ -569,7 +583,7 @@ bool MainWindow::closeCurrentTab() {
     TextWidget* current = currentDocument();
 
     #ifdef Q_OS_MAC
-        tabBar->removeTab(ui->tabs->indexOf(current));
+        d->tabBar->removeTab(ui->tabs->indexOf(current));
     #else
         ui->tabButtons->removeWidget(current->editor()->getTabButton());
     #endif
@@ -610,11 +624,11 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_projectTree_clicked(const QModelIndex &index)
 {
-    if (!fileModel->isDir(index)) {
+    if (!d->fileModel->isDir(index)) {
         for (int i = 0; i < ui->tabs->count(); i++) {
             QUrl url = static_cast<TextWidget*>(ui->tabs->widget(i))->editor()->fileUrl();
             if (url.isLocalFile()) {
-                if (fileModel->filePath(index) == url.toLocalFile()) {
+                if (d->fileModel->filePath(index) == url.toLocalFile()) {
                     ui->tabs->setCurrentIndex(i);
                     return;
                 }
@@ -622,7 +636,7 @@ void MainWindow::on_projectTree_clicked(const QModelIndex &index)
         }
 
         newTab();
-        currentEditor()->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(fileModel->filePath(index))));
+        currentEditor()->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(d->fileModel->filePath(index))));
         updateGit();
     }
 }
@@ -647,7 +661,7 @@ void MainWindow::on_actionSave_All_triggered()
 
 void MainWindow::on_actionFind_and_Replace_triggered()
 {
-    currentEditor()->toggleFindReplace();
+    currentDocument()->showFindReplace();
 }
 
 void MainWindow::on_actionSave_As_triggered()
@@ -753,14 +767,14 @@ void MainWindow::on_projectTree_customContextMenuRequested(const QPoint &pos)
 {
     QModelIndex index = ui->projectTree->indexAt(pos);
     if (index.isValid()) {
-        QFileInfo info = fileModel->fileInfo(index);
+        QFileInfo info = d->fileModel->fileInfo(index);
 
         QMenu* menu = new QMenu();
         menu->addSection(tr("For %1").arg(info.baseName()));
         if (info.isFile()) {
             menu->addAction(tr("Edit in new tab"), [=] {
                 newTab();
-                currentEditor()->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(fileModel->filePath(index))));
+                currentEditor()->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(d->fileModel->filePath(index))));
                 updateGit();
             });
             menu->addAction(tr("Edit in new window"), [=] {
@@ -837,9 +851,9 @@ void MainWindow::updateRecentFiles() {
 
 void MainWindow::on_actionUse_Menubar_toggled(bool arg1)
 {
-    settings.setValue("appearance/menubar", arg1);
+    d->settings.setValue("appearance/menubar", arg1);
     ui->menuBar->setVisible(arg1);
-    menuAction->setVisible(!arg1);
+    d->menuAction->setVisible(!arg1);
 
     if (arg1) {
         ui->menuHelp->setIcon(QIcon());
@@ -884,4 +898,9 @@ void MainWindow::on_actionChange_File_Encoding_triggered()
 void MainWindow::on_actionReload_Using_Encoding_triggered()
 {
     currentEditor()->chooseCodec(true);
+}
+
+void MainWindow::on_actionLine_triggered()
+{
+    currentEditor()->gotoLine();
 }
