@@ -54,7 +54,6 @@ QVariant BranchesModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    // FIXME: Implement me!
     if (index.row() < d->actions.count()) {
         BranchesModelPrivate::Action action = d->actions.at(index.row());
         switch (role) {

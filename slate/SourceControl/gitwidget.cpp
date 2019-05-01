@@ -12,6 +12,8 @@
 #include <tmessagebox.h>
 #include "mainwindow.h"
 
+#include <QScroller>
+
 struct GitWidgetPrivate {
     GitIntegration* gi;
 
@@ -64,6 +66,9 @@ GitWidget::GitWidget(QWidget *parent) :
             ui->currentBranch->setText(this->fontMetrics().elidedText(d->gi->branch()->name, Qt::ElideRight, 200 * theLibsGlobal::getDPIScaling()));
         }
     });
+
+    QScroller::grabGesture(ui->logList, QScroller::LeftMouseButtonGesture);
+    QScroller::grabGesture(ui->branchesList, QScroller::LeftMouseButtonGesture);
 }
 
 GitWidget::~GitWidget()

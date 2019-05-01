@@ -72,6 +72,7 @@ QVariant CommitsModel::data(const QModelIndex &index, int role) const
         }
     } else {
         GitIntegration::CommitPointer commit = d->shownCommits.at(index.row() - d->actions.count());
+        if (commit.isNull()) return QVariant();
         switch (role) {
             case Qt::DisplayRole:
                 return commit->hash;
