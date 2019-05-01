@@ -9,6 +9,7 @@ ExitSaveDialog::ExitSaveDialog(QList<TextEditor*> saveNeeded, QWidget *parent) :
     ui(new Ui::ExitSaveDialog)
 {
     ui->setupUi(this);
+    this->resize(this->size() * theLibsGlobal::getDPIScaling());
 
     this->saveNeeded = saveNeeded;
     for (TextEditor* editor : saveNeeded) {

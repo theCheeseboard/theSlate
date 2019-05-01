@@ -2,6 +2,7 @@
 
 #include <QPainter>
 #include <QStyleOptionToolButton>
+#include <the-libs_global.h>
 
 StatusBarButton::StatusBarButton(QWidget *parent) : QToolButton(parent)
 {
@@ -41,5 +42,5 @@ void StatusBarButton::paintEvent(QPaintEvent *event) {
 }
 
 QSize StatusBarButton::sizeHint() const {
-    return QSize(this->fontMetrics().width(this->text()) + 6, this->fontMetrics().height() + 6);
+    return QSize(this->fontMetrics().width(this->text()) + 6 * theLibsGlobal::getDPIScaling(), this->fontMetrics().height() + 6 * theLibsGlobal::getDPIScaling());
 }

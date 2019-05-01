@@ -1462,7 +1462,7 @@ void TextEditor::chooseHighlighter() {
     });
     connect(popover, &tPopover::dismissed, dialog, &SelectListDialog::deleteLater);
     connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
-    popover->show(this);
+    popover->show(this->window());
 }
 
 TextEditorLeftMargin::TextEditorLeftMargin(TextEditor* editor) : QWidget(editor) {
