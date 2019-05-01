@@ -45,6 +45,8 @@ class GitWidget : public QWidget
 
         GitWidgetPrivate* d;
         void setAuthenticationDetails(QString message, std::function<void()> callback);
+        void showConflictDialog(QString operation);
+        void merge(QString other);
 };
 
 #endif // GITWIDGET_H

@@ -12,6 +12,10 @@
             "underline" : false,
             "strike-through" : false
         },
+        "Others" : {
+            "text-color" : "#ffffff",
+            "selected-text-color" : "#ffffff"
+        },
         "Keyword" : {
             "text-color" : "#ff9600",
             "selected-text-color" : "#ff9600"
@@ -29,7 +33,7 @@
             "selected-text-color" : "#ff9600"
         },
         "Operator" : {
-            "text-color" : "#1f1c1b",
+            "text-color" : "#ffffff",
             "selected-text-color" : "#ffffff"
         },
         "BuiltIn" : {

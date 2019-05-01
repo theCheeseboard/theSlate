@@ -238,16 +238,9 @@
     <addaction name="actionSelect_All"/>
     <addaction name="separator"/>
     <addaction name="actionFind_and_Replace"/>
-   </widget>
-   <widget class="QMenu" name="menuCode">
-    <property name="title">
-     <string>&amp;Code</string>
-    </property>
-    <property name="icon">
-     <iconset theme="commit" resource="icons.qrc">
-      <normaloff>:/icons/commit.svg</normaloff>:/icons/commit.svg</iconset>
-    </property>
-    <addaction name="actionNo_Highlighting"/>
+    <addaction name="separator"/>
+    <addaction name="actionComment"/>
+    <addaction name="actionUncomment"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -284,11 +277,11 @@
     </property>
     <addaction name="actionNew_Window"/>
     <addaction name="separator"/>
+    <addaction name="actionChange_Syntax_Highlighting"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
-   <addaction name="menuCode"/>
    <addaction name="menuSource_Control"/>
    <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
@@ -733,6 +726,27 @@
    </property>
    <property name="text">
     <string>Use Menubar</string>
+   </property>
+  </action>
+  <action name="actionComment">
+   <property name="text">
+    <string>Comment</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionUncomment">
+   <property name="text">
+    <string>Uncomment</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+D</string>
+   </property>
+  </action>
+  <action name="actionChange_Syntax_Highlighting">
+   <property name="text">
+    <string>Change Syntax Highlighting</string>
    </property>
   </action>
  </widget>

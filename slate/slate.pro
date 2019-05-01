@@ -62,6 +62,9 @@ SOURCES += \
     SourceControl/gitintegration.cpp \
     textparts/findreplace.cpp \
     exitsavedialog.cpp \
+    textparts/selectlistdialog.cpp \
+    textparts/statusbarbutton.cpp \
+    textparts/textstatusbar.cpp \
     textparts/topnotification.cpp \
     textparts/mergetool.cpp \
     textparts/printdialog.cpp \
@@ -89,6 +92,9 @@ HEADERS += \
     SourceControl/gitintegration.h \
     textparts/findreplace.h \
     exitsavedialog.h \
+    textparts/selectlistdialog.h \
+    textparts/statusbarbutton.h \
+    textparts/textstatusbar.h \
     textparts/topnotification.h \
     textparts/mergetool.h \
     textparts/printdialog.h \
@@ -118,6 +124,8 @@ FORMS += \
     aboutwindow.ui \
     textparts/findreplace.ui \
     exitsavedialog.ui \
+    textparts/selectlistdialog.ui \
+    textparts/textstatusbar.ui \
     textparts/topnotification.ui \
     textparts/mergetool.ui \
     textparts/printdialog.ui \
