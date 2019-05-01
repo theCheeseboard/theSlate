@@ -187,7 +187,7 @@ MainWindow::MainWindow(QWidget *parent) :
         d->menuButton->setArrowType(Qt::NoArrow);
         d->menuButton->setIcon(QIcon::fromTheme("theslate", QIcon(":/icons/icon.svg")));
         d->menuButton->setIconSize(ui->mainToolBar->iconSize());
-        d->menuAction = ui->mainToolBar->insertWidget(ui->actionNew, menuButton);
+        d->menuAction = ui->mainToolBar->insertWidget(ui->actionNew, d->menuButton);
         connect(updateManager, &UpdateManager::updateAvailable, [=] {
             //Create icon to notify user that an update is available
 
