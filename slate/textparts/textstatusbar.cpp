@@ -142,3 +142,12 @@ void TextStatusBar::on_highlightingButton_clicked()
 {
     d->editor->chooseHighlighter();
 }
+
+void TextStatusBar::setEncoding(QString encodingName) {
+    ui->encodingButton->setText(encodingName);
+}
+
+void TextStatusBar::on_encodingButton_clicked()
+{
+    d->editor->chooseCodec();
+}

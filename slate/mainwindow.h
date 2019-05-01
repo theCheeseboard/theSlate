@@ -163,7 +163,7 @@ private:
         QTabBar* tabBar;
         QToolButton* menuButton;
         QAction* menuAction = nullptr;
-        QMap<TextEditor*, TopNotification*> primaryTopNotifications;
+        QMap<TextWidget*, TopNotification*> primaryTopNotifications;
 };
 
 #endif // MAINWINDOW_H

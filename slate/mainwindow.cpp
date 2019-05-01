@@ -338,12 +338,12 @@ void MainWindow::newTab() {
         int index = tabBar->addTab(view->editor()->getTabButton()->text());
         tabBar->setCurrentIndex(index);
         connect(view->editor(), &TextEditor::titleChanged, [=](QString title) {
-            tabBar->setTabText(ui->tabs->indexOf(view->editor()->getTabButton()), title);
+            tabBar->setTabText(ui->tabs->indexOf(view), title);
         });
         connect(view->editor(), &TextEditor::primaryTopNotificationChanged, [=](TopNotification* topNotification) {
-            primaryTopNotifications.insert(view->editor(), topNotification);
+            primaryTopNotifications.insert(view, topNotification);
 
-            if (currentEditor() == view->editor()) {
+            if (currentDocument() == view) {
                 emit changeTouchBarTopNotification(topNotification);
             }
 
@@ -354,7 +354,7 @@ void MainWindow::newTab() {
                 primaryTopNotifications.remove(view);
             }
         });*/
-        primaryTopNotifications.insert(view->editor(), nullptr);
+        primaryTopNotifications.insert(view, nullptr);
     #else
         connect(view->editor()->getTabButton(), &QPushButton::clicked, [=]{
             ui->tabs->setCurrentWidget(view);
@@ -444,7 +444,7 @@ void MainWindow::on_tabs_currentChanged(int arg1)
 
 #ifdef Q_OS_MAC
     if (current != nullptr) {
-        emit changeTouchBarTopNotification(primaryTopNotifications.value(current->editor()));
+        emit changeTouchBarTopNotification(primaryTopNotifications.value(current));
     } else {
         emit changeTouchBarTopNotification(nullptr);
     }

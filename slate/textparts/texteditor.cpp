@@ -52,7 +52,7 @@ class TextEditorPrivate {
         QWidget* topPanelWidget;
         QBoxLayout* topPanelLayout;
 
-        TopNotification *mergeConflictsNotification, *onDiskChanged, *fileReadError, *onDiskDeleted, *mixedLineEndings;
+        TopNotification *mergeConflictsNotification, *onDiskChanged, *fileReadError, *onDiskDeleted, *mixedLineEndings, *decodingProblem;
 
         TextEditor* scrollingLock = nullptr;
 
@@ -345,11 +345,23 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
     {
         d->mixedLineEndings = new TopNotification();
         d->mixedLineEndings->setTitle(tr("Mixed Line Endings detected"));
-        d->mixedLineEndings->setText(tr("If you save this file, we'll change all the line endings to your configuration in Settings."));
+        d->mixedLineEndings->setText(tr("When saving this file, we'll normalise all the line endings. You can choose which line endings to save as on the status bar."));
 
         connect(d->mixedLineEndings, &TopNotification::closeNotification, [=] {
             removeTopPanel(d->mixedLineEndings);
         });
+    }
+
+    {
+        d->decodingProblem = new TopNotification();
+        d->decodingProblem->setTitle(tr("Incorrect Text Encoding"));
+
+        QPushButton* selectEncodingButton = new QPushButton();
+        selectEncodingButton->setText(tr("Select Encoding"));
+        connect(selectEncodingButton, &QPushButton::clicked, this, [=] {
+            this->chooseCodec(true);
+        });
+        d->decodingProblem->addButton(selectEncodingButton);
     }
 
     connect(this->verticalScrollBar(), &QScrollBar::valueChanged, [=](int position) {
@@ -377,6 +389,7 @@ void TextEditor::setStatusBar(TextStatusBar *statusBar) {
     d->statusBar = statusBar;
 
     cursorLocationChanged();
+    setTextCodec(QTextCodec::codecForName("UTF-8"));
     setHighlighter(highlightRepo->definitionForName("None"));
 
     reloadSettings();
@@ -408,6 +421,7 @@ void TextEditor::openFile(FileBackend *backend) {
     removeTopPanel(d->onDiskDeleted);
     removeTopPanel(d->fileReadError);
     removeTopPanel(d->mixedLineEndings);
+    removeTopPanel(d->decodingProblem);
 
     d->cover->setVisible(true);
     d->cover->raise();
@@ -460,8 +474,17 @@ void TextEditor::loadText(QByteArray data) {
         setTextCodec(QTextCodec::codecForUtfText(data, QTextCodec::codecForName("UTF-8")));
     }
 
-    this->setPlainText(d->textCodec->toUnicode(data));
+    QTextDecoder* decoder = d->textCodec->makeDecoder(QTextCodec::ConvertInvalidToNull);
+    QString decoded = decoder->toUnicode(data);
+    this->setPlainText(decoded);
     d->edited = false;
+
+    if (decoder->hasFailure()) {
+        d->decodingProblem->setText(tr("We tried opening this file with the %1 encoding, but it contains invalid characters. If you save the file in the incorrect encoding, you may lose data.").arg(QString(d->textCodec->name())));
+        addTopPanel(d->decodingProblem);
+    }
+
+    delete decoder;
 
     //Detect line endings;
     char endings = 0;
@@ -525,6 +548,7 @@ bool TextEditor::saveFile() {
         d->currentBackend->save(saveData)->then([=] {
             removeTopPanel(d->onDiskChanged);
             removeTopPanel(d->onDiskDeleted);
+            removeTopPanel(d->decodingProblem);
             d->edited = false;
 
             if (d->parentWindow != nullptr) d->parentWindow->updateGit();
@@ -1291,6 +1315,7 @@ QByteArray TextEditor::formatForSaving(QString text) {
 
 void TextEditor::setTextCodec(QTextCodec* codec) {
     d->textCodec = codec;
+    if (d->statusBar != nullptr) d->statusBar->setEncoding(codec->name());
 }
 
 void TextEditor::commentSelectedText(bool uncomment) {

@@ -27,9 +27,12 @@ class TextStatusBar : public QWidget
         void setSpacing(bool spaces, int number);
         void setLineEndings(int lineEndings);
         void setHighlighting(KSyntaxHighlighting::Definition definition);
+        void setEncoding(QString encodingName);
 
     private slots:
         void on_highlightingButton_clicked();
+
+        void on_encodingButton_clicked();
 
     private:
         Ui::TextStatusBar *ui;

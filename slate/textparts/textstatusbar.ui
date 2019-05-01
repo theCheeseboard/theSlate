@@ -52,6 +52,13 @@
     </spacer>
    </item>
    <item>
+    <widget class="StatusBarButton" name="encodingButton">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="StatusBarButton" name="highlightingButton">
      <property name="text">
       <string/>
