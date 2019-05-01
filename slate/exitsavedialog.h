@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QListWidgetItem>
-#include "texteditor.h"
+#include "textwidget.h"
 #include <QFileDialog>
 
 namespace Ui {
@@ -15,7 +15,7 @@ class ExitSaveDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ExitSaveDialog(QList<TextEditor*> saveNeeded, QWidget *parent = 0);
+    explicit ExitSaveDialog(QList<TextWidget*> saveNeeded, QWidget *parent = 0);
     ~ExitSaveDialog();
 
 private slots:
@@ -28,11 +28,11 @@ private slots:
     void on_discardButton_clicked();
 
 signals:
-    void closeTab(TextEditor* tab);
+    void closeTab(TextWidget* tab);
 
 private:
     Ui::ExitSaveDialog *ui;
-    QList<TextEditor*> saveNeeded;
+    QList<TextWidget*> saveNeeded;
     bool attnAll = true;
 };
 

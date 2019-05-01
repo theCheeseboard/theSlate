@@ -15,6 +15,7 @@
 #include "plugins/pluginmanager.h"
 #include "managers/recentfilesmanager.h"
 #include "managers/updatemanager.h"
+#include "textwidget.h"
 
 #include <Repository>
 #include <SyntaxHighlighter>
@@ -239,9 +240,9 @@ MainWindow::MainWindow(QWidget *parent) :
                 //Add the action
                 QAction* action = new QAction();
                 action->setText(metrics.elidedText(text, Qt::ElideRight, 500 * theLibsGlobal::getDPIScaling()));
-                action->setEnabled(currentDocument() != nullptr);
+                action->setEnabled(currentEditor() != nullptr);
                 connect(action, &QAction::triggered, [=] {
-                    currentDocument()->insertPlainText(*i);
+                    currentEditor()->insertPlainText(*i);
                 });
                 ui->menuPaste_from_Clipboard_History->addAction(action);
             }
@@ -249,8 +250,8 @@ MainWindow::MainWindow(QWidget *parent) :
     });
     QShortcut* pasteHistory = new QShortcut(QKeySequence(tr("Ctrl+Shift+V")), this);
     connect(pasteHistory, &QShortcut::activated, [=] {
-        if (currentDocument() != nullptr) {
-            QPoint p = currentDocument()->mapToGlobal(currentDocument()->cursorRect().bottomLeft());
+        if (currentEditor() != nullptr) {
+            QPoint p = currentEditor()->mapToGlobal(currentEditor()->cursorRect().bottomLeft());
             ui->menuPaste_from_Clipboard_History->exec(p);
         }
     });
@@ -315,14 +316,14 @@ void MainWindow::show() {
 }
 
 void MainWindow::newTab() {
-    TextEditor* view = new TextEditor(this);
+    TextWidget* view = new TextWidget(this);
     ui->tabs->addWidget(view);
     ui->tabs->setCurrentWidget(view);
 
-    connect(view, SIGNAL(editedChanged()), this, SLOT(checkForEdits()));
-    connect(view, &TextEditor::backendChanged, [=] {
-        if (currentDocument() == view) {
-            QUrl url = view->fileUrl();
+    connect(view->editor(), SIGNAL(editedChanged()), this, SLOT(checkForEdits()));
+    connect(view->editor(), &TextEditor::backendChanged, [=] {
+        if (currentEditor() == view->editor()) {
+            QUrl url = view->editor()->fileUrl();
             if (url.isLocalFile()) {
                 QString file = url.toLocalFile();
                 this->setWindowFilePath(file);
@@ -333,26 +334,26 @@ void MainWindow::newTab() {
     });
 
     #ifdef Q_OS_MAC
-        int index = tabBar->addTab(view->getTabButton()->text());
+        int index = tabBar->addTab(view->editor()->getTabButton()->text());
         tabBar->setCurrentIndex(index);
-        connect(view, &TextEditor::titleChanged, [=](QString title) {
-            tabBar->setTabText(ui->tabs->indexOf(view), title);
+        connect(view->editor(), &TextEditor::titleChanged, [=](QString title) {
+            tabBar->setTabText(ui->tabs->indexOf(view->editor()->getTabButton()), title);
         });
-        connect(view, &TextEditor::primaryTopNotificationChanged, [=](TopNotification* topNotification) {
-            primaryTopNotifications.insert(view, topNotification);
+        connect(view->editor(), &TextEditor::primaryTopNotificationChanged, [=](TopNotification* topNotification) {
+            primaryTopNotifications.insert(view->editor(), topNotification);
 
-            if (currentDocument() == view) {
+            if (currentEditor() == view->editor()) {
                 emit changeTouchBarTopNotification(topNotification);
             }
 
             updateTouchBar();
         });
-        /*connect(view, &TextEditor::destroyed, [=] {
+        /*connect(view->editor(), &TextEditor::destroyed, [=] {
             if (primaryTopNotifications.contains(view)) {
                 primaryTopNotifications.remove(view);
             }
         });*/
-        primaryTopNotifications.insert(view, nullptr);
+        primaryTopNotifications.insert(view->editor(), nullptr);
     #else
         connect(view->getTabButton(), &QPushButton::clicked, [=]{
             ui->tabs->setCurrentWidget(view);
@@ -364,29 +365,29 @@ void MainWindow::newTab() {
 }
 
 void MainWindow::newTab(QString filename) {
-    if (currentDocument() == nullptr || currentDocument()->isEdited() || currentDocument()->title() != "") {
+    if (currentEditor() == nullptr || currentEditor()->isEdited() || currentEditor()->title() != "") {
         newTab();
     }
 
-    currentDocument()->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(filename)));
+    currentEditor()->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(filename)));
     updateGit();
 }
 
 void MainWindow::newTab(FileBackend* backend) {
-    if (currentDocument() == nullptr || currentDocument()->isEdited() || currentDocument()->title() != "") {
+    if (currentEditor() == nullptr || currentEditor()->isEdited() || currentEditor()->title() != "") {
         newTab();
     }
 
-    currentDocument()->openFile(backend);
+    currentEditor()->openFile(backend);
     updateGit();
 }
 
 void MainWindow::newTab(QByteArray contents) {
-    if (currentDocument() == nullptr || currentDocument()->isEdited() || currentDocument()->title() != "") {
+    if (currentEditor() == nullptr || currentEditor()->isEdited() || currentEditor()->title() != "") {
         newTab();
     }
 
-    currentDocument()->loadText(contents);
+    currentEditor()->loadText(contents);
     updateGit();
 }
 
@@ -403,14 +404,14 @@ void MainWindow::on_actionNew_triggered()
 void MainWindow::on_tabs_currentChanged(int arg1)
 {
     for (int i = 0; i < ui->tabs->count(); i++) {
-        TextEditor* item = (TextEditor*) ui->tabs->widget(i);
+        TextEditor* item = static_cast<TextWidget*>(ui->tabs->widget(i))->editor();
         item->setActive(false);
     }
 
-    TextEditor* current = (TextEditor*) ui->tabs->widget(arg1);
+    TextWidget* current = static_cast<TextWidget*>(ui->tabs->widget(arg1));
     if (current != nullptr) {
-        current->setActive(true);
-        QUrl url = current->fileUrl();
+        current->editor()->setActive(true);
+        QUrl url = current->editor()->fileUrl();
         #ifdef Q_OS_MAC
             if (url.isLocalFile()) {
                 QString file = url.toLocalFile();
@@ -418,9 +419,9 @@ void MainWindow::on_tabs_currentChanged(int arg1)
                 QFileInfo fileInfo(file);
                 this->setWindowIcon(ic.icon(fileInfo));
                 this->setWindowFilePath(file);
-                this->setWindowTitle(current->title());
-            } else if (current->title() != "") {
-                this->setWindowTitle(current->title());
+                this->setWindowTitle(current->editor()->title());
+            } else if (current->editor()->title() != "") {
+                this->setWindowTitle(current->editor()->title());
                 this->setWindowFilePath("");
             } else {
                 this->setWindowTitle("theSlate");
@@ -442,7 +443,7 @@ void MainWindow::on_tabs_currentChanged(int arg1)
 
 #ifdef Q_OS_MAC
     if (current != nullptr) {
-        emit changeTouchBarTopNotification(primaryTopNotifications.value(current));
+        emit changeTouchBarTopNotification(primaryTopNotifications.value(current->editor()));
     } else {
         emit changeTouchBarTopNotification(nullptr);
     }
@@ -472,13 +473,18 @@ void MainWindow::on_actionSave_triggered()
     saveCurrentDocument();
 }
 
-TextEditor* MainWindow::currentDocument() {
-    return (TextEditor*) ui->tabs->widget(ui->tabs->currentIndex());
+TextWidget* MainWindow::currentDocument() {
+    return static_cast<TextWidget*>(ui->tabs->widget(ui->tabs->currentIndex()));
+}
+
+TextEditor* MainWindow::currentEditor() {
+    if (currentDocument() == nullptr) return nullptr;
+    return currentDocument()->editor();
 }
 
 void MainWindow::checkForEdits() {
     for (int i = 0; i < ui->tabs->count(); i++) {
-        TextEditor* item = (TextEditor*) ui->tabs->widget(i);
+        TextEditor* item = static_cast<TextWidget*>(ui->tabs->widget(i))->editor();
         if (item->isEdited()) {
             this->setWindowModified(true);
             return;
@@ -489,10 +495,10 @@ void MainWindow::checkForEdits() {
 
 void MainWindow::closeEvent(QCloseEvent *event) {
     if (ui->tabs->count() > 0) {
-        QList<TextEditor*> saveNeeded;
+        QList<TextWidget*> saveNeeded;
         for (int i = 0; i < ui->tabs->count(); i++) {
-            TextEditor* tab = (TextEditor*) ui->tabs->widget(i);
-            if (tab->isEdited()) saveNeeded.append(tab);
+            TextWidget* tab = static_cast<TextWidget*>(ui->tabs->widget(i));
+            if (tab->editor()->isEdited()) saveNeeded.append(tab);
         }
 
         if (saveNeeded.count() > 0) {
@@ -506,8 +512,8 @@ void MainWindow::closeEvent(QCloseEvent *event) {
             connect(dialog, &ExitSaveDialog::rejected, [=] {
                 loop->exit(1);
             });
-            connect(dialog, &ExitSaveDialog::closeTab, [=](TextEditor* tab) {
-                ui->tabButtons->removeWidget(tab->getTabButton());
+            connect(dialog, &ExitSaveDialog::closeTab, [=](TextWidget* tab) {
+                ui->tabButtons->removeWidget(tab->editor()->getTabButton());
                 ui->tabs->removeWidget(tab);
                 tab->deleteLater();
 
@@ -531,7 +537,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 }
 
 bool MainWindow::saveCurrentDocument(bool saveAs) {
-    if (currentDocument()->saveFileAskForFilename(saveAs)) {
+    if (currentEditor()->saveFileAskForFilename(saveAs)) {
         updateGit();
         return true;
     } else {
@@ -540,7 +546,7 @@ bool MainWindow::saveCurrentDocument(bool saveAs) {
 }
 
 bool MainWindow::closeCurrentTab() {
-    if (currentDocument()->isEdited()) {
+    if (currentEditor()->isEdited()) {
         tMessageBox* messageBox = new tMessageBox(this);
         messageBox->setWindowTitle(tr("Save Changes?"));
         messageBox->setText(tr("Do you want to save your changes to this document?"));
@@ -559,7 +565,7 @@ bool MainWindow::closeCurrentTab() {
         }
     }
 
-    TextEditor* current = currentDocument();
+    TextWidget* current = currentDocument();
 
     #ifdef Q_OS_MAC
         tabBar->removeTab(ui->tabs->indexOf(current));
@@ -582,17 +588,17 @@ void MainWindow::on_closeButton_clicked()
 
 void MainWindow::on_actionCopy_triggered()
 {
-    currentDocument()->copy();
+    currentEditor()->copy();
 }
 
 void MainWindow::on_actionCut_triggered()
 {
-    currentDocument()->cut();
+    currentEditor()->cut();
 }
 
 void MainWindow::on_actionPaste_triggered()
 {
-    currentDocument()->paste();
+    currentEditor()->paste();
 }
 
 void MainWindow::on_actionAbout_triggered()
@@ -605,7 +611,7 @@ void MainWindow::on_projectTree_clicked(const QModelIndex &index)
 {
     if (!fileModel->isDir(index)) {
         for (int i = 0; i < ui->tabs->count(); i++) {
-            QUrl url = ((TextEditor*) ui->tabs->widget(i))->fileUrl();
+            QUrl url = static_cast<TextWidget*>(ui->tabs->widget(i))->editor()->fileUrl();
             if (url.isLocalFile()) {
                 if (fileModel->filePath(index) == url.toLocalFile()) {
                     ui->tabs->setCurrentIndex(i);
@@ -615,32 +621,23 @@ void MainWindow::on_projectTree_clicked(const QModelIndex &index)
         }
 
         newTab();
-        currentDocument()->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(fileModel->filePath(index))));
+        currentEditor()->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(fileModel->filePath(index))));
         updateGit();
     }
 }
 
 void MainWindow::updateGit() {
-    if (currentDocument() == nullptr) {
+    if (currentEditor() == nullptr) {
         ui->gitWidget->setCurrentDocument(QUrl());
     } else {
-        ui->gitWidget->setCurrentDocument(currentDocument()->fileUrl());
-    }
-}
-
-void MainWindow::on_modifiedChanges_itemChanged(QListWidgetItem *item)
-{
-    if (item->checkState() == Qt::Checked) {
-        currentDocument()->git->add(item->data(Qt::UserRole).toString());
-    } else {
-
+        ui->gitWidget->setCurrentDocument(currentEditor()->fileUrl());
     }
 }
 
 void MainWindow::on_actionSave_All_triggered()
 {
     for (int i = 0; i < ui->tabs->count(); i++) {
-        TextEditor* document = (TextEditor*) ui->tabs->widget(i);
+        TextEditor* document = static_cast<TextWidget*>(ui->tabs->widget(i))->editor();
         if (document->title() != "") {
             document->saveFile();
         }
@@ -649,7 +646,7 @@ void MainWindow::on_actionSave_All_triggered()
 
 void MainWindow::on_actionFind_and_Replace_triggered()
 {
-    currentDocument()->toggleFindReplace();
+    currentEditor()->toggleFindReplace();
 }
 
 void MainWindow::on_actionSave_As_triggered()
@@ -659,7 +656,7 @@ void MainWindow::on_actionSave_As_triggered()
 
 void MainWindow::on_actionRevert_triggered()
 {
-    currentDocument()->revertFile();
+    currentEditor()->revertFile();
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event) {
@@ -693,7 +690,7 @@ void MainWindow::dropEvent(QDropEvent *event) {
 
 void MainWindow::on_actionPrint_triggered()
 {
-    PrintDialog* d = new PrintDialog(currentDocument(), this);
+    PrintDialog* d = new PrintDialog(currentEditor(), this);
     d->setWindowModality(Qt::WindowModal);
     d->resize(this->width() - 20, this->height() - 50);
     d->show();
@@ -711,12 +708,12 @@ void MainWindow::on_actionSources_triggered()
 
 void MainWindow::on_actionUndo_triggered()
 {
-    currentDocument()->undo();
+    currentEditor()->undo();
 }
 
 void MainWindow::on_actionRedo_triggered()
 {
-    currentDocument()->redo();
+    currentEditor()->redo();
 }
 
 void MainWindow::on_actionSettings_triggered()
@@ -733,7 +730,7 @@ void MainWindow::on_actionSettings_triggered()
     loop.exec();
 
     for (int i = 0; i < ui->tabs->count(); i++) {
-        TextEditor* item = (TextEditor*) ui->tabs->widget(i);
+        TextEditor* item = static_cast<TextWidget*>(ui->tabs->widget(i))->editor();
         item->reloadSettings();
     }
 
@@ -762,7 +759,7 @@ void MainWindow::on_projectTree_customContextMenuRequested(const QPoint &pos)
         if (info.isFile()) {
             menu->addAction(tr("Edit in new tab"), [=] {
                 newTab();
-                currentDocument()->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(fileModel->filePath(index))));
+                currentEditor()->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(fileModel->filePath(index))));
                 updateGit();
             });
             menu->addAction(tr("Edit in new window"), [=] {
@@ -797,8 +794,8 @@ void MainWindow::on_projectTree_customContextMenuRequested(const QPoint &pos)
 
 void MainWindow::on_actionSelect_All_triggered()
 {
-    if (currentDocument() != nullptr) {
-        currentDocument()->selectAll();
+    if (currentEditor() != nullptr) {
+        currentEditor()->selectAll();
     }
 }
 
@@ -865,25 +862,25 @@ void MainWindow::updateDocumentDependantTabs() {
 
 void MainWindow::on_actionComment_triggered()
 {
-    currentDocument()->commentSelectedText();
+    currentEditor()->commentSelectedText();
 }
 
 void MainWindow::on_actionUncomment_triggered()
 {
-    currentDocument()->commentSelectedText(true);
+    currentEditor()->commentSelectedText(true);
 }
 
 void MainWindow::on_actionChange_Syntax_Highlighting_triggered()
 {
-    currentDocument()->chooseHighlighter();
+    currentEditor()->chooseHighlighter();
 }
 
 void MainWindow::on_actionChange_File_Encoding_triggered()
 {
-    currentDocument()->chooseCodec();
+    currentEditor()->chooseCodec();
 }
 
 void MainWindow::on_actionReload_Using_Encoding_triggered()
 {
-    currentDocument()->chooseCodec(true);
+    currentEditor()->chooseCodec(true);
 }

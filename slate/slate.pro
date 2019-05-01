@@ -56,7 +56,6 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     tabbutton.cpp \
-    texteditor.cpp \
     aboutwindow.cpp \
     syntaxhighlighter.cpp \
     SourceControl/gitintegration.cpp \
@@ -64,6 +63,7 @@ SOURCES += \
     exitsavedialog.cpp \
     textparts/selectlistdialog.cpp \
     textparts/statusbarbutton.cpp \
+    textparts/texteditor.cpp \
     textparts/textstatusbar.cpp \
     textparts/topnotification.cpp \
     textparts/mergetool.cpp \
@@ -81,12 +81,12 @@ SOURCES += \
     SourceControl/GitDialogs/commitdialog.cpp \
     SourceControl/statusmodel.cpp \
     SourceControl/GitDialogs/progressdialog.cpp \
-    SourceControl/GitDialogs/authenticationdialog.cpp
+    SourceControl/GitDialogs/authenticationdialog.cpp \
+    textwidget.cpp
 
 HEADERS += \
         mainwindow.h \
     tabbutton.h \
-    texteditor.h \
     aboutwindow.h \
     syntaxhighlighter.h \
     SourceControl/gitintegration.h \
@@ -94,6 +94,7 @@ HEADERS += \
     exitsavedialog.h \
     textparts/selectlistdialog.h \
     textparts/statusbarbutton.h \
+    textparts/texteditor.h \
     textparts/textstatusbar.h \
     textparts/topnotification.h \
     textparts/mergetool.h \
@@ -111,7 +112,8 @@ HEADERS += \
     SourceControl/GitDialogs/commitdialog.h \
     SourceControl/statusmodel.h \
     SourceControl/GitDialogs/progressdialog.h \
-    SourceControl/GitDialogs/authenticationdialog.h
+    SourceControl/GitDialogs/authenticationdialog.h \
+    textwidget.h
 
 macx {
     SOURCES += \
@@ -135,7 +137,8 @@ FORMS += \
     SourceControl/GitDialogs/addbranchdialog.ui \
     SourceControl/GitDialogs/commitdialog.ui \
     SourceControl/GitDialogs/progressdialog.ui \
-    SourceControl/GitDialogs/authenticationdialog.ui
+    SourceControl/GitDialogs/authenticationdialog.ui \
+    textwidget.ui
 
 RESOURCES += \
     icons.qrc \

@@ -4,7 +4,7 @@
 #include <QPushButton>
 #include <QPaintEvent>
 #include <QPainter>
-#include "texteditor.h"
+#include "textparts/texteditor.h"
 
 class TextEditor;
 

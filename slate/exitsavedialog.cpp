@@ -3,8 +3,10 @@
 
 #include <QFileDialog>
 #include <QEventLoop>
+#include "the-libs_global.h"
+#include "textparts/texteditor.h"
 
-ExitSaveDialog::ExitSaveDialog(QList<TextEditor*> saveNeeded, QWidget *parent) :
+ExitSaveDialog::ExitSaveDialog(QList<TextWidget*> saveNeeded, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ExitSaveDialog)
 {
@@ -12,9 +14,9 @@ ExitSaveDialog::ExitSaveDialog(QList<TextEditor*> saveNeeded, QWidget *parent) :
     this->resize(this->size() * theLibsGlobal::getDPIScaling());
 
     this->saveNeeded = saveNeeded;
-    for (TextEditor* editor : saveNeeded) {
+    for (TextWidget* editor : saveNeeded) {
         QListWidgetItem* item = new QListWidgetItem();
-        item->setText(editor->getTabButton()->text());
+        item->setText(editor->editor()->getTabButton()->text());
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
         item->setCheckState(Qt::Unchecked);
         item->setData(Qt::UserRole, QVariant::fromValue(editor));
@@ -55,13 +57,13 @@ void ExitSaveDialog::on_saveButton_clicked()
     bool didHide = false;
     for (int i = 0; i < ui->editedFilesList->count(); i++) {
         if (ui->editedFilesList->item(i)->checkState() == Qt::Checked || attnAll) {
-            TextEditor* editor = ui->editedFilesList->item(i)->data(Qt::UserRole).value<TextEditor*>();
-            if (editor->title() == "" && !didHide) {
+            TextWidget* editor = ui->editedFilesList->item(i)->data(Qt::UserRole).value<TextWidget*>();
+            if (editor->editor()->title() == "" && !didHide) {
                 this->hide();
                 didHide = true;
             }
 
-            if (editor->saveFileAskForFilename()) {
+            if (editor->editor()->saveFileAskForFilename()) {
                 delete ui->editedFilesList->takeItem(i);
                 emit closeTab(editor);
                 i--;
@@ -83,7 +85,7 @@ void ExitSaveDialog::on_discardButton_clicked()
 {
     for (int i = 0; i < ui->editedFilesList->count(); i++) {
         if (ui->editedFilesList->item(i)->checkState() == Qt::Checked || attnAll) {
-            TextEditor* editor = ui->editedFilesList->item(i)->data(Qt::UserRole).value<TextEditor*>();
+            TextWidget* editor = ui->editedFilesList->item(i)->data(Qt::UserRole).value<TextWidget*>();
             delete ui->editedFilesList->takeItem(i);
             emit closeTab(editor);
             i--;

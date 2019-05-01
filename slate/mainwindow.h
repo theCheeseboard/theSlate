@@ -22,7 +22,7 @@
 #include <QDockWidget>
 #include <QTabBar>
 #include "aboutwindow.h"
-#include "texteditor.h"
+#include "textparts/texteditor.h"
 #include "SourceControl/gitintegration.h"
 #include "textparts/printdialog.h"
 
@@ -39,6 +39,7 @@ namespace Ui {
     class MainWindow;
 }
 
+class TextWidget;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -59,7 +60,8 @@ class MainWindow : public QMainWindow
 
         void updateGit();
 
-        TextEditor* currentDocument();
+        TextWidget* currentDocument();
+        TextEditor* currentEditor();
 
     private slots:
         void on_actionNew_triggered();
@@ -87,8 +89,6 @@ class MainWindow : public QMainWindow
         void on_actionAbout_triggered();
 
         void on_projectTree_clicked(const QModelIndex &index);
-
-        void on_modifiedChanges_itemChanged(QListWidgetItem *item);
 
         void on_actionSave_All_triggered();
 

@@ -21,14 +21,23 @@ struct TextStatusBarPrivate {
     QSettings settings;
 };
 
-TextStatusBar::TextStatusBar(TextEditor *parent) :
+TextStatusBar::TextStatusBar(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TextStatusBar)
 {
     ui->setupUi(this);
 
     d = new TextStatusBarPrivate();
-    d->editor = parent;
+}
+
+TextStatusBar::~TextStatusBar()
+{
+    delete d;
+    delete ui;
+}
+
+void TextStatusBar::setEditor(TextEditor* editor) {
+    d->editor = editor;
 
     d->lineEndingsGroup = new QActionGroup(this);
     QMenu* lineEndingsMenu = new QMenu();
@@ -80,12 +89,6 @@ TextStatusBar::TextStatusBar(TextEditor *parent) :
     //ui->highlightingButton->setMenu(syntaxHighlightingMenu);
 
     setLineEndings(-1);
-}
-
-TextStatusBar::~TextStatusBar()
-{
-    delete d;
-    delete ui;
 }
 
 void TextStatusBar::setPosition(int line, int col) {

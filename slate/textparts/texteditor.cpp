@@ -136,13 +136,12 @@ class TextEditorBlockData : public QTextBlockUserData {
         QMetaObject::Connection editedConnection;
 };
 
-TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
+TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
     d = new TextEditorPrivate();
     this->setLineWrapMode(NoWrap);
 
     QFont normalFont = this->font();
-    d->parentWindow = parent;
 
     d->button = new TabButton(this);
     connect(d->button, &TabButton::destroyed, [=] {
@@ -172,12 +171,6 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorLocationChanged()));
 
     d->leftMargin->setVisible(true);
-
-    d->statusBar = new TextStatusBar(this);
-    d->statusBar->setVisible(true);
-
-    cursorLocationChanged();
-    setHighlighter(highlightRepo->definitionForName("None"));
 
     d->findReplaceWidget = new FindReplace(this);
     d->findReplaceWidget->setFont(normalFont);
@@ -366,16 +359,27 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
     });
 
     connect((QApplication*) QApplication::instance(), &QApplication::paletteChanged, this, &TextEditor::reloadSettings);
-    reloadSettings();
 }
 
 TextEditor::~TextEditor() {
     if (d->button != nullptr) {
         d->button->setVisible(false);
     }
-    d->statusBar->deleteLater();
     d->leftMargin->deleteLater();
     delete d;
+}
+
+void TextEditor::setMainWindow(MainWindow *mainWindow) {
+    d->parentWindow = mainWindow;
+}
+
+void TextEditor::setStatusBar(TextStatusBar *statusBar) {
+    d->statusBar = statusBar;
+
+    cursorLocationChanged();
+    setHighlighter(highlightRepo->definitionForName("None"));
+
+    reloadSettings();
 }
 
 TabButton* TextEditor::getTabButton() {
@@ -422,15 +426,7 @@ void TextEditor::openFile(FileBackend *backend) {
             setHighlighter(def);
         }
 
-        if (git != nullptr) {
-            git->deleteLater();
-            git = nullptr;
-        }
-        if (d->currentBackend->url().isLocalFile()) {
-            git = new GitIntegration(QFileInfo(d->currentBackend->url().toLocalFile()).absoluteDir().path());
-            connect(git, SIGNAL(reloadStatusNeeded()), d->parentWindow, SLOT(updateGit()));
-        }
-        d->parentWindow->updateGit();
+        if (d->parentWindow != nullptr) d->parentWindow->updateGit();
 
         emit backendChanged();
         d->cover->setVisible(false);
@@ -475,19 +471,19 @@ void TextEditor::loadText(QByteArray data) {
 
     switch (endings) {
         case 0b000: //No line endings
-            d->statusBar->setLineEndings(-1);
+            if (d->statusBar != nullptr) d->statusBar->setLineEndings(-1);
             break;
         case 0b001: //Windows
-            d->statusBar->setLineEndings(2);
+            if (d->statusBar != nullptr) d->statusBar->setLineEndings(2);
             break;
         case 0b010: //Macintosh
-            d->statusBar->setLineEndings(1);
+            if (d->statusBar != nullptr) d->statusBar->setLineEndings(1);
             break;
         case 0b100: //UNIX
-            d->statusBar->setLineEndings(0);
+            if (d->statusBar != nullptr) d->statusBar->setLineEndings(0);
             break;
         default: //Mixed line endings
-            d->statusBar->setLineEndings(-1);
+            if (d->statusBar != nullptr) d->statusBar->setLineEndings(-1);
             addTopPanel(d->mixedLineEndings);
     }
 
@@ -531,15 +527,7 @@ bool TextEditor::saveFile() {
             removeTopPanel(d->onDiskDeleted);
             d->edited = false;
 
-            if (git != nullptr) {
-                git->deleteLater();
-                git = nullptr;
-            }
-            if (d->currentBackend->url().isLocalFile()) {
-                git = new GitIntegration(QFileInfo(d->currentBackend->url().toLocalFile()).absoluteDir().path());
-                connect(git, SIGNAL(reloadStatusNeeded()), d->parentWindow, SLOT(updateGit()));
-            }
-            d->parentWindow->updateGit();
+            if (d->parentWindow != nullptr) d->parentWindow->updateGit();
 
             emit backendChanged();
             emit editedChanged();
@@ -757,7 +745,7 @@ void TextEditor::updateLeftMarginAreaWidth()
     d->topPanelWidget->updateGeometry();
     int height = d->topPanelWidget->sizeHint().height();
     d->topPanelWidget->setFixedHeight(height);
-    setViewportMargins(leftMarginWidth(), height, 0, d->statusBar->height());
+    setViewportMargins(leftMarginWidth(), height, 0, 0);
 }
 
 void TextEditor::updateLeftMarginArea(const QRect &rect, int dy)
@@ -784,8 +772,6 @@ void TextEditor::resizeEvent(QResizeEvent *event)
     d->findReplaceWidget->move(this->width() - d->findReplaceWidget->width() - 9 - QApplication::style()->pixelMetric(QStyle::PM_ScrollBarExtent), 9);
 
     d->topPanelWidget->setFixedWidth(this->width());
-
-    d->statusBar->setGeometry(0, this->height() - d->statusBar->sizeHint().height(), this->width(), d->statusBar->sizeHint().height());
 
     d->cover->resize(this->size());
 }
@@ -821,7 +807,7 @@ void TextEditor::highlightCurrentLine()
 void TextEditor::cursorLocationChanged() {
     //if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
     highlightCurrentLine();
-    d->statusBar->setPosition(this->textCursor().blockNumber(), this->textCursor().columnNumber());
+    if (d->statusBar != nullptr) d->statusBar->setPosition(this->textCursor().blockNumber(), this->textCursor().columnNumber());
 
     clearExtraSelectionGroup("bracketLocation");
     QTextCursor c(textCursor());
@@ -1245,7 +1231,7 @@ void TextEditor::setHighlighter(KSyntaxHighlighting::Definition hl) {
     highlighter->setTheme(highlightTheme);
     highlighter->setDocument(this->document());
 
-    d->statusBar->setHighlighting(hl);
+    if (d->statusBar != nullptr) d->statusBar->setHighlighting(hl);
 
     d->hl = highlighter;
     d->hlDef = hl;
@@ -1270,7 +1256,7 @@ void TextEditor::reloadSettings() {
     //pal.setColor(QPalette::Text, getSyntaxHighlighterColor("editor/fg"));
     this->setPalette(pal);
 
-    d->statusBar->setSpacing(d->settings.value("behaviour/tabSpaces", true).toBool(), d->settings.value("behaviour/tabWidth").toInt());
+    if (d->statusBar != nullptr) d->statusBar->setSpacing(d->settings.value("behaviour/tabSpaces", true).toBool(), d->settings.value("behaviour/tabWidth").toInt());
 }
 
 QUrl TextEditor::fileUrl() {
@@ -1288,13 +1274,6 @@ QByteArray TextEditor::formatForSaving(QString text) {
 
     removeTopPanel(d->mixedLineEndings);
     QByteArray a = d->textCodec->fromUnicode(text);
-    int lineEndingsToSaveAs;
-
-    /*if (d->currentLineEndings < 0) { //Use settings
-        lineEndingsToSaveAs = d->settings.value("behaviour/endOfLine", THESLATE_END_OF_LINE).toInt();
-    } else { //Use detected line endings
-        lineEndingsToSaveAs = d->currentLineEndings;
-    }*/
 
     switch (d->statusBar->lineEndings()) {
         case 0: //Unix

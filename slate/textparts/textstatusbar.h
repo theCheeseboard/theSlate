@@ -16,12 +16,13 @@ class TextStatusBar : public QWidget
         Q_OBJECT
 
     public:
-        explicit TextStatusBar(TextEditor *parent = nullptr);
+        explicit TextStatusBar(QWidget *parent = nullptr);
         ~TextStatusBar();
 
         int lineEndings();
 
     public slots:
+        void setEditor(TextEditor* editor);
         void setPosition(int line, int col);
         void setSpacing(bool spaces, int number);
         void setLineEndings(int lineEndings);

@@ -29,6 +29,7 @@ class FileBackend;
 struct MergeLines;
 
 class TextEditorPrivate;
+class TextStatusBar;
 
 class TextEditorLeftMargin : public QWidget
 {
@@ -53,9 +54,11 @@ class TextEditor : public QPlainTextEdit
     Q_OBJECT
 
     public:
-        explicit TextEditor(MainWindow *parent);
+        explicit TextEditor(QWidget *parent);
         ~TextEditor();
 
+        void setMainWindow(MainWindow* mainWindow);
+        void setStatusBar(TextStatusBar* statusBar);
 
         QUrl fileUrl();
         QString title();
@@ -64,8 +67,6 @@ class TextEditor : public QPlainTextEdit
 
         void leftMarginPaintEvent(QPaintEvent *event);
         int leftMarginWidth();
-
-        GitIntegration* git = nullptr;
 
     signals:
         void backendChanged();
