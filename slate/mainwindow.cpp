@@ -23,7 +23,6 @@
 #include <Theme>
 
 #ifdef Q_OS_MAC
-    extern QString bundlePath;
     extern void setToolbarItemWidget(QMacToolBarItem* item, QWidget* widget);
 #endif
 
@@ -355,10 +354,10 @@ void MainWindow::newTab() {
         });*/
         primaryTopNotifications.insert(view->editor(), nullptr);
     #else
-        connect(view->getTabButton(), &QPushButton::clicked, [=]{
+        connect(view->editor()->getTabButton(), &QPushButton::clicked, [=]{
             ui->tabs->setCurrentWidget(view);
         });
-        ui->tabButtons->addWidget(view->getTabButton());
+        ui->tabButtons->addWidget(view->editor()->getTabButton());
     #endif
 
     updateDocumentDependantTabs();
@@ -570,7 +569,7 @@ bool MainWindow::closeCurrentTab() {
     #ifdef Q_OS_MAC
         tabBar->removeTab(ui->tabs->indexOf(current));
     #else
-        ui->tabButtons->removeWidget(current->getTabButton());
+        ui->tabButtons->removeWidget(current->editor()->getTabButton());
     #endif
 
     ui->tabs->removeWidget(current);

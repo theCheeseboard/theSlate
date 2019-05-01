@@ -1,9 +1,6 @@
 #include "pluginmanager.h"
 #include <QMessageBox>
-
-#ifdef Q_OS_MAC
-    extern QString bundlePath;
-#endif
+#include <tapplication.h>
 
 PluginManager::PluginManager(QObject *parent) : QObject(parent)
 {
@@ -13,7 +10,7 @@ PluginManager::PluginManager(QObject *parent) : QObject(parent)
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/../../FileBackends/");
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/filebackends/");
     #elif defined(Q_OS_MAC)
-        pluginSearchPaths.append(bundlePath + "/Contents/filebackends/");
+        pluginSearchPaths.append(tApplication::macOSBundlePath() + "/Contents/filebackends/");
     #elif (defined Q_OS_UNIX)
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/../FileBackends/");
         pluginSearchPaths.append("/usr/share/theslate/filebackends/");
