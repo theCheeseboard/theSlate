@@ -670,7 +670,7 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="219"/>
-        <location filename="../mainwindow.cpp" line="160"/>
+        <location filename="../mainwindow.cpp" line="133"/>
         <source>Edit</source>
         <translation>Sửa</translation>
     </message>
@@ -681,315 +681,315 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="247"/>
-        <source>&amp;Code</source>
-        <translation>&amp;Mã nguồn</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="257"/>
         <location filename="../main.cpp" line="56"/>
         <source>Help</source>
         <translation>Trợ giúp</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="270"/>
+        <location filename="../mainwindow.ui" line="260"/>
         <source>So&amp;urce Control</source>
         <translation>&amp;Quản lý mã nguồn</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="280"/>
+        <location filename="../mainwindow.ui" line="270"/>
         <source>Wi&amp;ndow</source>
         <translation>&amp;Cửa sổ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="286"/>
+        <location filename="../mainwindow.ui" line="276"/>
         <source>&amp;View</source>
         <translation>&amp;Xem</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="321"/>
+        <location filename="../mainwindow.ui" line="311"/>
         <source>Files</source>
         <translation>Tệp</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="355"/>
+        <location filename="../mainwindow.ui" line="345"/>
         <source>Sou&amp;rce Control</source>
         <translation>&amp;Quản lý mã nguồn</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="386"/>
+        <location filename="../mainwindow.ui" line="376"/>
         <source>&amp;New</source>
         <translation>&amp;Mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="389"/>
+        <location filename="../mainwindow.ui" line="379"/>
         <location filename="../main.cpp" line="37"/>
         <location filename="../mainwindow-objc.mm" line="154"/>
         <location filename="../mainwindow-objc.mm" line="156"/>
-        <location filename="../mainwindow.cpp" line="103"/>
+        <location filename="../mainwindow.cpp" line="76"/>
         <source>New</source>
         <translation>Mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="392"/>
+        <location filename="../mainwindow.ui" line="382"/>
         <source>Ctrl+N</source>
         <translation>CTRL+N</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="401"/>
+        <location filename="../mainwindow.ui" line="391"/>
         <source>&amp;Save</source>
         <translation>&amp;Lưu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="404"/>
+        <location filename="../mainwindow.ui" line="394"/>
         <location filename="../mainwindow-objc.mm" line="137"/>
         <location filename="../mainwindow-objc.mm" line="139"/>
-        <location filename="../mainwindow.cpp" line="119"/>
+        <location filename="../mainwindow.cpp" line="92"/>
         <source>Save</source>
         <translation>Lưu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="407"/>
+        <location filename="../mainwindow.ui" line="397"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="416"/>
+        <location filename="../mainwindow.ui" line="406"/>
         <source>&amp;Open</source>
         <translation>&amp;Mở</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="419"/>
-        <location filename="../mainwindow.cpp" line="111"/>
+        <location filename="../mainwindow.ui" line="409"/>
+        <location filename="../mainwindow.cpp" line="84"/>
         <source>Open</source>
         <translation>Mở</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="422"/>
+        <location filename="../mainwindow.ui" line="412"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="431"/>
+        <location filename="../mainwindow.ui" line="421"/>
         <source>&amp;Exit</source>
         <translation>&amp;Thoát</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="434"/>
+        <location filename="../mainwindow.ui" line="424"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="446"/>
+        <location filename="../mainwindow.ui" line="436"/>
         <source>&amp;Copy</source>
         <translation>&amp;Chép</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="449"/>
+        <location filename="../mainwindow.ui" line="439"/>
         <source>Copy</source>
         <translation>Chép</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="452"/>
+        <location filename="../mainwindow.ui" line="442"/>
         <source>Ctrl+C</source>
         <translation>Ctrl+C</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="461"/>
+        <location filename="../mainwindow.ui" line="451"/>
         <source>C&amp;ut</source>
         <translation>Cắ&amp;t</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="464"/>
+        <location filename="../mainwindow.ui" line="454"/>
         <source>Cut</source>
         <translation>Cắt</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="467"/>
+        <location filename="../mainwindow.ui" line="457"/>
         <source>Ctrl+X</source>
         <translation>Ctrl+X</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="476"/>
+        <location filename="../mainwindow.ui" line="466"/>
         <source>&amp;Paste</source>
         <translation>&amp;Dán</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="479"/>
+        <location filename="../mainwindow.ui" line="469"/>
         <source>Paste</source>
         <translation>Dán</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="482"/>
+        <location filename="../mainwindow.ui" line="472"/>
         <source>Ctrl+V</source>
         <translation>Ctrl+V</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="487"/>
+        <location filename="../mainwindow.ui" line="477"/>
         <source>&amp;No Highlighting</source>
         <translation>&amp;Không làm nổi bật</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="499"/>
+        <location filename="../mainwindow.ui" line="489"/>
         <source>&amp;About</source>
         <translation>&amp;Giới thiệu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="643"/>
+        <location filename="../mainwindow.ui" line="633"/>
         <source>&amp;File Bug</source>
         <translation>&amp;Báo cáo lỗi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="655"/>
+        <location filename="../mainwindow.ui" line="645"/>
         <source>&amp;Sources</source>
         <translation>&amp;Mã nguồn</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="664"/>
+        <location filename="../mainwindow.ui" line="654"/>
         <source>U&amp;ndo</source>
         <translation>&amp;Hoàn tác</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="676"/>
+        <location filename="../mainwindow.ui" line="666"/>
         <source>&amp;Redo</source>
         <translation>&amp;Làm lại</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="688"/>
+        <location filename="../mainwindow.ui" line="678"/>
         <source>Sett&amp;ings</source>
         <translation>&amp;Cài đặt</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="703"/>
+        <location filename="../mainwindow.ui" line="693"/>
         <source>&amp;Close</source>
         <translation>&amp;Đóng</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="706"/>
+        <location filename="../mainwindow.ui" line="696"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="715"/>
+        <location filename="../mainwindow.ui" line="705"/>
         <source>&amp;New Window</source>
         <translation>&amp;Cửa sổ mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="718"/>
+        <location filename="../mainwindow.ui" line="708"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="727"/>
+        <location filename="../mainwindow.ui" line="717"/>
         <source>Select All</source>
         <translation>Chọn tất cả</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="730"/>
+        <location filename="../mainwindow.ui" line="720"/>
         <source>Ctrl+A</source>
         <translation>Ctrl+A</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="738"/>
+        <location filename="../mainwindow.ui" line="728"/>
         <source>Use Menubar</source>
         <translation>Dùng thanh menu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="743"/>
+        <location filename="../mainwindow.ui" line="733"/>
         <source>Comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="746"/>
+        <location filename="../mainwindow.ui" line="736"/>
         <source>Ctrl+D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="751"/>
+        <location filename="../mainwindow.ui" line="741"/>
         <source>Uncomment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="754"/>
+        <location filename="../mainwindow.ui" line="744"/>
         <source>Ctrl+Shift+D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="511"/>
+        <location filename="../mainwindow.ui" line="749"/>
+        <source>Change Syntax Highlighting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="501"/>
         <source>&amp;Print</source>
         <translation>&amp;In</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="514"/>
+        <location filename="../mainwindow.ui" line="504"/>
         <source>Ctrl+P</source>
         <translation>Ctrl+P</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="519"/>
+        <location filename="../mainwindow.ui" line="509"/>
         <source>&amp;Push</source>
         <translation>Đẩ&amp;y</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="527"/>
+        <location filename="../mainwindow.ui" line="517"/>
         <source>P&amp;ull</source>
         <translation>&amp;Kéo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="532"/>
+        <location filename="../mainwindow.ui" line="522"/>
         <source>&amp;Fetch</source>
         <translation>&amp;Tìm nạp</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="541"/>
+        <location filename="../mainwindow.ui" line="531"/>
         <source>Start</source>
         <translation>Bắt đầu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="544"/>
+        <location filename="../mainwindow.ui" line="534"/>
         <source>F5</source>
         <translation>F5</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="553"/>
+        <location filename="../mainwindow.ui" line="543"/>
         <source>Sa&amp;ve All</source>
         <translation>Lưu tất &amp;cả</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="556"/>
+        <location filename="../mainwindow.ui" line="546"/>
         <source>Ctrl+Alt+S</source>
         <translation>Ctrl+Alt+S</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="565"/>
+        <location filename="../mainwindow.ui" line="555"/>
         <source>Continue</source>
         <translation>Tiếp tục</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="574"/>
+        <location filename="../mainwindow.ui" line="564"/>
         <source>Step Into</source>
         <translation>Bước vào</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="583"/>
+        <location filename="../mainwindow.ui" line="573"/>
         <source>Step Over</source>
         <translation>Bước qua</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="592"/>
+        <location filename="../mainwindow.ui" line="582"/>
         <source>Step Out</source>
         <translation>Bước ra</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="601"/>
+        <location filename="../mainwindow.ui" line="591"/>
         <source>Pause</source>
         <translation>Tạm dừng</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="610"/>
+        <location filename="../mainwindow.ui" line="600"/>
         <source>&amp;Find and Replace...</source>
         <translation>&amp;Tìm và thay thế...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="634"/>
+        <location filename="../mainwindow.ui" line="624"/>
         <source>&amp;Revert</source>
         <translation>&amp;Khôi phục lại</translation>
     </message>
@@ -1024,12 +1024,12 @@
         <translation>Giới thiệu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="667"/>
+        <location filename="../mainwindow.ui" line="657"/>
         <source>Ctrl+Z</source>
         <translation>Ctrl+Z</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="679"/>
+        <location filename="../mainwindow.ui" line="669"/>
         <source>Ctrl+Shift+Z</source>
         <translation>Ctrl+Shift+Z</translation>
     </message>
@@ -1039,84 +1039,84 @@
         <translation>Cài đặt</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="691"/>
+        <location filename="../mainwindow.ui" line="681"/>
         <source>Ctrl+,</source>
         <translation>Ctrl+,</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="613"/>
+        <location filename="../mainwindow.ui" line="603"/>
         <source>Ctrl+F</source>
         <translation>Ctrl+F</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="622"/>
+        <location filename="../mainwindow.ui" line="612"/>
         <source>Save As...</source>
         <translation>Lưu thành...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="625"/>
+        <location filename="../mainwindow.ui" line="615"/>
         <source>Ctrl+Shift+S</source>
         <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="254"/>
+        <location filename="../mainwindow.cpp" line="227"/>
         <source>No Clipboard History available</source>
         <translation>Không có lịch sử Clipboard</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="277"/>
+        <location filename="../mainwindow.cpp" line="250"/>
         <source>Ctrl+Shift+V</source>
         <translation>Ctrl+Shift+V</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="581"/>
+        <location filename="../mainwindow.cpp" line="554"/>
         <source>Save Changes?</source>
         <translation>Lưu thay đổi?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="582"/>
+        <location filename="../mainwindow.cpp" line="555"/>
         <source>Do you want to save your changes to this document?</source>
         <translation>Bạn có muốn lưu thay đổi với tệp này không?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="809"/>
+        <location filename="../mainwindow.cpp" line="770"/>
         <source>For %1</source>
         <translation>Cho %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="811"/>
+        <location filename="../mainwindow.cpp" line="772"/>
         <source>Edit in new tab</source>
         <translation>Sửa trong tab mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="816"/>
+        <location filename="../mainwindow.cpp" line="777"/>
         <source>Edit in new window</source>
         <translation>Sửa trong cửa sổ mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="822"/>
-        <location filename="../mainwindow.cpp" line="829"/>
-        <location filename="../mainwindow.cpp" line="831"/>
+        <location filename="../mainwindow.cpp" line="783"/>
+        <location filename="../mainwindow.cpp" line="790"/>
+        <location filename="../mainwindow.cpp" line="792"/>
         <source>Rename</source>
         <translation>Đổi tên</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="825"/>
+        <location filename="../mainwindow.cpp" line="786"/>
         <source>Delete</source>
         <translation>Xóa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="831"/>
+        <location filename="../mainwindow.cpp" line="792"/>
         <source>What do you want to call this file?</source>
         <translation>Bạn muốn gọi tệp này là gì?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="868"/>
+        <location filename="../mainwindow.cpp" line="829"/>
         <source>No Recent Items</source>
         <translation>Không có tệp nào gần đây</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="883"/>
+        <location filename="../mainwindow.cpp" line="844"/>
         <source>Clear Recent Items</source>
         <translation>Xóa tất cả mục</translation>
     </message>
@@ -1257,6 +1257,30 @@
     </message>
 </context>
 <context>
+    <name>SelectListDialog</name>
+    <message>
+        <location filename="../textparts/selectlistdialog.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/selectlistdialog.ui" line="87"/>
+        <location filename="../textparts/selectlistdialog.ui" line="198"/>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <location filename="../textparts/selectlistdialog.ui" line="145"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/selectlistdialog.ui" line="191"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Hủy</translation>
+    </message>
+</context>
+<context>
     <name>SettingsDialog</name>
     <message>
         <location filename="../settingsdialog.ui" line="14"/>
@@ -1383,127 +1407,127 @@
 <context>
     <name>TextEditor</name>
     <message>
-        <location filename="../texteditor.cpp" line="146"/>
+        <location filename="../texteditor.cpp" line="150"/>
         <source>New Document</source>
         <translation>Tệp mới</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="206"/>
+        <location filename="../texteditor.cpp" line="211"/>
         <source>Merge Conflicts were found in this file</source>
         <translation>Đã tìm thấy xung đột hợp nhất trong tệp này</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="209"/>
+        <location filename="../texteditor.cpp" line="214"/>
         <source>Resolve Merge Conflicts</source>
         <translation>Giải quyết xung đột hợp nhất</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="214"/>
+        <location filename="../texteditor.cpp" line="219"/>
         <source>Resolve a Merge Conflict</source>
         <translation>Giải quyết xung đột hợp nhất</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="257"/>
+        <location filename="../texteditor.cpp" line="262"/>
         <source>File on disk changed</source>
         <translation>Tệp trên ổ đĩa đã thay</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="258"/>
+        <location filename="../texteditor.cpp" line="263"/>
         <source>The file on the disk has changed. If you save this file you will lose the changes on disk.</source>
         <translation>Tệp trên ổ đĩa đã thay. Nếu bạn lưu tệp này, bạn sẽ mất thay đổi trên ổ đĩa.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="261"/>
+        <location filename="../texteditor.cpp" line="266"/>
         <source>Reload File</source>
         <translation>Khôi phục tệp lại</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="267"/>
+        <location filename="../texteditor.cpp" line="272"/>
         <source>Merge Changes</source>
         <translation>Hợp nhất thay đổi</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="272"/>
+        <location filename="../texteditor.cpp" line="277"/>
         <source>File on Disk</source>
         <translation>Tệp trên đĩa</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="272"/>
+        <location filename="../texteditor.cpp" line="277"/>
         <source>Currently open file</source>
         <translation>Tệp đã mở</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="277"/>
+        <location filename="../texteditor.cpp" line="282"/>
         <source>Resolve a Save Conflict</source>
         <translation>Giải quyết xung đột lưu</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="329"/>
+        <location filename="../texteditor.cpp" line="334"/>
         <source>File on disk deleted</source>
         <translation>Tệp trên ổ đĩa đã xóa</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="330"/>
+        <location filename="../texteditor.cpp" line="335"/>
         <source>The file on the disk has been deleted. If you save this file you will recreate the file.</source>
         <translation>Tệp trên ổ đĩa đã xóa. Nếu bạn lưu tệp này, bạn sẽ tạo tệp lại.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="339"/>
+        <location filename="../texteditor.cpp" line="344"/>
         <source>Can&apos;t open file</source>
         <translation>Không thể mở tệp được</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="348"/>
+        <location filename="../texteditor.cpp" line="353"/>
         <source>Mixed Line Endings detected</source>
         <translation>Ký tự kết thúc dòng hỗn hợp đã phát hiện</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="349"/>
+        <location filename="../texteditor.cpp" line="354"/>
         <source>If you save this file, we&apos;ll change all the line endings to your configuration in Settings.</source>
         <translation>Nếu bạn lưu tệp này, chúng tôi sẽ thay tất cả ký tự kết thúc dòng trong tệp này sang quả ký tự cấu hình trong Cài Đặt.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="441"/>
+        <location filename="../texteditor.cpp" line="446"/>
         <source>Retry</source>
         <translation>Thử lại</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="503"/>
+        <location filename="../texteditor.cpp" line="508"/>
         <source>Read Only File</source>
         <translation>Tệp chỉ được đọc</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="504"/>
+        <location filename="../texteditor.cpp" line="509"/>
         <source>This file is read only. You&apos;ll need to save it as a different file.</source>
         <translation>Tệp này chỉ được đọc. Bạn sẽ cần lưu thành tệp khác.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="515"/>
+        <location filename="../texteditor.cpp" line="520"/>
         <source>Encoding Error</source>
         <translation>Lỗi với mã hóa văn bản</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="516"/>
+        <location filename="../texteditor.cpp" line="521"/>
         <source>Some characters used in this file cannot be encoded in the selected encoding. Saving this file will remove any invalid characters and may result in possible data loss.</source>
         <translation>Ký tự bị dung trong tệp này không mã hóa được. Nếu bạn lưu tệp này, kỳ tự không hợp lệ sẽ bị xóa và có thể mất dữ liệu.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="551"/>
+        <location filename="../texteditor.cpp" line="556"/>
         <source>There&apos;s no more space on this disk.</source>
         <translation>Không còn dung lượng trên ổ đĩa.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="553"/>
+        <location filename="../texteditor.cpp" line="558"/>
         <source>You don&apos;t have permission to save this file.</source>
         <translation>Bạn không có quyền để lưu tệp này.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="555"/>
+        <location filename="../texteditor.cpp" line="560"/>
         <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.</source>
         <translation>Không lưu tệp này được. Kiểm tra xem bạn có quyền để ghi tệp này, và bạn còn dung lượng trống trên ổ đĩa.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="558"/>
+        <location filename="../texteditor.cpp" line="563"/>
         <source>
 
 Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
@@ -1512,42 +1536,67 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
 Đừng thoát theSlate đến khi bạn ghi tệp này; nếu không thì bạn sẽ mất dữ liệu.</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="561"/>
+        <location filename="../texteditor.cpp" line="566"/>
         <source>Couldn&apos;t save the file</source>
         <translation>Không lưu tệp được</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="1064"/>
+        <location filename="../texteditor.cpp" line="1069"/>
         <source>Revert Changes?</source>
         <translation>Hoàn lại thay đổi?</translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="1065"/>
+        <location filename="../texteditor.cpp" line="1070"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation>Bạn có muốn bỏ thầy đối với tệp này không?</translation>
+    </message>
+    <message>
+        <location filename="../texteditor.cpp" line="1449"/>
+        <source>No Highlighting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../texteditor.cpp" line="1452"/>
+        <source>Select Highlighting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../texteditor.cpp" line="1453"/>
+        <source>What type of code is this file?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>TextStatusBar</name>
     <message>
-        <location filename="../textparts/textstatusbar.ui" line="138"/>
+        <location filename="../textparts/textstatusbar.ui" line="20"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/textstatusbar.cpp" line="52"/>
+        <location filename="../textparts/textstatusbar.cpp" line="35"/>
+        <source>Line Endings for this file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/textstatusbar.cpp" line="53"/>
+        <source>No Highlighting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/textstatusbar.cpp" line="92"/>
         <source>Ln %1, Col %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../textparts/textstatusbar.cpp" line="57"/>
+        <location filename="../textparts/textstatusbar.cpp" line="97"/>
         <source>%n spaces</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../textparts/textstatusbar.cpp" line="59"/>
+        <location filename="../textparts/textstatusbar.cpp" line="99"/>
         <source>%n tabs</source>
         <translation type="unfinished">
             <numerusform></numerusform>

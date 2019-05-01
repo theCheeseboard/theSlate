@@ -86,15 +86,11 @@ class MainWindow : public QMainWindow
 
         void on_actionAbout_triggered();
 
-        void on_actionNo_Highlighting_triggered();
-
         void on_projectTree_clicked(const QModelIndex &index);
 
         void on_modifiedChanges_itemChanged(QListWidgetItem *item);
 
         void on_actionSave_All_triggered();
-
-        void setCurrentDocumentHighlighting(KSyntaxHighlighting::Definition highlighter);
 
         void on_actionFind_and_Replace_triggered();
 
@@ -131,6 +127,8 @@ class MainWindow : public QMainWindow
         void on_actionComment_triggered();
 
         void on_actionUncomment_triggered();
+
+        void on_actionChange_Syntax_Highlighting_triggered();
 
     signals:
 #ifdef Q_OS_MAC

@@ -12,6 +12,7 @@
 #include "plugins/pluginmanager.h"
 #include "managers/recentfilesmanager.h"
 #include "textparts/textstatusbar.h"
+#include "textparts/selectlistdialog.h"
 
 #include <Repository>
 #include <SyntaxHighlighter>
@@ -87,15 +88,18 @@ class TextEditorPrivate {
                 startCursor.beginEditBlock();
 
                 //Comment each line
+                bool couldMove;
                 do {
                     startCursor.movePosition(QTextCursor::StartOfBlock);
                     function(startCursor);
-                    startCursor.movePosition(QTextCursor::NextBlock);
-                } while (startCursor.blockNumber() != endCursor.blockNumber());
+                    couldMove = startCursor.movePosition(QTextCursor::NextBlock);
+                } while (startCursor.blockNumber() != endCursor.blockNumber() || !couldMove);
 
-                //Comment one more line
-                startCursor.movePosition(QTextCursor::StartOfBlock);
-                function(startCursor);
+                if (couldMove) {
+                    //Comment one more line
+                    startCursor.movePosition(QTextCursor::StartOfBlock);
+                    function(startCursor);
+                }
 
                 startCursor.endEditBlock();
             } else {
@@ -172,6 +176,7 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
     d->statusBar->setVisible(true);
 
     cursorLocationChanged();
+    setHighlighter(highlightRepo->definitionForName("None"));
 
     d->findReplaceWidget = new FindReplace(this);
     d->findReplaceWidget->setFont(normalFont);
@@ -1239,6 +1244,8 @@ void TextEditor::setHighlighter(KSyntaxHighlighting::Definition hl) {
     highlighter->setTheme(highlightTheme);
     highlighter->setDocument(this->document());
 
+    d->statusBar->setHighlighting(hl);
+
     d->hl = highlighter;
     d->hlDef = hl;
 }
@@ -1420,6 +1427,42 @@ void TextEditor::commentSelectedText(bool uncomment) {
             this->setTextCursor(cursor);
         }
     }
+}
+
+void TextEditor::chooseHighlighter() {
+    QList<SelectListItem> items;
+
+    //Load Syntax Highlighters
+    for (KSyntaxHighlighting::Definition d : highlightRepo->definitions()) {
+        if (d.name() == "None") continue;
+        items.append(SelectListItem(d.translatedName(), d.name()));
+    }
+
+    std::sort(items.begin(), items.end(), [](const SelectListItem &a, const SelectListItem &b) {
+        if (a.text.localeAwareCompare(b.text) < 0) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    items.prepend(SelectListItem(tr("No Highlighting"), "None"));
+
+    SelectListDialog* dialog = new SelectListDialog();
+    dialog->setTitle(tr("Select Highlighting"));
+    dialog->setText(tr("What type of code is this file?"));
+    dialog->setItems(items);
+
+    tPopover* popover = new tPopover(dialog);
+    popover->setPopoverWidth(300 * theLibsGlobal::getDPIScaling());
+    connect(dialog, &SelectListDialog::rejected, popover, &tPopover::dismiss);
+    connect(dialog, &SelectListDialog::accepted, this, [=](QVariant highlighting) {
+        this->setHighlighter(highlightRepo->definitionForName(highlighting.toString()));
+        popover->dismiss();
+    });
+    connect(popover, &tPopover::dismissed, dialog, &SelectListDialog::deleteLater);
+    connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
+    popover->show(this);
 }
 
 TextEditorLeftMargin::TextEditorLeftMargin(TextEditor* editor) : QWidget(editor) {

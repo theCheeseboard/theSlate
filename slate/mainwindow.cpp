@@ -43,15 +43,6 @@ MainWindow::MainWindow(QWidget *parent) :
     openWindows.append(this);
 
     ui->mainToolBar->setIconSize(ui->mainToolBar->iconSize() * theLibsGlobal::getDPIScaling());
-    
-    //Load plugins
-    /*for (SyntaxHighlighting* highlighter : plugins->syntaxHighlighters()) {
-        for (QString name : highlighter->availableHighlighters()) {
-            ui->menuCode->addAction(name, [=] {
-                setCurrentDocumentHighlighting(highlighter->makeHighlighter(name, &getSyntaxHighlighterColor));
-            });
-        }
-    }*/
 
     for (FileBackendFactory* factory : plugins->fileBackends()) {
         if (factory != plugins->getLocalFileBackend()) {
@@ -60,24 +51,6 @@ MainWindow::MainWindow(QWidget *parent) :
         }
         connect(factory, &FileBackendFactory::openFile, [=](FileBackend* backend) {
             newTab(backend);
-        });
-    }
-
-    //Load Syntax Highlighters
-    QMenu* sectionMenu = nullptr;
-    for (KSyntaxHighlighting::Definition d : highlightRepo->definitions()) {
-        if (sectionMenu == nullptr || sectionMenu->property("sectionName") != d.section()) {
-            sectionMenu = new QMenu();
-            sectionMenu->setTitle(" " + d.translatedSection());
-            sectionMenu->setProperty("sectionName", d.section());
-
-            if (d.section() != "") {
-                ui->menuCode->addMenu(sectionMenu);
-            }
-        }
-
-        sectionMenu->addAction(d.translatedName(), [=] {
-            setCurrentDocumentHighlighting(d);
         });
     }
 
@@ -187,7 +160,7 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addAction(ui->actionFind_and_Replace);
         singleMenu->addAction(ui->actionSelect_All);
         singleMenu->addSeparator();
-        singleMenu->addMenu(ui->menuCode);
+        singleMenu->addAction(ui->actionChange_Syntax_Highlighting);
         singleMenu->addMenu(ui->menuWindow);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionSettings);
@@ -637,11 +610,6 @@ void MainWindow::on_actionAbout_triggered()
     aboutWindow.exec();
 }
 
-void MainWindow::on_actionNo_Highlighting_triggered()
-{
-    setCurrentDocumentHighlighting(KSyntaxHighlighting::Definition());
-}
-
 void MainWindow::on_projectTree_clicked(const QModelIndex &index)
 {
     if (!fileModel->isDir(index)) {
@@ -688,13 +656,6 @@ void MainWindow::on_actionSave_All_triggered()
     }
 }
 
-void MainWindow::setCurrentDocumentHighlighting(KSyntaxHighlighting::Definition highlighting) {
-    if (currentDocument() == nullptr) {
-
-    } else {
-        currentDocument()->setHighlighter(highlighting);
-    }
-}
 void MainWindow::on_actionFind_and_Replace_triggered()
 {
     currentDocument()->toggleFindReplace();
@@ -892,10 +853,8 @@ void MainWindow::on_actionUse_Menubar_toggled(bool arg1)
     menuAction->setVisible(!arg1);
 
     if (arg1) {
-        ui->menuCode->setIcon(QIcon());
         ui->menuHelp->setIcon(QIcon());
     } else {
-        ui->menuCode->setIcon(QIcon::fromTheme("commit", QIcon(":/icons/commit.svg")));
         ui->menuHelp->setIcon(QIcon::fromTheme("help-contents", QIcon(":/icons/help-contents.svg")));
     }
 }
@@ -905,7 +864,7 @@ void MainWindow::updateDocumentDependantTabs() {
     ui->closeButton->setVisible(enabled);
     ui->actionSave->setEnabled(enabled);
     ui->actionSave_As->setEnabled(enabled);
-    ui->menuCode->setEnabled(enabled);
+    ui->actionChange_Syntax_Highlighting->setEnabled(enabled);
     ui->actionClose->setEnabled(enabled);
     ui->actionRevert->setEnabled(enabled);
     ui->actionPrint->setEnabled(enabled);
@@ -920,4 +879,9 @@ void MainWindow::on_actionComment_triggered()
 void MainWindow::on_actionUncomment_triggered()
 {
     currentDocument()->commentSelectedText(true);
+}
+
+void MainWindow::on_actionChange_Syntax_Highlighting_triggered()
+{
+    currentDocument()->chooseHighlighter();
 }

@@ -2,6 +2,7 @@
 #define TEXTSTATUSBAR_H
 
 #include <QWidget>
+#include <Definition>
 
 namespace Ui {
     class TextStatusBar;
@@ -24,6 +25,10 @@ class TextStatusBar : public QWidget
         void setPosition(int line, int col);
         void setSpacing(bool spaces, int number);
         void setLineEndings(int lineEndings);
+        void setHighlighting(KSyntaxHighlighting::Definition definition);
+
+    private slots:
+        void on_highlightingButton_clicked();
 
     private:
         Ui::TextStatusBar *ui;
