@@ -12,6 +12,7 @@
 #include "picturetabbar.h"
 #include <QInputDialog>
 #include <QShortcut>
+#include <QScroller>
 #include "plugins/pluginmanager.h"
 #include "managers/recentfilesmanager.h"
 #include "managers/updatemanager.h"
@@ -288,6 +289,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->projectTree->setRootIndex(fileModel->index(QDir::rootPath()));
     ui->projectTree->scrollTo(fileModel->index(QDir::homePath()));
     ui->projectTree->expand(fileModel->index(QDir::homePath()));
+    QScroller::grabGesture(ui->projectTree, QScroller::LeftMouseButtonGesture);
 
     updateRecentFiles();
     connect(recentFiles, &RecentFilesManager::filesUpdated, this, &MainWindow::updateRecentFiles);

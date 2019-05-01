@@ -1,6 +1,8 @@
 #include "selectlistdialog.h"
 #include "ui_selectlistdialog.h"
 
+#include <QScroller>
+
 struct SelectListDialogPrivate {
     QList<SelectListItem> items;
     QList<SelectListItem> shownItems;
@@ -28,6 +30,8 @@ SelectListDialog::SelectListDialog(QWidget *parent) :
 #else
     ui->windowControlsMac->setVisible(false);
 #endif
+
+    QScroller::grabGesture(ui->listOptions, QScroller::LeftMouseButtonGesture);
 }
 
 SelectListDialog::~SelectListDialog()
