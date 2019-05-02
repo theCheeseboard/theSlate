@@ -119,8 +119,6 @@ class MainWindow : public QMainWindow
 
         void on_actionSelect_All_triggered();
 
-        void on_sourceControlPanes_currentChanged(int arg1);
-
         void updateRecentFiles();
 
         void on_actionUse_Menubar_toggled(bool arg1);

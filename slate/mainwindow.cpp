@@ -282,15 +282,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Hide the project frame
     ui->projectFrame->setVisible(false);
-    ui->menuSource_Control->setEnabled(false);
     ui->actionStart->setVisible(false);
     ui->actionContinue->setVisible(false);
     ui->actionStep_Into->setVisible(false);
     ui->actionStep_Out->setVisible(false);
     ui->actionStep_Over->setVisible(false);
     ui->actionPause->setVisible(false);
-
-    ui->menuSource_Control->setEnabled(true);
 
     d->fileModel = new QFileSystemModel();
     d->fileModel->setRootPath(QDir::rootPath());
@@ -811,15 +808,6 @@ void MainWindow::on_actionSelect_All_triggered()
 {
     if (currentEditor() != nullptr) {
         currentEditor()->selectAll();
-    }
-}
-
-void MainWindow::on_sourceControlPanes_currentChanged(int arg1)
-{
-    if (arg1 == 0) {
-        ui->menuSource_Control->setEnabled(true);
-    } else {
-        ui->menuSource_Control->setEnabled(false);
     }
 }
 

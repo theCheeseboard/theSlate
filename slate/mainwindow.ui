@@ -245,16 +245,6 @@
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
-   <widget class="QMenu" name="menuSource_Control">
-    <property name="title">
-     <string>So&amp;urce Control</string>
-    </property>
-    <addaction name="actionPush"/>
-    <addaction name="actionPull"/>
-    <addaction name="separator"/>
-    <addaction name="actionFetch"/>
-    <addaction name="separator"/>
-   </widget>
    <widget class="QMenu" name="menuWindow">
     <property name="title">
      <string>Wi&amp;ndow</string>
@@ -279,7 +269,6 @@
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
    <addaction name="menuGo"/>
-   <addaction name="menuSource_Control"/>
    <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
   </widget>
