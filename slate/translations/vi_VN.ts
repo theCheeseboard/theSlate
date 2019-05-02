@@ -146,7 +146,7 @@
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="209"/>
         <source>Branch</source>
-        <translation type="unfinished">Nhánh</translation>
+        <translation>Nhánh</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="232"/>
@@ -235,7 +235,7 @@
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="117"/>
         <source>Create new commit</source>
-        <translation type="unfinished"></translation>
+        <translation>Tạo commit mới</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="122"/>
@@ -352,17 +352,17 @@
     <message>
         <location filename="../textparts/findreplace.cpp" line="32"/>
         <source>Match case</source>
-        <translation type="unfinished"></translation>
+        <translation>Hợp chữ hoa/thường</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="33"/>
         <source>Regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Biểu thức chính quy</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="34"/>
         <source>Whole word</source>
-        <translation type="unfinished"></translation>
+        <translation>Hợp toàn từ</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="137"/>
@@ -379,24 +379,22 @@
     <message>
         <location filename="../textparts/findreplace.cpp" line="144"/>
         <source>Invalid Regular Expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Biểu thức chính quy không hợp lệ</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="248"/>
         <source>Replaced all matches</source>
-        <translation type="unfinished"></translation>
+        <translation>Đã thay thế mọi phù hợp</translation>
     </message>
     <message numerus="yes">
         <location filename="../textparts/findreplace.cpp" line="249"/>
         <source>%n occurences replaced</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>Được thay %n lần</numerusform>
+        </translation></message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="250"/>
         <source>Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoàn tác</translation>
     </message>
 </context>
 <context>
@@ -452,12 +450,12 @@
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="503"/>
         <source>Branch</source>
-        <translation type="unfinished">Nhánh</translation>
+        <translation>Nhánh</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="526"/>
         <source>Commit</source>
-        <translation type="unfinished">Commit</translation>
+        <translation>Commit</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="533"/>
@@ -527,17 +525,17 @@
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="205"/>
         <source>For commit %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cho commit %1</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="206"/>
         <source>Copy Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Chép định danh</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="209"/>
         <source>Copy Commit Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Chép nhắn commit</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="236"/>
@@ -573,37 +571,37 @@
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="324"/>
         <source>pull</source>
-        <translation type="unfinished"></translation>
+        <translation>kéo</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="394"/>
         <source>Authenticate to push to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Xác thực để đẩy đến %1</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="460"/>
         <source>The %1 operation resulted in these files conflicting:</source>
-        <translation type="unfinished"></translation>
+        <translation>Việc %1 xảy ra xung đột trong tệp này:</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="463"/>
         <source>Undo %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoàn tác %1</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="505"/>
         <source>merge</source>
-        <translation type="unfinished"></translation>
+        <translation>hợp nhất</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="508"/>
         <source>Unrelated Histories</source>
-        <translation type="unfinished"></translation>
+        <translation>Lịch sự không liên quan</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="509"/>
         <source>You&apos;re trying to merge two branches which do not have a common base</source>
-        <translation type="unfinished"></translation>
+        <translation>Bạn đang hợp nhất hai nhánh với lịch sử không có liên quan</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="296"/>
@@ -658,7 +656,7 @@
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="326"/>
         <source>Authenticate to pull from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Xác thực để kéo từ %1</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="331"/>
@@ -735,7 +733,7 @@
     <message>
         <location filename="../mainwindow.ui" line="274"/>
         <source>Go</source>
-        <translation type="unfinished"></translation>
+        <translation>Đi</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="308"/>
@@ -928,37 +926,37 @@
     <message>
         <location filename="../mainwindow.ui" line="730"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Lầm bình luận</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="733"/>
         <source>Ctrl+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+D</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="738"/>
         <source>Uncomment</source>
-        <translation type="unfinished"></translation>
+        <translation>Gỡ bình luận</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="741"/>
         <source>Ctrl+Shift+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+D</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="746"/>
         <source>Change Syntax Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Đổi nổi bật</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="761"/>
         <source>Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Dòng</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="764"/>
         <source>Ctrl+G</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+G</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="498"/>
@@ -1314,17 +1312,17 @@
         <location filename="../textparts/selectlistdialog.ui" line="87"/>
         <location filename="../textparts/selectlistdialog.ui" line="198"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../textparts/selectlistdialog.ui" line="145"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Tìm kiếm</translation>
     </message>
     <message>
         <location filename="../textparts/selectlistdialog.ui" line="191"/>
         <source>Cancel</source>
-        <translation type="unfinished">Hủy</translation>
+        <translation>Hủy</translation>
     </message>
 </context>
 <context>
@@ -1531,12 +1529,12 @@
     <message>
         <location filename="../textparts/texteditor.cpp" line="341"/>
         <source>When saving this file, we&apos;ll normalise all the line endings. You can choose which line endings to save as on the status bar.</source>
-        <translation type="unfinished"></translation>
+        <translation>Khi lưu tệp này, chúng tôi sẽ làm mọi dòng kết thúc với một ký tự. Bạn có thể chọn ký tự kết thúc dòng trên thanh trạng thái.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="350"/>
         <source>Incorrect Text Encoding</source>
-        <translation type="unfinished"></translation>
+        <translation>Mã hóa văn bản sai</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="450"/>
@@ -1546,7 +1544,7 @@
     <message>
         <location filename="../textparts/texteditor.cpp" line="476"/>
         <source>We tried opening this file with the %1 encoding, but it contains invalid characters. If you save the file in the incorrect encoding, you may lose data.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chúng tôi thử mở tệp này với mã hóa %1, mà nó có ký tự không hợp lệ. Nếu bạn lưu tệp này với mã hóa văn bản sai, bạn có thể mất dữ liệu.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="521"/>
@@ -1610,38 +1608,38 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../textparts/texteditor.cpp" line="1438"/>
         <source>No Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Không có nổi bật</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1441"/>
         <source>Select Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Chọn nổi bật</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1442"/>
         <source>What type of code is this file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp này có mã nguồn nào?</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1500"/>
         <source>Go To Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Đi tới dòng</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1500"/>
         <source>What line do you want to go to?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bạn muốn đi tới dòng nào?</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="353"/>
         <location filename="../textparts/texteditor.cpp" line="1476"/>
         <source>Select Encoding</source>
-        <translation type="unfinished"></translation>
+        <translation>Chọn mã hóa</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1477"/>
         <source>What file encoding do you want to use?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bạn muốn sử dụng mã hóa tệp nào?</translation>
     </message>
 </context>
 <context>
@@ -1654,32 +1652,28 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../textparts/textstatusbar.cpp" line="44"/>
         <source>Line Endings for this file</source>
-        <translation type="unfinished"></translation>
+        <translation>Ký tự kết thúc dòng cho tệp này</translation>
     </message>
     <message>
         <location filename="../textparts/textstatusbar.cpp" line="62"/>
         <source>No Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Không làm nổi bật</translation>
     </message>
     <message>
         <location filename="../textparts/textstatusbar.cpp" line="95"/>
         <source>Ln %1, Col %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Dg %1, Cột 2</translation>
     </message>
     <message numerus="yes">
         <location filename="../textparts/textstatusbar.cpp" line="100"/>
         <source>%n spaces</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n d.cách</numerusform>
+        </translation></message>
     <message numerus="yes">
         <location filename="../textparts/textstatusbar.cpp" line="102"/>
         <source>%n tabs</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n d.tab</numerusform>
+        </translation></message>
 </context>
 <context>
     <name>TextWidget</name>
