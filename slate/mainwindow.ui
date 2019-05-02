@@ -230,7 +230,6 @@
     <addaction name="actionFind_and_Replace"/>
     <addaction name="separator"/>
     <addaction name="actionComment"/>
-    <addaction name="actionUncomment"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -716,18 +715,10 @@
   </action>
   <action name="actionComment">
    <property name="text">
-    <string>Comment</string>
+    <string>Toggle Comment</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+D</string>
-   </property>
-  </action>
-  <action name="actionUncomment">
-   <property name="text">
-    <string>Uncomment</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+D</string>
+    <string>Ctrl+/</string>
    </property>
   </action>
   <action name="actionChange_Syntax_Highlighting">

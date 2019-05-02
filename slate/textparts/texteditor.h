@@ -96,7 +96,7 @@ class TextEditor : public QPlainTextEdit
         void toggleMergedLines(int line);
         void updateMergedLinesColour();
 
-        void commentSelectedText(bool uncomment = false);
+        void commentSelectedText();
 
         void chooseHighlighter();
         void chooseCodec(bool reload = false);

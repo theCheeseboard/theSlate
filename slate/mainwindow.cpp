@@ -145,7 +145,6 @@ MainWindow::MainWindow(QWidget *parent) :
         QMenu* editMenu = new QMenu();
         editMenu->setTitle(tr("Edit"));
         editMenu->addAction(ui->actionComment);
-        editMenu->addAction(ui->actionUncomment);
 
         QMenu* singleMenu = new QMenu();
         singleMenu->addAction(ui->actionNew);
@@ -866,11 +865,6 @@ void MainWindow::updateDocumentDependantTabs() {
 void MainWindow::on_actionComment_triggered()
 {
     currentEditor()->commentSelectedText();
-}
-
-void MainWindow::on_actionUncomment_triggered()
-{
-    currentEditor()->commentSelectedText(true);
 }
 
 void MainWindow::on_actionChange_Syntax_Highlighting_triggered()

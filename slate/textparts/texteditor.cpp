@@ -1299,119 +1299,144 @@ void TextEditor::setTextCodec(QTextCodec* codec) {
     if (d->statusBar != nullptr) d->statusBar->setEncoding(codec->name());
 }
 
-void TextEditor::commentSelectedText(bool uncomment) {
+void TextEditor::commentSelectedText() {
     QTextCursor cursor = this->textCursor();
 
-    if (uncomment) {
-        //Find any available comments and remove them
-        QTextCursor startCursor(this->document());
-        startCursor.setPosition(cursor.selectionStart());
+    if (d->hlDef.multiLineCommentMarker().first == "" && d->hlDef.singleLineCommentMarker() == "") return; //Do nothing because comments aren't supported in this language
 
-        QTextCursor endCursor(this->document());
-        endCursor.setPosition(cursor.selectionEnd());
+    //Find any available comments and remove them
+    QTextCursor startCursor(this->document());
+    startCursor.setPosition(cursor.selectionStart());
 
-        if (d->hlDef.multiLineCommentMarker().first != "") {
-            //Check to see if we've got a multi-line comment
-            startCursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, d->hlDef.multiLineCommentMarker().first.count());
-            endCursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, d->hlDef.multiLineCommentMarker().second.count());
+    QTextCursor endCursor(this->document());
+    endCursor.setPosition(cursor.selectionEnd());
 
-            if (startCursor.selectedText() == d->hlDef.multiLineCommentMarker().first && endCursor.selectedText() == d->hlDef.multiLineCommentMarker().second) {
-                //Uncomment both
-                startCursor.beginEditBlock();
-                startCursor.removeSelectedText();
-                startCursor.setPosition(endCursor.selectionStart());
-                startCursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, d->hlDef.multiLineCommentMarker().second.count());
-                startCursor.removeSelectedText();
-                startCursor.endEditBlock();
+    if (d->hlDef.multiLineCommentMarker().first != "") {
+        //Check to see if we've got a multi-line comment
+        startCursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, d->hlDef.multiLineCommentMarker().first.count());
+        endCursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, d->hlDef.multiLineCommentMarker().second.count());
+
+        if (startCursor.selectedText() == d->hlDef.multiLineCommentMarker().first && endCursor.selectedText() == d->hlDef.multiLineCommentMarker().second) {
+            //Uncomment both
+            startCursor.beginEditBlock();
+            startCursor.removeSelectedText();
+            startCursor.setPosition(endCursor.selectionStart());
+            startCursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, d->hlDef.multiLineCommentMarker().second.count());
+            startCursor.removeSelectedText();
+            startCursor.endEditBlock();
+            return;
+        }
+    }
+
+    if (d->hlDef.singleLineCommentMarker() != "") {
+        QSharedPointer<bool> didMakeChages(new bool(false));
+        d->forEverySelectedLine(cursor, [=, &didMakeChages](QTextCursor cursor) {
+            //Check to see if this line has a comment
+            QChar indentCharacter = d->getIndentCharacters().at(0);
+            if (d->hlDef.singleLineCommentPosition() == KSyntaxHighlighting::CommentPosition::AfterWhitespace) {
+                do {
+                    cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+                } while (cursor.selectedText().at(cursor.selectedText().length() - 1) == indentCharacter);
+                cursor.setPosition(cursor.selectionEnd());
+            }
+
+            cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, d->hlDef.singleLineCommentMarker().count() + 1);
+            if (cursor.selectedText() == d->hlDef.singleLineCommentMarker() + " ") {
+                //Remove the comment marker
+                cursor.removeSelectedText();
+                didMakeChages.reset(new bool(true));
                 return;
             }
-        }
 
-        if (d->hlDef.singleLineCommentMarker() != "") {
-            d->forEverySelectedLine(cursor, [=](QTextCursor cursor) {
-                //Check to see if this line has a comment
-                QChar indentCharacter = d->getIndentCharacters().at(0);
-                if (d->hlDef.singleLineCommentPosition() == KSyntaxHighlighting::CommentPosition::AfterWhitespace) {
-                    do {
-                        cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
-                    } while (cursor.selectedText().at(cursor.selectedText().length() - 1) == indentCharacter);
-                    cursor.setPosition(cursor.selectionEnd());
-                }
-
-                cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, d->hlDef.singleLineCommentMarker().count() + 1);
-                if (cursor.selectedText() == d->hlDef.singleLineCommentMarker() + " ") {
-                    //Remove the comment marker
-                    cursor.removeSelectedText();
-                    return;
-                }
-
-                cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
-                if (cursor.selectedText() == d->hlDef.singleLineCommentMarker()) {
-                    //Remove the comment marker
-                    cursor.removeSelectedText();
-                    return;
-                }
-            });
-        }
-    } else {
-        //Determine the type of commenting to use
-        int commentType = 0;
-
-        if (d->hlDef.singleLineCommentMarker() != "" && d->hlDef.multiLineCommentMarker().first != "") {
-            if (cursor.hasSelection()) {
-                QTextCursor startCursor(this->document());
-                startCursor.setPosition(cursor.selectionStart());
-
-                QTextCursor endCursor(this->document());
-                endCursor.setPosition(cursor.selectionEnd());
-
-                QTextCursor startOfLineCursor(startCursor);
-                startOfLineCursor.movePosition(QTextCursor::StartOfBlock);
-
-                QTextCursor endOfLineCursor(endCursor);
-                endOfLineCursor.movePosition(QTextCursor::EndOfBlock);
-
-                if (startOfLineCursor.position() == startCursor.position() && endOfLineCursor.position() == endCursor.position()) {
-                    commentType = 1; //Single line comment
-                } else {
-                    commentType = 2; //Multi line comment
-                }
-            } else {
-                commentType = 1; //Single line comment
+            cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
+            if (cursor.selectedText() == d->hlDef.singleLineCommentMarker()) {
+                //Remove the comment marker
+                cursor.removeSelectedText();
+                didMakeChages.reset(new bool(true));
+                return;
             }
-        } else if (d->hlDef.singleLineCommentMarker() != "") {
-            commentType = 1; //Single line comment
-        } else {
-            commentType = 2; //Multi line comment
+        });
+
+        if (*didMakeChages.data()) {
+            return;
         }
+    }
 
-        if (commentType == 1) {
-            QChar indentCharacter = d->getIndentCharacters().at(0);
-            d->forEverySelectedLine(cursor, [=](QTextCursor cursor) {
-                if (d->hlDef.singleLineCommentPosition() == KSyntaxHighlighting::CommentPosition::AfterWhitespace) {
-                    do {
-                        cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
-                    } while (cursor.selectedText().at(cursor.selectedText().length() - 1) == indentCharacter);
-                    cursor.setPosition(cursor.selectionEnd());
-                }
+    //If we've gotten to here, we've found no comments
+    //Proceed to comment
 
-                cursor.insertText(d->hlDef.singleLineCommentMarker() + " ");
-            });
-        } else if (commentType == 2) {
+    //Determine the type of commenting to use
+    int commentType = 0;
+
+    if (d->hlDef.singleLineCommentMarker() != "" && d->hlDef.multiLineCommentMarker().first != "") {
+        if (cursor.hasSelection()) {
             QTextCursor startCursor(this->document());
             startCursor.setPosition(cursor.selectionStart());
-            int startPosition = cursor.selectionStart();
 
-            startCursor.beginEditBlock();
-            startCursor.insertText(d->hlDef.multiLineCommentMarker().first);
-            startCursor.setPosition(cursor.selectionEnd());
-            startCursor.insertText(d->hlDef.multiLineCommentMarker().second);
-            startCursor.endEditBlock();
+            QTextCursor endCursor(this->document());
+            endCursor.setPosition(cursor.selectionEnd());
 
-            cursor.setPosition(startPosition);
-            cursor.setPosition(startCursor.selectionEnd(), QTextCursor::KeepAnchor);
-            this->setTextCursor(cursor);
+            QTextCursor startOfLineCursor(startCursor);
+            startOfLineCursor.movePosition(QTextCursor::StartOfBlock);
+
+            QTextCursor endOfLineCursor(endCursor);
+            endOfLineCursor.movePosition(QTextCursor::EndOfBlock);
+
+            if (startOfLineCursor.position() == startCursor.position() && endOfLineCursor.position() == endCursor.position()) {
+                commentType = 1; //Single line comment
+            } else {
+                commentType = 2; //Multi line comment
+            }
+        } else {
+            commentType = 1; //Single line comment
         }
+    } else if (d->hlDef.singleLineCommentMarker() != "") {
+        commentType = 1; //Single line comment
+    } else {
+        commentType = 3; //Multi line comment covering whole line
+    }
+
+    if (commentType == 1) {
+        QChar indentCharacter = d->getIndentCharacters().at(0);
+        d->forEverySelectedLine(cursor, [=](QTextCursor cursor) {
+            if (d->hlDef.singleLineCommentPosition() == KSyntaxHighlighting::CommentPosition::AfterWhitespace) {
+                do {
+                    cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+                } while (cursor.selectedText().at(cursor.selectedText().length() - 1) == indentCharacter);
+                cursor.setPosition(cursor.selectionEnd());
+            }
+
+            cursor.insertText(d->hlDef.singleLineCommentMarker() + " ");
+        });
+    } else if (commentType == 2) {
+        QTextCursor startCursor(this->document());
+        startCursor.setPosition(cursor.selectionStart());
+        int startPosition = cursor.selectionStart();
+
+        startCursor.beginEditBlock();
+        startCursor.insertText(d->hlDef.multiLineCommentMarker().first + " ");
+        startCursor.setPosition(cursor.selectionEnd());
+        startCursor.insertText(" " + d->hlDef.multiLineCommentMarker().second);
+        startCursor.endEditBlock();
+
+        cursor.setPosition(startPosition);
+        cursor.setPosition(startCursor.selectionEnd(), QTextCursor::KeepAnchor);
+        this->setTextCursor(cursor);
+    } else if (commentType == 3) {
+        QTextCursor startCursor(this->document());
+        startCursor.setPosition(cursor.selectionStart());
+        startCursor.movePosition(QTextCursor::StartOfLine);
+        int startPosition = cursor.selectionStart();
+
+        startCursor.beginEditBlock();
+        startCursor.insertText(d->hlDef.multiLineCommentMarker().first + " ");
+        startCursor.movePosition(QTextCursor::EndOfLine);
+        startCursor.insertText(" " + d->hlDef.multiLineCommentMarker().second);
+        startCursor.endEditBlock();
+
+        cursor.setPosition(startPosition);
+        cursor.setPosition(startCursor.selectionEnd(), QTextCursor::KeepAnchor);
+        this->setTextCursor(cursor);
     }
 }
 
