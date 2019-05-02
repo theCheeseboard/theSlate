@@ -1401,137 +1401,137 @@
 <context>
     <name>TextEditor</name>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="150"/>
+        <location filename="../textparts/texteditor.cpp" line="127"/>
         <source>New Document</source>
         <translation>Tệp mới</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="198"/>
+        <location filename="../textparts/texteditor.cpp" line="175"/>
         <source>Merge Conflicts were found in this file</source>
         <translation>Đã tìm thấy xung đột hợp nhất trong tệp này</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="201"/>
+        <location filename="../textparts/texteditor.cpp" line="178"/>
         <source>Resolve Merge Conflicts</source>
         <translation>Giải quyết xung đột hợp nhất</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="206"/>
+        <location filename="../textparts/texteditor.cpp" line="183"/>
         <source>Resolve a Merge Conflict</source>
         <translation>Giải quyết xung đột hợp nhất</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="249"/>
+        <location filename="../textparts/texteditor.cpp" line="226"/>
         <source>File on disk changed</source>
         <translation>Tệp trên ổ đĩa đã thay</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="250"/>
+        <location filename="../textparts/texteditor.cpp" line="227"/>
         <source>The file on the disk has changed. If you save this file you will lose the changes on disk.</source>
         <translation>Tệp trên ổ đĩa đã thay. Nếu bạn lưu tệp này, bạn sẽ mất thay đổi trên ổ đĩa.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="253"/>
+        <location filename="../textparts/texteditor.cpp" line="230"/>
         <source>Reload File</source>
         <translation>Khôi phục tệp lại</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="259"/>
+        <location filename="../textparts/texteditor.cpp" line="236"/>
         <source>Merge Changes</source>
         <translation>Hợp nhất thay đổi</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="264"/>
+        <location filename="../textparts/texteditor.cpp" line="241"/>
         <source>File on Disk</source>
         <translation>Tệp trên đĩa</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="264"/>
+        <location filename="../textparts/texteditor.cpp" line="241"/>
         <source>Currently open file</source>
         <translation>Tệp đã mở</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="269"/>
+        <location filename="../textparts/texteditor.cpp" line="246"/>
         <source>Resolve a Save Conflict</source>
         <translation>Giải quyết xung đột lưu</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="321"/>
+        <location filename="../textparts/texteditor.cpp" line="298"/>
         <source>File on disk deleted</source>
         <translation>Tệp trên ổ đĩa đã xóa</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="322"/>
+        <location filename="../textparts/texteditor.cpp" line="299"/>
         <source>The file on the disk has been deleted. If you save this file you will recreate the file.</source>
         <translation>Tệp trên ổ đĩa đã xóa. Nếu bạn lưu tệp này, bạn sẽ tạo tệp lại.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="331"/>
+        <location filename="../textparts/texteditor.cpp" line="308"/>
         <source>Can&apos;t open file</source>
         <translation>Không thể mở tệp được</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="340"/>
+        <location filename="../textparts/texteditor.cpp" line="317"/>
         <source>Mixed Line Endings detected</source>
         <translation>Ký tự kết thúc dòng hỗn hợp đã phát hiện</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="341"/>
+        <location filename="../textparts/texteditor.cpp" line="318"/>
         <source>When saving this file, we&apos;ll normalise all the line endings. You can choose which line endings to save as on the status bar.</source>
         <translation>Khi lưu tệp này, chúng tôi sẽ làm mọi dòng kết thúc với một ký tự. Bạn có thể chọn ký tự kết thúc dòng trên thanh trạng thái.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="350"/>
+        <location filename="../textparts/texteditor.cpp" line="327"/>
         <source>Incorrect Text Encoding</source>
         <translation>Mã hóa văn bản sai</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="450"/>
+        <location filename="../textparts/texteditor.cpp" line="427"/>
         <source>Retry</source>
         <translation>Thử lại</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="476"/>
+        <location filename="../textparts/texteditor.cpp" line="453"/>
         <source>We tried opening this file with the %1 encoding, but it contains invalid characters. If you save the file in the incorrect encoding, you may lose data.</source>
         <translation>Chúng tôi thử mở tệp này với mã hóa %1, mà nó có ký tự không hợp lệ. Nếu bạn lưu tệp này với mã hóa văn bản sai, bạn có thể mất dữ liệu.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="521"/>
+        <location filename="../textparts/texteditor.cpp" line="498"/>
         <source>Read Only File</source>
         <translation>Tệp chỉ được đọc</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="522"/>
+        <location filename="../textparts/texteditor.cpp" line="499"/>
         <source>This file is read only. You&apos;ll need to save it as a different file.</source>
         <translation>Tệp này chỉ được đọc. Bạn sẽ cần lưu thành tệp khác.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="533"/>
+        <location filename="../textparts/texteditor.cpp" line="510"/>
         <source>Encoding Error</source>
         <translation>Lỗi với mã hóa văn bản</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="534"/>
+        <location filename="../textparts/texteditor.cpp" line="511"/>
         <source>Some characters used in this file cannot be encoded in the selected encoding. Saving this file will remove any invalid characters and may result in possible data loss.</source>
         <translation>Ký tự bị dung trong tệp này không mã hóa được. Nếu bạn lưu tệp này, kỳ tự không hợp lệ sẽ bị xóa và có thể mất dữ liệu.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="562"/>
+        <location filename="../textparts/texteditor.cpp" line="539"/>
         <source>There&apos;s no more space on this disk.</source>
         <translation>Không còn dung lượng trên ổ đĩa.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="564"/>
+        <location filename="../textparts/texteditor.cpp" line="541"/>
         <source>You don&apos;t have permission to save this file.</source>
         <translation>Bạn không có quyền để lưu tệp này.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="566"/>
+        <location filename="../textparts/texteditor.cpp" line="543"/>
         <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.</source>
         <translation>Không lưu tệp này được. Kiểm tra xem bạn có quyền để ghi tệp này, và bạn còn dung lượng trống trên ổ đĩa.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="569"/>
+        <location filename="../textparts/texteditor.cpp" line="546"/>
         <source>
 
 Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
@@ -1540,53 +1540,53 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
 Đừng thoát theSlate đến khi bạn ghi tệp này; nếu không thì bạn sẽ mất dữ liệu.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="572"/>
+        <location filename="../textparts/texteditor.cpp" line="549"/>
         <source>Couldn&apos;t save the file</source>
         <translation>Không lưu tệp được</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1061"/>
+        <location filename="../textparts/texteditor.cpp" line="1038"/>
         <source>Revert Changes?</source>
         <translation>Hoàn lại thay đổi?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1062"/>
+        <location filename="../textparts/texteditor.cpp" line="1039"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation>Bạn có muốn bỏ thầy đối với tệp này không?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1463"/>
+        <location filename="../textparts/texteditor.cpp" line="1440"/>
         <source>No Highlighting</source>
         <translation>Không có nổi bật</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1466"/>
+        <location filename="../textparts/texteditor.cpp" line="1443"/>
         <source>Select Highlighting</source>
         <translation>Chọn nổi bật</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1467"/>
+        <location filename="../textparts/texteditor.cpp" line="1444"/>
         <source>What type of code is this file?</source>
         <translation>Tệp này có mã nguồn nào?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1525"/>
+        <location filename="../textparts/texteditor.cpp" line="1502"/>
         <source>Go To Line</source>
         <translation>Đi tới dòng</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1525"/>
+        <location filename="../textparts/texteditor.cpp" line="1502"/>
         <source>What line do you want to go to?</source>
         <translation>Bạn muốn đi tới dòng nào?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="353"/>
-        <location filename="../textparts/texteditor.cpp" line="1501"/>
+        <location filename="../textparts/texteditor.cpp" line="330"/>
+        <location filename="../textparts/texteditor.cpp" line="1478"/>
         <source>Select Encoding</source>
         <translation>Chọn mã hóa</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1502"/>
+        <location filename="../textparts/texteditor.cpp" line="1479"/>
         <source>What file encoding do you want to use?</source>
         <translation>Bạn muốn sử dụng mã hóa tệp nào?</translation>
     </message>

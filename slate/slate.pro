@@ -57,13 +57,14 @@ SOURCES += \
         mainwindow.cpp \
     tabbutton.cpp \
     aboutwindow.cpp \
-    syntaxhighlighter.cpp \
+    SyntaxHighlighting/syntaxhighlighter.cpp \
     SourceControl/gitintegration.cpp \
     textparts/findreplace.cpp \
     exitsavedialog.cpp \
     textparts/selectlistdialog.cpp \
     textparts/statusbarbutton.cpp \
     textparts/texteditor.cpp \
+    textparts/texteditorblockdata.cpp \
     textparts/textstatusbar.cpp \
     textparts/topnotification.cpp \
     textparts/mergetool.cpp \
@@ -88,13 +89,14 @@ HEADERS += \
         mainwindow.h \
     tabbutton.h \
     aboutwindow.h \
-    syntaxhighlighter.h \
+    SyntaxHighlighting/syntaxhighlighter.h \
     SourceControl/gitintegration.h \
     textparts/findreplace.h \
     exitsavedialog.h \
     textparts/selectlistdialog.h \
     textparts/statusbarbutton.h \
     textparts/texteditor.h \
+    textparts/texteditorblockdata.h \
     textparts/textstatusbar.h \
     textparts/topnotification.h \
     textparts/mergetool.h \

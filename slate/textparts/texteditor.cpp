@@ -15,9 +15,10 @@
 #include "managers/recentfilesmanager.h"
 #include "textparts/textstatusbar.h"
 #include "textparts/selectlistdialog.h"
+#include "texteditorblockdata.h"
 
 #include <Repository>
-#include <SyntaxHighlighter>
+#include "SyntaxHighlighting/syntaxhighlighter.h"
 #include <Theme>
 
 #if THE_LIBS_API_VERSION >= 3
@@ -35,7 +36,7 @@ class TextEditorPrivate {
         bool active;
         bool edited = false;
         bool firstEdit = true;
-        KSyntaxHighlighting::SyntaxHighlighter* hl = nullptr;
+        SyntaxHighlighter* hl = nullptr;
         KSyntaxHighlighting::Definition hlDef;
         MainWindow* parentWindow;
 
@@ -112,30 +113,6 @@ class TextEditorPrivate {
         }
 };
 
-
-class TextEditorBlockData : public QTextBlockUserData {
-    public:
-        enum MarginState {
-            None,
-            Edited,
-            SavedEdited
-        };
-
-        TextEditorBlockData(TextEditor* parent) {
-            editedConnection = QObject::connect(parent, &TextEditor::editedChanged, [=] {
-                if (!parent->isEdited() && this->marginState == Edited) this->marginState = SavedEdited;
-            });
-        }
-        ~TextEditorBlockData() {
-            QObject::disconnect(editedConnection);
-        }
-
-        MarginState marginState = None;
-
-    private:
-        QMetaObject::Connection editedConnection;
-};
-
 TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
     d = new TextEditorPrivate();
@@ -153,9 +130,9 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
         if (d->firstEdit) {
             d->firstEdit = false;
         } else {
-            //if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
-            //((TextEditorBlockData*) this->textCursor().block().userData())->marginState = TextEditorBlockData::Edited;
-            //d->leftMargin->update();
+            if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
+            ((TextEditorBlockData*) this->textCursor().block().userData())->marginState = TextEditorBlockData::Edited;
+            d->leftMargin->update();
             d->edited = true;
             emit editedChanged();
         }
@@ -819,7 +796,7 @@ void TextEditor::highlightCurrentLine()
 }
 
 void TextEditor::cursorLocationChanged() {
-    //if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
+    if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
     highlightCurrentLine();
     if (d->statusBar != nullptr) d->statusBar->setPosition(this->textCursor().blockNumber(), this->textCursor().columnNumber());
 
@@ -959,8 +936,8 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
             painter.drawText(0, top, d->leftMargin->width(), fontMetrics().height(), Qt::AlignRight, number);
         }
 
-        //TextEditorBlockData* blockData = (TextEditorBlockData*) block.userData();
-        /*if (blockData != nullptr) {
+        TextEditorBlockData* blockData = (TextEditorBlockData*) block.userData();
+        if (blockData != nullptr) {
             painter.setPen(Qt::transparent);
             switch (blockData->marginState) {
                 case TextEditorBlockData::None:
@@ -974,7 +951,7 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
                     break;
             }
             painter.drawRect(0, top, 3 * theLibsGlobal::getDPIScaling(), bottom - top);
-        }*/
+        }
 
         block = block.next();
         top = bottom;
@@ -1226,7 +1203,7 @@ void TextEditor::setHighlighter(KSyntaxHighlighting::Definition hl) {
         d->hl->deleteLater();
     }
 
-    KSyntaxHighlighting::SyntaxHighlighter* highlighter = new KSyntaxHighlighting::SyntaxHighlighter(this);
+    SyntaxHighlighter* highlighter = new SyntaxHighlighter(this);
     if (hl.isValid()) {
         highlighter->setDefinition(hl);
     } else {

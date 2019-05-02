@@ -90,7 +90,7 @@ MainWindow::MainWindow(QWidget *parent) :
         //newItem->setIcon(QIcon(":/icons/document-new.svg"));
         newItem->setIcon(QApplication::style()->standardIcon(QStyle::SP_FileIcon));
         newItem->setProperty("name", "new");
-        connect(newItem, SIGNAL(activated()), this, SLOT(on_actionNew_triggered()));
+        connect(newItem, &QMacToolBarItem::activated, this, &MainWindow::on_actionNew_triggered);
         allowedItems.append(newItem);
 
         QMacToolBarItem* openItem = new QMacToolBarItem();
@@ -98,7 +98,7 @@ MainWindow::MainWindow(QWidget *parent) :
         //openItem->setIcon(QIcon(":/icons/document-open.svg"));
         openItem->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOpenButton));
         openItem->setProperty("name", "open");
-        connect(openItem, SIGNAL(activated()), this, SLOT(on_actionOpen_triggered()));
+        connect(openItem, &QMacToolBarItem::activated, this, &MainWindow::on_actionOpen_triggered);
         allowedItems.append(openItem);
 
         QMacToolBarItem* saveItem = new QMacToolBarItem();
@@ -106,7 +106,7 @@ MainWindow::MainWindow(QWidget *parent) :
         //saveItem->setIcon(QIcon(":/icons/document-save.svg"));
         saveItem->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogSaveButton));
         saveItem->setProperty("name", "save");
-        connect(saveItem, SIGNAL(activated()), this, SLOT(on_actionSave_triggered()));
+        connect(saveItem, &QMacToolBarItem::activated, this, &MainWindow::on_actionSave_triggered);
         allowedItems.append(saveItem);
 
         ui->tabFrame->setVisible(false);
@@ -335,7 +335,7 @@ void MainWindow::newTab() {
     ui->tabs->addWidget(view);
     ui->tabs->setCurrentWidget(view);
 
-    connect(view->editor(), SIGNAL(editedChanged()), this, SLOT(checkForEdits()));
+    connect(view->editor(), &TextEditor::editedChanged, this, &MainWindow::checkForEdits);
     connect(view->editor(), &TextEditor::backendChanged, [=] {
         if (currentEditor() == view->editor()) {
             QUrl url = view->editor()->fileUrl();
@@ -740,7 +740,7 @@ void MainWindow::on_actionSettings_triggered()
     d->setWindowModality(Qt::WindowModal);
     d->show();
 
-    connect(d, SIGNAL(finished(int)), &loop, SLOT(quit()));
+    connect(d, &QDialog::finished, &loop, &QEventLoop::quit);
 
     loop.exec();
 
