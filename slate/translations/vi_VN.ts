@@ -82,11 +82,6 @@
 <context>
     <name>AuthenticationDialog</name>
     <message>
-        <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="71"/>
         <source>Authentication</source>
         <translation>Xác thực</translation>
@@ -123,11 +118,6 @@
 <context>
     <name>CommitDialog</name>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="71"/>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="321"/>
         <source>Commit</source>
@@ -142,16 +132,6 @@
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="194"/>
         <source>Commit Message</source>
         <translation>Tin nhắn commit</translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="209"/>
-        <source>Branch</source>
-        <translation>Nhánh</translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="232"/>
-        <source>User</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="314"/>
@@ -389,8 +369,10 @@
     <message numerus="yes">
         <location filename="../textparts/findreplace.cpp" line="249"/>
         <source>%n occurences replaced</source>
-        <translation><numerusform>Được thay %n lần</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>Được thay %n lần</numerusform>
+        </translation>
+    </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="250"/>
         <source>Undo</source>
@@ -407,11 +389,6 @@
 </context>
 <context>
     <name>GitWidget</name>
-    <message>
-        <location filename="../SourceControl/gitwidget.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="95"/>
         <source>No Repository</source>
@@ -446,21 +423,6 @@
         <location filename="../SourceControl/gitwidget.ui" line="293"/>
         <source>You&apos;ll need to install Git on your computer to start tracking files with it.</source>
         <translation>Bạn cần cài đặt Git trên máy tính để theo dõi tệp.</translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/gitwidget.ui" line="503"/>
-        <source>Branch</source>
-        <translation>Nhánh</translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/gitwidget.ui" line="526"/>
-        <source>Commit</source>
-        <translation>Commit</translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/gitwidget.ui" line="533"/>
-        <source>...</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="121"/>
@@ -1294,20 +1256,7 @@
     </message>
 </context>
 <context>
-    <name>ProgressDialog</name>
-    <message>
-        <location filename="../SourceControl/GitDialogs/progressdialog.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>SelectListDialog</name>
-    <message>
-        <location filename="../textparts/selectlistdialog.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../textparts/selectlistdialog.ui" line="87"/>
         <location filename="../textparts/selectlistdialog.ui" line="198"/>
@@ -1645,11 +1594,6 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
 <context>
     <name>TextStatusBar</name>
     <message>
-        <location filename="../textparts/textstatusbar.ui" line="20"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../textparts/textstatusbar.cpp" line="44"/>
         <source>Line Endings for this file</source>
         <translation>Ký tự kết thúc dòng cho tệp này</translation>
@@ -1667,20 +1611,16 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message numerus="yes">
         <location filename="../textparts/textstatusbar.cpp" line="100"/>
         <source>%n spaces</source>
-        <translation><numerusform>%n d.cách</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>%n d.cách</numerusform>
+        </translation>
+    </message>
     <message numerus="yes">
         <location filename="../textparts/textstatusbar.cpp" line="102"/>
         <source>%n tabs</source>
-        <translation><numerusform>%n d.tab</numerusform>
-        </translation></message>
-</context>
-<context>
-    <name>TextWidget</name>
-    <message>
-        <location filename="../textwidget.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>
+            <numerusform>%n d.tab</numerusform>
+        </translation>
     </message>
 </context>
 <context>

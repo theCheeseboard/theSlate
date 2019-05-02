@@ -82,11 +82,6 @@
 <context>
     <name>AuthenticationDialog</name>
     <message>
-        <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="71"/>
         <source>Authentication</source>
         <translation type="unfinished"></translation>
@@ -123,11 +118,6 @@
 <context>
     <name>CommitDialog</name>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="71"/>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="321"/>
         <source>Commit</source>
@@ -141,16 +131,6 @@
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="194"/>
         <source>Commit Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="209"/>
-        <source>Branch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="232"/>
-        <source>User</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -416,11 +396,6 @@
 <context>
     <name>GitWidget</name>
     <message>
-        <location filename="../SourceControl/gitwidget.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../SourceControl/gitwidget.ui" line="95"/>
         <source>No Repository</source>
         <translation type="unfinished"></translation>
@@ -453,21 +428,6 @@
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="293"/>
         <source>You&apos;ll need to install Git on your computer to start tracking files with it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/gitwidget.ui" line="503"/>
-        <source>Branch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/gitwidget.ui" line="526"/>
-        <source>Commit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/gitwidget.ui" line="533"/>
-        <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1302,20 +1262,7 @@
     </message>
 </context>
 <context>
-    <name>ProgressDialog</name>
-    <message>
-        <location filename="../SourceControl/GitDialogs/progressdialog.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>SelectListDialog</name>
-    <message>
-        <location filename="../textparts/selectlistdialog.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../textparts/selectlistdialog.ui" line="87"/>
         <location filename="../textparts/selectlistdialog.ui" line="198"/>
@@ -1651,11 +1598,6 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
 <context>
     <name>TextStatusBar</name>
     <message>
-        <location filename="../textparts/textstatusbar.ui" line="20"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../textparts/textstatusbar.cpp" line="44"/>
         <source>Line Endings for this file</source>
         <translation type="unfinished"></translation>
@@ -1685,14 +1627,6 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
-    </message>
-</context>
-<context>
-    <name>TextWidget</name>
-    <message>
-        <location filename="../textwidget.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
