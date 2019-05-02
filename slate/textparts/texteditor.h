@@ -55,6 +55,12 @@ class TextEditor : public QPlainTextEdit
         explicit TextEditor(QWidget *parent);
         ~TextEditor();
 
+        enum Casing {
+            Uppercase,
+            Titlecase,
+            Lowercase
+        };
+
         void setMainWindow(MainWindow* mainWindow);
         void setStatusBar(TextStatusBar* statusBar);
 
@@ -97,6 +103,7 @@ class TextEditor : public QPlainTextEdit
         void updateMergedLinesColour();
 
         void commentSelectedText();
+        void setSelectedTextCasing(Casing casing);
 
         void chooseHighlighter();
         void chooseCodec(bool reload = false);

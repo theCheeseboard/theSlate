@@ -230,6 +230,10 @@
     <addaction name="actionFind_and_Replace"/>
     <addaction name="separator"/>
     <addaction name="actionComment"/>
+    <addaction name="separator"/>
+    <addaction name="actionUppercase"/>
+    <addaction name="actionLowercase"/>
+    <addaction name="actionTitle_Case"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -742,6 +746,33 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="actionUppercase">
+   <property name="icon">
+    <iconset theme="format-text-uppercase" resource="icons.qrc">
+     <normaloff>:/icons/format-text-uppercase.svg</normaloff>:/icons/format-text-uppercase.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Uppercase</string>
+   </property>
+  </action>
+  <action name="actionLowercase">
+   <property name="icon">
+    <iconset theme="format-text-lowercase" resource="icons.qrc">
+     <normaloff>:/icons/format-text-lowercase.svg</normaloff>:/icons/format-text-lowercase.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Lowercase</string>
+   </property>
+  </action>
+  <action name="actionTitle_Case">
+   <property name="icon">
+    <iconset theme="format-text-capitalize" resource="icons.qrc">
+     <normaloff>:/icons/format-text-capitalize.svg</normaloff>:/icons/format-text-capitalize.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Title Case</string>
    </property>
   </action>
  </widget>

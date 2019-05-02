@@ -133,6 +133,12 @@ class MainWindow : public QMainWindow
 
         void on_actionLine_triggered();
 
+        void on_actionUppercase_triggered();
+
+        void on_actionLowercase_triggered();
+
+        void on_actionTitle_Case_triggered();
+
     signals:
 #ifdef Q_OS_MAC
         void changeTouchBarTopNotification(TopNotification* topNotification);

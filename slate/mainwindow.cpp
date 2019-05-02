@@ -145,6 +145,10 @@ MainWindow::MainWindow(QWidget *parent) :
         QMenu* editMenu = new QMenu();
         editMenu->setTitle(tr("Edit"));
         editMenu->addAction(ui->actionComment);
+        editMenu->addSeparator();
+        editMenu->addAction(ui->actionUppercase);
+        editMenu->addAction(ui->actionLowercase);
+        editMenu->addAction(ui->actionTitle_Case);
 
         QMenu* singleMenu = new QMenu();
         singleMenu->addAction(ui->actionNew);
@@ -885,4 +889,19 @@ void MainWindow::on_actionReload_Using_Encoding_triggered()
 void MainWindow::on_actionLine_triggered()
 {
     currentEditor()->gotoLine();
+}
+
+void MainWindow::on_actionUppercase_triggered()
+{
+    currentEditor()->setSelectedTextCasing(TextEditor::Uppercase);
+}
+
+void MainWindow::on_actionLowercase_triggered()
+{
+    currentEditor()->setSelectedTextCasing(TextEditor::Lowercase);
+}
+
+void MainWindow::on_actionTitle_Case_triggered()
+{
+    currentEditor()->setSelectedTextCasing(TextEditor::Titlecase);
 }

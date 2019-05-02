@@ -1529,6 +1529,40 @@ void TextEditor::gotoLine() {
     }
 }
 
+void TextEditor::setSelectedTextCasing(Casing casing) {
+    QTextCursor cursor = this->textCursor();
+    QString text = cursor.selectedText();
+    switch (casing) {
+        case Uppercase:
+            text = text.toUpper();
+            break;
+        case Lowercase:
+            text = text.toLower();
+            break;
+        case Titlecase: {
+            QStringList parts = text.split(" ");
+            for (int i = 0; i < parts.count(); i++) {
+                QString part = parts.at(i);
+                if (!part.isEmpty()) {
+                    part = part.toLower();
+                    part = part.replace(0, 1, part.at(0).toUpper());
+                    parts.replace(i, part);
+                }
+            }
+            text = parts.join(" ");
+        }
+    }
+
+    int start = cursor.selectionStart();
+    int end = cursor.selectionEnd();
+    cursor.beginEditBlock();
+    cursor.insertText(text);
+    cursor.setPosition(start);
+    cursor.setPosition(end, QTextCursor::KeepAnchor);
+    cursor.endEditBlock();
+    this->setTextCursor(cursor);
+}
+
 TextEditorLeftMargin::TextEditorLeftMargin(TextEditor* editor) : QWidget(editor) {
     this->editor = editor;
     this->setCursor(Qt::ArrowCursor);
