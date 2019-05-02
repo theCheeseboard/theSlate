@@ -36,7 +36,7 @@ class TextEditor;
  *
  *  @since 5.28
  */
-class KSYNTAXHIGHLIGHTING_EXPORT SyntaxHighlighter : public QSyntaxHighlighter, public KSyntaxHighlighting::AbstractHighlighter
+class SyntaxHighlighter : public QSyntaxHighlighter, public KSyntaxHighlighting::AbstractHighlighter
 {
     Q_OBJECT
 public:

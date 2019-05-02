@@ -986,7 +986,6 @@ void TextEditor::reloadBlockHighlighting() {
         bottom = top + (int) blockBoundingRect(block).height();
         blockNumber++;
     }
-    //setExtraSelections(extraSelections);
     setExtraSelectionGroup("blockHighlighting", extraSelections);
 
     d->leftMargin->repaint();
