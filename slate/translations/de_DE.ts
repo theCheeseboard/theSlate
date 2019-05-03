@@ -1549,48 +1549,48 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1037"/>
+        <location filename="../textparts/texteditor.cpp" line="1052"/>
         <source>Revert Changes?</source>
         <translation type="unfinished">Änderungen rückgängig machen?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1038"/>
+        <location filename="../textparts/texteditor.cpp" line="1053"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation type="unfinished">Möchten Sie alle Änderungen rückgängig machen, die an diesem Dokument vorgenommen wurden?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1439"/>
+        <location filename="../textparts/texteditor.cpp" line="1454"/>
         <source>No Highlighting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1442"/>
+        <location filename="../textparts/texteditor.cpp" line="1457"/>
         <source>Select Highlighting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1443"/>
+        <location filename="../textparts/texteditor.cpp" line="1458"/>
         <source>What type of code is this file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1501"/>
+        <location filename="../textparts/texteditor.cpp" line="1516"/>
         <source>Go To Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1501"/>
+        <location filename="../textparts/texteditor.cpp" line="1516"/>
         <source>What line do you want to go to?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="330"/>
-        <location filename="../textparts/texteditor.cpp" line="1477"/>
+        <location filename="../textparts/texteditor.cpp" line="1492"/>
         <source>Select Encoding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1478"/>
+        <location filename="../textparts/texteditor.cpp" line="1493"/>
         <source>What file encoding do you want to use?</source>
         <translation type="unfinished"></translation>
     </message>

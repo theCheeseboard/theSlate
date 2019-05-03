@@ -143,9 +143,9 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
     });
 
     d->leftMargin = new TextEditorLeftMargin(this);
-    connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLeftMarginAreaWidth()));
-    connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLeftMarginArea(QRect,int)));
-    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorLocationChanged()));
+    connect(this, &QPlainTextEdit::blockCountChanged, this, &TextEditor::updateLeftMarginAreaWidth);
+    connect(this, &QPlainTextEdit::updateRequest, this, &TextEditor::updateLeftMarginArea);
+    connect(this, &QPlainTextEdit::cursorPositionChanged, this, &TextEditor::cursorLocationChanged);
 
     d->leftMargin->setVisible(true);
 
@@ -730,6 +730,7 @@ int TextEditor::leftMarginWidth()
     }
 
     int space = 3 + fontMetrics().height() + fontMetrics().width(QLatin1Char('9')) * digits;
+    space += 9 * theLibsGlobal::getDPIScaling();
 
     return space;
 }
@@ -739,7 +740,7 @@ void TextEditor::updateLeftMarginAreaWidth()
     d->topPanelWidget->updateGeometry();
     int height = d->topPanelWidget->sizeHint().height();
     d->topPanelWidget->setFixedHeight(height);
-    setViewportMargins(leftMarginWidth(), height, 0, 0);
+    setViewportMargins(leftMarginWidth() - 4 * theLibsGlobal::getDPIScaling(), height, 0, 0);
 }
 
 void TextEditor::updateLeftMarginArea(const QRect &rect, int dy)
@@ -760,7 +761,7 @@ void TextEditor::resizeEvent(QResizeEvent *event)
     QPlainTextEdit::resizeEvent(event);
 
     QRect cr = contentsRect();
-    d->leftMargin->setGeometry(QRect(cr.left(), cr.top() + d->topPanelWidget->sizeHint().height(), leftMarginWidth(), cr.height()));
+    d->leftMargin->setGeometry(QRect(cr.left(), cr.top() + d->topPanelWidget->sizeHint().height(), leftMarginWidth(), cr.height() - 1));
 
     d->topPanelWidget->setFixedWidth(this->width());
 
@@ -777,14 +778,7 @@ void TextEditor::highlightCurrentLine()
         QTextEdit::ExtraSelection selection;
 
         QColor windowCol = this->palette().color(QPalette::Window);
-        QColor lineCol;
-        if ((windowCol.red() + windowCol.green() + windowCol.blue()) / 3 > 127) {
-            lineCol = QColor(0, 0, 0, 25);
-        } else {
-            lineCol = QColor(255, 255, 255, 25);
-        }
-
-        selection.format.setBackground(lineCol);
+        selection.format.setBackground(QColor(highlightTheme.editorColor(KSyntaxHighlighting::Theme::CurrentLine)));
         selection.format.setProperty(QTextFormat::FullWidthSelection, true);
         selection.format.setProperty(QTextFormat::UserFormat, "currentHighlight");
         selection.cursor = textCursor();
@@ -905,7 +899,7 @@ void TextEditor::cursorLocationChanged() {
 void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
 {
     QPainter painter(d->leftMargin);
-    painter.fillRect(event->rect(), this->palette().color(QPalette::Window).lighter(120));
+    painter.fillRect(event->rect(), this->palette().color(QPalette::Window));
 
     QTextBlock block = firstVisibleBlock();
     int blockNumber = block.blockNumber();
@@ -915,25 +909,42 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
     while (block.isValid() && top <= event->rect().bottom()) {
         int lineNo = blockNumber + 1;
 
+        //Draw current line background
+        QColor lineNumberColor = highlightTheme.editorColor(KSyntaxHighlighting::Theme::LineNumbers);
+        QColor backgroundColor = highlightTheme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
+
+        painter.setPen(Qt::transparent);
+        if (this->textCursor().block() == block) {
+            backgroundColor = highlightTheme.editorColor(KSyntaxHighlighting::Theme::CurrentLine);
+            lineNumberColor = highlightTheme.editorColor(KSyntaxHighlighting::Theme::CurrentLineNumber);
+        }
+
+        //Draw merge conflict marker
         for (MergeLines mergeBlock : d->mergedLines) {
             for (int i = 0; i < mergeBlock.length; i++) {
                 int mergeLine = mergeBlock.startLine + i;
                 if (blockNumber == mergeLine) {
-                    painter.setPen(Qt::transparent);
                     if (d->mergeDecisions.value(mergeBlock)) {
-                        painter.setBrush(QColor(0, 150, 0));
+                        backgroundColor = QColor(0, 150, 0);
                     } else {
-                        painter.setBrush(QColor(100, 100, 100));
+                        backgroundColor = QColor(100, 100, 100);
                     }
-                    painter.drawRect(0, top, d->leftMargin->width(), bottom - top);
                 }
             }
         }
 
+        //Draw line number and background
         QString number = QString::number(lineNo);
         if (block.isVisible() && bottom >= event->rect().top()) {
-            painter.setPen(this->palette().color(QPalette::WindowText));
-            painter.drawText(0, top, d->leftMargin->width(), fontMetrics().height(), Qt::AlignRight, number);
+            painter.setBrush(backgroundColor);
+            painter.drawRect(0, top, d->leftMargin->width(), bottom - top);
+
+            QFont font = this->font();
+            font.setPointSizeF(font.pointSizeF() * 0.8);
+
+            painter.setFont(font);
+            painter.setPen(lineNumberColor);
+            painter.drawText(0, top, d->leftMargin->width() - 9 * theLibsGlobal::getDPIScaling(), fontMetrics().height(), Qt::AlignRight | Qt::AlignCenter, number);
         }
 
         TextEditorBlockData* blockData = (TextEditorBlockData*) block.userData();
@@ -951,6 +962,10 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
                     break;
             }
             painter.drawRect(0, top, 3 * theLibsGlobal::getDPIScaling(), bottom - top);
+        }
+
+        if (d->hl->startsFoldingRegion(block)) {
+
         }
 
         block = block.next();

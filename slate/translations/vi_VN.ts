@@ -1545,48 +1545,48 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
         <translation>Không lưu tệp được</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1037"/>
+        <location filename="../textparts/texteditor.cpp" line="1052"/>
         <source>Revert Changes?</source>
         <translation>Hoàn lại thay đổi?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1038"/>
+        <location filename="../textparts/texteditor.cpp" line="1053"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation>Bạn có muốn bỏ thầy đối với tệp này không?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1439"/>
+        <location filename="../textparts/texteditor.cpp" line="1454"/>
         <source>No Highlighting</source>
         <translation>Không có nổi bật</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1442"/>
+        <location filename="../textparts/texteditor.cpp" line="1457"/>
         <source>Select Highlighting</source>
         <translation>Chọn nổi bật</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1443"/>
+        <location filename="../textparts/texteditor.cpp" line="1458"/>
         <source>What type of code is this file?</source>
         <translation>Tệp này có mã nguồn nào?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1501"/>
+        <location filename="../textparts/texteditor.cpp" line="1516"/>
         <source>Go To Line</source>
         <translation>Đi tới dòng</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1501"/>
+        <location filename="../textparts/texteditor.cpp" line="1516"/>
         <source>What line do you want to go to?</source>
         <translation>Bạn muốn đi tới dòng nào?</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="330"/>
-        <location filename="../textparts/texteditor.cpp" line="1477"/>
+        <location filename="../textparts/texteditor.cpp" line="1492"/>
         <source>Select Encoding</source>
         <translation>Chọn mã hóa</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1478"/>
+        <location filename="../textparts/texteditor.cpp" line="1493"/>
         <source>What file encoding do you want to use?</source>
         <translation>Bạn muốn sử dụng mã hóa tệp nào?</translation>
     </message>
