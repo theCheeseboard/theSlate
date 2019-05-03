@@ -772,18 +772,27 @@ void TextEditor::highlightCurrentLine()
 {
     QList<QTextEdit::ExtraSelection> extraSelections;
 
-    d->highlightedLine = textCursor().block().firstLineNumber();
+    QTextBlock currentBlock = this->textCursor().block();
+    d->highlightedLine = currentBlock.firstLineNumber();
 
     if (!this->isReadOnly()) {
-        QTextEdit::ExtraSelection selection;
+        QTextCursor cursor = this->textCursor();
+        cursor.movePosition(QTextCursor::StartOfBlock);
 
-        QColor windowCol = this->palette().color(QPalette::Window);
-        selection.format.setBackground(QColor(highlightTheme.editorColor(KSyntaxHighlighting::Theme::CurrentLine)));
-        selection.format.setProperty(QTextFormat::FullWidthSelection, true);
-        selection.format.setProperty(QTextFormat::UserFormat, "currentHighlight");
-        selection.cursor = textCursor();
-        selection.cursor.clearSelection();
-        extraSelections.append(selection);
+        bool success = true;
+        while (cursor.block() == currentBlock && success) {
+            QTextEdit::ExtraSelection selection;
+
+            QColor windowCol = this->palette().color(QPalette::Window);
+            selection.format.setBackground(QColor(highlightTheme.editorColor(KSyntaxHighlighting::Theme::CurrentLine)));
+            selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+            selection.format.setProperty(QTextFormat::UserFormat, "currentHighlight");
+            selection.cursor = cursor;
+            selection.cursor.clearSelection();
+            extraSelections.append(selection);
+
+            success = cursor.movePosition(QTextCursor::Down);
+        }
     }
 
     setExtraSelectionGroup("lineHighlight", extraSelections);
@@ -1253,6 +1262,12 @@ void TextEditor::reloadSettings() {
     this->setPalette(pal);
 
     if (d->statusBar != nullptr) d->statusBar->setSpacing(d->settings.value("behaviour/tabSpaces", true).toBool(), d->settings.value("behaviour/tabSpaceNumber", 4).toInt());
+
+    if (d->settings.value("behaviour/wrapText", false).toBool()) {
+        this->setLineWrapMode(WidgetWidth);
+    } else {
+        this->setLineWrapMode(NoWrap);
+    }
 }
 
 QUrl TextEditor::fileUrl() {

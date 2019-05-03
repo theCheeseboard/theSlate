@@ -40,6 +40,8 @@ class SettingsDialog : public QDialog
 
         void on_endOfLineComboBox_currentIndexChanged(int index);
 
+        void on_wrapTextBox_toggled(bool checked);
+
     private:
         Ui::SettingsDialog *ui;
 

@@ -25,6 +25,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     }
     ui->tabKeySpaceNunber->setValue(settings.value("behaviour/tabSpaceNumber", 4).toInt());
     ui->tabCharWidth->setValue(settings.value("behaviour/tabWidth", 4).toInt());
+    ui->wrapTextBox->setChecked(settings.value("behaviour/wrapText", false).toBool());
 
     ui->endOfLineComboBox->setCurrentIndex(settings.value("behaviour/endOfLine", THESLATE_END_OF_LINE).toInt());
 }
@@ -99,4 +100,9 @@ void SettingsDialog::on_endOfLineComboBox_currentIndexChanged(int index)
 void SettingsDialog::accept() {
     settings.sync();
     QDialog::accept();
+}
+
+void SettingsDialog::on_wrapTextBox_toggled(bool checked)
+{
+    settings.setValue("behaviour/wrapText", checked);
 }

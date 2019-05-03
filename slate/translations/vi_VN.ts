@@ -1290,7 +1290,7 @@
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="148"/>
-        <location filename="../settingsdialog.ui" line="509"/>
+        <location filename="../settingsdialog.ui" line="516"/>
         <source>File Browser</source>
         <translation>Trình duyệt tệp</translation>
     </message>
@@ -1305,57 +1305,62 @@
         <translation>Dùng phông chữ đơn chắc của máy tính</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="366"/>
+        <location filename="../settingsdialog.ui" line="386"/>
         <source>Tabs</source>
         <translation>Tab</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="373"/>
+        <location filename="../settingsdialog.ui" line="393"/>
         <source>Spaces</source>
         <translation>Dấu cách</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="419"/>
+        <location filename="../settingsdialog.ui" line="345"/>
         <source>Tab Key Behaviour</source>
         <translation>Hành vi phím Tab</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="412"/>
+        <location filename="../settingsdialog.ui" line="358"/>
         <source>BEHAVIOUR</source>
         <translation>HÀNH VI</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="433"/>
+        <location filename="../settingsdialog.ui" line="459"/>
         <source>Tab Character Width</source>
         <translation>Chiều rộng ký tự tab</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="440"/>
+        <location filename="../settingsdialog.ui" line="445"/>
         <source>End of Line</source>
         <translation>Ký tự kết thúc dòng</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="448"/>
+        <location filename="../settingsdialog.ui" line="427"/>
         <source>Unix (LF)</source>
         <translation>Unix (LF)</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="453"/>
+        <location filename="../settingsdialog.ui" line="432"/>
         <source>Macintosh (CR)</source>
         <translation>Macintosh (CR)</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="458"/>
+        <location filename="../settingsdialog.ui" line="437"/>
         <source>Windows (CRLF)</source>
         <translation>Windows (CRLF)</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="543"/>
+        <location filename="../settingsdialog.ui" line="466"/>
+        <source>Wrap Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="550"/>
         <source>Show Hidden Files</source>
         <translation>Hiển thị tệp ẩn</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="599"/>
+        <location filename="../settingsdialog.ui" line="606"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1545,48 +1550,48 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
         <translation>Không lưu tệp được</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1052"/>
+        <location filename="../textparts/texteditor.cpp" line="1061"/>
         <source>Revert Changes?</source>
         <translation>Hoàn lại thay đổi?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1053"/>
+        <location filename="../textparts/texteditor.cpp" line="1062"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation>Bạn có muốn bỏ thầy đối với tệp này không?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1454"/>
+        <location filename="../textparts/texteditor.cpp" line="1469"/>
         <source>No Highlighting</source>
         <translation>Không có nổi bật</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1457"/>
+        <location filename="../textparts/texteditor.cpp" line="1472"/>
         <source>Select Highlighting</source>
         <translation>Chọn nổi bật</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1458"/>
+        <location filename="../textparts/texteditor.cpp" line="1473"/>
         <source>What type of code is this file?</source>
         <translation>Tệp này có mã nguồn nào?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1516"/>
+        <location filename="../textparts/texteditor.cpp" line="1531"/>
         <source>Go To Line</source>
         <translation>Đi tới dòng</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1516"/>
+        <location filename="../textparts/texteditor.cpp" line="1531"/>
         <source>What line do you want to go to?</source>
         <translation>Bạn muốn đi tới dòng nào?</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="330"/>
-        <location filename="../textparts/texteditor.cpp" line="1492"/>
+        <location filename="../textparts/texteditor.cpp" line="1507"/>
         <source>Select Encoding</source>
         <translation>Chọn mã hóa</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1493"/>
+        <location filename="../textparts/texteditor.cpp" line="1508"/>
         <source>What file encoding do you want to use?</source>
         <translation>Bạn muốn sử dụng mã hóa tệp nào?</translation>
     </message>
