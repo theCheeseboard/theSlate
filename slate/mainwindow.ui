@@ -183,16 +183,6 @@
        <normaloff>:/icons/document-open-recent.svg</normaloff>:/icons/document-open-recent.svg</iconset>
      </property>
     </widget>
-    <widget class="QMenu" name="menuReload_Using_Encoding">
-     <property name="title">
-      <string>Reload Using Encoding</string>
-     </property>
-    </widget>
-    <widget class="QMenu" name="menuChange_File_Encoding">
-     <property name="title">
-      <string>Change File Encoding</string>
-     </property>
-    </widget>
     <addaction name="actionNew"/>
     <addaction name="separator"/>
     <addaction name="actionOpen"/>
@@ -202,10 +192,10 @@
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
     <addaction name="actionSave_All"/>
-    <addaction name="menuChange_File_Encoding"/>
+    <addaction name="actionChange_File_Encoding"/>
     <addaction name="separator"/>
     <addaction name="actionRevert"/>
-    <addaction name="menuReload_Using_Encoding"/>
+    <addaction name="actionReload_Using_Encoding"/>
     <addaction name="actionClose"/>
     <addaction name="separator"/>
     <addaction name="actionPrint"/>
@@ -238,16 +228,12 @@
     <addaction name="actionSelect_All"/>
     <addaction name="separator"/>
     <addaction name="actionFind_and_Replace"/>
-   </widget>
-   <widget class="QMenu" name="menuCode">
-    <property name="title">
-     <string>&amp;Code</string>
-    </property>
-    <property name="icon">
-     <iconset theme="commit" resource="icons.qrc">
-      <normaloff>:/icons/commit.svg</normaloff>:/icons/commit.svg</iconset>
-    </property>
-    <addaction name="actionNo_Highlighting"/>
+    <addaction name="separator"/>
+    <addaction name="actionComment"/>
+    <addaction name="separator"/>
+    <addaction name="actionUppercase"/>
+    <addaction name="actionLowercase"/>
+    <addaction name="actionTitle_Case"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -262,16 +248,6 @@
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
-   <widget class="QMenu" name="menuSource_Control">
-    <property name="title">
-     <string>So&amp;urce Control</string>
-    </property>
-    <addaction name="actionPush"/>
-    <addaction name="actionPull"/>
-    <addaction name="separator"/>
-    <addaction name="actionFetch"/>
-    <addaction name="separator"/>
-   </widget>
    <widget class="QMenu" name="menuWindow">
     <property name="title">
      <string>Wi&amp;ndow</string>
@@ -284,12 +260,18 @@
     </property>
     <addaction name="actionNew_Window"/>
     <addaction name="separator"/>
+    <addaction name="actionChange_Syntax_Highlighting"/>
+   </widget>
+   <widget class="QMenu" name="menuGo">
+    <property name="title">
+     <string>Go</string>
+    </property>
+    <addaction name="actionLine"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
-   <addaction name="menuCode"/>
-   <addaction name="menuSource_Control"/>
+   <addaction name="menuGo"/>
    <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -733,6 +715,64 @@
    </property>
    <property name="text">
     <string>Use Menubar</string>
+   </property>
+  </action>
+  <action name="actionComment">
+   <property name="text">
+    <string>Toggle Comment</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+/</string>
+   </property>
+  </action>
+  <action name="actionChange_Syntax_Highlighting">
+   <property name="text">
+    <string>Change Syntax Highlighting</string>
+   </property>
+  </action>
+  <action name="actionChange_File_Encoding">
+   <property name="text">
+    <string>Change File Encoding</string>
+   </property>
+  </action>
+  <action name="actionReload_Using_Encoding">
+   <property name="text">
+    <string>Reload Using Encoding</string>
+   </property>
+  </action>
+  <action name="actionLine">
+   <property name="text">
+    <string>Line</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="actionUppercase">
+   <property name="icon">
+    <iconset theme="format-text-uppercase" resource="icons.qrc">
+     <normaloff>:/icons/format-text-uppercase.svg</normaloff>:/icons/format-text-uppercase.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Uppercase</string>
+   </property>
+  </action>
+  <action name="actionLowercase">
+   <property name="icon">
+    <iconset theme="format-text-lowercase" resource="icons.qrc">
+     <normaloff>:/icons/format-text-lowercase.svg</normaloff>:/icons/format-text-lowercase.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Lowercase</string>
+   </property>
+  </action>
+  <action name="actionTitle_Case">
+   <property name="icon">
+    <iconset theme="format-text-capitalize" resource="icons.qrc">
+     <normaloff>:/icons/format-text-capitalize.svg</normaloff>:/icons/format-text-capitalize.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Title Case</string>
    </property>
   </action>
  </widget>

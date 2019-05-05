@@ -16,9 +16,6 @@
 #include <Theme>
 
 #ifdef Q_OS_MAC
-    #include <CoreFoundation/CFBundle.h>
-    QString bundlePath;
-
     extern void setupMacObjC();
 #endif
 
@@ -79,45 +76,22 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    a.setOrganizationName("theSuite");
-    a.setOrganizationDomain("");
-    a.setApplicationName("theSlate");
-    a.setApplicationIcon(QIcon::fromTheme("theslate", QIcon(":/icons/icon.svg")));
-
-    //a.registerCrashTrap();
-
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     a.installTranslator(&qtTranslator);
 
-    QTranslator localTranslator;
+    a.setOrganizationName("theSuite");
+    a.setOrganizationDomain("");
+    a.setApplicationName("theSlate");
+    a.setApplicationIcon(QIcon::fromTheme("theslate", QIcon(":/icons/icon.svg")));
+    a.setShareDir("/usr/share/theslate");
+    a.installTranslators();
+
+
 #ifdef Q_OS_MAC
     a.setAttribute(Qt::AA_DontShowIconsInMenus, true);
     a.setQuitOnLastWindowClosed(false);
 
-    CFURLRef appUrlRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
-    CFStringRef macPath = CFURLCopyFileSystemPath(appUrlRef, kCFURLPOSIXPathStyle);
-    const char *pathPtr = CFStringGetCStringPtr(macPath, CFStringGetSystemEncoding());
-
-    bundlePath = QString::fromLocal8Bit(pathPtr);
-    localTranslator.load(QLocale::system().name(), bundlePath + "/Contents/translations/");
-
-    CFRelease(appUrlRef);
-    CFRelease(macPath);
-#endif
-
-
-#ifdef Q_OS_LINUX
-    localTranslator.load(QLocale::system().name(), "/usr/share/theslate/translations");
-#endif
-
-#ifdef Q_OS_WIN
-    localTranslator.load(QLocale::system().name(), a.applicationDirPath() + "\\translations");
-#endif
-
-    a.installTranslator(&localTranslator);
-
-#ifdef Q_OS_MAC
     setupMacMenubar();
     setupMacObjC();
 #elif defined(Q_OS_WIN)
@@ -178,7 +152,7 @@ int main(int argc, char *argv[])
 
     highlightRepo = new KSyntaxHighlighting::Repository();
     #ifdef Q_OS_MAC
-        highlightRepo->addCustomSearchPath(bundlePath + "/Contents/Resources/ColorDefinitions");
+        highlightRepo->addCustomSearchPath(a.macOSBundlePath() + "/Contents/Resources/ColorDefinitions");
     #elif defined(Q_OS_WIN)
         highlightRepo->addCustomSearchPath(QApplication::applicationDirPath() + "/../../../theSlate/slate/ColorDefinitions/");
         highlightRepo->addCustomSearchPath(QApplication::applicationDirPath() + "/ColorDefinitions/");

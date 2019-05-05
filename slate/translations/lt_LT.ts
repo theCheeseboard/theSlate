@@ -10,7 +10,7 @@
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="32"/>
-        <location filename="../main.cpp" line="163"/>
+        <location filename="../main.cpp" line="137"/>
         <source>Text Editor</source>
         <translation>Teksto redaktorius</translation>
     </message>
@@ -82,11 +82,6 @@
 <context>
     <name>AuthenticationDialog</name>
     <message>
-        <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="71"/>
         <source>Authentication</source>
         <translation type="unfinished"></translation>
@@ -123,11 +118,6 @@
 <context>
     <name>CommitDialog</name>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="71"/>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="321"/>
         <source>Commit</source>
@@ -141,16 +131,6 @@
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="194"/>
         <source>Commit Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="209"/>
-        <source>Branch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="232"/>
-        <source>User</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -207,52 +187,58 @@
 <context>
     <name>CommitsModel</name>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="109"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="110"/>
         <source>Conclude Merge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="109"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="110"/>
         <source>Create merge commit and conclude merge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="110"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="111"/>
         <source>Abort Merge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="110"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="111"/>
         <source>Revert to state before merge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="120"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="117"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="122"/>
         <source>New Commit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="120"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="117"/>
+        <source>Create new commit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/commitsmodel.cpp" line="122"/>
         <source>Create new commit on %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="126"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="128"/>
         <source>No upstream branch has been configured.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="126"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="128"/>
         <source>No Upstream Branch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="128"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
         <source>Pull Remote Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../SourceControl/commitsmodel.cpp" line="128"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
         <source>%n incoming commits</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -261,12 +247,12 @@
         </translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
         <source>Push Local Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
         <source>%n outgoing commits</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -275,12 +261,12 @@
         </translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="134"/>
         <source>Up to date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
+        <location filename="../SourceControl/commitsmodel.cpp" line="134"/>
         <source>Your local repository is up to date</source>
         <translation type="unfinished"></translation>
     </message>
@@ -305,18 +291,18 @@
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="70"/>
-        <location filename="../exitsavedialog.cpp" line="37"/>
+        <location filename="../exitsavedialog.cpp" line="40"/>
         <source>Save All</source>
         <translation>Išsaugoti viską</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="80"/>
-        <location filename="../exitsavedialog.cpp" line="38"/>
+        <location filename="../exitsavedialog.cpp" line="41"/>
         <source>Discard All</source>
         <translation>Atmesti viską</translation>
     </message>
     <message numerus="yes">
-        <location filename="../exitsavedialog.cpp" line="41"/>
+        <location filename="../exitsavedialog.cpp" line="44"/>
         <source>Save %n</source>
         <translation>
             <numerusform>Išsaugoti tik %n</numerusform>
@@ -325,7 +311,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../exitsavedialog.cpp" line="42"/>
+        <location filename="../exitsavedialog.cpp" line="45"/>
         <source>Discard %n</source>
         <translation>
             <numerusform>Atmesti vieną %n</numerusform>
@@ -337,38 +323,72 @@
 <context>
     <name>FindReplace</name>
     <message>
-        <location filename="../textparts/findreplace.ui" line="46"/>
+        <location filename="../textparts/findreplace.ui" line="74"/>
         <source>Find</source>
         <translation>Surasti</translation>
     </message>
     <message>
-        <location filename="../textparts/findreplace.ui" line="111"/>
+        <location filename="../textparts/findreplace.ui" line="170"/>
         <source>Replace</source>
         <translation>Pakeisti</translation>
     </message>
     <message>
-        <location filename="../textparts/findreplace.ui" line="122"/>
-        <source>Done</source>
-        <translation>Atlikta</translation>
-    </message>
-    <message>
-        <location filename="../textparts/findreplace.ui" line="142"/>
+        <location filename="../textparts/findreplace.ui" line="177"/>
         <source>Replace All</source>
         <translation>Pakeisti viską</translation>
     </message>
     <message>
-        <location filename="../textparts/findreplace.cpp" line="75"/>
+        <location filename="../textparts/findreplace.cpp" line="32"/>
+        <source>Match case</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/findreplace.cpp" line="33"/>
+        <source>Regular expression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/findreplace.cpp" line="34"/>
+        <source>Whole word</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/findreplace.cpp" line="137"/>
         <source>No matches</source>
         <translation>Jokių atitikimų</translation>
     </message>
     <message numerus="yes">
-        <location filename="../textparts/findreplace.cpp" line="77"/>
+        <location filename="../textparts/findreplace.cpp" line="139"/>
         <source>%n matches</source>
         <translation>
             <numerusform>%n atitikimas</numerusform>
             <numerusform>%n atitikimai</numerusform>
             <numerusform>%n atitikimaii</numerusform>
         </translation>
+    </message>
+    <message>
+        <location filename="../textparts/findreplace.cpp" line="144"/>
+        <source>Invalid Regular Expression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/findreplace.cpp" line="248"/>
+        <source>Replaced all matches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../textparts/findreplace.cpp" line="249"/>
+        <source>%n occurences replaced</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../textparts/findreplace.cpp" line="250"/>
+        <source>Undo</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -381,11 +401,6 @@
 </context>
 <context>
     <name>GitWidget</name>
-    <message>
-        <location filename="../SourceControl/gitwidget.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="95"/>
         <source>No Repository</source>
@@ -422,183 +437,205 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.ui" line="503"/>
-        <source>Branch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/gitwidget.ui" line="526"/>
-        <source>Commit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/gitwidget.ui" line="533"/>
-        <source>...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="115"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="121"/>
         <source>For %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="116"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="122"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="212"/>
         <source>Checkout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="119"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="125"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="121"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="127"/>
         <source>Delete Branch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="122"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="128"/>
         <source>Delete the %1 branch?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="135"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="141"/>
         <source>With %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="136"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="139"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="142"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="145"/>
         <source>Merge %1 into %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="183"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="190"/>
         <source>For repository</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="184"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="377"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="191"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="348"/>
         <source>Push</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="187"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="273"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="400"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="194"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="295"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="371"/>
         <source>Pull</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="191"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="198"/>
         <source>Fetch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="214"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="205"/>
+        <source>For commit %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="206"/>
+        <source>Copy Identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="209"/>
+        <source>Copy Commit Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="236"/>
         <source>Abort Merge?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="215"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="237"/>
         <source>Any actions taken to resolve conflict resolution will be undone, and the state of your repository will be set back to how it was before the merge operation started.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="247"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="294"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="269"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="316"/>
         <source>Unclean Working Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="248"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="270"/>
         <source>Your working directory is not clean and upstream changes may not merge properly. Do you still want to attempt to pull in upstream changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="251"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="273"/>
         <source>Discard All Changes and Pull</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="252"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="274"/>
         <source>Pull Anyway</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="423"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="324"/>
+        <source>pull</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="394"/>
         <source>Authenticate to push to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="274"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="460"/>
+        <source>The %1 operation resulted in these files conflicting:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="463"/>
+        <source>Undo %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="505"/>
+        <source>merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="508"/>
+        <source>Unrelated Histories</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="509"/>
+        <source>You&apos;re trying to merge two branches which do not have a common base</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="296"/>
         <source>Pulling from %1...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="378"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="349"/>
         <source>Pushing to %1...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="398"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="369"/>
         <source>Out of date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="399"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="370"/>
         <source>Your local repository is out of date and needs to be updated by pulling.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="295"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="317"/>
         <source>Commit or discard changes in your working directory in order to pull.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="316"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="459"/>
         <source>Conflicting Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="317"/>
-        <source>The pull operation resulted in these files conflicting:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="317"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="460"/>
         <source>What do you want to do now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="320"/>
-        <source>Undo Pull</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="321"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="464"/>
         <source>Manually Resolve Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="322"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="465"/>
         <source>Use Local Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="323"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="466"/>
         <source>Use Remote Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="355"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="326"/>
         <source>Authenticate to pull from %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="360"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="428"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="331"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="399"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="517"/>
         <source>Git Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -626,443 +663,479 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="188"/>
+        <location filename="../mainwindow.ui" line="722"/>
+        <source>Toggle Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="725"/>
+        <source>Ctrl+/</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="740"/>
         <source>Reload Using Encoding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="193"/>
+        <location filename="../mainwindow.ui" line="735"/>
         <source>Change File Encoding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="219"/>
+        <location filename="../mainwindow.ui" line="209"/>
+        <location filename="../mainwindow.cpp" line="146"/>
         <source>Edit</source>
         <translation>Redaguoti</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="223"/>
+        <location filename="../mainwindow.ui" line="213"/>
         <source>Paste from Clipboard History</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="244"/>
-        <source>&amp;Code</source>
-        <translation>&amp;Kodas</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="254"/>
-        <location filename="../main.cpp" line="56"/>
+        <location filename="../mainwindow.ui" line="240"/>
+        <location filename="../main.cpp" line="53"/>
         <source>Help</source>
         <translation>Pagalba</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="267"/>
-        <source>So&amp;urce Control</source>
-        <translation>Šal&amp;tinio kontrolė</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="277"/>
+        <location filename="../mainwindow.ui" line="253"/>
         <source>Wi&amp;ndow</source>
         <translation>Lan&amp;gas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="283"/>
+        <location filename="../mainwindow.ui" line="259"/>
         <source>&amp;View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="318"/>
+        <location filename="../mainwindow.ui" line="267"/>
+        <source>Go</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="300"/>
         <source>Files</source>
         <translation>Failai</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="352"/>
+        <location filename="../mainwindow.ui" line="334"/>
         <source>Sou&amp;rce Control</source>
         <translation>Šal&amp;tinio kontrolė</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="383"/>
+        <location filename="../mainwindow.ui" line="365"/>
         <source>&amp;New</source>
         <translation>&amp;Naujas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="386"/>
-        <location filename="../main.cpp" line="37"/>
+        <location filename="../mainwindow.ui" line="368"/>
+        <location filename="../main.cpp" line="34"/>
         <location filename="../mainwindow-objc.mm" line="154"/>
         <location filename="../mainwindow-objc.mm" line="156"/>
-        <location filename="../mainwindow.cpp" line="103"/>
+        <location filename="../mainwindow.cpp" line="89"/>
         <source>New</source>
         <translation>Naujas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="389"/>
+        <location filename="../mainwindow.ui" line="371"/>
         <source>Ctrl+N</source>
         <translation>Ctrl + N</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="398"/>
+        <location filename="../mainwindow.ui" line="380"/>
         <source>&amp;Save</source>
         <translation>&amp;Išsaugoti</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="401"/>
+        <location filename="../mainwindow.ui" line="383"/>
         <location filename="../mainwindow-objc.mm" line="137"/>
         <location filename="../mainwindow-objc.mm" line="139"/>
-        <location filename="../mainwindow.cpp" line="119"/>
+        <location filename="../mainwindow.cpp" line="105"/>
         <source>Save</source>
         <translation>Išsaugoti</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="404"/>
+        <location filename="../mainwindow.ui" line="386"/>
         <source>Ctrl+S</source>
         <translation>Ctrl + S</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="413"/>
+        <location filename="../mainwindow.ui" line="395"/>
         <source>&amp;Open</source>
         <translation>&amp;Atidaryti</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="416"/>
-        <location filename="../mainwindow.cpp" line="111"/>
+        <location filename="../mainwindow.ui" line="398"/>
+        <location filename="../mainwindow.cpp" line="97"/>
         <source>Open</source>
         <translation>Atidaryti</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="419"/>
+        <location filename="../mainwindow.ui" line="401"/>
         <source>Ctrl+O</source>
         <translation>Ctrl + O</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="428"/>
+        <location filename="../mainwindow.ui" line="410"/>
         <source>&amp;Exit</source>
         <translation>&amp;Išeiti</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="431"/>
+        <location filename="../mainwindow.ui" line="413"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl + Q</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="443"/>
+        <location filename="../mainwindow.ui" line="425"/>
         <source>&amp;Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="446"/>
+        <location filename="../mainwindow.ui" line="428"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="449"/>
+        <location filename="../mainwindow.ui" line="431"/>
         <source>Ctrl+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="458"/>
+        <location filename="../mainwindow.ui" line="440"/>
         <source>C&amp;ut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="461"/>
+        <location filename="../mainwindow.ui" line="443"/>
         <source>Cut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="464"/>
+        <location filename="../mainwindow.ui" line="446"/>
         <source>Ctrl+X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="473"/>
+        <location filename="../mainwindow.ui" line="455"/>
         <source>&amp;Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="476"/>
+        <location filename="../mainwindow.ui" line="458"/>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="479"/>
+        <location filename="../mainwindow.ui" line="461"/>
         <source>Ctrl+V</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="484"/>
+        <location filename="../mainwindow.ui" line="466"/>
         <source>&amp;No Highlighting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="496"/>
+        <location filename="../mainwindow.ui" line="478"/>
         <source>&amp;About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="640"/>
+        <location filename="../mainwindow.ui" line="622"/>
         <source>&amp;File Bug</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="652"/>
+        <location filename="../mainwindow.ui" line="634"/>
         <source>&amp;Sources</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="661"/>
+        <location filename="../mainwindow.ui" line="643"/>
         <source>U&amp;ndo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="673"/>
+        <location filename="../mainwindow.ui" line="655"/>
         <source>&amp;Redo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="685"/>
+        <location filename="../mainwindow.ui" line="667"/>
         <source>Sett&amp;ings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="700"/>
+        <location filename="../mainwindow.ui" line="682"/>
         <source>&amp;Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="703"/>
+        <location filename="../mainwindow.ui" line="685"/>
         <source>Ctrl+W</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="712"/>
+        <location filename="../mainwindow.ui" line="694"/>
         <source>&amp;New Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="715"/>
+        <location filename="../mainwindow.ui" line="697"/>
         <source>Ctrl+Shift+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="724"/>
+        <location filename="../mainwindow.ui" line="706"/>
         <source>Select All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="727"/>
+        <location filename="../mainwindow.ui" line="709"/>
         <source>Ctrl+A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="735"/>
+        <location filename="../mainwindow.ui" line="717"/>
         <source>Use Menubar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="508"/>
+        <location filename="../mainwindow.ui" line="730"/>
+        <source>Change Syntax Highlighting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="745"/>
+        <source>Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="748"/>
+        <source>Ctrl+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="757"/>
+        <source>Uppercase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="766"/>
+        <source>Lowercase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="775"/>
+        <source>Title Case</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="490"/>
         <source>&amp;Print</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="511"/>
+        <location filename="../mainwindow.ui" line="493"/>
         <source>Ctrl+P</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="516"/>
+        <location filename="../mainwindow.ui" line="498"/>
         <source>&amp;Push</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="524"/>
+        <location filename="../mainwindow.ui" line="506"/>
         <source>P&amp;ull</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="529"/>
+        <location filename="../mainwindow.ui" line="511"/>
         <source>&amp;Fetch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="538"/>
+        <location filename="../mainwindow.ui" line="520"/>
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="541"/>
+        <location filename="../mainwindow.ui" line="523"/>
         <source>F5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="550"/>
+        <location filename="../mainwindow.ui" line="532"/>
         <source>Sa&amp;ve All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="553"/>
+        <location filename="../mainwindow.ui" line="535"/>
         <source>Ctrl+Alt+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="562"/>
+        <location filename="../mainwindow.ui" line="544"/>
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="571"/>
+        <location filename="../mainwindow.ui" line="553"/>
         <source>Step Into</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="580"/>
+        <location filename="../mainwindow.ui" line="562"/>
         <source>Step Over</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="589"/>
+        <location filename="../mainwindow.ui" line="571"/>
         <source>Step Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="598"/>
+        <location filename="../mainwindow.ui" line="580"/>
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="607"/>
+        <location filename="../mainwindow.ui" line="589"/>
         <source>&amp;Find and Replace...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="610"/>
+        <location filename="../mainwindow.ui" line="592"/>
         <source>Ctrl+F</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="619"/>
+        <location filename="../mainwindow.ui" line="601"/>
         <source>Save As...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="622"/>
+        <location filename="../mainwindow.ui" line="604"/>
         <source>Ctrl+Shift+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="631"/>
+        <location filename="../mainwindow.ui" line="613"/>
         <source>&amp;Revert</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="36"/>
+        <location filename="../main.cpp" line="33"/>
         <source>File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="41"/>
+        <location filename="../main.cpp" line="38"/>
         <source>New Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="51"/>
+        <location filename="../main.cpp" line="48"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="57"/>
+        <location filename="../main.cpp" line="54"/>
         <source>File Bug</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="60"/>
+        <location filename="../main.cpp" line="57"/>
         <source>Sources</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="64"/>
+        <location filename="../main.cpp" line="61"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="664"/>
+        <location filename="../mainwindow.ui" line="646"/>
         <source>Ctrl+Z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="676"/>
+        <location filename="../mainwindow.ui" line="658"/>
         <source>Ctrl+Shift+Z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="46"/>
+        <location filename="../main.cpp" line="43"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="688"/>
+        <location filename="../mainwindow.ui" line="670"/>
         <source>Ctrl+,</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="248"/>
+        <location filename="../mainwindow.cpp" line="244"/>
         <source>No Clipboard History available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="271"/>
+        <location filename="../mainwindow.cpp" line="267"/>
         <source>Ctrl+Shift+V</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="575"/>
+        <location filename="../mainwindow.cpp" line="566"/>
         <source>Save Changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="576"/>
+        <location filename="../mainwindow.cpp" line="567"/>
         <source>Do you want to save your changes to this document?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="803"/>
+        <location filename="../mainwindow.cpp" line="773"/>
         <source>For %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="805"/>
+        <location filename="../mainwindow.cpp" line="775"/>
         <source>Edit in new tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="810"/>
+        <location filename="../mainwindow.cpp" line="780"/>
         <source>Edit in new window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="816"/>
-        <location filename="../mainwindow.cpp" line="823"/>
-        <location filename="../mainwindow.cpp" line="825"/>
+        <location filename="../mainwindow.cpp" line="786"/>
+        <location filename="../mainwindow.cpp" line="793"/>
+        <location filename="../mainwindow.cpp" line="795"/>
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="819"/>
+        <location filename="../mainwindow.cpp" line="789"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="825"/>
+        <location filename="../mainwindow.cpp" line="795"/>
         <source>What do you want to call this file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="862"/>
+        <location filename="../mainwindow.cpp" line="823"/>
         <source>No Recent Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="877"/>
+        <location filename="../mainwindow.cpp" line="838"/>
         <source>Clear Recent Items</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1122,12 +1195,12 @@
 <context>
     <name>PluginManager</name>
     <message>
-        <location filename="../plugins/pluginmanager.cpp" line="56"/>
+        <location filename="../plugins/pluginmanager.cpp" line="53"/>
         <source>theSlate may not work properly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugins/pluginmanager.cpp" line="56"/>
+        <location filename="../plugins/pluginmanager.cpp" line="53"/>
         <source>The Local File Backend was unable to be loaded. theSlate may quit unexpectedly.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1195,11 +1268,22 @@
     </message>
 </context>
 <context>
-    <name>ProgressDialog</name>
+    <name>SelectListDialog</name>
     <message>
-        <location filename="../SourceControl/GitDialogs/progressdialog.ui" line="14"/>
-        <source>Dialog</source>
+        <location filename="../textparts/selectlistdialog.ui" line="87"/>
+        <location filename="../textparts/selectlistdialog.ui" line="198"/>
+        <source>OK</source>
+        <translation type="unfinished">Gerai</translation>
+    </message>
+    <message>
+        <location filename="../textparts/selectlistdialog.ui" line="145"/>
+        <source>Search</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/selectlistdialog.ui" line="191"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Atšaukti</translation>
     </message>
 </context>
 <context>
@@ -1218,7 +1302,7 @@
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="148"/>
-        <location filename="../settingsdialog.ui" line="509"/>
+        <location filename="../settingsdialog.ui" line="516"/>
         <source>File Browser</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1233,57 +1317,62 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="366"/>
+        <location filename="../settingsdialog.ui" line="386"/>
         <source>Tabs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="373"/>
+        <location filename="../settingsdialog.ui" line="393"/>
         <source>Spaces</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="419"/>
+        <location filename="../settingsdialog.ui" line="345"/>
         <source>Tab Key Behaviour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="412"/>
+        <location filename="../settingsdialog.ui" line="358"/>
         <source>BEHAVIOUR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="433"/>
+        <location filename="../settingsdialog.ui" line="459"/>
         <source>Tab Character Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="440"/>
+        <location filename="../settingsdialog.ui" line="445"/>
         <source>End of Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="448"/>
+        <location filename="../settingsdialog.ui" line="427"/>
         <source>Unix (LF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="453"/>
+        <location filename="../settingsdialog.ui" line="432"/>
         <source>Macintosh (CR)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="458"/>
+        <location filename="../settingsdialog.ui" line="437"/>
         <source>Windows (CRLF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="543"/>
+        <location filename="../settingsdialog.ui" line="466"/>
+        <source>Wrap Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="550"/>
         <source>Show Hidden Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="599"/>
+        <location filename="../settingsdialog.ui" line="606"/>
         <source>OK</source>
         <translation type="unfinished">Gerai</translation>
     </message>
@@ -1329,146 +1418,228 @@
 <context>
     <name>TextEditor</name>
     <message>
-        <location filename="../texteditor.cpp" line="105"/>
+        <location filename="../textparts/texteditor.cpp" line="127"/>
         <source>New Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="161"/>
+        <location filename="../textparts/texteditor.cpp" line="175"/>
         <source>Merge Conflicts were found in this file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="164"/>
+        <location filename="../textparts/texteditor.cpp" line="178"/>
         <source>Resolve Merge Conflicts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="169"/>
+        <location filename="../textparts/texteditor.cpp" line="183"/>
         <source>Resolve a Merge Conflict</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="212"/>
+        <location filename="../textparts/texteditor.cpp" line="226"/>
         <source>File on disk changed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="213"/>
+        <location filename="../textparts/texteditor.cpp" line="227"/>
         <source>The file on the disk has changed. If you save this file you will lose the changes on disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="216"/>
+        <location filename="../textparts/texteditor.cpp" line="230"/>
         <source>Reload File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="222"/>
+        <location filename="../textparts/texteditor.cpp" line="236"/>
         <source>Merge Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="227"/>
+        <location filename="../textparts/texteditor.cpp" line="241"/>
         <source>File on Disk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="227"/>
+        <location filename="../textparts/texteditor.cpp" line="241"/>
         <source>Currently open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="232"/>
+        <location filename="../textparts/texteditor.cpp" line="246"/>
         <source>Resolve a Save Conflict</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="284"/>
+        <location filename="../textparts/texteditor.cpp" line="298"/>
         <source>File on disk deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="285"/>
+        <location filename="../textparts/texteditor.cpp" line="299"/>
         <source>The file on the disk has been deleted. If you save this file you will recreate the file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="294"/>
+        <location filename="../textparts/texteditor.cpp" line="308"/>
         <source>Can&apos;t open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="303"/>
+        <location filename="../textparts/texteditor.cpp" line="317"/>
         <source>Mixed Line Endings detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="304"/>
-        <source>If you save this file, we&apos;ll change all the line endings to your configuration in Settings.</source>
+        <location filename="../textparts/texteditor.cpp" line="318"/>
+        <source>When saving this file, we&apos;ll normalise all the line endings. You can choose which line endings to save as on the status bar.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="394"/>
+        <location filename="../textparts/texteditor.cpp" line="327"/>
+        <source>Incorrect Text Encoding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/texteditor.cpp" line="427"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="456"/>
+        <location filename="../textparts/texteditor.cpp" line="453"/>
+        <source>We tried opening this file with the %1 encoding, but it contains invalid characters. If you save the file in the incorrect encoding, you may lose data.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/texteditor.cpp" line="498"/>
         <source>Read Only File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="457"/>
+        <location filename="../textparts/texteditor.cpp" line="499"/>
         <source>This file is read only. You&apos;ll need to save it as a different file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="468"/>
+        <location filename="../textparts/texteditor.cpp" line="510"/>
         <source>Encoding Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="469"/>
+        <location filename="../textparts/texteditor.cpp" line="511"/>
         <source>Some characters used in this file cannot be encoded in the selected encoding. Saving this file will remove any invalid characters and may result in possible data loss.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="504"/>
+        <location filename="../textparts/texteditor.cpp" line="539"/>
         <source>There&apos;s no more space on this disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="506"/>
+        <location filename="../textparts/texteditor.cpp" line="541"/>
         <source>You don&apos;t have permission to save this file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="508"/>
+        <location filename="../textparts/texteditor.cpp" line="543"/>
         <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="511"/>
+        <location filename="../textparts/texteditor.cpp" line="546"/>
         <source>
 
 Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="514"/>
+        <location filename="../textparts/texteditor.cpp" line="549"/>
         <source>Couldn&apos;t save the file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="1027"/>
+        <location filename="../textparts/texteditor.cpp" line="1061"/>
         <source>Revert Changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../texteditor.cpp" line="1028"/>
+        <location filename="../textparts/texteditor.cpp" line="1062"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/texteditor.cpp" line="1469"/>
+        <source>No Highlighting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/texteditor.cpp" line="1472"/>
+        <source>Select Highlighting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/texteditor.cpp" line="1473"/>
+        <source>What type of code is this file?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/texteditor.cpp" line="1531"/>
+        <source>Go To Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/texteditor.cpp" line="1531"/>
+        <source>What line do you want to go to?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/texteditor.cpp" line="330"/>
+        <location filename="../textparts/texteditor.cpp" line="1507"/>
+        <source>Select Encoding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/texteditor.cpp" line="1508"/>
+        <source>What file encoding do you want to use?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TextStatusBar</name>
+    <message>
+        <location filename="../textparts/textstatusbar.cpp" line="44"/>
+        <source>Line Endings for this file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/textstatusbar.cpp" line="62"/>
+        <source>No Highlighting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/textstatusbar.cpp" line="95"/>
+        <source>Ln %1, Col %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../textparts/textstatusbar.cpp" line="100"/>
+        <source>%n spaces</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../textparts/textstatusbar.cpp" line="102"/>
+        <source>%n tabs</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -1492,22 +1663,22 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.cpp" line="169"/>
+        <location filename="../main.cpp" line="143"/>
         <source>Read from standard input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="172"/>
+        <location filename="../main.cpp" line="146"/>
         <source>files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="172"/>
+        <location filename="../main.cpp" line="146"/>
         <source>Files to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="172"/>
+        <location filename="../main.cpp" line="146"/>
         <source>[files...]</source>
         <translation type="unfinished"></translation>
     </message>

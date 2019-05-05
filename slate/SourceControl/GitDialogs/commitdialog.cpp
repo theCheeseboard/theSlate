@@ -2,7 +2,7 @@
 #include "ui_commitdialog.h"
 
 #include "../statusmodel.h"
-#include "texteditor.h"
+#include "textparts/texteditor.h"
 #include "plugins/pluginmanager.h"
 #include <tmessagebox.h>
 

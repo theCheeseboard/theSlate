@@ -72,6 +72,7 @@ QVariant CommitsModel::data(const QModelIndex &index, int role) const
         }
     } else {
         GitIntegration::CommitPointer commit = d->shownCommits.at(index.row() - d->actions.count());
+        if (commit.isNull()) return QVariant();
         switch (role) {
             case Qt::DisplayRole:
                 return commit->hash;
@@ -113,23 +114,25 @@ void CommitsModel::reloadActions() {
         QString branchName;
         if (d->gi->branch().isNull()) {
             branchName = "...";
+            d->actions.append({tr("New Commit"), tr("Create new commit"), QIcon::fromTheme("list-add", QIcon(":/icons/list-add.svg")), "new"});
+
         } else {
             branchName = d->gi->branch()->name;
-        }
 
-        d->actions.append({tr("New Commit"), tr("Create new commit on %1").arg(branchName), QIcon::fromTheme("list-add", QIcon(":/icons/list-add.svg")), "new"});
+            d->actions.append({tr("New Commit"), tr("Create new commit on %1").arg(branchName), QIcon::fromTheme("list-add", QIcon(":/icons/list-add.svg")), "new"});
 
-        //Depending on the status of the repository, do different things
-        int pull = d->gi->commitsPendingPull();
-        int push = d->gi->commitsPendingPush();
-        if (d->gi->branch()->upstream.isNull()) {
-            d->actions.append({tr("No Upstream Branch"), tr("No upstream branch has been configured."), QIcon(), "no-upstream"});
-        } else if (pull > 0) {
-            d->actions.append({tr("Pull Remote Changes"), tr("%n incoming commits", nullptr, pull), QIcon::fromTheme("go-down", QIcon(":/icons/go-down.svg")), "pull"});
-        } else if (push > 0) {
-            d->actions.append({tr("Push Local Changes"), tr("%n outgoing commits", nullptr, push), QIcon::fromTheme("go-up", QIcon(":/icons/go-up.svg")), "push"});
-        } else {
-            d->actions.append({tr("Up to date"), tr("Your local repository is up to date"), QIcon::fromTheme("dialog-ok", QIcon(":/icons/dialog-ok.svg")), "up-to-date"});
+            //Depending on the status of the repository, do different things
+            int pull = d->gi->commitsPendingPull();
+            int push = d->gi->commitsPendingPush();
+            if (d->gi->branch()->upstream.isNull()) {
+                d->actions.append({tr("No Upstream Branch"), tr("No upstream branch has been configured."), QIcon(), "no-upstream"});
+            } else if (pull > 0) {
+                d->actions.append({tr("Pull Remote Changes"), tr("%n incoming commits", nullptr, pull), QIcon::fromTheme("go-down", QIcon(":/icons/go-down.svg")), "pull"});
+            } else if (push > 0) {
+                d->actions.append({tr("Push Local Changes"), tr("%n outgoing commits", nullptr, push), QIcon::fromTheme("go-up", QIcon(":/icons/go-up.svg")), "push"});
+            } else {
+                d->actions.append({tr("Up to date"), tr("Your local repository is up to date"), QIcon::fromTheme("dialog-ok", QIcon(":/icons/dialog-ok.svg")), "up-to-date"});
+            }
         }
     }
 

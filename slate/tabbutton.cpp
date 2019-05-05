@@ -2,7 +2,7 @@
 
 TabButton::TabButton(QWidget *parent) : QPushButton(parent)
 {
-    this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 
     connect(this, &TabButton::toggled, [=] {
         this->update();
@@ -30,7 +30,7 @@ void TabButton::updateTitle(QString title) {
 void TabButton::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     QPalette pal = this->palette();
-    QRect rect = event->rect();
+    QRect rect(0, 0, this->width(), this->height());
 
     painter.setPen(Qt::transparent);
 
@@ -99,7 +99,7 @@ void TabButton::paintEvent(QPaintEvent *event) {
 
 QSize TabButton::sizeHint() const {
     QSize size;
-    size.setHeight(this->fontMetrics().height() + 20);
+    size.setHeight(this->fontMetrics().height() + 20 * theLibsGlobal::getDPIScaling());
     //size.setWidth(this->fontMetrics().width(this->text()) + 20 + this->iconSize().width());
     size.setWidth(size.height());
     return size;

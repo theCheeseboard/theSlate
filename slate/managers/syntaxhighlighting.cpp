@@ -4,10 +4,6 @@
 #include <QDir>
 #include <QScopedPointer>
 
-#ifdef Q_OS_MAC
-    extern QString bundlePath;
-#endif
-
 QColor parseString(QString s) {
     QStringList parts = s.split(",");
     if (parts.count() != 3) return QColor();

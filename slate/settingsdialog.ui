@@ -339,6 +339,26 @@
                <property name="spacing">
                 <number>6</number>
                </property>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_5">
+                 <property name="text">
+                  <string>Tab Key Behaviour</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0" colspan="2">
+                <widget class="QLabel" name="label_6">
+                 <property name="font">
+                  <font>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>BEHAVIOUR</string>
+                 </property>
+                </widget>
+               </item>
                <item row="1" column="1">
                 <widget class="QWidget" name="widget" native="true">
                  <property name="sizePolicy">
@@ -400,47 +420,6 @@
                  </layout>
                 </widget>
                </item>
-               <item row="0" column="0" colspan="2">
-                <widget class="QLabel" name="label_6">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>BEHAVIOUR</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_5">
-                 <property name="text">
-                  <string>Tab Key Behaviour</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QSpinBox" name="tabCharWidth">
-                 <property name="singleStep">
-                  <number>4</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_7">
-                 <property name="text">
-                  <string>Tab Character Width</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_8">
-                 <property name="text">
-                  <string>End of Line</string>
-                 </property>
-                </widget>
-               </item>
                <item row="3" column="1">
                 <widget class="QComboBox" name="endOfLineComboBox">
                  <item>
@@ -458,6 +437,34 @@
                    <string>Windows (CRLF)</string>
                   </property>
                  </item>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_8">
+                 <property name="text">
+                  <string>End of Line</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QSpinBox" name="tabCharWidth">
+                 <property name="singleStep">
+                  <number>4</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_7">
+                 <property name="text">
+                  <string>Tab Character Width</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0" colspan="2">
+                <widget class="QCheckBox" name="wrapTextBox">
+                 <property name="text">
+                  <string>Wrap Text</string>
+                 </property>
                 </widget>
                </item>
               </layout>

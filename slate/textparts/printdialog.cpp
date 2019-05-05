@@ -5,6 +5,7 @@
 #include <QSpinBox>
 #include <QRadioButton>
 #include <QCheckBox>
+#include "texteditor.h"
 
 PrintDialog::PrintDialog(TextEditor* editor, QWidget *parent) :
     QDialog(parent),

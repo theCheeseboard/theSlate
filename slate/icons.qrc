@@ -37,5 +37,9 @@
         <file>icons/go-up.svg</file>
         <file>icons/user.svg</file>
         <file>icons/dialog-cancel.svg</file>
+        <file>icons/application-menu.svg</file>
+        <file>icons/format-text-capitalize.svg</file>
+        <file>icons/format-text-lowercase.svg</file>
+        <file>icons/format-text-uppercase.svg</file>
     </qresource>
 </RCC>

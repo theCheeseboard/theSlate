@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string notr="true">Dialog</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -206,7 +206,7 @@
              <item>
               <widget class="QLabel" name="branchIcon">
                <property name="text">
-                <string>Branch</string>
+                <string notr="true">Branch</string>
                </property>
               </widget>
              </item>
@@ -229,7 +229,7 @@
              <item>
               <widget class="QLabel" name="userIcon">
                <property name="text">
-                <string>User</string>
+                <string notr="true">User</string>
                </property>
               </widget>
              </item>

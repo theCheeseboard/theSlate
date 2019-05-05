@@ -56,12 +56,16 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     tabbutton.cpp \
-    texteditor.cpp \
     aboutwindow.cpp \
-    syntaxhighlighter.cpp \
+    SyntaxHighlighting/syntaxhighlighter.cpp \
     SourceControl/gitintegration.cpp \
     textparts/findreplace.cpp \
     exitsavedialog.cpp \
+    textparts/selectlistdialog.cpp \
+    textparts/statusbarbutton.cpp \
+    textparts/texteditor.cpp \
+    textparts/texteditorblockdata.cpp \
+    textparts/textstatusbar.cpp \
     textparts/topnotification.cpp \
     textparts/mergetool.cpp \
     textparts/printdialog.cpp \
@@ -78,17 +82,22 @@ SOURCES += \
     SourceControl/GitDialogs/commitdialog.cpp \
     SourceControl/statusmodel.cpp \
     SourceControl/GitDialogs/progressdialog.cpp \
-    SourceControl/GitDialogs/authenticationdialog.cpp
+    SourceControl/GitDialogs/authenticationdialog.cpp \
+    textwidget.cpp
 
 HEADERS += \
         mainwindow.h \
     tabbutton.h \
-    texteditor.h \
     aboutwindow.h \
-    syntaxhighlighter.h \
+    SyntaxHighlighting/syntaxhighlighter.h \
     SourceControl/gitintegration.h \
     textparts/findreplace.h \
     exitsavedialog.h \
+    textparts/selectlistdialog.h \
+    textparts/statusbarbutton.h \
+    textparts/texteditor.h \
+    textparts/texteditorblockdata.h \
+    textparts/textstatusbar.h \
     textparts/topnotification.h \
     textparts/mergetool.h \
     textparts/printdialog.h \
@@ -105,7 +114,8 @@ HEADERS += \
     SourceControl/GitDialogs/commitdialog.h \
     SourceControl/statusmodel.h \
     SourceControl/GitDialogs/progressdialog.h \
-    SourceControl/GitDialogs/authenticationdialog.h
+    SourceControl/GitDialogs/authenticationdialog.h \
+    textwidget.h
 
 macx {
     SOURCES += \
@@ -118,6 +128,8 @@ FORMS += \
     aboutwindow.ui \
     textparts/findreplace.ui \
     exitsavedialog.ui \
+    textparts/selectlistdialog.ui \
+    textparts/textstatusbar.ui \
     textparts/topnotification.ui \
     textparts/mergetool.ui \
     textparts/printdialog.ui \
@@ -127,7 +139,8 @@ FORMS += \
     SourceControl/GitDialogs/addbranchdialog.ui \
     SourceControl/GitDialogs/commitdialog.ui \
     SourceControl/GitDialogs/progressdialog.ui \
-    SourceControl/GitDialogs/authenticationdialog.ui
+    SourceControl/GitDialogs/authenticationdialog.ui \
+    textwidget.ui
 
 RESOURCES += \
     icons.qrc \

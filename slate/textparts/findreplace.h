@@ -10,13 +10,16 @@ namespace Ui {
     class FindReplace;
 }
 
+struct FindReplacePrivate;
 class FindReplace : public QWidget
 {
         Q_OBJECT
 
     public:
-        explicit FindReplace(TextEditor *parent = 0);
+        explicit FindReplace(QWidget *parent = 0);
         ~FindReplace();
+
+        void setEditor(TextEditor* editor);
 
     public slots:
         void setFocus();
@@ -40,10 +43,9 @@ class FindReplace : public QWidget
 
     private:
         Ui::FindReplace *ui;
+        FindReplacePrivate* d;
 
-        TextEditor* editor;
-        QList<int> indices;
-        int textLength;
+        QRegularExpression searchExpression(QString text);
 
         void hideEvent(QHideEvent* event);
         void showEvent(QShowEvent* event);

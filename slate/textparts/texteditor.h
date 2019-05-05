@@ -16,19 +16,18 @@
 #include <QTextCodec>
 #include "tabbutton.h"
 #include "SourceControl/gitintegration.h"
-#include "textparts/findreplace.h"
 #include "textparts/topnotification.h"
 #include "textparts/mergetool.h"
 
 #include <Definition>
 
 class TabButton;
-class FindReplace;
 class MainWindow;
 class FileBackend;
 struct MergeLines;
 
 class TextEditorPrivate;
+class TextStatusBar;
 
 class TextEditorLeftMargin : public QWidget
 {
@@ -53,9 +52,17 @@ class TextEditor : public QPlainTextEdit
     Q_OBJECT
 
     public:
-        explicit TextEditor(MainWindow *parent);
+        explicit TextEditor(QWidget *parent);
         ~TextEditor();
 
+        enum Casing {
+            Uppercase,
+            Titlecase,
+            Lowercase
+        };
+
+        void setMainWindow(MainWindow* mainWindow);
+        void setStatusBar(TextStatusBar* statusBar);
 
         QUrl fileUrl();
         QString title();
@@ -64,8 +71,6 @@ class TextEditor : public QPlainTextEdit
 
         void leftMarginPaintEvent(QPaintEvent *event);
         int leftMarginWidth();
-
-        GitIntegration* git = nullptr;
 
     signals:
         void backendChanged();
@@ -91,14 +96,20 @@ class TextEditor : public QPlainTextEdit
         QList<QTextEdit::ExtraSelection> extraSelectionGroup(QString extraSelectionGroup);
         void clearExtraSelectionGroup(QString extraSelectionGroups);
 
-        void toggleFindReplace();
         void lockScrolling(TextEditor* other);
         void setMergedLines(QList<MergeLines> mergedLines);
         bool mergedLineIsAccepted(MergeLines mergedLine);
         void toggleMergedLines(int line);
         void updateMergedLinesColour();
 
+        void commentSelectedText();
+        void setSelectedTextCasing(Casing casing);
+
+        void chooseHighlighter();
+        void chooseCodec(bool reload = false);
         void setTextCodec(QTextCodec* codec);
+
+        void gotoLine();
 
         void reloadSettings();
 

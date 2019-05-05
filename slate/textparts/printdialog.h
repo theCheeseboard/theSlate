@@ -1,16 +1,16 @@
 #ifndef PRINTDIALOG_H
 #define PRINTDIALOG_H
 
-#include <QWidget>
+#include <QDialog>
 #include <QPrinter>
 #include <QPrintPreviewWidget>
 #include <QPrinterInfo>
-#include "texteditor.h"
 
 namespace Ui {
     class PrintDialog;
 }
 
+class TextEditor;
 class PrintDialog : public QDialog
 {
         Q_OBJECT

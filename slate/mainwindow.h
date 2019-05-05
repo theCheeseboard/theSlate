@@ -22,7 +22,7 @@
 #include <QDockWidget>
 #include <QTabBar>
 #include "aboutwindow.h"
-#include "texteditor.h"
+#include "textparts/texteditor.h"
 #include "SourceControl/gitintegration.h"
 #include "textparts/printdialog.h"
 
@@ -39,6 +39,8 @@ namespace Ui {
     class MainWindow;
 }
 
+class TextWidget;
+struct MainWindowPrivate;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -59,7 +61,8 @@ class MainWindow : public QMainWindow
 
         void updateGit();
 
-        TextEditor* currentDocument();
+        TextWidget* currentDocument();
+        TextEditor* currentEditor();
 
     private slots:
         void on_actionNew_triggered();
@@ -86,15 +89,9 @@ class MainWindow : public QMainWindow
 
         void on_actionAbout_triggered();
 
-        void on_actionNo_Highlighting_triggered();
-
         void on_projectTree_clicked(const QModelIndex &index);
 
-        void on_modifiedChanges_itemChanged(QListWidgetItem *item);
-
         void on_actionSave_All_triggered();
-
-        void setCurrentDocumentHighlighting(KSyntaxHighlighting::Definition highlighter);
 
         void on_actionFind_and_Replace_triggered();
 
@@ -122,11 +119,25 @@ class MainWindow : public QMainWindow
 
         void on_actionSelect_All_triggered();
 
-        void on_sourceControlPanes_currentChanged(int arg1);
-
         void updateRecentFiles();
 
         void on_actionUse_Menubar_toggled(bool arg1);
+
+        void on_actionComment_triggered();
+
+        void on_actionChange_Syntax_Highlighting_triggered();
+
+        void on_actionChange_File_Encoding_triggered();
+
+        void on_actionReload_Using_Encoding_triggered();
+
+        void on_actionLine_triggered();
+
+        void on_actionUppercase_triggered();
+
+        void on_actionLowercase_triggered();
+
+        void on_actionTitle_Case_triggered();
 
     signals:
 #ifdef Q_OS_MAC
@@ -135,6 +146,7 @@ class MainWindow : public QMainWindow
 
 private:
         Ui::MainWindow *ui;
+        MainWindowPrivate* d;
 
         void closeEvent(QCloseEvent* event);
 
@@ -149,15 +161,6 @@ private:
         void setupMacOS();
         void updateTouchBar();
 #endif
-
-        QFileSystemModel* fileModel;
-        QString currentProjectFile = "";
-        QString projectType = "";
-        QSettings settings;
-        QTabBar* tabBar;
-        QToolButton* menuButton;
-        QAction* menuAction = nullptr;
-        QMap<TextEditor*, TopNotification*> primaryTopNotifications;
 };
 
 #endif // MAINWINDOW_H

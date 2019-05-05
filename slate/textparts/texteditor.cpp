@@ -6,14 +6,19 @@
 #include <QScrollBar>
 #include <QMenuBar>
 #include <QSignalBlocker>
+#include <QMimeDatabase>
+#include <QInputDialog>
 #include <tcircularspinner.h>
 #include "the-libs_global.h"
 #include "mainwindow.h"
 #include "plugins/pluginmanager.h"
 #include "managers/recentfilesmanager.h"
+#include "textparts/textstatusbar.h"
+#include "textparts/selectlistdialog.h"
+#include "texteditorblockdata.h"
 
 #include <Repository>
-#include <SyntaxHighlighter>
+#include "SyntaxHighlighting/syntaxhighlighter.h"
 #include <Theme>
 
 #if THE_LIBS_API_VERSION >= 3
@@ -31,7 +36,7 @@ class TextEditorPrivate {
         bool active;
         bool edited = false;
         bool firstEdit = true;
-        KSyntaxHighlighting::SyntaxHighlighter* hl = nullptr;
+        SyntaxHighlighter* hl = nullptr;
         KSyntaxHighlighting::Definition hlDef;
         MainWindow* parentWindow;
 
@@ -42,14 +47,13 @@ class TextEditorPrivate {
         TextEditorLeftMargin *leftMargin = nullptr;
         int brokenLine = -1;
 
-        FindReplace* findReplaceWidget;
         QMap<QString, QList<QTextEdit::ExtraSelection>> extraSelectionGroups;
 
         QList<QWidget*> topPanels;
         QWidget* topPanelWidget;
         QBoxLayout* topPanelLayout;
 
-        TopNotification *mergeConflictsNotification, *onDiskChanged, *fileReadError, *onDiskDeleted, *mixedLineEndings;
+        TopNotification *mergeConflictsNotification, *onDiskChanged, *fileReadError, *onDiskDeleted, *mixedLineEndings, *decodingProblem;
 
         TextEditor* scrollingLock = nullptr;
 
@@ -61,42 +65,60 @@ class TextEditorPrivate {
 
         QWidget* cover;
 
-        int currentLineEndings = -2;
-
         FileBackend* currentBackend = nullptr;
-};
+        TextStatusBar* statusBar = nullptr;
 
-
-class TextEditorBlockData : public QTextBlockUserData {
-    public:
-        enum MarginState {
-            None,
-            Edited,
-            SavedEdited
-        };
-
-        TextEditorBlockData(TextEditor* parent) {
-            editedConnection = QObject::connect(parent, &TextEditor::editedChanged, [=] {
-                if (!parent->isEdited() && this->marginState == Edited) this->marginState = SavedEdited;
-            });
-        }
-        ~TextEditorBlockData() {
-            QObject::disconnect(editedConnection);
+        QString getIndentCharacters() {
+            QString spacingCharacters;
+            bool tabSpaces = settings.value("behaviour/tabSpaces", true).toBool();
+            if (tabSpaces) {
+                spacingCharacters = QString().fill(' ', settings.value("behaviour/tabSpaceNumber", 4).toInt());
+            } else {
+                spacingCharacters = "\t";
+            }
+            return spacingCharacters;
         }
 
-        MarginState marginState = None;
+        void forEverySelectedLine(QTextCursor selection, std::function<void (QTextCursor)> function) {
+            QTextCursor startCursor(selection.document());
+            startCursor.setPosition(selection.selectionStart());
 
-    private:
-        QMetaObject::Connection editedConnection;
+            if (selection.hasSelection()) {
+                QTextCursor endCursor(selection.document());
+                endCursor.setPosition(selection.selectionEnd());
+
+                startCursor.beginEditBlock();
+
+                //Comment each line
+                bool couldMove;
+                do {
+                    startCursor.movePosition(QTextCursor::StartOfBlock);
+                    function(startCursor);
+                    couldMove = startCursor.movePosition(QTextCursor::NextBlock);
+                } while (startCursor.blockNumber() != endCursor.blockNumber() || !couldMove);
+
+                if (couldMove) {
+                    //Comment one more line
+                    startCursor.movePosition(QTextCursor::StartOfBlock);
+                    function(startCursor);
+                }
+
+                startCursor.endEditBlock();
+            } else {
+                startCursor.beginEditBlock();
+                startCursor.movePosition(QTextCursor::StartOfBlock);
+                function(startCursor);
+                startCursor.endEditBlock();
+            }
+        }
 };
 
-TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
+TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
     d = new TextEditorPrivate();
     this->setLineWrapMode(NoWrap);
 
     QFont normalFont = this->font();
-    d->parentWindow = parent;
 
     d->button = new TabButton(this);
     connect(d->button, &TabButton::destroyed, [=] {
@@ -108,9 +130,9 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
         if (d->firstEdit) {
             d->firstEdit = false;
         } else {
-            //if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
-            //((TextEditorBlockData*) this->textCursor().block().userData())->marginState = TextEditorBlockData::Edited;
-            //d->leftMargin->update();
+            if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
+            ((TextEditorBlockData*) this->textCursor().block().userData())->marginState = TextEditorBlockData::Edited;
+            d->leftMargin->update();
             d->edited = true;
             emit editedChanged();
         }
@@ -121,19 +143,11 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
     });
 
     d->leftMargin = new TextEditorLeftMargin(this);
-    connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLeftMarginAreaWidth()));
-    connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLeftMarginArea(QRect,int)));
-    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorLocationChanged()));
+    connect(this, &QPlainTextEdit::blockCountChanged, this, &TextEditor::updateLeftMarginAreaWidth);
+    connect(this, &QPlainTextEdit::updateRequest, this, &TextEditor::updateLeftMarginArea);
+    connect(this, &QPlainTextEdit::cursorPositionChanged, this, &TextEditor::cursorLocationChanged);
 
     d->leftMargin->setVisible(true);
-    highlightCurrentLine();
-
-    d->findReplaceWidget = new FindReplace(this);
-    d->findReplaceWidget->setFont(normalFont);
-    d->findReplaceWidget->setFixedWidth(500 * theLibsGlobal::getDPIScaling());
-    d->findReplaceWidget->setFixedHeight(d->findReplaceWidget->sizeHint().height());
-    d->findReplaceWidget->hide();
-    //findReplaceWidget->show();
 
     d->cover = new QWidget();
     d->cover->setParent(this);
@@ -301,11 +315,23 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
     {
         d->mixedLineEndings = new TopNotification();
         d->mixedLineEndings->setTitle(tr("Mixed Line Endings detected"));
-        d->mixedLineEndings->setText(tr("If you save this file, we'll change all the line endings to your configuration in Settings."));
+        d->mixedLineEndings->setText(tr("When saving this file, we'll normalise all the line endings. You can choose which line endings to save as on the status bar."));
 
         connect(d->mixedLineEndings, &TopNotification::closeNotification, [=] {
             removeTopPanel(d->mixedLineEndings);
         });
+    }
+
+    {
+        d->decodingProblem = new TopNotification();
+        d->decodingProblem->setTitle(tr("Incorrect Text Encoding"));
+
+        QPushButton* selectEncodingButton = new QPushButton();
+        selectEncodingButton->setText(tr("Select Encoding"));
+        connect(selectEncodingButton, &QPushButton::clicked, this, [=] {
+            this->chooseCodec(true);
+        });
+        d->decodingProblem->addButton(selectEncodingButton);
     }
 
     connect(this->verticalScrollBar(), &QScrollBar::valueChanged, [=](int position) {
@@ -315,14 +341,28 @@ TextEditor::TextEditor(MainWindow *parent) : QPlainTextEdit(parent)
     });
 
     connect((QApplication*) QApplication::instance(), &QApplication::paletteChanged, this, &TextEditor::reloadSettings);
-    reloadSettings();
 }
 
 TextEditor::~TextEditor() {
     if (d->button != nullptr) {
         d->button->setVisible(false);
     }
+    d->leftMargin->deleteLater();
     delete d;
+}
+
+void TextEditor::setMainWindow(MainWindow *mainWindow) {
+    d->parentWindow = mainWindow;
+}
+
+void TextEditor::setStatusBar(TextStatusBar *statusBar) {
+    d->statusBar = statusBar;
+
+    cursorLocationChanged();
+    setTextCodec(QTextCodec::codecForName("UTF-8"));
+    setHighlighter(highlightRepo->definitionForName("None"));
+
+    reloadSettings();
 }
 
 TabButton* TextEditor::getTabButton() {
@@ -351,6 +391,7 @@ void TextEditor::openFile(FileBackend *backend) {
     removeTopPanel(d->onDiskDeleted);
     removeTopPanel(d->fileReadError);
     removeTopPanel(d->mixedLineEndings);
+    removeTopPanel(d->decodingProblem);
 
     d->cover->setVisible(true);
     d->cover->raise();
@@ -369,15 +410,7 @@ void TextEditor::openFile(FileBackend *backend) {
             setHighlighter(def);
         }
 
-        if (git != nullptr) {
-            git->deleteLater();
-            git = nullptr;
-        }
-        if (d->currentBackend->url().isLocalFile()) {
-            git = new GitIntegration(QFileInfo(d->currentBackend->url().toLocalFile()).absoluteDir().path());
-            connect(git, SIGNAL(reloadStatusNeeded()), d->parentWindow, SLOT(updateGit()));
-        }
-        d->parentWindow->updateGit();
+        if (d->parentWindow != nullptr) d->parentWindow->updateGit();
 
         emit backendChanged();
         d->cover->setVisible(false);
@@ -408,33 +441,42 @@ void TextEditor::openFile(FileBackend *backend) {
 
 void TextEditor::loadText(QByteArray data) {
     if (d->textCodec == nullptr) {
-        d->textCodec = QTextCodec::codecForUtfText(data, QTextCodec::codecForName("UTF-8"));
+        setTextCodec(QTextCodec::codecForUtfText(data, QTextCodec::codecForName("UTF-8")));
     }
 
-    this->setPlainText(d->textCodec->toUnicode(data));
+    QTextDecoder* decoder = d->textCodec->makeDecoder(QTextCodec::ConvertInvalidToNull);
+    QString decoded = decoder->toUnicode(data);
+    this->setPlainText(decoded);
     d->edited = false;
+
+    if (decoder->hasFailure()) {
+        d->decodingProblem->setText(tr("We tried opening this file with the %1 encoding, but it contains invalid characters. If you save the file in the incorrect encoding, you may lose data.").arg(QString(d->textCodec->name())));
+        addTopPanel(d->decodingProblem);
+    }
+
+    delete decoder;
 
     //Detect line endings;
     char endings = 0;
     if (data.contains("\r\n"))                                    endings |= 0b001;
-    if (QRegularExpression("(?<!\\r)\\n").match(data).hasMatch()) endings |= 0b010;
-    if (QRegularExpression("\\r(?!\\n)").match(data).hasMatch())  endings |= 0b100;
+    if (QRegularExpression("\\r(?!\\n)").match(data).hasMatch())  endings |= 0b010;
+    if (QRegularExpression("(?<!\\r)\\n").match(data).hasMatch()) endings |= 0b100;
 
     switch (endings) {
         case 0b000: //No line endings
-            d->currentLineEndings = -2;
+            if (d->statusBar != nullptr) d->statusBar->setLineEndings(-1);
             break;
         case 0b001: //Windows
-            d->currentLineEndings = 2;
+            if (d->statusBar != nullptr) d->statusBar->setLineEndings(2);
             break;
         case 0b010: //Macintosh
-            d->currentLineEndings = 1;
+            if (d->statusBar != nullptr) d->statusBar->setLineEndings(1);
             break;
         case 0b100: //UNIX
-            d->currentLineEndings = 0;
+            if (d->statusBar != nullptr) d->statusBar->setLineEndings(0);
             break;
         default: //Mixed line endings
-            d->currentLineEndings = -1;
+            if (d->statusBar != nullptr) d->statusBar->setLineEndings(-1);
             addTopPanel(d->mixedLineEndings);
     }
 
@@ -476,17 +518,10 @@ bool TextEditor::saveFile() {
         d->currentBackend->save(saveData)->then([=] {
             removeTopPanel(d->onDiskChanged);
             removeTopPanel(d->onDiskDeleted);
+            removeTopPanel(d->decodingProblem);
             d->edited = false;
 
-            if (git != nullptr) {
-                git->deleteLater();
-                git = nullptr;
-            }
-            if (d->currentBackend->url().isLocalFile()) {
-                git = new GitIntegration(QFileInfo(d->currentBackend->url().toLocalFile()).absoluteDir().path());
-                connect(git, SIGNAL(reloadStatusNeeded()), d->parentWindow, SLOT(updateGit()));
-            }
-            d->parentWindow->updateGit();
+            if (d->parentWindow != nullptr) d->parentWindow->updateGit();
 
             emit backendChanged();
             emit editedChanged();
@@ -531,19 +566,40 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
     QTextCursor cursor = this->textCursor();
     bool handle = false;
 
-    QString spacingCharacters;
+    QString spacingCharacters = d->getIndentCharacters();
+    int spaceNum = spacingCharacters.count();
     bool tabSpaces = d->settings.value("behaviour/tabSpaces", true).toBool();
-    int spaceNum;
-    if (tabSpaces) {
-        spaceNum = d->settings.value("behaviour/tabSpaceNumber", 4).toInt();
-        spacingCharacters = QString().fill(' ', spaceNum);
-    } else {
-        spaceNum = 1;
-        spacingCharacters = "\t";
-    }
 
-    if (event->key() == Qt::Key_Tab) {
-        cursor.insertText(spacingCharacters);
+    if (event->key() == Qt::Key_Tab || event->key() == Qt::Key_Backtab) {
+        QTextCursor startCursor(this->document());
+        startCursor.setPosition(cursor.selectionStart());
+
+        QTextCursor endCursor(this->document());
+        endCursor.setPosition(cursor.selectionEnd());
+
+        if (startCursor.blockNumber() == endCursor.blockNumber()) {
+            //Insert a tab
+            if (event->key() == Qt::Key_Tab) cursor.insertText(spacingCharacters);
+        } else {
+            startCursor.beginEditBlock();
+            if (event->key() == Qt::Key_Backtab) {
+                //Outdent each line
+                d->forEverySelectedLine(cursor, [=](QTextCursor cursor) {
+                    for (int i = 0; i < spaceNum; i++) {
+                        cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+                        if (cursor.selectedText() == spacingCharacters.at(0)) {
+                            cursor.removeSelectedText();
+                        }
+                        cursor.movePosition(QTextCursor::StartOfBlock);
+                    }
+                });
+            } else {
+                d->forEverySelectedLine(cursor, [=](QTextCursor cursor) {
+                    cursor.insertText(spacingCharacters);
+                });
+            }
+            startCursor.endEditBlock();
+        }
         handle = true;
     } else if (event->key() == Qt::Key_Backspace) {
         cursor.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor);
@@ -655,40 +711,6 @@ void TextEditor::keyPressEvent(QKeyEvent *event) {
             cursor.movePosition(QTextCursor::Right);
             handle = true;
         }
-    /*} else if (event->text() == "\"" && highlighter()->currentCodeType() != SyntaxHighlighter::none) {
-        cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
-        QString right = cursor.selectedText();
-        cursor.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor, 2);
-        QString left = cursor.selectedText();
-        if (left != "\\") {
-            if (right == "\"") {
-                cursor = this->textCursor();
-                cursor.movePosition(QTextCursor::Right);
-            } else {
-                cursor = this->textCursor();
-                cursor.insertText("\"");
-                cursor.insertText("\"");
-                cursor.movePosition(QTextCursor::Left);
-            }
-            handle = true;
-        }
-    } else if (event->text() == "'" && highlighter()->currentCodeType() != SyntaxHighlighter::none) {
-        cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
-        QString right = cursor.selectedText();
-        cursor.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor, 2);
-        QString left = cursor.selectedText();
-        if (left != "\\") {
-            if (right == "'") {
-                cursor = this->textCursor();
-                cursor.movePosition(QTextCursor::Right);
-            } else {
-                cursor = this->textCursor();
-                cursor.insertText("'");
-                cursor.insertText("'");
-                cursor.movePosition(QTextCursor::Left);
-            }
-            handle = true;
-        }*/
     }
 
     if (handle) {
@@ -708,6 +730,7 @@ int TextEditor::leftMarginWidth()
     }
 
     int space = 3 + fontMetrics().height() + fontMetrics().width(QLatin1Char('9')) * digits;
+    space += 9 * theLibsGlobal::getDPIScaling();
 
     return space;
 }
@@ -717,7 +740,7 @@ void TextEditor::updateLeftMarginAreaWidth()
     d->topPanelWidget->updateGeometry();
     int height = d->topPanelWidget->sizeHint().height();
     d->topPanelWidget->setFixedHeight(height);
-    setViewportMargins(leftMarginWidth(), height, 0, 0);
+    setViewportMargins(leftMarginWidth() - 4 * theLibsGlobal::getDPIScaling(), height, 0, 0);
 }
 
 void TextEditor::updateLeftMarginArea(const QRect &rect, int dy)
@@ -738,10 +761,7 @@ void TextEditor::resizeEvent(QResizeEvent *event)
     QPlainTextEdit::resizeEvent(event);
 
     QRect cr = contentsRect();
-    d->leftMargin->setGeometry(QRect(cr.left(), cr.top() + d->topPanelWidget->sizeHint().height(), leftMarginWidth(), cr.height()));
-
-    d->findReplaceWidget->setFixedHeight(d->findReplaceWidget->sizeHint().height());
-    d->findReplaceWidget->move(this->width() - d->findReplaceWidget->width() - 9 - QApplication::style()->pixelMetric(QStyle::PM_ScrollBarExtent), 9);
+    d->leftMargin->setGeometry(QRect(cr.left(), cr.top() + d->topPanelWidget->sizeHint().height(), leftMarginWidth(), cr.height() - 1));
 
     d->topPanelWidget->setFixedWidth(this->width());
 
@@ -752,33 +772,36 @@ void TextEditor::highlightCurrentLine()
 {
     QList<QTextEdit::ExtraSelection> extraSelections;
 
-    d->highlightedLine = textCursor().block().firstLineNumber();
+    QTextBlock currentBlock = this->textCursor().block();
+    d->highlightedLine = currentBlock.firstLineNumber();
 
     if (!this->isReadOnly()) {
-        QTextEdit::ExtraSelection selection;
+        QTextCursor cursor = this->textCursor();
+        cursor.movePosition(QTextCursor::StartOfBlock);
 
-        QColor windowCol = this->palette().color(QPalette::Window);
-        QColor lineCol;
-        if ((windowCol.red() + windowCol.green() + windowCol.blue()) / 3 > 127) {
-            lineCol = QColor(0, 0, 0, 25);
-        } else {
-            lineCol = QColor(255, 255, 255, 25);
+        bool success = true;
+        while (cursor.block() == currentBlock && success) {
+            QTextEdit::ExtraSelection selection;
+
+            QColor windowCol = this->palette().color(QPalette::Window);
+            selection.format.setBackground(QColor(highlightTheme.editorColor(KSyntaxHighlighting::Theme::CurrentLine)));
+            selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+            selection.format.setProperty(QTextFormat::UserFormat, "currentHighlight");
+            selection.cursor = cursor;
+            selection.cursor.clearSelection();
+            extraSelections.append(selection);
+
+            success = cursor.movePosition(QTextCursor::Down);
         }
-
-        selection.format.setBackground(lineCol);
-        selection.format.setProperty(QTextFormat::FullWidthSelection, true);
-        selection.format.setProperty(QTextFormat::UserFormat, "currentHighlight");
-        selection.cursor = textCursor();
-        selection.cursor.clearSelection();
-        extraSelections.append(selection);
     }
 
     setExtraSelectionGroup("lineHighlight", extraSelections);
 }
 
 void TextEditor::cursorLocationChanged() {
-    //if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
+    if (this->textCursor().block().userData() == nullptr) this->textCursor().block().setUserData(new TextEditorBlockData(this));
     highlightCurrentLine();
+    if (d->statusBar != nullptr) d->statusBar->setPosition(this->textCursor().blockNumber(), this->textCursor().columnNumber());
 
     clearExtraSelectionGroup("bracketLocation");
     QTextCursor c(textCursor());
@@ -885,7 +908,7 @@ void TextEditor::cursorLocationChanged() {
 void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
 {
     QPainter painter(d->leftMargin);
-    painter.fillRect(event->rect(), this->palette().color(QPalette::Window).lighter(120));
+    painter.fillRect(event->rect(), this->palette().color(QPalette::Window));
 
     QTextBlock block = firstVisibleBlock();
     int blockNumber = block.blockNumber();
@@ -895,29 +918,46 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
     while (block.isValid() && top <= event->rect().bottom()) {
         int lineNo = blockNumber + 1;
 
+        //Draw current line background
+        QColor lineNumberColor = highlightTheme.editorColor(KSyntaxHighlighting::Theme::LineNumbers);
+        QColor backgroundColor = highlightTheme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
+
+        painter.setPen(Qt::transparent);
+        if (this->textCursor().block() == block) {
+            backgroundColor = highlightTheme.editorColor(KSyntaxHighlighting::Theme::CurrentLine);
+            lineNumberColor = highlightTheme.editorColor(KSyntaxHighlighting::Theme::CurrentLineNumber);
+        }
+
+        //Draw merge conflict marker
         for (MergeLines mergeBlock : d->mergedLines) {
             for (int i = 0; i < mergeBlock.length; i++) {
                 int mergeLine = mergeBlock.startLine + i;
                 if (blockNumber == mergeLine) {
-                    painter.setPen(Qt::transparent);
                     if (d->mergeDecisions.value(mergeBlock)) {
-                        painter.setBrush(QColor(0, 150, 0));
+                        backgroundColor = QColor(0, 150, 0);
                     } else {
-                        painter.setBrush(QColor(100, 100, 100));
+                        backgroundColor = QColor(100, 100, 100);
                     }
-                    painter.drawRect(0, top, d->leftMargin->width(), bottom - top);
                 }
             }
         }
 
+        //Draw line number and background
         QString number = QString::number(lineNo);
         if (block.isVisible() && bottom >= event->rect().top()) {
-            painter.setPen(this->palette().color(QPalette::WindowText));
-            painter.drawText(0, top, d->leftMargin->width(), fontMetrics().height(), Qt::AlignRight, number);
+            painter.setBrush(backgroundColor);
+            painter.drawRect(0, top, d->leftMargin->width(), bottom - top);
+
+            QFont font = this->font();
+            font.setPointSizeF(font.pointSizeF() * 0.8);
+
+            painter.setFont(font);
+            painter.setPen(lineNumberColor);
+            painter.drawText(0, top, d->leftMargin->width() - 9 * theLibsGlobal::getDPIScaling(), fontMetrics().height(), Qt::AlignRight | Qt::AlignCenter, number);
         }
 
-        //TextEditorBlockData* blockData = (TextEditorBlockData*) block.userData();
-        /*if (blockData != nullptr) {
+        TextEditorBlockData* blockData = (TextEditorBlockData*) block.userData();
+        if (blockData != nullptr) {
             painter.setPen(Qt::transparent);
             switch (blockData->marginState) {
                 case TextEditorBlockData::None:
@@ -931,7 +971,11 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
                     break;
             }
             painter.drawRect(0, top, 3 * theLibsGlobal::getDPIScaling(), bottom - top);
-        }*/
+        }
+
+        if (d->hl->startsFoldingRegion(block)) {
+
+        }
 
         block = block.next();
         top = bottom;
@@ -966,7 +1010,6 @@ void TextEditor::reloadBlockHighlighting() {
         bottom = top + (int) blockBoundingRect(block).height();
         blockNumber++;
     }
-    //setExtraSelections(extraSelections);
     setExtraSelectionGroup("blockHighlighting", extraSelections);
 
     d->leftMargin->repaint();
@@ -1012,15 +1055,6 @@ void TextEditor::openFileFake(QString contents) {
     emit editedChanged();
 }
 
-void TextEditor::toggleFindReplace() {
-    if (d->findReplaceWidget->isVisible()) {
-        d->findReplaceWidget->setVisible(false);
-    } else {
-        d->findReplaceWidget->setVisible(true);
-        d->findReplaceWidget->setFocus();
-    }
-}
-
 void TextEditor::revertFile(QTextCodec* codec) {
     if (d->currentBackend != nullptr) {
         tMessageBox* messageBox = new tMessageBox(this->window());
@@ -1033,7 +1067,7 @@ void TextEditor::revertFile(QTextCodec* codec) {
         int button = messageBox->exec();
 
         if (button == tMessageBox::Yes) {
-            if (codec != nullptr) d->textCodec = codec;
+            if (codec != nullptr) setTextCodec(codec);
             openFile(d->currentBackend);
         }
     }
@@ -1192,7 +1226,7 @@ void TextEditor::setHighlighter(KSyntaxHighlighting::Definition hl) {
         d->hl->deleteLater();
     }
 
-    KSyntaxHighlighting::SyntaxHighlighter* highlighter = new KSyntaxHighlighting::SyntaxHighlighter(this);
+    SyntaxHighlighter* highlighter = new SyntaxHighlighter(this);
     if (hl.isValid()) {
         highlighter->setDefinition(hl);
     } else {
@@ -1201,6 +1235,8 @@ void TextEditor::setHighlighter(KSyntaxHighlighting::Definition hl) {
 
     highlighter->setTheme(highlightTheme);
     highlighter->setDocument(this->document());
+
+    if (d->statusBar != nullptr) d->statusBar->setHighlighting(hl);
 
     d->hl = highlighter;
     d->hlDef = hl;
@@ -1224,6 +1260,14 @@ void TextEditor::reloadSettings() {
     //pal.setColor(QPalette::WindowText, getSyntaxHighlighterColor("editor/fg"));
     //pal.setColor(QPalette::Text, getSyntaxHighlighterColor("editor/fg"));
     this->setPalette(pal);
+
+    if (d->statusBar != nullptr) d->statusBar->setSpacing(d->settings.value("behaviour/tabSpaces", true).toBool(), d->settings.value("behaviour/tabSpaceNumber", 4).toInt());
+
+    if (d->settings.value("behaviour/wrapText", false).toBool()) {
+        this->setLineWrapMode(WidgetWidth);
+    } else {
+        this->setLineWrapMode(NoWrap);
+    }
 }
 
 QUrl TextEditor::fileUrl() {
@@ -1236,20 +1280,13 @@ QUrl TextEditor::fileUrl() {
 
 QByteArray TextEditor::formatForSaving(QString text) {
     if (d->textCodec == nullptr) {
-        d->textCodec = QTextCodec::codecForName("UTF-8");
+        setTextCodec(QTextCodec::codecForName("UTF-8"));
     }
 
     removeTopPanel(d->mixedLineEndings);
     QByteArray a = d->textCodec->fromUnicode(text);
-    int lineEndingsToSaveAs;
 
-    if (d->currentLineEndings < 0) { //Use settings
-        lineEndingsToSaveAs = d->settings.value("behaviour/endOfLine", THESLATE_END_OF_LINE).toInt();
-    } else { //Use detected line endings
-        lineEndingsToSaveAs = d->currentLineEndings;
-    }
-
-    switch (lineEndingsToSaveAs) {
+    switch (d->statusBar->lineEndings()) {
         case 0: //Unix
             //do nothing
             break;
@@ -1259,13 +1296,277 @@ QByteArray TextEditor::formatForSaving(QString text) {
         case 2: //Windows
             a.replace("\n", "\r\n");
     }
+
     return a;
-
-
 }
 
 void TextEditor::setTextCodec(QTextCodec* codec) {
     d->textCodec = codec;
+    if (d->statusBar != nullptr) d->statusBar->setEncoding(codec->name());
+}
+
+void TextEditor::commentSelectedText() {
+    QTextCursor cursor = this->textCursor();
+
+    if (d->hlDef.multiLineCommentMarker().first == "" && d->hlDef.singleLineCommentMarker() == "") return; //Do nothing because comments aren't supported in this language
+
+    //Find any available comments and remove them
+    QTextCursor startCursor(this->document());
+    startCursor.setPosition(cursor.selectionStart());
+
+    QTextCursor endCursor(this->document());
+    endCursor.setPosition(cursor.selectionEnd());
+
+    if (d->hlDef.multiLineCommentMarker().first != "") {
+        //Check to see if we've got a multi-line comment
+        startCursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, d->hlDef.multiLineCommentMarker().first.count());
+        endCursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, d->hlDef.multiLineCommentMarker().second.count());
+
+        if (startCursor.selectedText() == d->hlDef.multiLineCommentMarker().first && endCursor.selectedText() == d->hlDef.multiLineCommentMarker().second) {
+            //Uncomment both
+            startCursor.beginEditBlock();
+            startCursor.removeSelectedText();
+            startCursor.setPosition(endCursor.selectionStart());
+            startCursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, d->hlDef.multiLineCommentMarker().second.count());
+            startCursor.removeSelectedText();
+            startCursor.endEditBlock();
+            return;
+        }
+    }
+
+    if (d->hlDef.singleLineCommentMarker() != "") {
+        QSharedPointer<bool> didMakeChages(new bool(false));
+        d->forEverySelectedLine(cursor, [=, &didMakeChages](QTextCursor cursor) {
+            //Check to see if this line has a comment
+            QChar indentCharacter = d->getIndentCharacters().at(0);
+            if (d->hlDef.singleLineCommentPosition() == KSyntaxHighlighting::CommentPosition::AfterWhitespace) {
+                do {
+                    cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+                } while (cursor.selectedText().at(cursor.selectedText().length() - 1) == indentCharacter);
+                cursor.setPosition(cursor.selectionEnd());
+            }
+
+            cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, d->hlDef.singleLineCommentMarker().count() + 1);
+            if (cursor.selectedText() == d->hlDef.singleLineCommentMarker() + " ") {
+                //Remove the comment marker
+                cursor.removeSelectedText();
+                didMakeChages.reset(new bool(true));
+                return;
+            }
+
+            cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
+            if (cursor.selectedText() == d->hlDef.singleLineCommentMarker()) {
+                //Remove the comment marker
+                cursor.removeSelectedText();
+                didMakeChages.reset(new bool(true));
+                return;
+            }
+        });
+
+        if (*didMakeChages.data()) {
+            return;
+        }
+    }
+
+    //If we've gotten to here, we've found no comments
+    //Proceed to comment
+
+    //Determine the type of commenting to use
+    int commentType = 0;
+
+    if (d->hlDef.singleLineCommentMarker() != "" && d->hlDef.multiLineCommentMarker().first != "") {
+        if (cursor.hasSelection()) {
+            QTextCursor startCursor(this->document());
+            startCursor.setPosition(cursor.selectionStart());
+
+            QTextCursor endCursor(this->document());
+            endCursor.setPosition(cursor.selectionEnd());
+
+            QTextCursor startOfLineCursor(startCursor);
+            startOfLineCursor.movePosition(QTextCursor::StartOfBlock);
+
+            QTextCursor endOfLineCursor(endCursor);
+            endOfLineCursor.movePosition(QTextCursor::EndOfBlock);
+
+            if (startOfLineCursor.position() == startCursor.position() && endOfLineCursor.position() == endCursor.position()) {
+                commentType = 1; //Single line comment
+            } else {
+                commentType = 2; //Multi line comment
+            }
+        } else {
+            commentType = 1; //Single line comment
+        }
+    } else if (d->hlDef.singleLineCommentMarker() != "") {
+        commentType = 1; //Single line comment
+    } else {
+        commentType = 3; //Multi line comment covering whole line
+    }
+
+    if (commentType == 1) {
+        QChar indentCharacter = d->getIndentCharacters().at(0);
+        d->forEverySelectedLine(cursor, [=](QTextCursor cursor) {
+            if (d->hlDef.singleLineCommentPosition() == KSyntaxHighlighting::CommentPosition::AfterWhitespace) {
+                do {
+                    cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+                } while (cursor.selectedText().at(cursor.selectedText().length() - 1) == indentCharacter);
+                cursor.setPosition(cursor.selectionEnd());
+            }
+
+            cursor.insertText(d->hlDef.singleLineCommentMarker() + " ");
+        });
+    } else if (commentType == 2) {
+        QTextCursor startCursor(this->document());
+        startCursor.setPosition(cursor.selectionStart());
+        int startPosition = cursor.selectionStart();
+
+        startCursor.beginEditBlock();
+        startCursor.insertText(d->hlDef.multiLineCommentMarker().first + " ");
+        startCursor.setPosition(cursor.selectionEnd());
+        startCursor.insertText(" " + d->hlDef.multiLineCommentMarker().second);
+        startCursor.endEditBlock();
+
+        cursor.setPosition(startPosition);
+        cursor.setPosition(startCursor.selectionEnd(), QTextCursor::KeepAnchor);
+        this->setTextCursor(cursor);
+    } else if (commentType == 3) {
+        QTextCursor startCursor(this->document());
+        startCursor.setPosition(cursor.selectionStart());
+        startCursor.movePosition(QTextCursor::StartOfLine);
+        int startPosition = cursor.selectionStart();
+
+        startCursor.beginEditBlock();
+        startCursor.insertText(d->hlDef.multiLineCommentMarker().first + " ");
+        startCursor.movePosition(QTextCursor::EndOfLine);
+        startCursor.insertText(" " + d->hlDef.multiLineCommentMarker().second);
+        startCursor.endEditBlock();
+
+        cursor.setPosition(startPosition);
+        cursor.setPosition(startCursor.selectionEnd(), QTextCursor::KeepAnchor);
+        this->setTextCursor(cursor);
+    }
+}
+
+void TextEditor::chooseHighlighter() {
+    QMimeDatabase db;
+    QList<SelectListItem> items;
+
+    //Load Syntax Highlighters
+    for (KSyntaxHighlighting::Definition d : highlightRepo->definitions()) {
+        if (d.name() == "None") continue;
+
+        SelectListItem item(d.translatedName(), d.name());
+        items.append(item);
+    }
+
+    std::sort(items.begin(), items.end(), [](const SelectListItem &a, const SelectListItem &b) {
+        if (a.text.localeAwareCompare(b.text) < 0) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    items.prepend(SelectListItem(tr("No Highlighting"), "None"));
+
+    SelectListDialog* dialog = new SelectListDialog();
+    dialog->setTitle(tr("Select Highlighting"));
+    dialog->setText(tr("What type of code is this file?"));
+    dialog->setItems(items);
+
+    tPopover* popover = new tPopover(dialog);
+    popover->setPopoverWidth(300 * theLibsGlobal::getDPIScaling());
+    connect(dialog, &SelectListDialog::rejected, popover, &tPopover::dismiss);
+    connect(dialog, &SelectListDialog::accepted, this, [=](QVariant highlighting) {
+        this->setHighlighter(highlightRepo->definitionForName(highlighting.toString()));
+        popover->dismiss();
+    });
+    connect(popover, &tPopover::dismissed, dialog, &SelectListDialog::deleteLater);
+    connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
+    popover->show(this->window());
+}
+
+void TextEditor::chooseCodec(bool reload) {
+    QMimeDatabase db;
+    QList<SelectListItem> items;
+
+    //Load encodings
+    for (QByteArray codec : QTextCodec::availableCodecs()) {
+        SelectListItem item(codec, codec);
+        items.append(item);
+    }
+
+    std::sort(items.begin(), items.end(), [](const SelectListItem &a, const SelectListItem &b) {
+        if (a.text.localeAwareCompare(b.text) < 0) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    SelectListDialog* dialog = new SelectListDialog();
+    dialog->setTitle(tr("Select Encoding"));
+    dialog->setText(tr("What file encoding do you want to use?"));
+    dialog->setItems(items);
+
+    tPopover* popover = new tPopover(dialog);
+    popover->setPopoverWidth(300 * theLibsGlobal::getDPIScaling());
+    connect(dialog, &SelectListDialog::rejected, popover, &tPopover::dismiss);
+    connect(dialog, &SelectListDialog::accepted, this, [=](QVariant codec) {
+        QTimer::singleShot(0, [=] {
+            if (reload) {
+                revertFile(QTextCodec::codecForName(codec.toByteArray()));
+            } else {
+                setTextCodec(QTextCodec::codecForName(codec.toByteArray()));
+            }
+        });
+        popover->dismiss();
+    });
+    connect(popover, &tPopover::dismissed, dialog, &SelectListDialog::deleteLater);
+    connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
+    popover->show(this->window());
+}
+
+void TextEditor::gotoLine() {
+    bool ok;
+    int line = QInputDialog::getInt(this, tr("Go To Line"), tr("What line do you want to go to?"), this->textCursor().blockNumber() + 1, 1, this->document()->blockCount(), 1, &ok);
+    if (ok) {
+        line--;
+        this->setTextCursor(QTextCursor(this->document()->findBlockByLineNumber(line)));
+    }
+}
+
+void TextEditor::setSelectedTextCasing(Casing casing) {
+    QTextCursor cursor = this->textCursor();
+    QString text = cursor.selectedText();
+    switch (casing) {
+        case Uppercase:
+            text = text.toUpper();
+            break;
+        case Lowercase:
+            text = text.toLower();
+            break;
+        case Titlecase: {
+            QStringList parts = text.split(" ");
+            for (int i = 0; i < parts.count(); i++) {
+                QString part = parts.at(i);
+                if (!part.isEmpty()) {
+                    part = part.toLower();
+                    part = part.replace(0, 1, part.at(0).toUpper());
+                    parts.replace(i, part);
+                }
+            }
+            text = parts.join(" ");
+        }
+    }
+
+    int start = cursor.selectionStart();
+    int end = cursor.selectionEnd();
+    cursor.beginEditBlock();
+    cursor.insertText(text);
+    cursor.setPosition(start);
+    cursor.setPosition(end, QTextCursor::KeepAnchor);
+    cursor.endEditBlock();
+    this->setTextCursor(cursor);
 }
 
 TextEditorLeftMargin::TextEditorLeftMargin(TextEditor* editor) : QWidget(editor) {
