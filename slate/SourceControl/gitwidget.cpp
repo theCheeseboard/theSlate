@@ -155,7 +155,6 @@ void GitWidget::on_branchesList_activated(const QModelIndex &index)
 
             tPopover* p = new tPopover(dialog);
             p->setPopoverWidth(300 * theLibsGlobal::getDPIScaling());
-            p->setDismissable(false);
             connect(p, &tPopover::dismissed, [=] {
                 p->deleteLater();
                 dialog->deleteLater();

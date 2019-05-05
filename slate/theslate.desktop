@@ -6,6 +6,7 @@ Name=theSlate
 GenericName=Text Editor
 GenericName[de]=Textbearbeitungsprogramm
 GenericName[vi]=Bộ sửa chử
+GenericName[pl]=Edytor tekstu
 Exec=theslate
 Icon=theslate
 Categories=Utility;
