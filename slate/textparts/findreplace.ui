@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>686</width>
-    <height>89</height>
+    <height>91</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -69,13 +69,46 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="findBox">
-          <property name="placeholderText">
-           <string>Find</string>
-          </property>
-          <property name="clearButtonEnabled">
+         <widget class="QWidget" name="findContainer" native="true">
+          <property name="autoFillBackground">
            <bool>true</bool>
           </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="findBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+             <property name="placeholderText">
+              <string>Find</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
         <item>
@@ -166,6 +199,15 @@
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QLineEdit" name="replaceBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="frame">
+           <bool>false</bool>
+          </property>
           <property name="placeholderText">
            <string>Replace</string>
           </property>

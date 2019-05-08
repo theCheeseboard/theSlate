@@ -156,7 +156,7 @@ void FindReplace::on_doneButton_clicked()
 
 void FindReplace::moveCursor(bool backward) {
     if (!d->haveValidRegex) {
-        tErrorFlash::flashError(ui->findBox);
+        tErrorFlash::flashError(ui->findContainer);
     } else {
         QTextCursor currentCursor = d->editor->textCursor();
 
@@ -260,6 +260,6 @@ void FindReplace::on_replaceAllButton_clicked()
 
         find(ui->findBox->text());
     } else {
-        tErrorFlash::flashError(ui->findBox);
+        tErrorFlash::flashError(ui->findContainer);
     }
 }
