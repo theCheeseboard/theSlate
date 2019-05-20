@@ -163,7 +163,7 @@ void FindReplace::moveCursor(bool backward) {
         int leftPosition = qMin(d->editor->textCursor().position(), d->editor->textCursor().anchor());
         if (backward) {
             int previousIndex = -1;
-            for (int index : d->matches) {
+            for (int index : d->matches.keys()) {
                 if (index < leftPosition) {
                     previousIndex = index;
                 } else {
@@ -173,13 +173,13 @@ void FindReplace::moveCursor(bool backward) {
 
             if (previousIndex != -1) {
                 currentCursor.setPosition(previousIndex);
-                currentCursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor, d->matches.value(previousIndex));
+                currentCursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor, d->matches.value(previousIndex) - previousIndex);
             }
         } else {
-            for (int index : d->matches) {
+            for (int index : d->matches.keys()) {
                 if (index > leftPosition) {
                     currentCursor.setPosition(index);
-                    currentCursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor, d->matches.value(index));
+                    currentCursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor, d->matches.value(index) - index);
                     break;
                 }
             }
