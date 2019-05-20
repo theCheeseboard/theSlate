@@ -6,6 +6,7 @@
 
 QT       += core gui svg network concurrent printsupport
 CONFIG   += c++14
+SHARE_APP_NAME=theslate
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -146,45 +147,14 @@ RESOURCES += \
     icons.qrc \
     files.qrc
 
-TRANSLATIONS += translations/vi_VN.ts \
-    translations/da_DK.ts \
-    translations/es_ES.ts \
-    translations/lt_LT.ts \
-    translations/nl_NL.ts \
-    translations/pl_PL.ts \
-    translations/pt_BR.ts \
-    translations/ru_RU.ts \
-    translations/sv_SE.ts \
-    translations/en_AU.ts \
-    translations/en_US.ts \
-    translations/en_GB.ts \
-    translations/en_NZ.ts \
-    translations/de_DE.ts \
-    translations/id_ID.ts \
-    translations/au_AU.ts \
-    translations/it_IT.ts \
-    translations/nb_NO.ts \
-    translations/no_NO.ts \
-    translations/ro_RO.ts \
-    translations/cy_GB.ts \
-    translations/fr_FR.ts
-
-qtPrepareTool(LUPDATE, lupdate)
-genlang.commands = "$$LUPDATE -no-obsolete -source-language en_US $$_PRO_FILE_"
-
-qtPrepareTool(LRELEASE, lrelease)
-rellang.commands = "$$LRELEASE -removeidentical $$_PRO_FILE_"
-QMAKE_EXTRA_TARGETS = genlang rellang
-PRE_TARGETDEPS = genlang rellang
-
 # Turn off stripping as this causes the install to fail :(
 QMAKE_STRIP = echo
 
 unix:!macx {
-    target.path = /usr/bin
+    # Include the-libs build tools
+    include(/usr/share/the-libs/pri/buildmaster.pri)
 
-    translations.path = /usr/share/theslate/translations
-    translations.files = translations/*
+    target.path = /usr/bin
 
     desktop.path = /usr/share/applications
     desktop.files = theslate.desktop
@@ -198,12 +168,12 @@ unix:!macx {
     cols.files = ColorDefinitions/*
     cols.path = /usr/share/theslate/ColorDefinitions
 
-    INSTALLS += target translations desktop icon headers cols
+    INSTALLS += target desktop icon headers cols
 }
 
 macx {
-    translations.files = translations/
-    translations.path = Contents/translations
+    # Include the-libs build tools
+    include(/usr/local/share/the-libs/pri/buildmaster.pri)
 
     locversion.files = localisedresources/
     locversion.path = Contents/Resources
@@ -214,9 +184,14 @@ macx {
     cols.files = ColorDefinitions/
     cols.path = Contents/Resources/ColorDefinitions/
 
-    QMAKE_BUNDLE_DATA = translations locversion filebackend cols
+    QMAKE_BUNDLE_DATA += locversion filebackend cols
 
     QMAKE_POST_LINK += $$quote(cp $${PWD}/dmgicon.icns $${PWD}/app-dmg-background.png $${PWD}/node-appdmg-config.json $${OUT_PWD}/..)
+}
+
+win {
+    # Include the-libs build tools
+    include(C:/Program Files/thelibs/pri/buildmaster.pri)
 }
 
 DISTFILES += \
