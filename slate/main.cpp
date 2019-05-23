@@ -84,7 +84,11 @@ int main(int argc, char *argv[])
     a.setOrganizationDomain("");
     a.setApplicationName("theSlate");
     a.setApplicationIcon(QIcon::fromTheme("theslate", QIcon(":/icons/icon.svg")));
-    a.setShareDir("/usr/share/theslate");
+    if (QDir("/usr/share/theslate").exists()) {
+        a.setShareDir("/usr/share/theslate");
+    } else if (QDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theslate/")).exists()) {
+        a.setShareDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theslate/"));
+    }
     a.installTranslators();
 
 
