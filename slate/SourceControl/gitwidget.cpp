@@ -194,7 +194,9 @@ void GitWidget::on_logList_customContextMenuRequested(const QPoint &pos)
                 this->pull();
             });
             menu->addSeparator();
-            menu->addAction(tr("Fetch"));
+            menu->addAction(tr("Fetch"), [=] {
+                d->gi->fetch();
+            });
             menu->exec(ui->branchesList->mapToGlobal(pos));
         }
     } else {
