@@ -284,6 +284,7 @@ MainWindow::MainWindow(QWidget *parent) :
                 }
             }
 
+            ui->menuOpen_Auxiliary_Pane->addSeparator();
             ui->menuOpen_Auxiliary_Pane->addMenu(ui->menuAll_Auxiliary_Panes);
         }
     });

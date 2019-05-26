@@ -156,3 +156,12 @@ void TextStatusBar::on_positionButton_clicked()
 {
     d->editor->gotoLine();
 }
+
+void TextStatusBar::setAuxMenu(QMenu* menu) {
+    if (menu == nullptr) {
+        ui->auxToolButton->setVisible(false);
+    } else {
+        ui->auxToolButton->setVisible(true);
+        ui->auxToolButton->setMenu(menu);
+    }
+}

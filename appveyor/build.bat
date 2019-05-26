@@ -4,6 +4,8 @@ if "%APPVEYOR_REPO_TAG_NAME%"=="continuous" (
 
 )
 
+git submodule init
+git submodule update
 
 set QTDIR=C:\Qt\5.12\msvc2017_64
 set PATH=%PATH%;%QTDIR%\bin

@@ -9,6 +9,7 @@ namespace Ui {
 }
 
 class TextEditor;
+class QMenu;
 struct TextStatusBarPrivate;
 
 class TextStatusBar : public QWidget
@@ -28,6 +29,7 @@ class TextStatusBar : public QWidget
         void setLineEndings(int lineEndings);
         void setHighlighting(KSyntaxHighlighting::Definition definition);
         void setEncoding(QString encodingName);
+        void setAuxMenu(QMenu* menu);
 
     private slots:
         void on_highlightingButton_clicked();

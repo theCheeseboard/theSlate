@@ -1,6 +1,6 @@
 # theSlate
 Text Editor<br />
-![Travis CI Build Status](https://travis-ci.org/vicr123/theSlate.svg?branch=blueprint) ![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/uy0gbyl5h817ytwj/branch/master?svg=true)
+[![Travis CI Build Status](https://travis-ci.org/vicr123/theSlate.svg?branch=blueprint)](https://travis-ci.org/vicr123/theSlate) [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/uy0gbyl5h817ytwj/branch/master?svg=true)](https://ci.appveyor.com/project/vicr123/theslate)
 
 
 ## Dependencies

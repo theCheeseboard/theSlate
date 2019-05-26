@@ -1,6 +1,10 @@
 #include "textwidget.h"
 #include "ui_textwidget.h"
 
+#include "plugins/pluginmanager.h"
+
+extern PluginManager* plugins;
+
 struct TextWidgetPrivate {
     MainWindow* parent;
 
@@ -37,6 +41,11 @@ TextWidget::TextWidget(MainWindow *parent) :
         if (d->editedTimer->isActive()) d->editedTimer->stop();
         d->editedTimer->start();
     });
+    connect(ui->editor, &TextEditor::backendChanged, this, [=] {
+        updateAuxMenu();
+    });
+
+    updateAuxMenu();
 }
 
 TextWidget::~TextWidget()
@@ -70,4 +79,30 @@ void TextWidget::openAuxPane(AuxiliaryPane *pane) {
     });
 
     pane->parseFile(ui->editor->fileUrl(), ui->editor->toPlainText());
+}
+
+void TextWidget::on_auxEditors_tabCloseRequested(int index)
+{
+    AuxiliaryPane* pane = static_cast<AuxiliaryPane*>(ui->auxEditors->widget(index));
+    ui->auxEditors->removeTab(index);
+
+    if (ui->auxEditors->count() == 0) {
+        ui->auxEditors->setVisible(false);
+    }
+}
+
+void TextWidget::updateAuxMenu() {
+    QList<AuxiliaryPaneCapabilities> panes = plugins->auxiliaryPanesForUrl(ui->editor->fileUrl());
+    if (panes.count() == 0) {
+        ui->statusBar->setAuxMenu(nullptr);
+    } else {
+        QMenu* menu = new QMenu();
+        menu->addSection(tr("Supported Auxiliary Panes"));
+        for (AuxiliaryPaneCapabilities pane : panes) {
+            menu->addAction(pane.name, [=] {
+                openAuxPane(pane.makePane());
+            });
+        }
+        ui->statusBar->setAuxMenu(menu);
+    }
 }

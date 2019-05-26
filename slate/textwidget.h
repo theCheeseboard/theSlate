@@ -25,6 +25,11 @@ class TextWidget : public QWidget
     public slots:
         void showFindReplace();
 
+    private slots:
+        void on_auxEditors_tabCloseRequested(int index);
+
+        void updateAuxMenu();
+
     private:
         Ui::TextWidget *ui;
 
