@@ -4,6 +4,7 @@ branches:
   - blueprint
 skip_tags: true
 image: Visual Studio 2017
+clone_depth: 5
 
 environment:
   REPO_SLUG: vicr123/theSlate
