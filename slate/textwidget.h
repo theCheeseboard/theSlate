@@ -2,6 +2,7 @@
 #define TEXTWIDGET_H
 
 #include <QWidget>
+#include "plugins/auxiliarypane.h"
 
 namespace Ui {
     class TextWidget;
@@ -19,6 +20,7 @@ class TextWidget : public QWidget
         ~TextWidget();
 
         TextEditor* editor();
+        void openAuxPane(AuxiliaryPane* pane);
 
     public slots:
         void showFindReplace();

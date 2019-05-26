@@ -66,9 +66,13 @@ void setupMacMenubar() {
     menubar->addMenu(helpMenu);
 }
 
+#include <QtWebEngine>
+
 int main(int argc, char *argv[])
 {
+    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts); //Allow plugins to use Qt WebEngine
     tApplication a(argc, argv);
+    QtWebEngine::initialize();
 
     if (!qgetenv("THESLATE_PLEASE_ECHO_AND_RETURN").isEmpty()) {
         QTextStream out(stdout);

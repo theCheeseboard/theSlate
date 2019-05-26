@@ -3,6 +3,9 @@
 
 struct TextWidgetPrivate {
     MainWindow* parent;
+
+    QList<AuxiliaryPane*> auxPanes;
+    QTimer* editedTimer;
 };
 
 TextWidget::TextWidget(MainWindow *parent) :
@@ -13,12 +16,27 @@ TextWidget::TextWidget(MainWindow *parent) :
     d = new TextWidgetPrivate();
     d->parent = parent;
 
+    ui->auxEditors->setVisible(false);
     ui->editor->setMainWindow(parent);
     ui->editor->setStatusBar(ui->statusBar);
     ui->findReplaceWidget->setEditor(ui->editor);
     ui->statusBar->setEditor(ui->editor);
 
     ui->findReplaceWidget->hide();
+
+    d->editedTimer = new QTimer(this);
+    d->editedTimer->setInterval(500);
+    d->editedTimer->setSingleShot(true);
+    connect(d->editedTimer, &QTimer::timeout, this, [=] {
+        //Tell all the aux panes that there are edits
+        for (AuxiliaryPane* auxPane : d->auxPanes) {
+            auxPane->parseFile(ui->editor->fileUrl(), ui->editor->toPlainText());
+        }
+    });
+    connect(ui->editor, &TextEditor::textChanged, this, [=] {
+        if (d->editedTimer->isActive()) d->editedTimer->stop();
+        d->editedTimer->start();
+    });
 }
 
 TextWidget::~TextWidget()
@@ -34,4 +52,20 @@ TextEditor* TextWidget::editor() {
 void TextWidget::showFindReplace() {
     ui->findReplaceWidget->show();
     ui->findReplaceWidget->setFocus();
+}
+
+void TextWidget::openAuxPane(AuxiliaryPane *pane) {
+    d->auxPanes.append(pane);
+    pane->setVisible(true);
+
+    ui->auxEditors->addTab(pane, pane->windowTitle());
+    ui->auxEditors->setVisible(true);
+
+    connect(this, &TextWidget::destroyed, pane, &AuxiliaryPane::deleteLater);
+    connect(pane, &AuxiliaryPane::windowTitleChanged, this, [=](QString title) {
+        ui->auxEditors->setTabText(ui->auxEditors->indexOf(pane), title);
+    });
+    connect(ui->editor, &TextEditor::cursorPositionChanged, this, [=] {
+        pane->cursorChanged(ui->editor->textCursor());
+    });
 }

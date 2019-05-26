@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string notr="true">Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -30,13 +30,35 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="TextEditor" name="editor"/>
-   </item>
-   <item>
-    <widget class="FindReplace" name="findReplaceWidget" native="true"/>
-   </item>
-   <item>
-    <widget class="TextStatusBar" name="statusBar" native="true"/>
+    <widget class="QSplitter" name="auxSplitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="TextEditor" name="editor"/>
+       </item>
+       <item>
+        <widget class="TextStatusBar" name="statusBar" native="true"/>
+       </item>
+       <item>
+        <widget class="FindReplace" name="findReplaceWidget" native="true"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QTabWidget" name="auxEditors">
+      <property name="tabPosition">
+       <enum>QTabWidget::South</enum>
+      </property>
+      <property name="documentMode">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
    </item>
   </layout>
  </widget>

@@ -1,9 +1,10 @@
 TEMPLATE = subdirs
 
-slateDir.depends = FileBackends
+slateDir.depends = FileBackends AuxiliaryPanes
 slateDir.subdir = slate
 
 SUBDIRS = slateDir \
+    AuxiliaryPanes \
     FileBackends
 
 macx {

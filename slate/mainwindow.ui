@@ -258,7 +258,13 @@
     <property name="title">
      <string>&amp;View</string>
     </property>
+    <widget class="QMenu" name="menuOpen_Auxiliary_Pane">
+     <property name="title">
+      <string>Open Auxiliary Pane</string>
+     </property>
+    </widget>
     <addaction name="actionNew_Window"/>
+    <addaction name="menuOpen_Auxiliary_Pane"/>
     <addaction name="separator"/>
     <addaction name="actionChange_Syntax_Highlighting"/>
    </widget>

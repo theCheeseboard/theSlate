@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui svg network concurrent printsupport
+QT       += core gui svg network concurrent printsupport webengine
 CONFIG   += c++14
 SHARE_APP_NAME=theslate
 
@@ -88,6 +88,7 @@ SOURCES += \
 
 HEADERS += \
         mainwindow.h \
+    plugins/auxiliarypane.h \
     tabbutton.h \
     aboutwindow.h \
     SyntaxHighlighting/syntaxhighlighter.h \
@@ -181,10 +182,13 @@ macx {
     filebackend.files = ../FileBackends/LocalFileBackend/libLocalFileBackend.dylib ../FileBackends/HttpBackend/libHttpBackend.dylib
     filebackend.path = Contents/filebackends/
 
+    auxpane.files = ../AuxiliaryPanes/HtmlPreview/libHtmlPreview.dylib
+    auxpane.path = Contents/auxiliarypanes/
+
     cols.files = ColorDefinitions/
     cols.path = Contents/Resources/ColorDefinitions/
 
-    QMAKE_BUNDLE_DATA += locversion filebackend cols
+    QMAKE_BUNDLE_DATA += locversion filebackend auxpane cols
 
     QMAKE_POST_LINK += $$quote(cp $${PWD}/dmgicon.icns $${PWD}/app-dmg-background.png $${PWD}/node-appdmg-config.json $${OUT_PWD}/..)
 }

@@ -9,12 +9,18 @@ PluginManager::PluginManager(QObject *parent) : QObject(parent)
     #if defined(Q_OS_WIN)
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/../../FileBackends/");
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/filebackends/");
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../../AuxiliaryPanes/");
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "/auxiliarypanes/");
     #elif defined(Q_OS_MAC)
         pluginSearchPaths.append(tApplication::macOSBundlePath() + "/Contents/filebackends/");
+        pluginSearchPaths.append(tApplication::macOSBundlePath() + "/Contents/auxiliarypanes/");
     #elif (defined Q_OS_UNIX)
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/../FileBackends/");
         pluginSearchPaths.append("/usr/share/theslate/filebackends/");
         pluginSearchPaths.append(QApplication::applicationDirPath() + "/../share/theslate/filebackends/");
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../AuxiliaryPanes/");
+        pluginSearchPaths.append("/usr/share/theslate/auxiliarypanes/");
+        pluginSearchPaths.append(QApplication::applicationDirPath() + "/../share/theslate/auxiliarypanes/");
     #endif
 
     QObjectList availablePlugins;
@@ -47,6 +53,11 @@ PluginManager::PluginManager(QObject *parent) : QObject(parent)
 
             fileFactories.append(backends);
         }
+
+        AuxiliaryPanePlugin* aux = qobject_cast<AuxiliaryPanePlugin*>(obj);
+        if (aux) {
+            auxiliaryPanePlugins.append(aux);
+        }
     }
 
     if (localFileBackend == nullptr) {
@@ -60,4 +71,20 @@ QList<FileBackendFactory*> PluginManager::fileBackends() {
 
 FileBackendFactory* PluginManager::getLocalFileBackend() {
     return localFileBackend;
+}
+
+QList<AuxiliaryPaneCapabilities> PluginManager::auxiliaryPanes() {
+    QList<AuxiliaryPaneCapabilities> availablePanes;
+    for (AuxiliaryPanePlugin* plugin : auxiliaryPanePlugins) {
+        availablePanes.append(plugin->getPanes());
+    }
+    return availablePanes;
+}
+
+QList<AuxiliaryPaneCapabilities> PluginManager::auxiliaryPanesForUrl(QUrl url) {
+    QList<AuxiliaryPaneCapabilities> availablePanes;
+    for (AuxiliaryPanePlugin* plugin : auxiliaryPanePlugins) {
+        availablePanes.append(plugin->getPanesForUrl(url));
+    }
+    return availablePanes;
 }

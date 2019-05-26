@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "filebackend.h"
+#include "auxiliarypane.h"
 
 class PluginManager : public QObject
 {
@@ -12,12 +13,17 @@ class PluginManager : public QObject
 
         QList<FileBackendFactory*> fileBackends();
         FileBackendFactory* getLocalFileBackend();
+
+        QList<AuxiliaryPaneCapabilities> auxiliaryPanes();
+        QList<AuxiliaryPaneCapabilities> auxiliaryPanesForUrl(QUrl url);
+        AuxiliaryPane* newAuxiliaryPane(QString name);
     signals:
 
     public slots:
 
     private:
         QList<FileBackendFactory*> fileFactories;
+        QList<AuxiliaryPanePlugin*> auxiliaryPanePlugins;
 
         FileBackendFactory* localFileBackend = nullptr;
 };

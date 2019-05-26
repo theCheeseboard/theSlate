@@ -264,6 +264,21 @@ MainWindow::MainWindow(QWidget *parent) :
             }
         }
     });
+    connect(ui->menuOpen_Auxiliary_Pane, &QMenu::aboutToShow, [=] {
+        ui->menuOpen_Auxiliary_Pane->clear();
+
+        if (currentEditor() == nullptr) {
+            QAction* action = ui->menuOpen_Auxiliary_Pane->addAction(tr("No opened files"));
+            action->setEnabled(false);
+        } else {
+            for (AuxiliaryPaneCapabilities pane : plugins->auxiliaryPanesForUrl(currentEditor()->fileUrl())) {
+                ui->menuOpen_Auxiliary_Pane->addAction(pane.name, [=] {
+                    currentDocument()->openAuxPane(pane.makePane());
+                });
+            }
+        }
+    });
+
     QShortcut* pasteHistory = new QShortcut(QKeySequence(tr("Ctrl+Shift+V")), this);
     connect(pasteHistory, &QShortcut::activated, [=] {
         if (currentEditor() != nullptr) {
