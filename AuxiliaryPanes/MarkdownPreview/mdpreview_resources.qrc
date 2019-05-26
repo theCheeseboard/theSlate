@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/marked">
+        <file alias="marked.js">marked/marked.min.js</file>
+        <file>styles.css</file>
+    </qresource>
+</RCC>

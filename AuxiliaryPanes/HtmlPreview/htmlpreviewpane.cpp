@@ -11,8 +11,6 @@ HtmlPreviewPane::HtmlPreviewPane(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QWebEngineSettings::defaultSettings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
-
     view = new QWebEngineView();
     view->setPage(new WebPage());
     this->layout()->addWidget(view);

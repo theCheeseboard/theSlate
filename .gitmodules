@@ -1,0 +1,3 @@
+[submodule "AuxiliaryPanes/MarkdownPreview/marked"]
+	path = AuxiliaryPanes/MarkdownPreview/marked
+	url = https://github.com/markedjs/marked.git

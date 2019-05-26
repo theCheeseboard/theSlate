@@ -262,6 +262,12 @@
      <property name="title">
       <string>Open Auxiliary Pane</string>
      </property>
+     <widget class="QMenu" name="menuAll_Auxiliary_Panes">
+      <property name="title">
+       <string>All Auxiliary Panes</string>
+      </property>
+     </widget>
+     <addaction name="menuAll_Auxiliary_Panes"/>
     </widget>
     <addaction name="actionNew_Window"/>
     <addaction name="menuOpen_Auxiliary_Pane"/>

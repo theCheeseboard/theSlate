@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui svg network concurrent printsupport webengine
+QT       += core gui svg network concurrent printsupport webenginewidgets
 CONFIG   += c++14
 SHARE_APP_NAME=theslate
 
@@ -182,7 +182,7 @@ macx {
     filebackend.files = ../FileBackends/LocalFileBackend/libLocalFileBackend.dylib ../FileBackends/HttpBackend/libHttpBackend.dylib
     filebackend.path = Contents/filebackends/
 
-    auxpane.files = ../AuxiliaryPanes/HtmlPreview/libHtmlPreview.dylib
+    auxpane.files = ../AuxiliaryPanes/HtmlPreview/libHtmlPreview.dylib ../AuxiliaryPanes/MarkdownPreview/libMdPreview.dylib
     auxpane.path = Contents/auxiliarypanes/
 
     cols.files = ColorDefinitions/

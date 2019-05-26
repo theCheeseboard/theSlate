@@ -283,6 +283,23 @@ MainWindow::MainWindow(QWidget *parent) :
                     });
                 }
             }
+
+            ui->menuOpen_Auxiliary_Pane->addMenu(ui->menuAll_Auxiliary_Panes);
+        }
+    });
+    connect(ui->menuAll_Auxiliary_Panes, &QMenu::aboutToShow, [=] {
+        ui->menuAll_Auxiliary_Panes->clear();
+
+        QList<AuxiliaryPaneCapabilities> panes = plugins->auxiliaryPanes();
+        if (panes.count() == 0) {
+            QAction* action = ui->menuOpen_Auxiliary_Pane->addAction(tr("No auxiliary panes"));
+            action->setEnabled(false);
+        } else {
+            for (AuxiliaryPaneCapabilities pane : panes) {
+                ui->menuAll_Auxiliary_Panes->addAction(pane.name, [=] {
+                    currentDocument()->openAuxPane(pane.makePane());
+                });
+            }
         }
     });
 
