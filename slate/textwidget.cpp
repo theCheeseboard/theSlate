@@ -68,4 +68,6 @@ void TextWidget::openAuxPane(AuxiliaryPane *pane) {
     connect(ui->editor, &TextEditor::cursorPositionChanged, this, [=] {
         pane->cursorChanged(ui->editor->textCursor());
     });
+
+    pane->parseFile(ui->editor->fileUrl(), ui->editor->toPlainText());
 }

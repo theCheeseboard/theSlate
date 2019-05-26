@@ -175,6 +175,7 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addAction(ui->actionPrint);
         singleMenu->addAction(ui->actionFind_and_Replace);
         singleMenu->addAction(ui->actionSelect_All);
+        singleMenu->addMenu(ui->menuOpen_Auxiliary_Pane);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionChange_Syntax_Highlighting);
         singleMenu->addMenu(ui->menuWindow);
@@ -271,10 +272,16 @@ MainWindow::MainWindow(QWidget *parent) :
             QAction* action = ui->menuOpen_Auxiliary_Pane->addAction(tr("No opened files"));
             action->setEnabled(false);
         } else {
-            for (AuxiliaryPaneCapabilities pane : plugins->auxiliaryPanesForUrl(currentEditor()->fileUrl())) {
-                ui->menuOpen_Auxiliary_Pane->addAction(pane.name, [=] {
-                    currentDocument()->openAuxPane(pane.makePane());
-                });
+            QList<AuxiliaryPaneCapabilities> panes = plugins->auxiliaryPanesForUrl(currentEditor()->fileUrl());
+            if (panes.count() == 0) {
+                QAction* action = ui->menuOpen_Auxiliary_Pane->addAction(tr("No supported auxiliary panes"));
+                action->setEnabled(false);
+            } else {
+                for (AuxiliaryPaneCapabilities pane : panes) {
+                    ui->menuOpen_Auxiliary_Pane->addAction(pane.name, [=] {
+                        currentDocument()->openAuxPane(pane.makePane());
+                    });
+                }
             }
         }
     });

@@ -22,12 +22,16 @@ QList<AuxiliaryPaneCapabilities> Plugin::getPanes() {
 }
 
 QList<AuxiliaryPaneCapabilities> Plugin::getPanesForUrl(QUrl url) {
-    return {
-        AuxiliaryPaneCapabilities({
-            tr("HTML Previewer"),
-            [=] {
-                return new HtmlPreviewPane();
-            }
-        })
-    };
+    if (url.fileName().endsWith(".html") || url.fileName().endsWith(".htm")) {
+        return {
+            AuxiliaryPaneCapabilities({
+                tr("HTML Previewer"),
+                [=] {
+                    return new HtmlPreviewPane();
+                }
+            })
+        };
+    } else {
+        return QList<AuxiliaryPaneCapabilities>();
+    }
 }
