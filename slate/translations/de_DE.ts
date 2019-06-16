@@ -22,7 +22,7 @@
     <message>
         <location filename="../aboutwindow.ui" line="62"/>
         <source>Copyright (c) Victor Tran 2019. Licensed under the terms of the GNU General Public License, version 3 or later.</source>
-        <translation type="unfinished">Copyright (c) Victor Tran 2018. Lizenziert unter den Bedingungen der GNU General Public License, Version 3 oder höher. {2019.?} {3 ?}</translation>
+        <translation>Copyright (c) Victor Tran 2019. Lizenziert unter den Bedingungen der GNU General Public License, Version 3 oder höher.</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="87"/>
@@ -61,7 +61,7 @@
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="197"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="204"/>
@@ -99,12 +99,12 @@
     <message>
         <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="194"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="201"/>
         <source>OK</source>
-        <translation type="unfinished">Ok</translation>
+        <translation>Ok</translation>
     </message>
 </context>
 <context>
@@ -136,7 +136,7 @@
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="314"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="53"/>
@@ -1292,7 +1292,7 @@
         <location filename="../textparts/selectlistdialog.ui" line="87"/>
         <location filename="../textparts/selectlistdialog.ui" line="198"/>
         <source>OK</source>
-        <translation type="unfinished">Ok</translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../textparts/selectlistdialog.ui" line="145"/>
@@ -1302,7 +1302,7 @@
     <message>
         <location filename="../textparts/selectlistdialog.ui" line="191"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -1439,7 +1439,7 @@
     <message>
         <location filename="../textparts/texteditor.cpp" line="127"/>
         <source>New Document</source>
-        <translation type="unfinished">Neues Dokument</translation>
+        <translation>Neues Dokument</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="175"/>
@@ -1581,12 +1581,12 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../textparts/texteditor.cpp" line="1061"/>
         <source>Revert Changes?</source>
-        <translation type="unfinished">Änderungen rückgängig machen?</translation>
+        <translation>Änderungen rückgängig machen?</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1062"/>
         <source>Do you want to revert all the edits made to this document?</source>
-        <translation type="unfinished">Möchten Sie alle Änderungen rückgängig machen, die an diesem Dokument vorgenommen wurden?</translation>
+        <translation>Möchten Sie alle Änderungen rückgängig machen, die an diesem Dokument vorgenommen wurden?</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1469"/>
