@@ -904,6 +904,21 @@ void MainWindow::updateDocumentDependantTabs() {
     ui->actionPrint->setEnabled(enabled);
     ui->actionReload_Using_Encoding->setEnabled(enabled);
     ui->actionChange_File_Encoding->setEnabled(enabled);
+    ui->actionUndo->setEnabled(enabled);
+    ui->actionRedo->setEnabled(enabled);
+    ui->actionCut->setEnabled(enabled);
+    ui->actionCopy->setEnabled(enabled);
+    ui->actionPaste->setEnabled(enabled);
+    ui->menuPaste_from_Clipboard_History->setEnabled(enabled);
+    ui->actionComment->setEnabled(enabled);
+    ui->actionSelect_All->setEnabled(enabled);
+    ui->actionFind_and_Replace->setEnabled(enabled);
+    ui->actionUppercase->setEnabled(enabled);
+    ui->actionLowercase->setEnabled(enabled);
+    ui->actionTitle_Case->setEnabled(enabled);
+    ui->menuOpen_Auxiliary_Pane->setEnabled(enabled);
+    ui->actionChange_Syntax_Highlighting->setEnabled(enabled);
+    ui->actionLine->setEnabled(enabled);
 }
 
 void MainWindow::on_actionComment_triggered()

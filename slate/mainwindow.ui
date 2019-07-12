@@ -624,6 +624,9 @@
    <property name="text">
     <string>&amp;Revert</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
   </action>
   <action name="actionFile_Bug">
    <property name="icon">
