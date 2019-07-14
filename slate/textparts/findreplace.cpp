@@ -121,7 +121,7 @@ void FindReplace::find(QString text) {
             selection.cursor = cur;
             selections.append(selection);
         }
-        d->editor->setExtraSelectionGroup("findreplace", selections);
+        d->editor->setExtraSelectionGroup(800, "findreplace", selections);
 
         int leftPosition = qMin(d->editor->textCursor().position(), d->editor->textCursor().anchor());
         for (int match : d->matches) {

@@ -29,7 +29,7 @@ KSyntaxHighlighting::Theme highlightTheme;
 
 void setupMacMenubar() {
     //Set up macOS menu bar when no window is open
-    QMenuBar* menubar = new QMenuBar();
+    QMenuBar* menubar = new QMenuBar(nullptr);
 
     QMenu* fileMenu = new QMenu(tApplication::translate("MainWindow", "File"));
     fileMenu->addAction(tApplication::translate("MainWindow", "New"), [=] {

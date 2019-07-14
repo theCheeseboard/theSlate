@@ -25,7 +25,7 @@ QAction* LocalBackendFactory::makeOpenAction(QWidget* parent) {
         QFileDialog* openDialog = new QFileDialog(parent, Qt::Sheet);
         openDialog->setWindowModality(Qt::WindowModal);
         openDialog->setAcceptMode(QFileDialog::AcceptOpen);
-
+        openDialog->setFileMode(QFileDialog::ExistingFile);
         openDialog->setDirectory(QDir::home());
 
         openDialog->setNameFilter("All Files (*)");

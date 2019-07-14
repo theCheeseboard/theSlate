@@ -336,6 +336,7 @@ MainWindow::MainWindow(QWidget *parent) :
     d->fileModel->setRootPath(QDir::rootPath());
     d->fileModel->setReadOnly(false);
     ui->projectTree->setModel(d->fileModel);
+    ui->projectTree->setHeaderHidden(true);
     ui->projectTree->hideColumn(1);
     ui->projectTree->hideColumn(2);
     ui->projectTree->hideColumn(3);
@@ -382,8 +383,8 @@ void MainWindow::newTab() {
             if (url.isLocalFile()) {
                 QString file = url.toLocalFile();
                 this->setWindowFilePath(file);
-                ui->projectTree->scrollTo(d->fileModel->index(file));
                 ui->projectTree->expand(d->fileModel->index(file));
+                ui->projectTree->scrollTo(d->fileModel->index(file));
             }
         }
     });

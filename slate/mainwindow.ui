@@ -343,7 +343,7 @@
   </widget>
   <widget class="QDockWidget" name="sourceControlDock">
    <property name="windowTitle">
-    <string>Sou&amp;rce Control</string>
+    <string>Source Control</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>

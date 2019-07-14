@@ -340,7 +340,8 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
         }
     });
 
-    connect((QApplication*) QApplication::instance(), &QApplication::paletteChanged, this, &TextEditor::reloadSettings);
+    connect(static_cast<QApplication*>(QApplication::instance()), &QApplication::paletteChanged, this, &TextEditor::reloadSettings);
+    reloadSettings();
 }
 
 TextEditor::~TextEditor() {
@@ -795,7 +796,7 @@ void TextEditor::highlightCurrentLine()
         }
     }
 
-    setExtraSelectionGroup("lineHighlight", extraSelections);
+    setExtraSelectionGroup(100, "lineHighlight", extraSelections);
 }
 
 void TextEditor::cursorLocationChanged() {
@@ -897,7 +898,7 @@ void TextEditor::cursorLocationChanged() {
             secondSelection.format = format;
             secondSelection.format.setProperty(QTextFormat::FullWidthSelection, false);
 
-            setExtraSelectionGroup("bracketLocation", {
+            setExtraSelectionGroup(900, "bracketLocation", {
                                        firstSelection, secondSelection
                                    });
         }
@@ -918,14 +919,16 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
     while (block.isValid() && top <= event->rect().bottom()) {
         int lineNo = blockNumber + 1;
 
-        //Draw current line background
+        painter.setPen(Qt::transparent);
         QColor lineNumberColor = highlightTheme.editorColor(KSyntaxHighlighting::Theme::LineNumbers);
         QColor backgroundColor = highlightTheme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
 
-        painter.setPen(Qt::transparent);
-        if (this->textCursor().block() == block) {
-            backgroundColor = highlightTheme.editorColor(KSyntaxHighlighting::Theme::CurrentLine);
-            lineNumberColor = highlightTheme.editorColor(KSyntaxHighlighting::Theme::CurrentLineNumber);
+        //Draw current line background if we're not read only
+        if (!this->isReadOnly()) {
+            if (this->textCursor().block() == block) {
+                backgroundColor = highlightTheme.editorColor(KSyntaxHighlighting::Theme::CurrentLine);
+                lineNumberColor = highlightTheme.editorColor(KSyntaxHighlighting::Theme::CurrentLineNumber);
+            }
         }
 
         //Draw merge conflict marker
@@ -1010,7 +1013,7 @@ void TextEditor::reloadBlockHighlighting() {
         bottom = top + (int) blockBoundingRect(block).height();
         blockNumber++;
     }
-    setExtraSelectionGroup("blockHighlighting", extraSelections);
+    setExtraSelectionGroup(500, "blockHighlighting", extraSelections);
 
     d->leftMargin->repaint();
     highlightCurrentLine();
@@ -1020,16 +1023,19 @@ QList<QTextEdit::ExtraSelection> TextEditor::extraSelectionGroup(QString extraSe
     return d->extraSelectionGroups.value(extraSelectionGroup);
 }
 
-void TextEditor::setExtraSelectionGroup(QString extraSelectionGroup, QList<QTextEdit::ExtraSelection> selections) {
-    d->extraSelectionGroups.insert(extraSelectionGroup, selections);
+void TextEditor::setExtraSelectionGroup(int priority, QString extraSelectionGroup, QList<QTextEdit::ExtraSelection> selections) {
+    d->extraSelectionGroups.insert(QString::number(priority) + "-" + extraSelectionGroup, selections);
     updateExtraSelections();
 }
 
 void TextEditor::clearExtraSelectionGroup(QString extraSelectionGroups) {
-    if (d->extraSelectionGroups.contains(extraSelectionGroups)) {
-        d->extraSelectionGroups.remove(extraSelectionGroups);
+    for (QString selection : d->extraSelectionGroups.keys()) {
+        if (selection.endsWith("-" + extraSelectionGroups)) {
+            d->extraSelectionGroups.remove(selection);
+            updateExtraSelections();
+            return;
+        }
     }
-    updateExtraSelections();
 }
 
 void TextEditor::updateExtraSelections() {
@@ -1214,7 +1220,7 @@ void TextEditor::updateMergedLinesColour() {
             cur.movePosition(QTextCursor::NextBlock);
         }
     }
-    setExtraSelectionGroup("mergeConflictResolution", extraSelections);
+    setExtraSelectionGroup(600, "mergeConflictResolution", extraSelections);
 }
 
 bool TextEditor::mergedLineIsAccepted(MergeLines mergedLine) {

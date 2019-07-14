@@ -92,7 +92,7 @@ class TextEditor : public QPlainTextEdit
 
         void setHighlighter(KSyntaxHighlighting::Definition hl);
 
-        void setExtraSelectionGroup(QString extraSelectionGroup, QList<QTextEdit::ExtraSelection> selections);
+        void setExtraSelectionGroup(int priority, QString extraSelectionGroup, QList<QTextEdit::ExtraSelection> selections);
         QList<QTextEdit::ExtraSelection> extraSelectionGroup(QString extraSelectionGroup);
         void clearExtraSelectionGroup(QString extraSelectionGroups);
 
