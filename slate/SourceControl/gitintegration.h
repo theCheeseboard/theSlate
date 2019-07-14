@@ -64,6 +64,12 @@ class GitIntegration : public QObject
         typedef QSharedPointer<Branch> BranchPointer;
         typedef QList<BranchPointer> BranchList;
 
+        enum ResetType {
+            Hard,
+            Mixed,
+            Soft
+        };
+
         explicit GitIntegration(QString rootDir, QObject *parent = nullptr);
         ~GitIntegration();
 
@@ -115,6 +121,8 @@ class GitIntegration : public QObject
         tPromise<void>* pull(QString from = "");
         tPromise<void>* push(QString to = "");
         void setNextCredentials(QString username, QString password);
+
+        void resetTo(QString commit, ResetType type);
 
         void init();
         bool needsInit();

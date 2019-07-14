@@ -117,19 +117,6 @@ void CommitDialog::on_acceptButton_clicked()
         }
     }
 
-    if (!haveCommittedFiles) {
-        tMessageBox* b = new tMessageBox(this->window());
-        b->setWindowTitle(tr("Nothing to commit"));
-        b->setText(tr("You haven't added any files to this commit."));
-        b->setIcon(tMessageBox::Warning);
-        b->setWindowFlags(Qt::Sheet);
-        b->setStandardButtons(tMessageBox::Ok);
-        b->setDefaultButton(tMessageBox::Ok);
-        b->exec();
-        b->deleteLater();
-        return;
-    }
-
     if (ui->commitMessage->toPlainText().isEmpty()) {
         tMessageBox* b = new tMessageBox(this->window());
         b->setWindowTitle(tr("No Commit Message"));
@@ -141,6 +128,21 @@ void CommitDialog::on_acceptButton_clicked()
         b->exec();
         b->deleteLater();
         return;
+    }
+
+    if (!haveCommittedFiles) {
+        tMessageBox* b = new tMessageBox(this->window());
+        b->setWindowTitle(tr("Nothing to commit"));
+        b->setText(tr("Create an empty commit anyway?"));
+        b->setIcon(tMessageBox::Question);
+        b->setWindowFlags(Qt::Sheet);
+        b->setStandardButtons(tMessageBox::Yes | tMessageBox::No);
+        b->setDefaultButton(tMessageBox::Yes);
+        if (b->exec() == tMessageBox::No) {
+            b->deleteLater();
+            return;
+        }
+        b->deleteLater();
     }
 
     if (!d->gi->isConflicting()) {

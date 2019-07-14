@@ -533,7 +533,7 @@ void GitIntegration::add(QString file) {
 }
 
 void GitIntegration::commit(QString message) {
-    QProcess* proc = git("commit -F -");
+    QProcess* proc = git("commit --allow-empty -F -");
 
     QStringList lines = message.split("\n");
     for (QString line : lines) {
@@ -669,4 +669,22 @@ tPromise<void>* GitIntegration::merge(QString other) {
             return;
         }
     });
+}
+
+void GitIntegration::resetTo(QString commit, ResetType type) {
+    QString strType;
+    switch (type) {
+        case Hard:
+            strType = QStringLiteral("--hard");
+            break;
+        case Mixed:
+            strType = QStringLiteral("--mixed");
+            break;
+        case Soft:
+            strType = QStringLiteral("--soft");
+            break;
+    }
+    QProcess* proc = git("reset " + strType + " " + commit);
+    proc->waitForFinished();
+    proc->deleteLater();
 }

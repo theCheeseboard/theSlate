@@ -213,6 +213,40 @@ void GitWidget::on_logList_customContextMenuRequested(const QPoint &pos)
         menu->addAction(tr("Checkout"), [=] {
             d->gi->checkout(commit->hash);
         });
+
+        auto performReset = [=](GitIntegration::ResetType type) {
+            //Abort merge
+            tMessageBox* messageBox = new tMessageBox(this->window());
+            messageBox->setWindowTitle(tr("Reset the repository?"));
+
+            if (type == GitIntegration::Hard) {
+                messageBox->setText(tr("The changes since %1 will be discarded.").arg(commit->hash.left(7)));
+            } else {
+                messageBox->setText(tr("Your HEAD will point to %1.").arg(commit->hash.left(7)));
+            }
+
+            messageBox->setIcon(tMessageBox::Warning);
+            messageBox->setWindowFlags(Qt::Sheet);
+            messageBox->setStandardButtons(tMessageBox::Yes | tMessageBox::No);
+            if (messageBox->exec() == tMessageBox::Yes) {
+                d->gi->resetTo(commit->hash, type);
+            }
+            messageBox->deleteLater();
+        };
+
+        QMenu* resetMenu = new QMenu();
+        resetMenu->setTitle(tr("Reset to here"));
+        resetMenu->addAction(tr("Hard Reset"), [=] {
+            performReset(GitIntegration::Hard);
+        });
+        resetMenu->addAction(tr("Mixed Reset"), [=] {
+            performReset(GitIntegration::Mixed);
+        });
+        resetMenu->addAction(tr("Soft Reset"), [=] {
+            performReset(GitIntegration::Soft);
+        });
+        menu->addMenu(resetMenu);
+
         menu->exec(ui->branchesList->mapToGlobal(pos));
     }
 }
