@@ -48,10 +48,10 @@ if [ $STAGE = "script" ]; then
     export PATH="/usr/local/opt/qt/bin:$PATH"
     if [ "$TRAVIS_BRANCH" = "blueprint" ]; then
       THESLATE_APPPATH="slate/theSlate Blueprint.app"
-      CONFIG_JSON=./node-appdmg-config.json
+      CONFIG_JSON=./node-appdmg-config-bp.json
     else
       THESLATE_APPPATH=slate/theSlate.app
-      CONFIG_JSON=./node-appdmg-config-bp.json
+      CONFIG_JSON=./node-appdmg-config.json
     fi
     cd ..
     echo "[TRAVIS] Building and installing the-libs"
