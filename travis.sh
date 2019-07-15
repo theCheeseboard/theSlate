@@ -48,8 +48,10 @@ if [ $STAGE = "script" ]; then
     export PATH="/usr/local/opt/qt/bin:$PATH"
     if [ "$TRAVIS_BRANCH" = "blueprint" ]; then
       THESLATE_APPPATH="slate/theSlate Blueprint.app"
+      CONFIG_JSON=./node-appdmg-config.json
     else
       THESLATE_APPPATH=slate/theSlate.app
+      CONFIG_JSON=./node-appdmg-config-bp.json
     fi
     cd ..
     echo "[TRAVIS] Building and installing the-libs"
@@ -80,7 +82,7 @@ if [ $STAGE = "script" ]; then
     echo "[TRAVIS] Preparing Disk Image creator"
     npm install appdmg
     echo "[TRAVIS] Building Disk Image"
-    ./node_modules/appdmg/bin/appdmg.js ./node-appdmg-config.json ~/theSlate-macOS.dmg
+    ./node_modules/appdmg/bin/appdmg.js $CONFIG_JSON ~/theSlate-macOS.dmg
   fi
 elif [ $STAGE = "before_install" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
