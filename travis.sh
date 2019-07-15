@@ -67,16 +67,16 @@ if [ $STAGE = "script" ]; then
     echo "[TRAVIS] Building project"
     make
     echo "[TRAVIS] Embedding the-libs"
-    mkdir $THESLATE_APPPATH/Contents/Libraries
-    cp /usr/local/lib/libthe-libs*.dylib $THESLATE_APPPATH/Contents/Libraries/
-    install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib $THESLATE_APPPATH/Contents/MacOS/theSlate
-    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtWidgets @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtWidgets $THESLATE_APPPATH/Libraries/libthe-libs.1.dylib
-    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtGui @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtGui $THESLATE_APPPATH/Libraries/libthe-libs.1.dylib
-    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtCore @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtCore $THESLATE_APPPATH/Libraries/libthe-libs.1.dylib
-    install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib $THESLATE_APPPATH/Contents/filebackends/libLocalFileBackend.dylib
-    install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib $THESLATE_APPPATH/Contents/filebackends/libHttpBackend.dylib
+    mkdir "$THESLATE_APPPATH/Contents/Libraries"
+    cp /usr/local/lib/libthe-libs*.dylib "$THESLATE_APPPATH/Contents/Libraries/"
+    install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib "$THESLATE_APPPATH/Contents/MacOS/theSlate"
+    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtWidgets @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtWidgets "$THESLATE_APPPATH/Libraries/libthe-libs.1.dylib"
+    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtGui @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtGui "$THESLATE_APPPATH/Libraries/libthe-libs.1.dylib"
+    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtCore @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtCore "$THESLATE_APPPATH/Libraries/libthe-libs.1.dylib"
+    install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib "$THESLATE_APPPATH/Contents/filebackends/libLocalFileBackend.dylib"
+    install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib "$THESLATE_APPPATH/Contents/filebackends/libHttpBackend.dylib"
     echo "[TRAVIS] Deploying Qt Libraries"
-    macdeployqt $THESLATE_APPPATH
+    macdeployqt "$THESLATE_APPPATH"
     echo "[TRAVIS] Preparing Disk Image creator"
     npm install appdmg
     echo "[TRAVIS] Building Disk Image"
