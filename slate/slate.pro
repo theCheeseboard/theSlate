@@ -10,34 +10,84 @@ SHARE_APP_NAME=theslate
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = theSlate
 TEMPLATE = app
 
-macx {
-    QT += macextras
-    ICON = icon.icns
-    LIBS += -framework CoreFoundation -framework AppKit
-    QMAKE_INFO_PLIST = Info.plist
-    DEFINES += "THESLATE_END_OF_LINE=0"
-}
-
 unix:!macx {
+    # Include the-libs build tools
+    include(/usr/share/the-libs/pri/buildmaster.pri)
+
     QT += thelib KSyntaxHighlighting
     TARGET = theslate
     DEFINES += "THESLATE_END_OF_LINE=0"
+
+    target.path = /usr/bin
+
+    desktop.path = /usr/share/applications
+    desktop.files = theslate.desktop
+
+    icon.path = /usr/share/icons/hicolor/scalable/apps/
+    icon.files = icons/theslate.svg
+
+    headers.path = /usr/include/theslate
+    header.files = plugins/syntaxhighlighting.h plugins/filebackend.h
+
+    cols.files = ColorDefinitions/*
+    cols.path = /usr/share/theslate/ColorDefinitions
+
+    INSTALLS += target desktop icon headers cols
 }
 
-win32 {
+win {
+    # Include the-libs build tools
+    include(C:/Program Files/thelibs/pri/buildmaster.pri)
+
     QT += thelib
     INCLUDEPATH += "C:/Program Files/thelibs/include" "C:/Program Files (x86)/KSyntaxHighlighting/include/KF5/KSyntaxHighlighting"
     LIBS += -L"C:/Program Files/thelibs/lib" -lthe-libs -L"C:/Program Files (x86)/KSyntaxHighlighting/lib" -lKF5SyntaxHighlighting
     RC_FILE = icon.rc
     DEFINES += "THESLATE_END_OF_LINE=2"
+    TARGET = theSlate
 }
 
 macx {
+    # Include the-libs build tools
+    include(/usr/local/share/the-libs/pri/buildmaster.pri)
+
+    QT += macextras
+    LIBS += -framework CoreFoundation -framework AppKit
+    QMAKE_INFO_PLIST = Info.plist
+    DEFINES += "THESLATE_END_OF_LINE=0"
+
+    blueprint {
+        TARGET = "theSlate Blueprint"
+        ICON = icon-bp.icns
+    } else {
+        TARGET = "theSlate"
+        ICON = icon.icns
+
+        sign.commands = codesign -s theSuite $$OUT_PWD/theSlate.app/
+        sign.target = sign
+        QMAKE_EXTRA_TARGETS += sign
+    }
+
     INCLUDEPATH += "/usr/local/include/the-libs" "/usr/local/include/KF5/KSyntaxHighlighting"
     LIBS += -L/usr/local/lib -lthe-libs -lKF5SyntaxHighlighting
+
+    locversion.files = localisedresources/
+    locversion.path = Contents/Resources
+
+    filebackend.files = ../FileBackends/LocalFileBackend/libLocalFileBackend.dylib ../FileBackends/HttpBackend/libHttpBackend.dylib
+    filebackend.path = Contents/filebackends/
+
+    auxpane.files = ../AuxiliaryPanes/HtmlPreview/libHtmlPreview.dylib ../AuxiliaryPanes/MarkdownPreview/libMdPreview.dylib
+    auxpane.path = Contents/auxiliarypanes/
+
+    cols.files = ColorDefinitions/
+    cols.path = Contents/Resources/ColorDefinitions/
+
+    QMAKE_BUNDLE_DATA += locversion filebackend auxpane cols
+
+    QMAKE_POST_LINK += $$quote(cp $${PWD}/dmgicon.icns $${PWD}/app-dmg-background.png $${PWD}/node-appdmg-config.json $${OUT_PWD}/..)
 }
 
 
@@ -151,53 +201,6 @@ RESOURCES += \
 # Turn off stripping as this causes the install to fail :(
 QMAKE_STRIP = echo
 
-unix:!macx {
-    # Include the-libs build tools
-    include(/usr/share/the-libs/pri/buildmaster.pri)
-
-    target.path = /usr/bin
-
-    desktop.path = /usr/share/applications
-    desktop.files = theslate.desktop
-
-    icon.path = /usr/share/icons/hicolor/scalable/apps/
-    icon.files = icons/theslate.svg
-
-    headers.path = /usr/include/theslate
-    header.files = plugins/syntaxhighlighting.h plugins/filebackend.h
-
-    cols.files = ColorDefinitions/*
-    cols.path = /usr/share/theslate/ColorDefinitions
-
-    INSTALLS += target desktop icon headers cols
-}
-
-macx {
-    # Include the-libs build tools
-    include(/usr/local/share/the-libs/pri/buildmaster.pri)
-
-    locversion.files = localisedresources/
-    locversion.path = Contents/Resources
-
-    filebackend.files = ../FileBackends/LocalFileBackend/libLocalFileBackend.dylib ../FileBackends/HttpBackend/libHttpBackend.dylib
-    filebackend.path = Contents/filebackends/
-
-    auxpane.files = ../AuxiliaryPanes/HtmlPreview/libHtmlPreview.dylib ../AuxiliaryPanes/MarkdownPreview/libMdPreview.dylib
-    auxpane.path = Contents/auxiliarypanes/
-
-    cols.files = ColorDefinitions/
-    cols.path = Contents/Resources/ColorDefinitions/
-
-    QMAKE_BUNDLE_DATA += locversion filebackend auxpane cols
-
-    QMAKE_POST_LINK += $$quote(cp $${PWD}/dmgicon.icns $${PWD}/app-dmg-background.png $${PWD}/node-appdmg-config.json $${OUT_PWD}/..)
-}
-
-win {
-    # Include the-libs build tools
-    include(C:/Program Files/thelibs/pri/buildmaster.pri)
-}
-
 DISTFILES += \
     theslate.desktop \
     app-dmg-background.png \
@@ -205,10 +208,3 @@ DISTFILES += \
     Info.plist \
     ColorDefinitions/themes/Contemporary.theme \
     ColorDefinitions/themes/ContemporaryDark.theme
-
-macx {
-    sign.target = sign
-    sign.commands = codesign -s theSuite $$OUT_PWD/theSlate.app/
-
-    QMAKE_EXTRA_TARGETS += sign
-}

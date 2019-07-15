@@ -92,15 +92,19 @@ int main(int argc, char *argv[])
 
     a.setOrganizationName("theSuite");
     a.setOrganizationDomain("");
-    a.setApplicationName("theSlate");
     a.setApplicationIcon(QIcon::fromTheme("theslate", QIcon(":/icons/icon.svg")));
     a.setApplicationVersion(updateManager->versionString());
     a.setGenericName(QApplication::translate("main", "Text Editor"));
     a.setAboutDialogSplashGraphic(a.aboutDialogSplashGraphicFromSvg(":/icons/aboutsplash.svg"));
-    a.setApplicationLicense(tApplication::Gpl3);
+    a.setApplicationLicense(tApplication::Gpl3OrLater);
     a.setCopyrightHolder("Victor Tran");
     a.setCopyrightYear("2019");
     a.addCopyrightLine(QApplication::translate("main", "Syntax highlighting library by the KDE project, licensed under MIT."));
+    #ifdef T_BLUEPRINT_BUILD
+        a.setApplicationName("theSlate Blueprint");
+    #else
+        a.setApplicationName("theSlate");
+    #endif
     if (QDir("/usr/share/theslate").exists()) {
         a.setShareDir("/usr/share/theslate");
     } else if (QDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theslate/")).exists()) {

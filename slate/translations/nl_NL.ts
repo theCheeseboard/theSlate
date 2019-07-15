@@ -10,7 +10,7 @@
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="32"/>
-        <location filename="../main.cpp" line="156"/>
+        <location filename="../main.cpp" line="160"/>
         <source>Text Editor</source>
         <translation>Tekstbewerker</translation>
     </message>
@@ -1733,32 +1733,32 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.cpp" line="98"/>
+        <location filename="../main.cpp" line="97"/>
         <source>Text Editor</source>
         <translation type="unfinished">Tekstbewerker</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="103"/>
+        <location filename="../main.cpp" line="102"/>
         <source>Syntax highlighting library by the KDE project, licensed under MIT.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="162"/>
+        <location filename="../main.cpp" line="166"/>
         <source>Read from standard input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="165"/>
+        <location filename="../main.cpp" line="169"/>
         <source>files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="165"/>
+        <location filename="../main.cpp" line="169"/>
         <source>Files to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="165"/>
+        <location filename="../main.cpp" line="169"/>
         <source>[files...]</source>
         <translation type="unfinished"></translation>
     </message>
