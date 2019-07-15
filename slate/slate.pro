@@ -37,7 +37,7 @@ unix:!macx {
     INSTALLS += target desktop icon headers cols
 }
 
-win {
+win32 {
     # Include the-libs build tools
     include(C:/Program Files/thelibs/pri/buildmaster.pri)
 
