@@ -171,7 +171,7 @@
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="136"/>
         <source>Create an empty commit anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bạn vẫn muốn tạo commit trống không?</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="122"/>
@@ -502,37 +502,37 @@
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="220"/>
         <source>Reset the repository?</source>
-        <translation type="unfinished"></translation>
+        <translation>Đật lại kho?</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="223"/>
         <source>The changes since %1 will be discarded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Các thay đổi bắt đầu từ %1 sẽ bị vứt đi.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="225"/>
         <source>Your HEAD will point to %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>HEAD của bạn sẽ chỉ đến %1.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="238"/>
         <source>Reset to here</source>
-        <translation type="unfinished"></translation>
+        <translation>Đặt lại đây</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="239"/>
         <source>Hard Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Đặt lại cứng</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="242"/>
         <source>Mixed Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Đật lại trộn</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="245"/>
         <source>Soft Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Đặt lại mềm</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="271"/>
@@ -688,12 +688,12 @@
     <message>
         <location filename="../mainwindow.ui" line="737"/>
         <source>Toggle Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Đổi chế độ bình luận</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="740"/>
         <source>Ctrl+/</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+/</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="755"/>
@@ -735,12 +735,12 @@
     <message>
         <location filename="../mainwindow.ui" line="263"/>
         <source>Open Auxiliary Pane</source>
-        <translation type="unfinished"></translation>
+        <translation>Mở ngăn phụ</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="267"/>
         <source>All Auxiliary Panes</source>
-        <translation type="unfinished"></translation>
+        <translation>Tất cả ngăn phụ</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="279"/>
@@ -873,7 +873,7 @@
     <message>
         <location filename="../mainwindow.ui" line="628"/>
         <source>Ctrl+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+R</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="637"/>
@@ -953,17 +953,17 @@
     <message>
         <location filename="../mainwindow.ui" line="772"/>
         <source>Uppercase</source>
-        <translation type="unfinished"></translation>
+        <translation>Viết hoa</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="781"/>
         <source>Lowercase</source>
-        <translation type="unfinished"></translation>
+        <translation>Viết thường</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="790"/>
         <source>Title Case</source>
-        <translation type="unfinished"></translation>
+        <translation>Viết hoa chữ đầu tiên</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="502"/>
@@ -973,7 +973,7 @@
     <message>
         <location filename="../mainwindow.ui" line="346"/>
         <source>Source Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Điều khiển mã nguồn</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="505"/>
@@ -1123,17 +1123,17 @@
     <message>
         <location filename="../mainwindow.cpp" line="273"/>
         <source>No opened files</source>
-        <translation type="unfinished"></translation>
+        <translation>Không có tệp nào đang mở</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="278"/>
         <source>No supported auxiliary panes</source>
-        <translation type="unfinished"></translation>
+        <translation>Không có ngăn phụ nào được hỗ trợ</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="297"/>
         <source>No auxiliary panes</source>
-        <translation type="unfinished"></translation>
+        <translation>Không có ngăn phụ</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="308"/>
@@ -1417,7 +1417,7 @@
     <message>
         <location filename="../settingsdialog.ui" line="466"/>
         <source>Wrap Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngắt dòng văn bản</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="550"/>
@@ -1695,7 +1695,7 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../textparts/textstatusbar.ui" line="44"/>
         <source>AUX</source>
-        <translation type="unfinished"></translation>
+        <translation>PHỤ</translation>
     </message>
 </context>
 <context>
@@ -1703,7 +1703,7 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../textwidget.cpp" line="100"/>
         <source>Supported Auxiliary Panes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngăn phụ được hỗ trợ</translation>
     </message>
 </context>
 <context>
@@ -1729,12 +1729,12 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../main.cpp" line="97"/>
         <source>Text Editor</source>
-        <translation type="unfinished">Bộ sửa chứ</translation>
+        <translation>Bộ soạn văn bản</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="102"/>
         <source>Syntax highlighting library by the KDE project, licensed under MIT.</source>
-        <translation type="unfinished"></translation>
+        <translation>Thư viện nổi bật cú pháp phát hành bởi dự án KDE, được cấp phép theo MIT.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="166"/>
