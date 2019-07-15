@@ -17,6 +17,7 @@
 #include "managers/recentfilesmanager.h"
 #include "managers/updatemanager.h"
 #include "textwidget.h"
+#include <taboutdialog.h>
 
 #include <Repository>
 #include <SyntaxHighlighter>
@@ -659,7 +660,7 @@ void MainWindow::on_actionPaste_triggered()
 
 void MainWindow::on_actionAbout_triggered()
 {
-    AboutWindow aboutWindow;
+    tAboutDialog aboutWindow;
     aboutWindow.exec();
 }
 

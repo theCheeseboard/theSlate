@@ -21,7 +21,6 @@
 #include <QSettings>
 #include <QDockWidget>
 #include <QTabBar>
-#include "aboutwindow.h"
 #include "textparts/texteditor.h"
 #include "SourceControl/gitintegration.h"
 #include "textparts/printdialog.h"

@@ -41,5 +41,6 @@
         <file>icons/format-text-capitalize.svg</file>
         <file>icons/format-text-lowercase.svg</file>
         <file>icons/format-text-uppercase.svg</file>
+        <file>icons/aboutsplash.svg</file>
     </qresource>
 </RCC>

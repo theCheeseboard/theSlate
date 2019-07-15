@@ -7,7 +7,6 @@
 #include <QDesktopServices>
 #include <QCommandLineParser>
 #include <QClipboard>
-#include "aboutwindow.h"
 #include "settingsdialog.h"
 #include "plugins/pluginmanager.h"
 #include "managers/recentfilesmanager.h"
@@ -15,6 +14,7 @@
 #include <Repository>
 #include <Theme>
 #include <QWebEngineUrlSchemeHandler>
+#include <taboutdialog.h>
 
 #ifdef Q_OS_MAC
     extern void setupMacObjC();
@@ -60,7 +60,7 @@ void setupMacMenubar() {
     });
     helpMenu->addSeparator();
     helpMenu->addAction(tApplication::translate("MainWindow", "About"), [=] {
-        AboutWindow aboutWindow;
+        tAboutDialog aboutWindow;
         aboutWindow.exec();
     })->setMenuRole(QAction::AboutRole);
 
@@ -84,6 +84,8 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+    updateManager = new UpdateManager();
+
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     a.installTranslator(&qtTranslator);
@@ -92,6 +94,13 @@ int main(int argc, char *argv[])
     a.setOrganizationDomain("");
     a.setApplicationName("theSlate");
     a.setApplicationIcon(QIcon::fromTheme("theslate", QIcon(":/icons/icon.svg")));
+    a.setApplicationVersion(updateManager->versionString());
+    a.setGenericName(QApplication::translate("main", "Text Editor"));
+    a.setAboutDialogSplashGraphic(a.aboutDialogSplashGraphicFromSvg(":/icons/aboutsplash.svg"));
+    a.setApplicationLicense(tApplication::Gpl3);
+    a.setCopyrightHolder("Victor Tran");
+    a.setCopyrightYear("2019");
+    a.addCopyrightLine(QApplication::translate("main", "Syntax highlighting library by the KDE project, licensed under MIT."));
     if (QDir("/usr/share/theslate").exists()) {
         a.setShareDir("/usr/share/theslate");
     } else if (QDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theslate/")).exists()) {
@@ -142,8 +151,6 @@ int main(int argc, char *argv[])
         a.setPalette(pal, "QToolBar");
     }
 #endif
-
-    updateManager = new UpdateManager();
 
     QCommandLineParser parser;
     parser.setApplicationDescription(a.translate("AboutWindow", "Text Editor"));
