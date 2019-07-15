@@ -46,6 +46,11 @@ if [ $STAGE = "script" ]; then
   else
     echo "[TRAVIS] Building for macOS"
     export PATH="/usr/local/opt/qt/bin:$PATH"
+    if [ "$TRAVIS_BRANCH" = "blueprint" ]; then
+      THESLATE_APPPATH="slate/theSlate Blueprint.app"
+    else
+      THESLATE_APPPATH=slate/theSlate.app
+    fi
     cd ..
     echo "[TRAVIS] Building and installing the-libs"
     git clone https://github.com/vicr123/the-libs.git
@@ -62,16 +67,16 @@ if [ $STAGE = "script" ]; then
     echo "[TRAVIS] Building project"
     make
     echo "[TRAVIS] Embedding the-libs"
-    mkdir slate/theSlate.app/Contents/Libraries
-    cp /usr/local/lib/libthe-libs*.dylib slate/theSlate.app/Contents/Libraries/
-    install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib slate/theSlate.app/Contents/MacOS/theSlate
-    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtWidgets @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtWidgets slate/theSlate.app/Libraries/libthe-libs.1.dylib
-    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtGui @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtGui slate/theSlate.app/Libraries/libthe-libs.1.dylib
-    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtCore @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtCore slate/theSlate.app/Libraries/libthe-libs.1.dylib
-    install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib slate/theSlate.app/Contents/filebackends/libLocalFileBackend.dylib
-    install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib slate/theSlate.app/Contents/filebackends/libHttpBackend.dylib
+    mkdir $THESLATE_APPPATH/Contents/Libraries
+    cp /usr/local/lib/libthe-libs*.dylib $THESLATE_APPPATH/Contents/Libraries/
+    install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib $THESLATE_APPPATH/Contents/MacOS/theSlate
+    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtWidgets @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtWidgets $THESLATE_APPPATH/Libraries/libthe-libs.1.dylib
+    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtGui @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtGui $THESLATE_APPPATH/Libraries/libthe-libs.1.dylib
+    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtCore @executable_path/../Frameworks/QtSvg.framework/Versions/5/QtCore $THESLATE_APPPATH/Libraries/libthe-libs.1.dylib
+    install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib $THESLATE_APPPATH/Contents/filebackends/libLocalFileBackend.dylib
+    install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib $THESLATE_APPPATH/Contents/filebackends/libHttpBackend.dylib
     echo "[TRAVIS] Deploying Qt Libraries"
-    macdeployqt slate/theSlate.app
+    macdeployqt $THESLATE_APPPATH
     echo "[TRAVIS] Preparing Disk Image creator"
     npm install appdmg
     echo "[TRAVIS] Building Disk Image"
