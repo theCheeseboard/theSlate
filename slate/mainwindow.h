@@ -153,6 +153,7 @@ private:
         void dragLeaveEvent(QDragLeaveEvent* event);
         void dragMoveEvent(QDragMoveEvent* event);
         void dropEvent(QDropEvent* event);
+        void changeEvent(QEvent* event);
 
         void updateDocumentDependantTabs();
 

@@ -10,7 +10,7 @@
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="32"/>
-        <location filename="../main.cpp" line="160"/>
+        <location filename="../main.cpp" line="161"/>
         <source>Text Editor</source>
         <translation type="unfinished"></translation>
     </message>
@@ -693,7 +693,7 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="209"/>
-        <location filename="../mainwindow.cpp" line="147"/>
+        <location filename="../mainwindow.cpp" line="148"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -753,7 +753,7 @@
         <location filename="../main.cpp" line="35"/>
         <location filename="../mainwindow-objc.mm" line="154"/>
         <location filename="../mainwindow-objc.mm" line="156"/>
-        <location filename="../mainwindow.cpp" line="90"/>
+        <location filename="../mainwindow.cpp" line="92"/>
         <source>New</source>
         <translation type="unfinished"></translation>
     </message>
@@ -787,7 +787,7 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="410"/>
-        <location filename="../mainwindow.cpp" line="98"/>
+        <location filename="../mainwindow.cpp" line="99"/>
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1128,79 +1128,79 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="246"/>
+        <location filename="../mainwindow.cpp" line="247"/>
         <source>No Clipboard History available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="273"/>
+        <location filename="../mainwindow.cpp" line="274"/>
         <source>No opened files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="278"/>
+        <location filename="../mainwindow.cpp" line="279"/>
         <source>No supported auxiliary panes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="297"/>
+        <location filename="../mainwindow.cpp" line="298"/>
         <source>No auxiliary panes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="308"/>
+        <location filename="../mainwindow.cpp" line="309"/>
         <source>Ctrl+Shift+V</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="608"/>
+        <location filename="../mainwindow.cpp" line="610"/>
         <source>Save Changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="609"/>
+        <location filename="../mainwindow.cpp" line="611"/>
         <source>Do you want to save your changes to this document?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="815"/>
+        <location filename="../mainwindow.cpp" line="824"/>
         <source>For %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="817"/>
+        <location filename="../mainwindow.cpp" line="826"/>
         <source>Edit in new tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="822"/>
+        <location filename="../mainwindow.cpp" line="831"/>
         <source>Edit in new window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="828"/>
-        <location filename="../mainwindow.cpp" line="835"/>
         <location filename="../mainwindow.cpp" line="837"/>
+        <location filename="../mainwindow.cpp" line="844"/>
+        <location filename="../mainwindow.cpp" line="846"/>
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="831"/>
+        <location filename="../mainwindow.cpp" line="840"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="837"/>
+        <location filename="../mainwindow.cpp" line="846"/>
         <source>What do you want to call this file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="865"/>
+        <location filename="../mainwindow.cpp" line="874"/>
         <source>No Recent Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="880"/>
+        <location filename="../mainwindow.cpp" line="889"/>
         <source>Clear Recent Items</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1733,32 +1733,32 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.cpp" line="97"/>
+        <location filename="../main.cpp" line="99"/>
         <source>Text Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="102"/>
+        <location filename="../main.cpp" line="104"/>
         <source>Syntax highlighting library by the KDE project, licensed under MIT.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="166"/>
+        <location filename="../main.cpp" line="167"/>
         <source>Read from standard input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="169"/>
+        <location filename="../main.cpp" line="170"/>
         <source>files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="169"/>
+        <location filename="../main.cpp" line="170"/>
         <source>Files to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="169"/>
+        <location filename="../main.cpp" line="170"/>
         <source>[files...]</source>
         <translation type="unfinished"></translation>
     </message>

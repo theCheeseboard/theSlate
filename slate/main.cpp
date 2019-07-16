@@ -90,6 +90,8 @@ int main(int argc, char *argv[])
     qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     a.installTranslator(&qtTranslator);
 
+    a.installTranslators();
+
     a.setOrganizationName("theSuite");
     a.setOrganizationDomain("");
     a.setApplicationIcon(QIcon::fromTheme("theslate", QIcon(":/icons/icon.svg")));
@@ -110,7 +112,6 @@ int main(int argc, char *argv[])
     } else if (QDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theslate/")).exists()) {
         a.setShareDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theslate/"));
     }
-    a.installTranslators();
 
 
 #ifdef Q_OS_MAC

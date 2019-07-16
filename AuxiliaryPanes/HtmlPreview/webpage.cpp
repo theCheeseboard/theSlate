@@ -11,7 +11,7 @@ QWebEnginePage* WebPage::createWindow(QWebEnginePage::WebWindowType type) {
 }
 
 bool WebPage::acceptNavigationRequest(const QUrl &url, QWebEnginePage::NavigationType type, bool isMainFrame) {
-    if (type == NavigationTypeTyped) {
+    if (type == NavigationTypeTyped || !isMainFrame) {
         return true;
     }
 

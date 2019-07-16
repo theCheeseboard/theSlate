@@ -146,7 +146,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QStackedWidget" name="tabs"/>
+        <widget class="tStackedWidget" name="tabs"/>
        </item>
       </layout>
      </widget>
@@ -797,6 +797,12 @@
    <class>GitWidget</class>
    <extends>QWidget</extends>
    <header>SourceControl/gitwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>tStackedWidget</class>
+   <extends>QStackedWidget</extends>
+   <header location="global">tstackedwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

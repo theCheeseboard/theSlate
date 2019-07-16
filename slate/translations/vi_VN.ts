@@ -10,7 +10,7 @@
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="32"/>
-        <location filename="../main.cpp" line="160"/>
+        <location filename="../main.cpp" line="161"/>
         <source>Text Editor</source>
         <translation>Bộ sửa chứ</translation>
     </message>
@@ -707,7 +707,7 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="209"/>
-        <location filename="../mainwindow.cpp" line="147"/>
+        <location filename="../mainwindow.cpp" line="148"/>
         <source>Edit</source>
         <translation>Sửa</translation>
     </message>
@@ -762,7 +762,7 @@
         <location filename="../main.cpp" line="35"/>
         <location filename="../mainwindow-objc.mm" line="154"/>
         <location filename="../mainwindow-objc.mm" line="156"/>
-        <location filename="../mainwindow.cpp" line="90"/>
+        <location filename="../mainwindow.cpp" line="92"/>
         <source>New</source>
         <translation>Mới</translation>
     </message>
@@ -796,7 +796,7 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="410"/>
-        <location filename="../mainwindow.cpp" line="98"/>
+        <location filename="../mainwindow.cpp" line="99"/>
         <source>Open</source>
         <translation>Mở</translation>
     </message>
@@ -1116,79 +1116,79 @@
         <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="246"/>
+        <location filename="../mainwindow.cpp" line="247"/>
         <source>No Clipboard History available</source>
         <translation>Không có lịch sử Clipboard</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="273"/>
+        <location filename="../mainwindow.cpp" line="274"/>
         <source>No opened files</source>
         <translation>Không có tệp nào đang mở</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="278"/>
+        <location filename="../mainwindow.cpp" line="279"/>
         <source>No supported auxiliary panes</source>
         <translation>Không có ngăn phụ nào được hỗ trợ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="297"/>
+        <location filename="../mainwindow.cpp" line="298"/>
         <source>No auxiliary panes</source>
         <translation>Không có ngăn phụ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="308"/>
+        <location filename="../mainwindow.cpp" line="309"/>
         <source>Ctrl+Shift+V</source>
         <translation>Ctrl+Shift+V</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="608"/>
+        <location filename="../mainwindow.cpp" line="610"/>
         <source>Save Changes?</source>
         <translation>Lưu thay đổi?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="609"/>
+        <location filename="../mainwindow.cpp" line="611"/>
         <source>Do you want to save your changes to this document?</source>
         <translation>Bạn có muốn lưu thay đổi với tệp này không?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="815"/>
+        <location filename="../mainwindow.cpp" line="824"/>
         <source>For %1</source>
         <translation>Cho %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="817"/>
+        <location filename="../mainwindow.cpp" line="826"/>
         <source>Edit in new tab</source>
         <translation>Sửa trong tab mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="822"/>
+        <location filename="../mainwindow.cpp" line="831"/>
         <source>Edit in new window</source>
         <translation>Sửa trong cửa sổ mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="828"/>
-        <location filename="../mainwindow.cpp" line="835"/>
         <location filename="../mainwindow.cpp" line="837"/>
+        <location filename="../mainwindow.cpp" line="844"/>
+        <location filename="../mainwindow.cpp" line="846"/>
         <source>Rename</source>
         <translation>Đổi tên</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="831"/>
+        <location filename="../mainwindow.cpp" line="840"/>
         <source>Delete</source>
         <translation>Xóa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="837"/>
+        <location filename="../mainwindow.cpp" line="846"/>
         <source>What do you want to call this file?</source>
         <translation>Bạn muốn gọi tệp này là gì?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="865"/>
+        <location filename="../mainwindow.cpp" line="874"/>
         <source>No Recent Items</source>
         <translation>Không có tệp nào gần đây</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="880"/>
+        <location filename="../mainwindow.cpp" line="889"/>
         <source>Clear Recent Items</source>
         <translation>Xóa tất cả mục</translation>
     </message>
@@ -1727,32 +1727,32 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.cpp" line="97"/>
+        <location filename="../main.cpp" line="99"/>
         <source>Text Editor</source>
         <translation>Bộ soạn văn bản</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="102"/>
+        <location filename="../main.cpp" line="104"/>
         <source>Syntax highlighting library by the KDE project, licensed under MIT.</source>
         <translation>Thư viện nổi bật cú pháp phát hành bởi dự án KDE, được cấp phép theo MIT.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="166"/>
+        <location filename="../main.cpp" line="167"/>
         <source>Read from standard input</source>
         <translation>Đọc đầu vào tiêu chuẩn</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="169"/>
+        <location filename="../main.cpp" line="170"/>
         <source>files</source>
         <translation>tệp</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="169"/>
+        <location filename="../main.cpp" line="170"/>
         <source>Files to open</source>
         <translation>Tệp để mở</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="169"/>
+        <location filename="../main.cpp" line="170"/>
         <source>[files...]</source>
         <translation>[tệp...]</translation>
     </message>

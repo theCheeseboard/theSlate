@@ -18,6 +18,7 @@
 #include "managers/updatemanager.h"
 #include "textwidget.h"
 #include <taboutdialog.h>
+#include <tapplication.h>
 
 #include <Repository>
 #include <SyntaxHighlighter>
@@ -57,6 +58,7 @@ MainWindow::MainWindow(QWidget *parent) :
     openWindows.append(this);
 
     ui->mainToolBar->setIconSize(ui->mainToolBar->iconSize() * theLibsGlobal::getDPIScaling());
+    ui->tabs->setCurrentAnimation(tStackedWidget::SlideHorizontal);
 
     for (FileBackendFactory* factory : plugins->fileBackends()) {
         if (factory != plugins->getLocalFileBackend()) {
@@ -88,7 +90,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
         QMacToolBarItem* newItem = new QMacToolBarItem();
         newItem->setText(tr("New"));
-        //newItem->setIcon(QIcon(":/icons/document-new.svg"));
         newItem->setIcon(QApplication::style()->standardIcon(QStyle::SP_FileIcon));
         newItem->setProperty("name", "new");
         connect(newItem, &QMacToolBarItem::activated, this, &MainWindow::on_actionNew_triggered);
@@ -96,7 +97,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
         QMacToolBarItem* openItem = new QMacToolBarItem();
         openItem->setText(tr("Open"));
-        //openItem->setIcon(QIcon(":/icons/document-open.svg"));
         openItem->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOpenButton));
         openItem->setProperty("name", "open");
         connect(openItem, &QMacToolBarItem::activated, this, &MainWindow::on_actionOpen_triggered);
@@ -104,7 +104,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
         QMacToolBarItem* saveItem = new QMacToolBarItem();
         saveItem->setText(tr("Save"));
-        //saveItem->setIcon(QIcon(":/icons/document-save.svg"));
         saveItem->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogSaveButton));
         saveItem->setProperty("name", "save");
         connect(saveItem, &QMacToolBarItem::activated, this, &MainWindow::on_actionSave_triggered);
@@ -116,6 +115,8 @@ MainWindow::MainWindow(QWidget *parent) :
         d->tabBar->setDocumentMode(true);
         d->tabBar->setTabsClosable(true);
         d->tabBar->setMovable(true);
+        d->tabBar->setUsesScrollButtons(true);
+        d->tabBar->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Preferred);
         connect(d->tabBar, &QTabBar::currentChanged, [=](int index) {
             ui->tabs->setCurrentIndex(index);
         });
@@ -527,7 +528,8 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::on_actionSave_triggered()
 {
-    saveCurrentDocument();
+    //Ensure there's actually a document to save
+    if (ui->tabs->count() != 0) saveCurrentDocument();
 }
 
 TextWidget* MainWindow::currentDocument() {
@@ -742,6 +744,13 @@ void MainWindow::dropEvent(QDropEvent *event) {
                 newTab(url.toLocalFile());
             }
         }
+    }
+}
+
+void MainWindow::changeEvent(QEvent* event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+        ui->retranslateUi(this);
     }
 }
 
