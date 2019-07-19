@@ -14,12 +14,14 @@ class CommitDialog : public QDialog
 {
     Q_OBJECT
 
-public:
-    explicit CommitDialog(GitIntegration* integration, MainWindow* mainWin, QWidget *parent = nullptr);
-    ~CommitDialog();
+    public:
+        explicit CommitDialog(GitIntegration* integration, MainWindow* mainWin, QWidget *parent = nullptr);
+        ~CommitDialog();
 
     private slots:
         void on_acceptButton_clicked();
+
+        void on_selectTrackedFilesCheckbox_toggled(bool checked);
 
     private:
     Ui::CommitDialog *ui;

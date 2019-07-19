@@ -84,7 +84,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->mainToolBar->setParent(nullptr);
         ui->actionUse_Menubar->setVisible(false); //Menu bar is always visible on macOS
 
-        QMacToolBar* toolbar = new QMacToolBar();
+        QMacToolBar* toolbar = new QMacToolBar("mainwindow-toolbar");
 
         QList<QMacToolBarItem*> allowedItems;
 

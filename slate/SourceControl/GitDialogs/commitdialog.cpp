@@ -78,7 +78,19 @@ CommitDialog::CommitDialog(GitIntegration* integration, MainWindow* mainWin, QWi
     ui->mergeToolsLayout->addWidget(d->side1);
     ui->mergeToolsLayout->addWidget(d->side2);
 
-    connect(ui->filesView->selectionModel(), &QItemSelectionModel::currentRowChanged, [=](QModelIndex current, QModelIndex previous) {
+    ui->selectTrackedFilesCheckbox->blockSignals(true);
+    ui->selectTrackedFilesCheckbox->setText(tr("%n changed files", nullptr, d->model->numberOfTrackedFiles()));
+    ui->selectTrackedFilesCheckbox->setCheckState(d->model->allTrackedFilesSelected());
+    ui->selectTrackedFilesCheckbox->blockSignals(false);
+
+    int selected = d->model->numberOfSelectedFiles();
+    if (selected == 0) {
+        ui->macCommitButton->setText(tr("Create Empty Commit"));
+    } else {
+        ui->macCommitButton->setText(tr("Commit %n files", nullptr, selected));
+    }
+
+    connect(ui->filesView->selectionModel(), &QItemSelectionModel::currentRowChanged, this, [=](QModelIndex current, QModelIndex previous) {
         if (current.isValid()) {
             QString filename = current.data(Qt::DisplayRole).toString();
 
@@ -94,6 +106,17 @@ CommitDialog::CommitDialog(GitIntegration* integration, MainWindow* mainWin, QWi
             } else {
                 d->side2->openFileFake(d->gi->show("HEAD:" + filename));
             }
+        }
+    });
+    connect(d->model, &StatusModel::itemCheckedCountChanged, this, [=] {
+        QSignalBlocker blocker(ui->selectTrackedFilesCheckbox);
+        ui->selectTrackedFilesCheckbox->setCheckState(d->model->allTrackedFilesSelected());
+
+        int selected = d->model->numberOfSelectedFiles();
+        if (selected == 0) {
+            ui->macCommitButton->setText(tr("Create Empty Commit"));
+        } else {
+            ui->macCommitButton->setText(tr("Commit %n files", nullptr, selected));
         }
     });
 }
@@ -164,4 +187,9 @@ void CommitDialog::on_acceptButton_clicked()
 
     //Finish the commit
     this->accept();
+}
+
+void CommitDialog::on_selectTrackedFilesCheckbox_toggled(bool checked)
+{
+    d->model->selectAllTrackedFiles(checked);
 }

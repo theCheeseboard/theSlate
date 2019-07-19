@@ -52,7 +52,7 @@ void UpdateManager::updateAction(QAction* action) {
             break;
         case Idle:
             action->setText(tr("Check for updates"));
-            action->setEnabled(false);
+            action->setEnabled(true);
             break;
         case NewUpdateAvailable:
             action->setText(tr("Update to %1 available").arg(versionString(newUpdateVersion)));

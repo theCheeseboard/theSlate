@@ -10,28 +10,36 @@ class StatusModel : public QAbstractListModel
 {
     Q_OBJECT
 
-public:
-    explicit StatusModel(GitIntegration* integration, QObject *parent = nullptr);
-    ~StatusModel() override;
+    public:
+        explicit StatusModel(GitIntegration* integration, QObject *parent = nullptr);
+        ~StatusModel() override;
 
-    struct Status {
-        QString file;
-        QString status;
-        bool staged;
-    };
+        struct Status {
+            QString file;
+            QString status;
+            bool staged;
+        };
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
-    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
-    Qt::ItemFlags flags(const QModelIndex &index) const override;
+        int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+        QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+        bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
+        Qt::ItemFlags flags(const QModelIndex &index) const override;
 
-    void reloadStatus();
-    void setIsMerging(bool merging);
+        void reloadStatus();
+        void setIsMerging(bool merging);
 
-private:
-    StatusModelPrivate* d;
+        void selectAllTrackedFiles(bool select);
+        Qt::CheckState allTrackedFilesSelected();
+        int numberOfTrackedFiles();
+        int numberOfSelectedFiles();
 
-    bool canChangeCheckState(int row) const;
+    signals:
+        void itemCheckedCountChanged();
+
+    private:
+        StatusModelPrivate* d;
+
+        bool canChangeCheckState(int row) const;
 };
 Q_DECLARE_METATYPE(StatusModel::Status);
 

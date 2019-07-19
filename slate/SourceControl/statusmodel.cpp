@@ -85,6 +85,7 @@ bool StatusModel::setData(const QModelIndex &index, const QVariant &value, int r
         Status s = d->currentStatus.value(index.row());
         s.staged = value.toBool();
         d->currentStatus.replace(index.row(), s);
+        emit itemCheckedCountChanged();
         return true;
     }
     return false;
@@ -128,6 +129,57 @@ void StatusModel::reloadStatus() {
         d->currentStatus.append(s);
     }
     emit dataChanged(index(0), index(rowCount()));
+}
+
+void StatusModel::selectAllTrackedFiles(bool select) {
+    for (int i = 0; i < d->currentStatus.count(); i++) {
+        Status s = d->currentStatus.at(i);
+        if (s.status != "??") s.staged = select;
+        d->currentStatus.replace(i, s);
+    }
+    emit dataChanged(index(0), index(rowCount()));
+    emit itemCheckedCountChanged();
+}
+
+int StatusModel::numberOfTrackedFiles() {
+    int num = 0;
+    for (Status s : d->currentStatus) {
+        if (s.status != "??") num++;
+    }
+    return num;
+}
+
+int StatusModel::numberOfSelectedFiles() {
+    int num = 0;
+    for (Status s : d->currentStatus) {
+        if (s.staged) num++;
+    }
+    return num;
+}
+
+Qt::CheckState StatusModel::allTrackedFilesSelected() {
+    bool allSelected = true;
+    bool noneSelected = true;
+    bool atLeastOneExists = false;
+    for (int i = 0; i < d->currentStatus.count(); i++) {
+        Status s = d->currentStatus.at(i);
+        if (s.status != "??") {
+            atLeastOneExists = true;
+            if (s.staged) noneSelected = false;
+            if (!s.staged) allSelected = false;
+        }
+        d->currentStatus.replace(i, s);
+    }
+
+    if (!atLeastOneExists) {
+        return Qt::Unchecked;
+    } else if (allSelected) {
+        return Qt::Checked;
+    } else if (noneSelected) {
+        return Qt::Unchecked;
+    } else {
+        return Qt::PartiallyChecked;
+    }
 }
 
 QSize StatusModelDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {

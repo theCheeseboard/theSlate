@@ -9,6 +9,7 @@
 #include <QMimeDatabase>
 #include <QInputDialog>
 #include <tcircularspinner.h>
+#include <ttoast.h>
 #include "the-libs_global.h"
 #include "mainwindow.h"
 #include "plugins/pluginmanager.h"
@@ -1314,7 +1315,15 @@ void TextEditor::setTextCodec(QTextCodec* codec) {
 void TextEditor::commentSelectedText() {
     QTextCursor cursor = this->textCursor();
 
-    if (d->hlDef.multiLineCommentMarker().first == "" && d->hlDef.singleLineCommentMarker() == "") return; //Do nothing because comments aren't supported in this language
+    if (d->hlDef.multiLineCommentMarker().first == "" && d->hlDef.singleLineCommentMarker() == "") {
+        //Comments aren't supported in this language
+        tToast* toast = new tToast();
+        toast->setTitle(tr("Comments Not Supported"));
+        toast->setText(tr("Comments are not supported in this language. Select a different language mode to add comments."));
+        toast->show(this->window());
+        connect(toast, &tToast::dismissed, toast, &tToast::deleteLater);
+        return;
+    }
 
     //Find any available comments and remove them
     QTextCursor startCursor(this->document());
