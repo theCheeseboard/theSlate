@@ -168,13 +168,13 @@
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="88"/>
-        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="117"/>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="119"/>
         <source>Create Empty Commit</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="90"/>
-        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="119"/>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="121"/>
         <source>Commit %n files</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -187,27 +187,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="105"/>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="107"/>
         <source>New file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="158"/>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="160"/>
         <source>Nothing to commit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="159"/>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="161"/>
         <source>Create an empty commit anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="145"/>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="147"/>
         <source>No Commit Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="146"/>
+        <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="148"/>
         <source>You&apos;ll need to set a commit message to commit these files.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -416,7 +416,7 @@
 <context>
     <name>GitIntegration</name>
     <message>
-        <location filename="../SourceControl/gitintegration.cpp" line="591"/>
+        <location filename="../SourceControl/gitintegration.cpp" line="597"/>
         <source>Failed to push refs</source>
         <translation type="unfinished"></translation>
     </message>

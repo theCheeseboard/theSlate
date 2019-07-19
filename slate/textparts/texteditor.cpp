@@ -388,7 +388,7 @@ bool TextEditor::isEdited() {
     return d->edited;
 }
 
-void TextEditor::openFile(FileBackend *backend) {
+void TextEditor::openFile(FileBackend *backend, TextEditor::OpenFileParametersMap parameters) {
     removeTopPanel(d->onDiskChanged);
     removeTopPanel(d->onDiskDeleted);
     removeTopPanel(d->fileReadError);
@@ -417,7 +417,7 @@ void TextEditor::openFile(FileBackend *backend) {
         emit backendChanged();
         d->cover->setVisible(false);
 
-        if (backend->url().scheme() == "file") {
+        if (backend->url().scheme() == "file" && parameters.value(AddToRecentFiles, true).toBool()) {
             recentFiles->putFile(backend->url().toString());
         }
     })->error([=](QString error) {

@@ -98,7 +98,9 @@ CommitDialog::CommitDialog(GitIntegration* integration, MainWindow* mainWin, QWi
             if (s.status.at(1) == 'D' || s.status == "D ") {
                 d->side1->openFileFake(tr("File deleted from disk"));
             } else {
-                d->side1->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(d->gi->rootDir() + "/" + filename)));
+                d->side1->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(d->gi->rootDir() + "/" + filename)), {
+                    {TextEditor::AddToRecentFiles, false}
+                });
             }
 
             if (s.status.at(0) == 'A' || s.status.at(0) == '?') {

@@ -60,6 +60,10 @@ class TextEditor : public QPlainTextEdit
             Titlecase,
             Lowercase
         };
+        enum OpenFileParameters {
+            AddToRecentFiles
+        };
+        typedef QMap<OpenFileParameters, QVariant> OpenFileParametersMap;
 
         void setMainWindow(MainWindow* mainWindow);
         void setStatusBar(TextStatusBar* statusBar);
@@ -83,7 +87,7 @@ class TextEditor : public QPlainTextEdit
         TabButton* getTabButton();
         void setActive(bool active);
 
-        void openFile(FileBackend* backend);
+        void openFile(FileBackend* backend, OpenFileParametersMap parameters = OpenFileParametersMap());
         void openFileFake(QString contents);
         void loadText(QByteArray data);
         bool saveFile();

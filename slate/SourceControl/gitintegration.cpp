@@ -533,6 +533,9 @@ void GitIntegration::add(QString file) {
 }
 
 void GitIntegration::commit(QString message) {
+    //Block the watcher from emitting signals while we're committing
+    QSignalBlocker blocker(watcher);
+
     QProcess* proc = git("commit --allow-empty -F -");
 
     QStringList lines = message.split("\n");
@@ -544,6 +547,9 @@ void GitIntegration::commit(QString message) {
     proc->closeWriteChannel();
     proc->waitForFinished();
     proc->deleteLater();
+
+    //Manually emit the changed signal at the end
+    watcherChanged();
 }
 
 tPromise<void>* GitIntegration::pull(QString from) {
