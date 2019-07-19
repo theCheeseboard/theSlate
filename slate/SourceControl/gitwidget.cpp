@@ -11,6 +11,7 @@
 #include <tpopover.h>
 #include <tmessagebox.h>
 #include <QClipboard>
+#include <QFileDialog>
 #include "mainwindow.h"
 
 #include <QScroller>
@@ -19,6 +20,7 @@ struct GitWidgetPrivate {
     GitIntegration* gi;
 
     CommitsModel* commitsModel;
+    QUrl currentDocument;
 };
 
 GitWidget::GitWidget(QWidget *parent) :
@@ -79,6 +81,7 @@ GitWidget::~GitWidget()
 }
 
 void GitWidget::setCurrentDocument(QUrl currentDocument) {
+    d->currentDocument = currentDocument;
     if (currentDocument.isEmpty() || !currentDocument.isLocalFile()) {
         ui->mainStack->setCurrentIndex(1);
     } else {
@@ -533,9 +536,7 @@ void GitWidget::showConflictDialog(QString operation) {
 
 void GitWidget::merge(QString other) {
     //Pull in everything
-    d->gi->merge(other)->then([=] {
-
-    })->error([=](QString error) {
+    d->gi->merge(other)->error([=](QString error) {
         if (error == "conflicting") {
             showConflictDialog(tr("merge"));
         } else if (error == "unrelated") {
@@ -558,4 +559,35 @@ void GitWidget::merge(QString other) {
             messageBox->deleteLater();
         }
     });
+}
+
+void GitWidget::on_initGitButton_clicked() {
+    QEventLoop* loop = new QEventLoop();
+    QFileDialog* folderSelect = new QFileDialog(this->window(), Qt::Sheet);
+    folderSelect->setWindowModality(Qt::WindowModal);
+    folderSelect->setAcceptMode(QFileDialog::AcceptOpen);
+    folderSelect->setFileMode(QFileDialog::Directory);
+    folderSelect->setDirectory(QFileInfo(d->currentDocument.toLocalFile()).dir().path());
+    folderSelect->setLabelText(QFileDialog::Accept, tr("Initialize Repository"));
+
+    connect(folderSelect, &QDialog::finished, folderSelect, &QObject::deleteLater);
+    connect(folderSelect, &QDialog::finished, loop, &QEventLoop::quit);
+    folderSelect->show();
+
+    //Block until dialog is finished
+    loop->exec();
+    loop->deleteLater();
+
+    if (folderSelect->result() == QDialog::Accepted) {
+        //Create new file backend
+        QProcess* proc = new QProcess();
+        proc->setProcessChannelMode(QProcess::MergedChannels);
+        proc->setWorkingDirectory(folderSelect->selectedFiles().first());
+        proc->start(d->gi->findGit().first() + " init");
+        proc->waitForFinished();
+        proc->deleteLater();
+
+        this->setCurrentDocument(d->currentDocument);
+    }
+    folderSelect->deleteLater();
 }

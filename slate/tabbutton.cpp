@@ -4,7 +4,7 @@ TabButton::TabButton(QWidget *parent) : QPushButton(parent)
 {
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 
-    connect(this, &TabButton::toggled, [=] {
+    connect(this, &TabButton::toggled, this, [=] {
         this->update();
     });
 }

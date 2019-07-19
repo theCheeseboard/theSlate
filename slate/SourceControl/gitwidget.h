@@ -40,6 +40,8 @@ class GitWidget : public QWidget
 
         void on_logList_activated(const QModelIndex &index);
 
+        void on_initGitButton_clicked();
+
     private:
         Ui::GitWidget *ui;
 

@@ -12,8 +12,8 @@ class TabButton : public QPushButton
 {
     Q_OBJECT
 public:
-    explicit TabButton(QWidget *parent = 0);
-    explicit TabButton(TextEditor* editor, QWidget *parent = 0);
+    explicit TabButton(QWidget *parent = nullptr);
+    explicit TabButton(TextEditor* editor, QWidget *parent = nullptr);
 
     void setActive(bool active);
 signals:
@@ -26,10 +26,10 @@ private slots:
 
 private:
     TextEditor* editor;
-    bool active;
+    bool active = false;
 
-    void paintEvent(QPaintEvent* event);
-    QSize sizeHint() const;
+    void paintEvent(QPaintEvent* event) override;
+    QSize sizeHint() const override;
 };
 
 #endif // TABBUTTON_H

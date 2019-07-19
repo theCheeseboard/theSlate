@@ -173,7 +173,7 @@ GitIntegration::CommitPointer GitIntegration::getCommit(QString hash, bool popul
             return commit;
         }
     }
-    QProcess* show = git("show --format=\"format:%H;%an;%ae;%cn;%ce;%ct;%P;%s\" --quiet " + hash);
+    QScopedPointer<QProcess> show(git("show --format=\"format:%H;%an;%ae;%cn;%ce;%ct;%P;%s\" --quiet " + hash));
     show->waitForFinished();
 
     if (show->exitCode() != 0) {
@@ -256,6 +256,7 @@ tPromise<GitIntegration::CommitList>* GitIntegration::commits(QString branch) {
 }
 
 bool GitIntegration::setNewRootDir(QString rootDir) {
+    bool forceInit = needsInit();
     QString oldRootDir = d->rootDir;
     this->setRootDir(rootDir);
 
@@ -267,7 +268,7 @@ bool GitIntegration::setNewRootDir(QString rootDir) {
         this->setRootDir(rootDir);
 
         bool retval = false;
-        if (oldRootDir != rootDir) {
+        if (oldRootDir != rootDir || forceInit) {
             retval = true;
 
             d->knownCommits.clear();
@@ -405,7 +406,7 @@ GitIntegration::BranchPointer GitIntegration::branch(QString name) {
         name = "HEAD";
     }
 
-    QProcess* proc = git("branch --list --all --format=\"%(refname:short);%(upstream:short);%(objectname)\" " + name);
+    QScopedPointer<QProcess> proc(git("branch --list --all --format=\"%(refname:short);%(upstream:short);%(objectname)\" " + name));
     proc->waitForFinished();
     if (proc->exitCode() != 0) return BranchPointer(); //Branch doesn't exist
 

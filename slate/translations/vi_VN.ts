@@ -408,7 +408,7 @@
 <context>
     <name>GitIntegration</name>
     <message>
-        <location filename="../SourceControl/gitintegration.cpp" line="597"/>
+        <location filename="../SourceControl/gitintegration.cpp" line="598"/>
         <source>Failed to push refs</source>
         <translation>Không thể đẩy refs</translation>
     </message>
@@ -451,240 +451,245 @@
         <translation>Bạn cần cài đặt Git trên máy tính để theo dõi tệp.</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="121"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="124"/>
         <source>For %1</source>
         <translation>Cho %1</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="122"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="213"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="125"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="216"/>
         <source>Checkout</source>
         <translation>Checkout</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="125"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="128"/>
         <source>Delete</source>
         <translation>Xóa</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="127"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="130"/>
         <source>Delete Branch</source>
         <translation>Xóa nhánh</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="128"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="131"/>
         <source>Delete the %1 branch?</source>
         <translation>Xóa nhánh %1?</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="141"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="144"/>
         <source>With %1</source>
         <translation>Với %1</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="142"/>
         <location filename="../SourceControl/gitwidget.cpp" line="145"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="148"/>
         <source>Merge %1 into %2</source>
         <translation>Hợp nhất %1 vào %2</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="189"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="192"/>
         <source>For repository</source>
         <translation>Cho kho</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="190"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="383"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="193"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="386"/>
         <source>Push</source>
         <translation>Đẩy</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="193"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="330"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="406"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="196"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="333"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="409"/>
         <source>Pull</source>
         <translation>Kéo</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="197"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="200"/>
         <source>Fetch</source>
         <translation>Tìm nạp</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="206"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="209"/>
         <source>For commit %1</source>
         <translation>Cho commit %1</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="207"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="210"/>
         <source>Copy Identifier</source>
         <translation>Chép định danh</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="210"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="213"/>
         <source>Copy Commit Message</source>
         <translation>Chép nhắn commit</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="220"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="223"/>
         <source>Reset the repository?</source>
         <translation>Đật lại kho?</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="223"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="226"/>
         <source>The changes since %1 will be discarded.</source>
         <translation>Các thay đổi bắt đầu từ %1 sẽ bị vứt đi.</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="225"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="228"/>
         <source>Your HEAD will point to %1.</source>
         <translation>HEAD của bạn sẽ chỉ đến %1.</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="238"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="241"/>
         <source>Reset to here</source>
         <translation>Đặt lại đây</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="239"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="242"/>
         <source>Hard Reset</source>
         <translation>Đặt lại cứng</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="242"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="245"/>
         <source>Mixed Reset</source>
         <translation>Đật lại trộn</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="245"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="248"/>
         <source>Soft Reset</source>
         <translation>Đặt lại mềm</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="271"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="274"/>
         <source>Abort Merge?</source>
         <translation>Bỏ việc hợp nhất?</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="272"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="275"/>
         <source>Any actions taken to resolve conflict resolution will be undone, and the state of your repository will be set back to how it was before the merge operation started.</source>
         <translation>Hành động giải quyết sẽ bị hoàn tác, và trạng thái kho của bạn sẽ bị đặt như trước khi hoạt đồng hợp nhất bắt đầu.</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="304"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="351"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="307"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="354"/>
         <source>Unclean Working Directory</source>
         <translation>Thư mục hoạt động không sạch</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="305"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="308"/>
         <source>Your working directory is not clean and upstream changes may not merge properly. Do you still want to attempt to pull in upstream changes?</source>
         <translation>Thư mục hoạt động của bạn không sạch, và thay đổi thượng nguồn có thể không hợp nhất thành công. Bạn có chắc chắn muốn kéo thay đổi thượng nguồn vào?</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="308"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="311"/>
         <source>Discard All Changes and Pull</source>
         <translation>Bỏ các thay đổi và kéo</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="309"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="312"/>
         <source>Pull Anyway</source>
         <translation>Vẫn kéo</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="359"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="362"/>
         <source>pull</source>
         <translation>kéo</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="429"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="432"/>
         <source>Authenticate to push to %1</source>
         <translation>Xác thực để đẩy đến %1</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="495"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="498"/>
         <source>The %1 operation resulted in these files conflicting:</source>
         <translation>Việc %1 xảy ra xung đột trong tệp này:</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="498"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="501"/>
         <source>Undo %1</source>
         <translation>Hoàn tác %1</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="540"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="541"/>
         <source>merge</source>
         <translation>hợp nhất</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="543"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="544"/>
         <source>Unrelated Histories</source>
         <translation>Lịch sự không liên quan</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="544"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="545"/>
         <source>You&apos;re trying to merge two branches which do not have a common base</source>
         <translation>Bạn đang hợp nhất hai nhánh với lịch sử không có liên quan</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="331"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="571"/>
+        <source>Initialize Repository</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="334"/>
         <source>Pulling from %1...</source>
         <translation>Đang kéo từ %1...</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="384"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="387"/>
         <source>Pushing to %1...</source>
         <translation>Đang đẩy đén %1...</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="404"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="407"/>
         <source>Out of date</source>
         <translation>Hết hạn</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="405"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="408"/>
         <source>Your local repository is out of date and needs to be updated by pulling.</source>
         <translation>Kho đây của bạn đã hết hạn và cần phải cập nhật.</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="352"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="355"/>
         <source>Commit or discard changes in your working directory in order to pull.</source>
         <translation>Commit hoặc bỏ thay đổi trong thư mục hoạt động để kéo.</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="494"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="497"/>
         <source>Conflicting Files</source>
         <translation>Tệp xung đột</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="495"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="498"/>
         <source>What do you want to do now?</source>
         <translation>Bạn muốn làm gì bây giờ?</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="499"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="502"/>
         <source>Manually Resolve Changes</source>
         <translation>Giải quét thủ công</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="500"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="503"/>
         <source>Use Local Changes</source>
         <translation>Dùng thay đổi đây</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="501"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="504"/>
         <source>Use Remote Changes</source>
         <translation>Dùng thay đổi xa</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="361"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="364"/>
         <source>Authenticate to pull from %1</source>
         <translation>Xác thực để kéo từ %1</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="366"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="434"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="552"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="369"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="437"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="553"/>
         <source>Git Error</source>
         <translation>Lỗi Git</translation>
     </message>
