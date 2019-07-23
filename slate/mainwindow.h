@@ -51,7 +51,7 @@ class MainWindow : public QMainWindow
         static QList<MainWindow*> openWindows;
 
     public slots:
-        void newTab();
+        TextWidget* newTab();
         void newTab(QString filename);
         void newTab(QByteArray contents);
         void newTab(FileBackend* backend);

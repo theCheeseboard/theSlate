@@ -373,7 +373,7 @@ void MainWindow::show() {
 #endif
 }
 
-void MainWindow::newTab() {
+TextWidget* MainWindow::newTab() {
     TextWidget* view = new TextWidget(this);
     ui->tabs->addWidget(view);
     ui->tabs->setCurrentWidget(view);
@@ -420,32 +420,36 @@ void MainWindow::newTab() {
     #endif
 
     updateDocumentDependantTabs();
+    return view;
 }
 
 void MainWindow::newTab(QString filename) {
+    TextEditor* w = currentEditor();
     if (currentEditor() == nullptr || currentEditor()->isEdited() || currentEditor()->title() != "") {
-        newTab();
+        w = newTab()->editor();
     }
 
-    currentEditor()->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(filename)));
+    w->openFile(plugins->getLocalFileBackend()->openFromUrl(QUrl::fromLocalFile(filename)));
     updateGit();
 }
 
 void MainWindow::newTab(FileBackend* backend) {
+    TextEditor* w = currentEditor();
     if (currentEditor() == nullptr || currentEditor()->isEdited() || currentEditor()->title() != "") {
-        newTab();
+        w = newTab()->editor();
     }
 
-    currentEditor()->openFile(backend);
+    w->openFile(backend);
     updateGit();
 }
 
 void MainWindow::newTab(QByteArray contents) {
+    TextEditor* w = currentEditor();
     if (currentEditor() == nullptr || currentEditor()->isEdited() || currentEditor()->title() != "") {
-        newTab();
+        w = newTab()->editor();
     }
 
-    currentEditor()->loadText(contents);
+    w->loadText(contents);
     updateGit();
 }
 
