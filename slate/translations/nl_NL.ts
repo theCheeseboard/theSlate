@@ -17,22 +17,22 @@
     <message>
         <location filename="../aboutwindow.ui" line="52"/>
         <source>theSlate uses KSyntaxHighlighting for the syntax highlighting definitions. KSyntaxHighlighting is licensed under the MIT license.</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate gebruikt KSyntaxHighlighting voor definities voor syntaxismarkeringen. KSyntaxHighlighting is gelicenseerd onder de MIT License.</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="62"/>
         <source>Copyright (c) Victor Tran 2019. Licensed under the terms of the GNU General Public License, version 3 or later.</source>
-        <translation type="unfinished">Copyright (c) Victor Tran 2018. Gelicenseerd onder de termen van de GNU General Public License, versie 3 of later. {2019.?} {3 ?}</translation>
+        <translation>Copyright (c) Victor Tran 2019. Gelicenseerd onder de termen van de GNU General Public License, versie 3 of later.</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="87"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../aboutwindow.cpp" line="16"/>
         <source>theSlate %1</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate %1</translation>
     </message>
 </context>
 <context>
@@ -41,42 +41,42 @@
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="14"/>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="71"/>
         <source>Add a branch</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg een branch toe</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="116"/>
         <source>Create a branch to keep track of different commits</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak een branch om verschillende commits bij te houden</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="149"/>
         <source>Branch From</source>
-        <translation type="unfinished"></translation>
+        <translation>Branch Vanaf</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="156"/>
         <source>Branch Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Branch-naam</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="197"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.ui" line="204"/>
         <source>Branch</source>
-        <translation type="unfinished"></translation>
+        <translation>Branch</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.cpp" line="43"/>
         <source>Can&apos;t branch</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan geen branch maken</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/addbranchdialog.cpp" line="44"/>
         <source>The branch %1 already exists.</source>
-        <translation type="unfinished"></translation>
+        <translation>De branch %1 bestaat al.</translation>
     </message>
 </context>
 <context>
@@ -84,27 +84,27 @@
     <message>
         <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="71"/>
         <source>Authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Authenticatie</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="146"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruikersnaam</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="156"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Wachtwoord</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="194"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/authenticationdialog.ui" line="201"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -112,7 +112,7 @@
     <message>
         <location filename="../SourceControl/branchesmodel.cpp" line="30"/>
         <source>New Branch</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe Branch</translation>
     </message>
 </context>
 <context>
@@ -121,95 +121,91 @@
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="71"/>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="344"/>
         <source>Commit</source>
-        <translation type="unfinished"></translation>
+        <translation>Committen</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="116"/>
         <source>Ready to commit files?</source>
-        <translation type="unfinished"></translation>
+        <translation>Klaar om bestanden te committen?</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="176"/>
         <source>CheckBox</source>
-        <translation type="unfinished"></translation>
+        <translation>CheckBox</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="217"/>
         <source>Commit Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Commitbericht</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="337"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="53"/>
         <source>Conclude Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Concludeer Merge</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="54"/>
         <source>Review your resolutions and complete the ongoing merge</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bekijk je resoluties en maak de merge af</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="55"/>
         <source>Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Merge</translation>
     </message>
     <message numerus="yes">
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="82"/>
         <source>%n changed files</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n gewijzigd bestand</numerusform>
+        <numerusform>%n gewijzigde bestanden</numerusform>
+        </translation></message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="88"/>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="119"/>
         <source>Create Empty Commit</source>
-        <translation type="unfinished"></translation>
+        <translation>Een lege commit maken</translation>
     </message>
     <message numerus="yes">
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="90"/>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="121"/>
         <source>Commit %n files</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>Commit %n bestand</numerusform>
+        <numerusform>Commit %n bestanden</numerusform>
+        </translation></message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="99"/>
         <source>File deleted from disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand verwijderd van schijf</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="107"/>
         <source>New file</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuw bestand</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="160"/>
         <source>Nothing to commit</source>
-        <translation type="unfinished"></translation>
+        <translation>Niets om te committen</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="161"/>
         <source>Create an empty commit anyway?</source>
-        <translation type="unfinished"></translation>
+        <translation>Toch een lege commit maken?</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="147"/>
         <source>No Commit Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen Commitbericht</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="148"/>
         <source>You&apos;ll need to set a commit message to commit these files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Je moet een commitbericht instellen om deze bestanden te committen.</translation>
     </message>
 </context>
 <context>
@@ -217,48 +213,48 @@
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="110"/>
         <source>Conclude Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Concludeer Merge</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="110"/>
         <source>Create merge commit and conclude merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak een merge-commit en concludeer de merge</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="111"/>
         <source>Abort Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Breek merge af</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="111"/>
         <source>Revert to state before merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Draai terug naar staat voor de merge</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="117"/>
         <location filename="../SourceControl/commitsmodel.cpp" line="122"/>
         <source>New Commit</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe Commit</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="117"/>
         <source>Create new commit</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak een nieuwe commit</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="122"/>
         <source>Create new commit on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak een nieuwe commit op %1</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="128"/>
         <source>No upstream branch has been configured.</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is nog geen upstream-branche geconfigureerd.</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="128"/>
         <source>No Upstream Branch</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen Upstream-branch</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
@@ -268,33 +264,29 @@
     <message numerus="yes">
         <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
         <source>%n incoming commits</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n binnenkomende commit</numerusform>
+        <numerusform>%n binnenkomende commits</numerusform>
+        </translation></message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
         <source>Push Local Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Push Lokale Wijzigingen</translation>
     </message>
     <message numerus="yes">
         <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
         <source>%n outgoing commits</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n uitgaande commit</numerusform>
+        <numerusform>%n uitgaande commits</numerusform>
+        </translation></message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="134"/>
         <source>Up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>Up-to-date</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="134"/>
         <source>Your local repository is up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>Je lokale repository is up-to-date</translation>
     </message>
 </context>
 <context>
@@ -313,7 +305,7 @@
     <message>
         <location filename="../exitsavedialog.ui" line="47"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../exitsavedialog.ui" line="70"/>
@@ -325,92 +317,84 @@
         <location filename="../exitsavedialog.ui" line="80"/>
         <location filename="../exitsavedialog.cpp" line="41"/>
         <source>Discard All</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijder Alles</translation>
     </message>
     <message numerus="yes">
         <location filename="../exitsavedialog.cpp" line="44"/>
         <source>Save %n</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>Sla %n op</numerusform>
+        <numerusform>Sla %n op</numerusform>
+        </translation></message>
     <message numerus="yes">
         <location filename="../exitsavedialog.cpp" line="45"/>
         <source>Discard %n</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>Verwijder %n</numerusform>
+        <numerusform>Verwijder %n</numerusform>
+        </translation></message>
 </context>
 <context>
     <name>FindReplace</name>
     <message>
         <location filename="../textparts/findreplace.ui" line="104"/>
         <source>Find</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoek</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="212"/>
         <source>Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>Vervang</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="219"/>
         <source>Replace All</source>
-        <translation type="unfinished"></translation>
+        <translation>Vervang Alles</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="32"/>
         <source>Match case</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoofdlettergevoelig</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="33"/>
         <source>Regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Regular expression</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="34"/>
         <source>Whole word</source>
-        <translation type="unfinished"></translation>
+        <translation>Hele woord</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="137"/>
         <source>No matches</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen overeenkomsten</translation>
     </message>
     <message numerus="yes">
         <location filename="../textparts/findreplace.cpp" line="139"/>
         <source>%n matches</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n overeenkomst</numerusform>
+        <numerusform>%n overeenkomsten</numerusform>
+        </translation></message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="144"/>
         <source>Invalid Regular Expression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ongeldige regular expression</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="248"/>
         <source>Replaced all matches</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle overeenkomsten zijn vervangen</translation>
     </message>
     <message numerus="yes">
         <location filename="../textparts/findreplace.cpp" line="249"/>
         <source>%n occurences replaced</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n voorkomen vervangen</numerusform>
+        <numerusform>%n voorkomens vervangen</numerusform>
+        </translation></message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="250"/>
         <source>Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak ongedaan</translation>
     </message>
 </context>
 <context>
@@ -418,7 +402,7 @@
     <message>
         <location filename="../SourceControl/gitintegration.cpp" line="598"/>
         <source>Failed to push refs</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon de refs niet pushen</translation>
     </message>
 </context>
 <context>
@@ -426,107 +410,107 @@
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="95"/>
         <source>No Repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen Repository</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="102"/>
         <source>Initialize a Git repository to start tracking files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Initialiseer een Git-repository om wijzigingen aan bestanden bij te houden.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="127"/>
         <source>Initialize a new repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Initialiseer een nieuwe repository</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="196"/>
         <source>File Not Saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand Niet Opgeslagen</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="203"/>
         <source>Save this file to start tracking it in Git</source>
-        <translation type="unfinished"></translation>
+        <translation>Sla dit bestand op om wijzigingen eraan bij te houden met Git</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="286"/>
         <source>Git not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Git niet gevonden</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="293"/>
         <source>You&apos;ll need to install Git on your computer to start tracking files with it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Je moet Git op je conputer installeren om er wijzigingen aan bestanden mee bij te houden.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="124"/>
         <source>For %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Voor %1</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="125"/>
         <location filename="../SourceControl/gitwidget.cpp" line="216"/>
         <source>Checkout</source>
-        <translation type="unfinished"></translation>
+        <translation>Bekijk</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="128"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijder</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="130"/>
         <source>Delete Branch</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijder Branch</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="131"/>
         <source>Delete the %1 branch?</source>
-        <translation type="unfinished"></translation>
+        <translation>De branch %1 verwijderen?</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="144"/>
         <source>With %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Met %1</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="145"/>
         <location filename="../SourceControl/gitwidget.cpp" line="148"/>
         <source>Merge %1 into %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 met %2 mergen</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="192"/>
         <source>For repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Voor repository</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="193"/>
         <location filename="../SourceControl/gitwidget.cpp" line="386"/>
         <source>Push</source>
-        <translation type="unfinished"></translation>
+        <translation>Push</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="196"/>
         <location filename="../SourceControl/gitwidget.cpp" line="333"/>
         <location filename="../SourceControl/gitwidget.cpp" line="409"/>
         <source>Pull</source>
-        <translation type="unfinished"></translation>
+        <translation>Pull</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="200"/>
         <source>Fetch</source>
-        <translation type="unfinished"></translation>
+        <translation>Fetch</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="209"/>
         <source>For commit %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Voor commit %1</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="210"/>
         <source>Copy Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiëer Identifier</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="213"/>
