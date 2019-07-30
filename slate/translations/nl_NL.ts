@@ -151,7 +151,7 @@
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="54"/>
         <source>Review your resolutions and complete the ongoing merge</source>
-        <translation type="unfinished">Bekijk je resoluties en maak de merge af</translation>
+        <translation>Bekijk je oplossingen en maak de huidige merge af</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="55"/>
@@ -259,7 +259,7 @@
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
         <source>Pull Remote Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Niet-lokale Wijzigingen Pullen</translation>
     </message>
     <message numerus="yes">
         <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
@@ -357,7 +357,7 @@
     <message>
         <location filename="../textparts/findreplace.cpp" line="33"/>
         <source>Regular expression</source>
-        <translation type="unfinished">Regular expression</translation>
+        <translation>Reguliere expressie</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="34"/>
@@ -378,7 +378,7 @@
     <message>
         <location filename="../textparts/findreplace.cpp" line="144"/>
         <source>Invalid Regular Expression</source>
-        <translation type="unfinished">Ongeldige regular expression</translation>
+        <translation>Ongeldige reguliere expressie</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="248"/>
@@ -500,7 +500,7 @@
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="200"/>
         <source>Fetch</source>
-        <translation>Fetch</translation>
+        <translation>Fetchen</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="209"/>
@@ -515,175 +515,175 @@
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="213"/>
         <source>Copy Commit Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiëer Commitbericht</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="223"/>
         <source>Reset the repository?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wil je de repository resetten?</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="226"/>
         <source>The changes since %1 will be discarded.</source>
-        <translation type="unfinished"></translation>
+        <translation>De wijzigingen sinds %1 zullen worden verwijderd.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="228"/>
         <source>Your HEAD will point to %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Je HEAD zal naar %1 verwijzen.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="241"/>
         <source>Reset to here</source>
-        <translation type="unfinished"></translation>
+        <translation>Tot hier resetten</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="242"/>
         <source>Hard Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Hard Resetten</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="245"/>
         <source>Mixed Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Gemixte Reset</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="248"/>
         <source>Soft Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Zacht Resetten</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="274"/>
         <source>Abort Merge?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wil je de merge afbreken?</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="275"/>
         <source>Any actions taken to resolve conflict resolution will be undone, and the state of your repository will be set back to how it was before the merge operation started.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle acties om het conflict op te lossen zullen ongedaan worden gemaakt, en de staat van je repository zal terug worden gezet naar hoe deze was voor de merge begon.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="307"/>
         <location filename="../SourceControl/gitwidget.cpp" line="354"/>
         <source>Unclean Working Directory</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Werkmap Vervuilen</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="308"/>
         <source>Your working directory is not clean and upstream changes may not merge properly. Do you still want to attempt to pull in upstream changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Je werkmap is niet schoon en upstream-wijzigingen zouden niet goed kunnen mergen. Wil je echt proberen upstream-wijzigingen te pullen?</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="311"/>
         <source>Discard All Changes and Pull</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle wijzigingen verwijderen en pullen</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="312"/>
         <source>Pull Anyway</source>
-        <translation type="unfinished"></translation>
+        <translation>Alsnog pullen</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="362"/>
         <source>pull</source>
-        <translation type="unfinished"></translation>
+        <translation>Pullen</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="432"/>
         <source>Authenticate to push to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Meld je aan om naar %1 te pushen</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="498"/>
         <source>The %1 operation resulted in these files conflicting:</source>
-        <translation type="unfinished"></translation>
+        <translation>De %1-operatie zorgde ervoor dat deze bestanden een conflict vormed:</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="501"/>
         <source>Undo %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ongedaan maken</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="541"/>
         <source>merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Mergen</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="544"/>
         <source>Unrelated Histories</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongerelateerde Histories</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="545"/>
         <source>You&apos;re trying to merge two branches which do not have a common base</source>
-        <translation type="unfinished"></translation>
+        <translation>Je probeert twee branches te mergen die geen basis delen</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="571"/>
         <source>Initialize Repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Een Repository Initialiseren</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="334"/>
         <source>Pulling from %1...</source>
-        <translation type="unfinished"></translation>
+        <translation>Aan het pullen van %1...</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="387"/>
         <source>Pushing to %1...</source>
-        <translation type="unfinished"></translation>
+        <translation>Aan het pushen naar %1...</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="407"/>
         <source>Out of date</source>
-        <translation type="unfinished"></translation>
+        <translation>Verouderd</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="408"/>
         <source>Your local repository is out of date and needs to be updated by pulling.</source>
-        <translation type="unfinished"></translation>
+        <translation>Je lokale repository is verouderd en moet bijgewerkt worden door te pullen.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="355"/>
         <source>Commit or discard changes in your working directory in order to pull.</source>
-        <translation type="unfinished"></translation>
+        <translation>Commit of verwijder je wijzigingen in je werkmap om te pullen.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="497"/>
         <source>Conflicting Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Conflicten</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="498"/>
         <source>What do you want to do now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wat wil je nu doen?</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="502"/>
         <source>Manually Resolve Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Handmatig Wijzigingen Oplossen</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="503"/>
         <source>Use Local Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokale Wijzigingen Gebruiken</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="504"/>
         <source>Use Remote Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Remote-wijzigingen Gebruiken</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="364"/>
         <source>Authenticate to pull from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Meld je aan om van %1 te pullen</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="369"/>
         <location filename="../SourceControl/gitwidget.cpp" line="437"/>
         <location filename="../SourceControl/gitwidget.cpp" line="553"/>
         <source>Git Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Git-fout</translation>
     </message>
 </context>
 <context>
@@ -691,79 +691,79 @@
     <message>
         <location filename="../mainwindow.ui" line="17"/>
         <source>theSlate</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="170"/>
         <source>Fi&amp;le</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bestand</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="179"/>
         <source>Open Recent</source>
-        <translation type="unfinished"></translation>
+        <translation>Recent Geopend</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="737"/>
         <source>Toggle Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Schakel Opmerking</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="740"/>
         <source>Ctrl+/</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+/</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="755"/>
         <source>Reload Using Encoding</source>
-        <translation type="unfinished"></translation>
+        <translation>Herlaad Met Codering</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="750"/>
         <source>Change File Encoding</source>
-        <translation type="unfinished"></translation>
+        <translation>Wijzig Bestandscodering</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="209"/>
         <location filename="../mainwindow.cpp" line="148"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Bewerken</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="213"/>
         <source>Paste from Clipboard History</source>
-        <translation type="unfinished"></translation>
+        <translation>Plak van Klembordgeschiedenis</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="240"/>
         <location filename="../main.cpp" line="54"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Hulp</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="263"/>
         <source>Open Auxiliary Pane</source>
-        <translation type="unfinished"></translation>
+        <translation>Open Hulppaneel</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="267"/>
         <source>All Auxiliary Panes</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Hulppanelen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="279"/>
         <source>Go</source>
-        <translation type="unfinished"></translation>
+        <translation>Ga</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="312"/>
         <source>Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestanden</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="377"/>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nieuw</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="380"/>
@@ -772,17 +772,17 @@
         <location filename="../mainwindow-objc.mm" line="156"/>
         <location filename="../mainwindow.cpp" line="92"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuw</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="383"/>
         <source>Ctrl+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="392"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Opslaan</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="395"/>
@@ -790,436 +790,436 @@
         <location filename="../mainwindow-objc.mm" line="139"/>
         <location filename="../mainwindow.cpp" line="106"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Opslaan</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="398"/>
         <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+S</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="407"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation>O&amp;pen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="410"/>
         <location filename="../mainwindow.cpp" line="99"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Open</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="413"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="422"/>
         <source>&amp;Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sluiten</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="425"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="437"/>
         <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kopiëren</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="440"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiëren</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="443"/>
         <source>Ctrl+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+C</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="452"/>
         <source>C&amp;ut</source>
-        <translation type="unfinished"></translation>
+        <translation>K&amp;nippen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="455"/>
         <source>Cut</source>
-        <translation type="unfinished"></translation>
+        <translation>Knippen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="458"/>
         <source>Ctrl+X</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+X</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="467"/>
         <source>&amp;Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>P&amp;lakken</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="470"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Plakken</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="473"/>
         <source>Ctrl+V</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+V</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="478"/>
         <source>&amp;No Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Geen Markeringen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="490"/>
         <source>&amp;About</source>
-        <translation type="unfinished"></translation>
+        <translation>O&amp;ver</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="628"/>
         <source>Ctrl+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+R</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="637"/>
         <source>&amp;File Bug</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Een Bug Rapporteren</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="649"/>
         <source>&amp;Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>B&amp;ronnen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="658"/>
         <source>U&amp;ndo</source>
-        <translation type="unfinished"></translation>
+        <translation>Onge&amp;daan Maken</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="670"/>
         <source>&amp;Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Opn&amp;ieuw Doen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="682"/>
         <source>Sett&amp;ings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ins&amp;tellingen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="697"/>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Sl&amp;uiten</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="709"/>
         <source>&amp;New Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieu&amp;w Venster</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="712"/>
         <source>Ctrl+Shift+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="721"/>
         <source>Select All</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles Selecteren</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="724"/>
         <source>Ctrl+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+A</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="732"/>
         <source>Use Menubar</source>
-        <translation type="unfinished"></translation>
+        <translation>Menubalk Gebruiken</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="745"/>
         <source>Change Syntax Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Verander Syntaxismarkering</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="760"/>
         <source>Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Lijn</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="763"/>
         <source>Ctrl+G</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+G</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="772"/>
         <source>Uppercase</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoofdletters</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="781"/>
         <source>Lowercase</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleine Letters</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="790"/>
         <source>Title Case</source>
-        <translation type="unfinished"></translation>
+        <translation>Titel</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="502"/>
         <source>&amp;Print</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;fdrukken</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="174"/>
         <source>Open From</source>
-        <translation type="unfinished"></translation>
+        <translation>Openen Vanaf</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="259"/>
         <source>&amp;View</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Weergeven</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="346"/>
         <source>Source Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Bronbeheer</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="505"/>
         <source>Ctrl+P</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+P</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="510"/>
         <source>&amp;Push</source>
-        <translation type="unfinished"></translation>
+        <translation>Pus&amp;hen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="518"/>
         <source>P&amp;ull</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pullen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="523"/>
         <source>&amp;Fetch</source>
-        <translation type="unfinished"></translation>
+        <translation>Fet&amp;chen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="532"/>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Starten</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="535"/>
         <source>F5</source>
-        <translation type="unfinished"></translation>
+        <translation>F5</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="544"/>
         <source>Sa&amp;ve All</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle&amp;s Opslaan</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="547"/>
         <source>Ctrl+Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Alt+S</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="556"/>
         <source>Continue</source>
-        <translation type="unfinished"></translation>
+        <translation>Doorgaan</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="565"/>
         <source>Step Into</source>
-        <translation type="unfinished"></translation>
+        <translation>Stappen In</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="574"/>
         <source>Step Over</source>
-        <translation type="unfinished"></translation>
+        <translation>Stappen Over</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="583"/>
         <source>Step Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Stappen Uit</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="592"/>
         <source>Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Pauzeren</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="601"/>
         <source>&amp;Find and Replace...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zoeken en Vervangen...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="625"/>
         <source>&amp;Revert</source>
-        <translation type="unfinished"></translation>
+        <translation>Terugdraaien</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="55"/>
         <source>File Bug</source>
-        <translation type="unfinished"></translation>
+        <translation>Een Bug Rapporteren</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="58"/>
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Bronnen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="661"/>
         <source>Ctrl+Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Z</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="673"/>
         <source>Ctrl+Shift+Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+Z</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="44"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Instellingen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="685"/>
         <source>Ctrl+,</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+,</translation>
     </message>
     <message>
         <location filename="../mainwindow-objc.mm" line="162"/>
         <location filename="../mainwindow-objc.mm" line="164"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Sluiten</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="700"/>
         <source>Ctrl+W</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+W</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="39"/>
         <source>New Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuw Venster</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="604"/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="253"/>
         <source>Wi&amp;ndow</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Venster</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="613"/>
         <source>Save As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Opslaan Als...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="616"/>
         <source>Ctrl+Shift+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="247"/>
         <source>No Clipboard History available</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen Klembordgeschiedenis beschikbaar</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="274"/>
         <source>No opened files</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen geopende bestanden</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="279"/>
         <source>No supported auxiliary panes</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen ondersteunde hulppanelen</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="298"/>
         <source>No auxiliary panes</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen hulppanelen</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="309"/>
         <source>Ctrl+Shift+V</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+V</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="614"/>
         <source>Save Changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wijzigingen Opslaan?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="615"/>
         <source>Do you want to save your changes to this document?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wil je je wijzigingen aan dit document opslaan?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="828"/>
         <source>For %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Voor %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="830"/>
         <source>Edit in new tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Bewerken in een nieuwe tab</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="835"/>
         <source>Edit in new window</source>
-        <translation type="unfinished"></translation>
+        <translation>Bewerken in een nieuw venster</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="841"/>
         <location filename="../mainwindow.cpp" line="848"/>
         <location filename="../mainwindow.cpp" line="850"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Hernoemen</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="844"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="850"/>
         <source>What do you want to call this file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoe wil je dit bestand noemen?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="878"/>
         <source>No Recent Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen Recente Voorwerpen</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="893"/>
         <source>Clear Recent Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijder Recente Voorwerpen</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="34"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="49"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Afsluiten</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="62"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Over</translation>
     </message>
 </context>
 <context>
@@ -1228,44 +1228,44 @@
         <location filename="../textparts/mergetool.ui" line="87"/>
         <location filename="../textparts/mergetool.ui" line="231"/>
         <source>Accept and Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Accepteer en Merge</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.ui" line="119"/>
         <source>Select portions of the file to keep by clicking on the margin of each file. You can further edit the file by editing the bottom pane.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer porties van het bestand om te houden door op de marge van elk bestand te klikken. Je kunt het bestand verder bewerken door het onderste paneel te bewerken.</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.ui" line="224"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="65"/>
         <source>%1 (Current changes)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (Huidige wijzigingen)</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="90"/>
         <source>%1 (Incoming changes)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (Binnenkomende wijzigingen)</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="174"/>
         <location filename="../textparts/mergetool.cpp" line="191"/>
         <location filename="../textparts/mergetool.cpp" line="201"/>
         <source>[Awaiting merge decision]</source>
-        <translation type="unfinished"></translation>
+        <translation>[Merge-beslissing aan het afwachten]</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="193"/>
         <source>Unresolved Merge Conflicts</source>
-        <translation type="unfinished"></translation>
+        <translation>Nog niet opgeloste merge-conflicten</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="194"/>
         <source>You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?</source>
-        <translation type="unfinished"></translation>
+        <translation>Er zijn nog steeds conflicten waar je nog geen oplossing voor hebt geselecteerd. Wil je deze oplossing accepteren?</translation>
     </message>
 </context>
 <context>
@@ -1273,12 +1273,12 @@
     <message>
         <location filename="../plugins/pluginmanager.cpp" line="64"/>
         <source>theSlate may not work properly</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate zou niet goed kunnen werken</translation>
     </message>
     <message>
         <location filename="../plugins/pluginmanager.cpp" line="64"/>
         <source>The Local File Backend was unable to be loaded. theSlate may quit unexpectedly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het lokale bestandsbackend kon niet worden geladen. theSlate kan onverwacht sluiten.</translation>
     </message>
 </context>
 <context>
@@ -1290,57 +1290,57 @@
         <location filename="../textparts/printdialog.ui" line="139"/>
         <location filename="../textparts/printdialog.ui" line="374"/>
         <source>Print</source>
-        <translation type="unfinished"></translation>
+        <translation>Afdrukken</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="169"/>
         <source>Copies</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopieën</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="176"/>
         <source>Destination</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestemming</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="208"/>
         <source>E&amp;verything</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="218"/>
         <source>Selected Area</source>
-        <translation type="unfinished"></translation>
+        <translation>Geselecteerd Gebied</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="225"/>
         <source>Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina&apos;s</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="284"/>
         <source>Portrait</source>
-        <translation type="unfinished"></translation>
+        <translation>Portret</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="294"/>
         <source>&amp;Landscape</source>
-        <translation type="unfinished"></translation>
+        <translation>Landschap</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="304"/>
         <source>Orientation</source>
-        <translation type="unfinished"></translation>
+        <translation>Oriëntatie</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="314"/>
         <source>Print Double Sided</source>
-        <translation type="unfinished"></translation>
+        <translation>Dubbelzijdig Afdrukken</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="367"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuleren</translation>
     </message>
 </context>
 <context>
@@ -1349,17 +1349,17 @@
         <location filename="../textparts/selectlistdialog.ui" line="87"/>
         <location filename="../textparts/selectlistdialog.ui" line="198"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../textparts/selectlistdialog.ui" line="145"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoeken</translation>
     </message>
     <message>
         <location filename="../textparts/selectlistdialog.ui" line="191"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuleren</translation>
     </message>
 </context>
 <context>
@@ -1368,89 +1368,89 @@
         <location filename="../settingsdialog.ui" line="14"/>
         <location filename="../settingsdialog.ui" line="113"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Instellingen</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="143"/>
         <location filename="../settingsdialog.ui" line="199"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>Algemeen</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="148"/>
         <location filename="../settingsdialog.ui" line="516"/>
         <source>File Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestandsverkenner</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="272"/>
         <source>FONTS</source>
-        <translation type="unfinished"></translation>
+        <translation>LETTERTYPES</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="279"/>
         <source>Use System Monospace Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Monospace-lettertype van het Systeem Gebruiken</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="386"/>
         <source>Tabs</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabbladen</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="393"/>
         <source>Spaces</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruimtes</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="345"/>
         <source>Tab Key Behaviour</source>
-        <translation type="unfinished"></translation>
+        <translation>Gedrag van Tab-toets</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="358"/>
         <source>BEHAVIOUR</source>
-        <translation type="unfinished"></translation>
+        <translation>GEDRAG</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="459"/>
         <source>Tab Character Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Tab-karakterbreedte</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="445"/>
         <source>End of Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Eind van Regel</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="427"/>
         <source>Unix (LF)</source>
-        <translation type="unfinished"></translation>
+        <translation>Unix (LF)</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="432"/>
         <source>Macintosh (CR)</source>
-        <translation type="unfinished"></translation>
+        <translation>Macintosh (CR)</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="437"/>
         <source>Windows (CRLF)</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows (CRLF)</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="466"/>
         <source>Wrap Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst Omwikkelen</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="550"/>
         <source>Show Hidden Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon Verborgen Bestanden</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="606"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>Oké</translation>
     </message>
 </context>
 <context>
@@ -1458,37 +1458,37 @@
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="51"/>
         <source>conflicting</source>
-        <translation type="unfinished"></translation>
+        <translation>met conflicten</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="61"/>
         <source>untracked</source>
-        <translation type="unfinished"></translation>
+        <translation>niet bijgehouden</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="62"/>
         <source>modified</source>
-        <translation type="unfinished"></translation>
+        <translation>gewijzigd</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="63"/>
         <source>added</source>
-        <translation type="unfinished"></translation>
+        <translation>toegevoegd</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="64"/>
         <source>deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>verwijderd</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="65"/>
         <source>renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>hernoemd</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="66"/>
         <source>copied</source>
-        <translation type="unfinished"></translation>
+        <translation>gekopieerd</translation>
     </message>
 </context>
 <context>
@@ -1496,200 +1496,202 @@
     <message>
         <location filename="../textparts/texteditor.cpp" line="128"/>
         <source>New Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuw Document</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="176"/>
         <source>Merge Conflicts were found in this file</source>
-        <translation type="unfinished"></translation>
+        <translation>Er zijn merge-conflicten gevonden in dit bestand</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="179"/>
         <source>Resolve Merge Conflicts</source>
-        <translation type="unfinished"></translation>
+        <translation>Merge-conflicten Oplossen</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="184"/>
         <source>Resolve a Merge Conflict</source>
-        <translation type="unfinished"></translation>
+        <translation>Een Merge-conflict Oplossen</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="227"/>
         <source>File on disk changed</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand op schijf is veranderd</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="228"/>
         <source>The file on the disk has changed. If you save this file you will lose the changes on disk.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het bestand op de schijf is veranderd. Als je dit bestand opslaat zul je de wijzigingen op de schijf verliezen.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="231"/>
         <source>Reload File</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand Herladen</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="237"/>
         <source>Merge Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Wijzigingen Mergen</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="242"/>
         <source>File on Disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand op Schijf</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="242"/>
         <source>Currently open file</source>
-        <translation type="unfinished"></translation>
+        <translation>Huidig geopend bestand</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="247"/>
         <source>Resolve a Save Conflict</source>
-        <translation type="unfinished"></translation>
+        <translation>Een Opslaan-conflict Oplossen</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="299"/>
         <source>File on disk deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand op schijf verwijderd</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="300"/>
         <source>The file on the disk has been deleted. If you save this file you will recreate the file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het bestand op de schijf is verwijderd. Als je dit bestand opslaat zul je het opnieuw maken.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="309"/>
         <source>Can&apos;t open file</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan het bestand niet openen</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="318"/>
         <source>Mixed Line Endings detected</source>
-        <translation type="unfinished"></translation>
+        <translation>Gemengde regeleindes gevonden</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="319"/>
         <source>When saving this file, we&apos;ll normalise all the line endings. You can choose which line endings to save as on the status bar.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wanneer je dit bestand opslaat zullen we alle regeleindes normaliseren. Je kunt kiezen met welke regeleindes opgeslagen wordt in de statusbalk.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="328"/>
         <source>Incorrect Text Encoding</source>
-        <translation type="unfinished"></translation>
+        <translation>Incorrecte Tekstcodering</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="429"/>
         <source>Retry</source>
-        <translation type="unfinished"></translation>
+        <translation>Opnieuw Proberen</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="455"/>
         <source>We tried opening this file with the %1 encoding, but it contains invalid characters. If you save the file in the incorrect encoding, you may lose data.</source>
-        <translation type="unfinished"></translation>
+        <translation>We hebben geprobeerd om dit bestand in de %1-codering te openen, maar het bevat ongeldige karakters. Als je dit bestand met de verkeerde codering opslaat, kun je data verliezen.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="500"/>
         <source>Read Only File</source>
-        <translation type="unfinished"></translation>
+        <translation>Alleen-lezen-bestand</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="501"/>
         <source>This file is read only. You&apos;ll need to save it as a different file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit bestand is alleen-lezen. Je zult het als een ander bestand moeten opslaan.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="512"/>
         <source>Encoding Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Coderingsfout</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="513"/>
         <source>Some characters used in this file cannot be encoded in the selected encoding. Saving this file will remove any invalid characters and may result in possible data loss.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sommige karakters die in dit bestand worden gebruikt kunnen niet wkrden gecodeerd in de geselecteerde codering. Dit bestand opslaan zal alle ongeldige karakters weghalen en kan dataverlies als gevolg hebben.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="541"/>
         <source>There&apos;s no more space on this disk.</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is geen ruimte over op deze schijf.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="543"/>
         <source>You don&apos;t have permission to save this file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Je hebt geen rechten om dit bestand op te slaan.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="545"/>
         <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan dit bestand niet opslaan. Controleer of je rechten hebt om naar dit bestand te schrijven en dat er genoeg ruimte is op de schijf.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="548"/>
         <source>
 
 Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Sluit theSlate niet af voordat je het bestand hebt kunnen schrijven, anders kun je data verliezen.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="551"/>
         <source>Couldn&apos;t save the file</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon het bestand niet opslaan</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1068"/>
         <source>Revert Changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wijzigingen Terugdraaien?</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1069"/>
         <source>Do you want to revert all the edits made to this document?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wil je alle aan dit document gemaakte wijzigingen terugdraaien?</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1321"/>
         <source>Comments Not Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Opmerkingen Niet Ondersteund</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1322"/>
         <source>Comments are not supported in this language. Select a different language mode to add comments.</source>
-        <translation type="unfinished"></translation>
+        <translation>Opmerkingen worden niet ondersteund in deze taal. Kies een andere taal om opmerkingen toe te voegen.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1484"/>
         <source>No Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen Markering</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1487"/>
         <source>Select Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer Markering</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1488"/>
         <source>What type of code is this file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wat voor soort code is dit bestand?</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1546"/>
         <source>Go To Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Ga Naar Regel</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1546"/>
         <source>What line do you want to go to?</source>
-        <translation type="unfinished"></translation>
+        <translation>Naar welke regel wil je?</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="331"/>
         <location filename="../textparts/texteditor.cpp" line="1522"/>
         <source>Select Encoding</source>
-        <translation type="unfinished"></translation>
+        <translation>Kies Codering</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1523"/>
         <source>What file encoding do you want to use?</source>
-        <translation type="unfinished"></translation>
+        <translation>Welke bestandscodering wil je gebruiken?</translation>
     </message>
 </context>
 <context>
@@ -1697,38 +1699,34 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../textparts/textstatusbar.cpp" line="44"/>
         <source>Line Endings for this file</source>
-        <translation type="unfinished"></translation>
+        <translation>Regeleindes voor dit bestand</translation>
     </message>
     <message>
         <location filename="../textparts/textstatusbar.cpp" line="62"/>
         <source>No Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen Markeringen</translation>
     </message>
     <message>
         <location filename="../textparts/textstatusbar.cpp" line="95"/>
         <source>Ln %1, Col %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Regel %1, Kolom %2</translation>
     </message>
     <message numerus="yes">
         <location filename="../textparts/textstatusbar.cpp" line="100"/>
         <source>%n spaces</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n spatie</numerusform>
+        <numerusform>%n spaties</numerusform>
+        </translation></message>
     <message numerus="yes">
         <location filename="../textparts/textstatusbar.cpp" line="102"/>
         <source>%n tabs</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n tab</numerusform>
+        <numerusform>%n tabs</numerusform>
+        </translation></message>
     <message>
         <location filename="../textparts/textstatusbar.ui" line="44"/>
         <source>AUX</source>
-        <translation type="unfinished"></translation>
+        <translation>AUX</translation>
     </message>
 </context>
 <context>
@@ -1736,7 +1734,7 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../textwidget.cpp" line="100"/>
         <source>Supported Auxiliary Panes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ondersteunde Hulppanelen</translation>
     </message>
 </context>
 <context>
@@ -1744,17 +1742,17 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../managers/updatemanager.cpp" line="50"/>
         <source>Checking for updates...</source>
-        <translation type="unfinished"></translation>
+        <translation>Naar updates aan het zoeken...</translation>
     </message>
     <message>
         <location filename="../managers/updatemanager.cpp" line="54"/>
         <source>Check for updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoeken naar updates</translation>
     </message>
     <message>
         <location filename="../managers/updatemanager.cpp" line="58"/>
         <source>Update to %1 available</source>
-        <translation type="unfinished"></translation>
+        <translation>Update naar %1 beschikbaar</translation>
     </message>
 </context>
 <context>
@@ -1762,32 +1760,32 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../main.cpp" line="99"/>
         <source>Text Editor</source>
-        <translation type="unfinished">Tekstbewerker</translation>
+        <translation>Tekstbewerker</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="104"/>
         <source>Syntax highlighting library by the KDE project, licensed under MIT.</source>
-        <translation type="unfinished"></translation>
+        <translation>Syntaxismarkeringslibrary door het KDE-project, gelicenseerd onder MIT.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="167"/>
         <source>Read from standard input</source>
-        <translation type="unfinished"></translation>
+        <translation>Lees vanaf standaardinvoer</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="170"/>
         <source>files</source>
-        <translation type="unfinished"></translation>
+        <translation>bestanden</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="170"/>
         <source>Files to open</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestanden om te openen</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="170"/>
         <source>[files...]</source>
-        <translation type="unfinished"></translation>
+        <translation>[bestanden...]</translation>
     </message>
 </context>
 </TS>
