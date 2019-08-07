@@ -10,12 +10,12 @@ class LocalBackendFactory : public FileBackendFactory
     public:
         LocalBackendFactory(QObject* parent = nullptr) : FileBackendFactory(parent) {}
 
-        QAction* makeOpenAction(QWidget* parent);
+        QAction* makeOpenAction(QWidget* parent, std::function<QVariant(QString)> getOption);
         QString name();
 
     public slots:
         FileBackend* openFromUrl(QUrl url);
-        QUrl askForUrl(QWidget* parent, bool* ok = nullptr);
+        QUrl askForUrl(QWidget* parent, std::function<QVariant(QString)> getOption, bool* ok = nullptr);
 };
 
 class Plugin : public QObject, public FileBackendPlugin

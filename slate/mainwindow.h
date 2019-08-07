@@ -63,6 +63,8 @@ class MainWindow : public QMainWindow
         TextWidget* currentDocument();
         TextEditor* currentEditor();
 
+        QVariant getOpenOption(QString option);
+
     private slots:
         void on_actionNew_triggered();
 

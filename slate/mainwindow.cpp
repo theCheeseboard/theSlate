@@ -46,6 +46,8 @@ struct MainWindowPrivate {
     QToolButton* menuButton;
     QAction* menuAction = nullptr;
     QMap<TextWidget*, TopNotification*> primaryTopNotifications;
+
+    QUrl previouslyOpenLocalFile;
 };
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -58,11 +60,13 @@ MainWindow::MainWindow(QWidget *parent) :
     openWindows.append(this);
 
     ui->mainToolBar->setIconSize(ui->mainToolBar->iconSize() * theLibsGlobal::getDPIScaling());
-    ui->tabs->setCurrentAnimation(tStackedWidget::SlideHorizontal);
+
+    //This causes problems with opening files in new tabs
+    //ui->tabs->setCurrentAnimation(tStackedWidget::SlideHorizontal);
 
     for (FileBackendFactory* factory : plugins->fileBackends()) {
         if (factory != plugins->getLocalFileBackend()) {
-            QAction* openAction = factory->makeOpenAction(this);
+            QAction* openAction = factory->makeOpenAction(this, std::bind(&MainWindow::getOpenOption, this, std::placeholders::_1));
             ui->menuOpenFrom->addAction(openAction);
         }
         connect(factory, &FileBackendFactory::openFile, [=](FileBackend* backend) {
@@ -387,6 +391,8 @@ TextWidget* MainWindow::newTab() {
                 this->setWindowFilePath(file);
                 ui->projectTree->expand(d->fileModel->index(file));
                 ui->projectTree->scrollTo(d->fileModel->index(file));
+
+                d->previouslyOpenLocalFile = url;
             }
         }
     });
@@ -498,6 +504,8 @@ void MainWindow::on_tabs_currentChanged(int arg1)
             QString file = url.toLocalFile();
             ui->projectTree->scrollTo(d->fileModel->index(file));
             ui->projectTree->expand(d->fileModel->index(file));
+
+            d->previouslyOpenLocalFile = url;
         }
 
         updateGit();
@@ -524,7 +532,7 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionOpen_triggered()
 {
     this->menuBar()->setEnabled(false);
-    QAction* action = plugins->getLocalFileBackend()->makeOpenAction(this);
+    QAction* action = plugins->getLocalFileBackend()->makeOpenAction(this, std::bind(&MainWindow::getOpenOption, this, std::placeholders::_1));
     action->trigger();
     action->deleteLater();
     this->menuBar()->setEnabled(true);
@@ -934,6 +942,16 @@ void MainWindow::updateDocumentDependantTabs() {
     ui->menuOpen_Auxiliary_Pane->setEnabled(enabled);
     ui->actionChange_Syntax_Highlighting->setEnabled(enabled);
     ui->actionLine->setEnabled(enabled);
+}
+
+QVariant MainWindow::getOpenOption(QString option)
+{
+    if (option == "currentDirectory") {
+        //The directory of the currently open file
+        if (!d->previouslyOpenLocalFile.isValid()) return QVariant();
+        return QFileInfo(d->previouslyOpenLocalFile.toLocalFile()).dir().absolutePath();
+    }
+    return QVariant();
 }
 
 void MainWindow::on_actionComment_triggered()

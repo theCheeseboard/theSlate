@@ -16,7 +16,7 @@ QList<FileBackendFactory*> Plugin::getFactories() {
     return factories;
 }
 
-QAction* LocalBackendFactory::makeOpenAction(QWidget* parent) {
+QAction* LocalBackendFactory::makeOpenAction(QWidget* parent, std::function<QVariant(QString)> getOption) {
     QAction* a = new QAction();
     a->setText(tr("Open"));
     a->setIcon(QIcon::fromTheme("document-open"));
@@ -26,7 +26,9 @@ QAction* LocalBackendFactory::makeOpenAction(QWidget* parent) {
         openDialog->setWindowModality(Qt::WindowModal);
         openDialog->setAcceptMode(QFileDialog::AcceptOpen);
         openDialog->setFileMode(QFileDialog::ExistingFile);
-        openDialog->setDirectory(QDir::home());
+
+        QVariant currentDirectory = getOption("currentDirectory");
+        openDialog->setDirectory(currentDirectory.isNull() ? QDir::home() : QDir(currentDirectory.toString()));
 
         openDialog->setNameFilter("All Files (*)");
         connect(openDialog, SIGNAL(finished(int)), openDialog, SLOT(deleteLater()));
@@ -57,14 +59,17 @@ FileBackend* LocalBackendFactory::openFromUrl(QUrl url) {
     }
 }
 
-QUrl LocalBackendFactory::askForUrl(QWidget* parent, bool* ok) {
+QUrl LocalBackendFactory::askForUrl(QWidget* parent, std::function<QVariant(QString)> getOption, bool* ok) {
     QEventLoop* loop = new QEventLoop();
     QFileDialog* saveDialog = new QFileDialog(parent->window(), Qt::Sheet);
     saveDialog->setWindowModality(Qt::WindowModal);
     saveDialog->setAcceptMode(QFileDialog::AcceptSave);
-    saveDialog->setDirectory(QDir::home());
     saveDialog->setNameFilters(QStringList() << "Text File (*.txt)"
                                              << "All Files (*)");
+
+    QVariant currentDirectory = getOption("currentDirectory");
+    saveDialog->setDirectory(currentDirectory.isNull() ? QDir::home() : QDir(currentDirectory.toString()));
+
     connect(saveDialog, SIGNAL(finished(int)), saveDialog, SLOT(deleteLater()));
     connect(saveDialog, SIGNAL(finished(int)), loop, SLOT(quit()));
     saveDialog->show();

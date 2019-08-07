@@ -16,7 +16,10 @@
    version="1.1"
    id="svg843"
    inkscape:version="0.92.4 5da689c313, 2019-01-14"
-   sodipodi:docname="splash.svg">
+   sodipodi:docname="splash.svg"
+   inkscape:export-filename="/home/victor/Documents/Apps/theSlate/readme/splash.png"
+   inkscape:export-xdpi="9600"
+   inkscape:export-ydpi="9600">
   <defs
      id="defs837">
     <linearGradient
@@ -40,16 +43,6 @@
          offset="1"
          style="stop-color:#c8c8ff;stop-opacity:1" />
     </linearGradient>
-    <linearGradient
-       gradientTransform="translate(0,3.9687331)"
-       inkscape:collect="always"
-       xlink:href="#linearGradient9085"
-       id="linearGradient2317-3"
-       x1="0"
-       y1="296.99997"
-       x2="5.2916665"
-       y2="294.35416"
-       gradientUnits="userSpaceOnUse" />
     <linearGradient
        gradientTransform="matrix(0.10000001,0,0,0.80001203,0.26458333,58.867237)"
        inkscape:collect="always"
@@ -82,26 +75,6 @@
          style="stop-color:#22c8ff;stop-opacity:1" />
     </linearGradient>
     <linearGradient
-       gradientTransform="translate(6.6145833,9.5417321e-6)"
-       inkscape:collect="always"
-       xlink:href="#linearGradient9209"
-       id="linearGradient2515-2"
-       x1="0.52916664"
-       y1="296.47083"
-       x2="0.52916664"
-       y2="294.35416"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient9209"
-       id="linearGradient822-63-9"
-       x1="4.6862917"
-       y1="35.595917"
-       x2="27.313709"
-       y2="-3.5959179"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.02068086,0,0,0.02068086,77.758336,284.71244)" />
-    <linearGradient
        gradientTransform="translate(0,9.5417321e-6)"
        inkscape:collect="always"
        xlink:href="#linearGradient9085"
@@ -129,9 +102,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="31.678384"
-     inkscape:cx="3.1512839"
-     inkscape:cy="6.2632546"
+     inkscape:zoom="11.2"
+     inkscape:cx="30.553486"
+     inkscape:cy="8.7381345"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -172,130 +145,6 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-294.35415)">
-    <rect
-       style="opacity:1;fill:url(#linearGradient2317-3);fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
-       id="rect2309"
-       width="5.2916665"
-       height="2.6458333"
-       x="0"
-       y="298.32291"
-       ry="0" />
-    <circle
-       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.0330959;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
-       id="path814-5"
-       cx="78.57634"
-       cy="289.16147"
-       r="0.52953434"
-       transform="rotate(15)"
-       inkscape:export-filename="/home/victor/newcontemporary.png"
-       inkscape:export-xdpi="2165.5593"
-       inkscape:export-ydpi="2165.5593" />
-    <path
-       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.04507608;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
-       d="m 1.0926798,299.51773 c -0.070841,-0.019 -0.14315446,0.0228 -0.16213387,0.0936 l -0.13252198,0.49458 a 0.52953436,0.52953436 0 0 0 0.12333938,0.0512 0.52953436,0.52953436 0 0 0 0.64854527,-0.37444 0.52953436,0.52953436 0 0 0 0.017591,-0.13234 z"
-       id="rect824-9"
-       inkscape:connector-curvature="0"
-       inkscape:export-filename="/home/victor/newcontemporary.png"
-       inkscape:export-xdpi="2165.5593"
-       inkscape:export-ydpi="2165.5593" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:0.44870913px;line-height:1.25;font-family:Contemporary;-inkscape-font-specification:Contemporary;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.01121773"
-       x="78.554199"
-       y="289.48599"
-       id="text881-6"
-       transform="rotate(15)"
-       inkscape:export-filename="/home/victor/newcontemporary.png"
-       inkscape:export-xdpi="2165.5593"
-       inkscape:export-ydpi="2165.5593"><tspan
-         sodipodi:role="line"
-         id="tspan879-2"
-         x="78.554199"
-         y="289.48599"
-         style="stroke-width:0.01121773">{}</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:0.75517458px;line-height:1.25;font-family:Contemporary;-inkscape-font-specification:Contemporary;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.01887937"
-       x="1.8024845"
-       y="299.87222"
-       id="text2420"><tspan
-         sodipodi:role="line"
-         id="tspan2418"
-         x="1.8024845"
-         y="299.87222"
-         style="fill:#ffffff;fill-opacity:1;stroke-width:0.01887937">theSlate</tspan></text>
-    <rect
-       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
-       id="rect2664"
-       width="5.2916665"
-       height="2.6458333"
-       x="6.6145835"
-       y="294.35416" />
-    <g
-       transform="translate(6.6145833,5.8333337e-6)"
-       id="g2660">
-      <circle
-         inkscape:export-ydpi="2165.5593"
-         inkscape:export-xdpi="2165.5593"
-         inkscape:export-filename="/home/victor/newcontemporary.png"
-         transform="rotate(15)"
-         r="0.33089375"
-         cy="285.04337"
-         cx="78.089241"
-         id="path814-5-7"
-         style="opacity:1;fill:url(#linearGradient822-63-9);fill-opacity:1;stroke:none;stroke-width:0.02068086;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
-      <path
-         inkscape:export-ydpi="2165.5593"
-         inkscape:export-xdpi="2165.5593"
-         inkscape:export-filename="/home/victor/newcontemporary.png"
-         inkscape:connector-curvature="0"
-         id="rect824-9-5"
-         d="m 1.6751641,295.46181 c -0.044267,-0.0113 -0.089453,0.0143 -0.1013156,0.0585 l -0.082808,0.30904 a 0.33089378,0.33089378 0 0 0 0.077072,0.032 0.33089378,0.33089378 0 0 0 0.4052625,-0.23398 0.33089378,0.33089378 0 0 0 0.011,-0.0826 z"
-         style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.02816699;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
-      <text
-         inkscape:export-ydpi="2165.5593"
-         inkscape:export-xdpi="2165.5593"
-         inkscape:export-filename="/home/victor/newcontemporary.png"
-         transform="rotate(15)"
-         id="text881-6-8"
-         y="285.24823"
-         x="78.090057"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:0.31767315px;line-height:1.25;font-family:Contemporary;-inkscape-font-specification:Contemporary;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.00794183"
-         xml:space="preserve"><tspan
-           style="stroke-width:0.00794183"
-           y="285.24823"
-           x="78.090057"
-           id="tspan879-2-7"
-           sodipodi:role="line">÷</tspan></text>
-    </g>
-    <path
-       style="fill:url(#linearGradient2515-2);fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 6.8791667,294.35415 v 2.11667 l 0.2645833,-0.26459 0.2645833,0.26459 v -2.11667 z"
-       id="path2507"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccc" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:0.44179374px;line-height:1.25;font-family:Contemporary;-inkscape-font-specification:Contemporary;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.01104483"
-       x="8.7428789"
-       y="295.69635"
-       id="text2536"><tspan
-         sodipodi:role="line"
-         id="tspan2534"
-         x="8.7428789"
-         y="295.69635"
-         style="stroke-width:0.01104483">theCalculator</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:0.20866239px;line-height:1.25;font-family:Contemporary;-inkscape-font-specification:Contemporary;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.00521655"
-       x="8.7389622"
-       y="296.02078"
-       id="text2536-6"><tspan
-         sodipodi:role="line"
-         id="tspan2534-2"
-         x="8.7389622"
-         y="296.02078"
-         style="stroke-width:0.00521655">Calculator</tspan></text>
     <rect
        style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        id="rect2664-1"

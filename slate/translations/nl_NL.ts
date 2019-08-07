@@ -161,9 +161,11 @@
     <message numerus="yes">
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="82"/>
         <source>%n changed files</source>
-        <translation><numerusform>%n gewijzigd bestand</numerusform>
-        <numerusform>%n gewijzigde bestanden</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>%n gewijzigd bestand</numerusform>
+            <numerusform>%n gewijzigde bestanden</numerusform>
+        </translation>
+    </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="88"/>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="119"/>
@@ -174,9 +176,11 @@
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="90"/>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="121"/>
         <source>Commit %n files</source>
-        <translation><numerusform>Commit %n bestand</numerusform>
-        <numerusform>Commit %n bestanden</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>Commit %n bestand</numerusform>
+            <numerusform>Commit %n bestanden</numerusform>
+        </translation>
+    </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="99"/>
         <source>File deleted from disk</source>
@@ -264,9 +268,11 @@
     <message numerus="yes">
         <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
         <source>%n incoming commits</source>
-        <translation><numerusform>%n binnenkomende commit</numerusform>
-        <numerusform>%n binnenkomende commits</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>%n binnenkomende commit</numerusform>
+            <numerusform>%n binnenkomende commits</numerusform>
+        </translation>
+    </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
         <source>Push Local Changes</source>
@@ -275,9 +281,11 @@
     <message numerus="yes">
         <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
         <source>%n outgoing commits</source>
-        <translation><numerusform>%n uitgaande commit</numerusform>
-        <numerusform>%n uitgaande commits</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>%n uitgaande commit</numerusform>
+            <numerusform>%n uitgaande commits</numerusform>
+        </translation>
+    </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="134"/>
         <source>Up to date</source>
@@ -322,15 +330,19 @@
     <message numerus="yes">
         <location filename="../exitsavedialog.cpp" line="44"/>
         <source>Save %n</source>
-        <translation><numerusform>Sla %n op</numerusform>
-        <numerusform>Sla %n op</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>Sla %n op</numerusform>
+            <numerusform>Sla %n op</numerusform>
+        </translation>
+    </message>
     <message numerus="yes">
         <location filename="../exitsavedialog.cpp" line="45"/>
         <source>Discard %n</source>
-        <translation><numerusform>Verwijder %n</numerusform>
-        <numerusform>Verwijder %n</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>Verwijder %n</numerusform>
+            <numerusform>Verwijder %n</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>FindReplace</name>
@@ -372,9 +384,11 @@
     <message numerus="yes">
         <location filename="../textparts/findreplace.cpp" line="139"/>
         <source>%n matches</source>
-        <translation><numerusform>%n overeenkomst</numerusform>
-        <numerusform>%n overeenkomsten</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>%n overeenkomst</numerusform>
+            <numerusform>%n overeenkomsten</numerusform>
+        </translation>
+    </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="144"/>
         <source>Invalid Regular Expression</source>
@@ -388,9 +402,11 @@
     <message numerus="yes">
         <location filename="../textparts/findreplace.cpp" line="249"/>
         <source>%n occurences replaced</source>
-        <translation><numerusform>%n voorkomen vervangen</numerusform>
-        <numerusform>%n voorkomens vervangen</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>%n voorkomen vervangen</numerusform>
+            <numerusform>%n voorkomens vervangen</numerusform>
+        </translation>
+    </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="250"/>
         <source>Undo</source>
@@ -725,7 +741,7 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="209"/>
-        <location filename="../mainwindow.cpp" line="148"/>
+        <location filename="../mainwindow.cpp" line="152"/>
         <source>Edit</source>
         <translation>Bewerken</translation>
     </message>
@@ -770,7 +786,7 @@
         <location filename="../main.cpp" line="35"/>
         <location filename="../mainwindow-objc.mm" line="154"/>
         <location filename="../mainwindow-objc.mm" line="156"/>
-        <location filename="../mainwindow.cpp" line="92"/>
+        <location filename="../mainwindow.cpp" line="96"/>
         <source>New</source>
         <translation>Nieuw</translation>
     </message>
@@ -788,7 +804,7 @@
         <location filename="../mainwindow.ui" line="395"/>
         <location filename="../mainwindow-objc.mm" line="137"/>
         <location filename="../mainwindow-objc.mm" line="139"/>
-        <location filename="../mainwindow.cpp" line="106"/>
+        <location filename="../mainwindow.cpp" line="110"/>
         <source>Save</source>
         <translation>Opslaan</translation>
     </message>
@@ -804,7 +820,7 @@
     </message>
     <message>
         <location filename="../mainwindow.ui" line="410"/>
-        <location filename="../mainwindow.cpp" line="99"/>
+        <location filename="../mainwindow.cpp" line="103"/>
         <source>Open</source>
         <translation>Open</translation>
     </message>
@@ -1130,79 +1146,79 @@
         <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="247"/>
+        <location filename="../mainwindow.cpp" line="251"/>
         <source>No Clipboard History available</source>
         <translation>Geen Klembordgeschiedenis beschikbaar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="274"/>
+        <location filename="../mainwindow.cpp" line="278"/>
         <source>No opened files</source>
         <translation>Geen geopende bestanden</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="279"/>
+        <location filename="../mainwindow.cpp" line="283"/>
         <source>No supported auxiliary panes</source>
         <translation>Geen ondersteunde hulppanelen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="298"/>
+        <location filename="../mainwindow.cpp" line="302"/>
         <source>No auxiliary panes</source>
         <translation>Geen hulppanelen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="309"/>
+        <location filename="../mainwindow.cpp" line="313"/>
         <source>Ctrl+Shift+V</source>
         <translation>Ctrl+Shift+V</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="614"/>
+        <location filename="../mainwindow.cpp" line="622"/>
         <source>Save Changes?</source>
         <translation>Wijzigingen Opslaan?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="615"/>
+        <location filename="../mainwindow.cpp" line="623"/>
         <source>Do you want to save your changes to this document?</source>
         <translation>Wil je je wijzigingen aan dit document opslaan?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="828"/>
+        <location filename="../mainwindow.cpp" line="836"/>
         <source>For %1</source>
         <translation>Voor %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="830"/>
+        <location filename="../mainwindow.cpp" line="838"/>
         <source>Edit in new tab</source>
         <translation>Bewerken in een nieuwe tab</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="835"/>
+        <location filename="../mainwindow.cpp" line="843"/>
         <source>Edit in new window</source>
         <translation>Bewerken in een nieuw venster</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="841"/>
-        <location filename="../mainwindow.cpp" line="848"/>
-        <location filename="../mainwindow.cpp" line="850"/>
+        <location filename="../mainwindow.cpp" line="849"/>
+        <location filename="../mainwindow.cpp" line="856"/>
+        <location filename="../mainwindow.cpp" line="858"/>
         <source>Rename</source>
         <translation>Hernoemen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="844"/>
+        <location filename="../mainwindow.cpp" line="852"/>
         <source>Delete</source>
         <translation>Verwijderen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="850"/>
+        <location filename="../mainwindow.cpp" line="858"/>
         <source>What do you want to call this file?</source>
         <translation>Hoe wil je dit bestand noemen?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="878"/>
+        <location filename="../mainwindow.cpp" line="886"/>
         <source>No Recent Items</source>
         <translation>Geen Recente Voorwerpen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="893"/>
+        <location filename="../mainwindow.cpp" line="901"/>
         <source>Clear Recent Items</source>
         <translation>Verwijder Recente Voorwerpen</translation>
     </message>
@@ -1714,15 +1730,19 @@ Sluit theSlate niet af voordat je het bestand hebt kunnen schrijven, anders kun 
     <message numerus="yes">
         <location filename="../textparts/textstatusbar.cpp" line="100"/>
         <source>%n spaces</source>
-        <translation><numerusform>%n spatie</numerusform>
-        <numerusform>%n spaties</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>%n spatie</numerusform>
+            <numerusform>%n spaties</numerusform>
+        </translation>
+    </message>
     <message numerus="yes">
         <location filename="../textparts/textstatusbar.cpp" line="102"/>
         <source>%n tabs</source>
-        <translation><numerusform>%n tab</numerusform>
-        <numerusform>%n tabs</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>%n tab</numerusform>
+            <numerusform>%n tabs</numerusform>
+        </translation>
+    </message>
     <message>
         <location filename="../textparts/textstatusbar.ui" line="44"/>
         <source>AUX</source>

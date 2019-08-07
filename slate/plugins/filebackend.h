@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <tpromise.h>
+#include <functional>
 #define THESLATE_FILEBACKEND_IID "org.thesuite.theSlate.FileBackend"
 
 class FileBackend : public QObject {
@@ -30,12 +31,12 @@ class FileBackendFactory : public QObject {
     public:
         FileBackendFactory(QObject* parent = nullptr) : QObject(parent) {}
 
-        virtual QAction* makeOpenAction(QWidget* parent) = 0;
+        virtual QAction* makeOpenAction(QWidget* parent, std::function<QVariant(QString)> getOption) = 0;
         virtual QString name() = 0;
 
     public slots:
         virtual FileBackend* openFromUrl(QUrl url) = 0;
-        virtual QUrl askForUrl(QWidget* parent, bool* ok = nullptr) = 0;
+        virtual QUrl askForUrl(QWidget* parent, std::function<QVariant(QString)> getOption, bool* ok = nullptr) = 0;
 
     signals:
         void openFile(FileBackend* backend);

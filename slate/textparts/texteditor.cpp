@@ -1124,7 +1124,7 @@ void TextEditor::dropEvent(QDropEvent *event) {
 bool TextEditor::saveFileAskForFilename(bool saveAs) {
     if (d->currentBackend == nullptr || saveAs) {
         bool ok;
-        QUrl url = plugins->getLocalFileBackend()->askForUrl(this, &ok);
+        QUrl url = plugins->getLocalFileBackend()->askForUrl(this, std::bind(&MainWindow::getOpenOption, d->parentWindow, std::placeholders::_1), &ok);
 
         if (ok) {
             d->currentBackend = plugins->getLocalFileBackend()->openFromUrl(url);

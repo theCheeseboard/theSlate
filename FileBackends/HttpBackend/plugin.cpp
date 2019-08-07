@@ -17,7 +17,7 @@ QList<FileBackendFactory*> Plugin::getFactories() {
     return factories;
 }
 
-QAction* LocalBackendFactory::makeOpenAction(QWidget* parent) {
+QAction* LocalBackendFactory::makeOpenAction(QWidget* parent, std::function<QVariant(QString)> getOption) {
     QAction* a = new QAction();
     a->setText(tr("HTTP URL"));
     a->setIcon(QIcon::fromTheme("network-wireless"));
@@ -58,7 +58,7 @@ FileBackend* LocalBackendFactory::openFromUrl(QUrl url) {
     }
 }
 
-QUrl LocalBackendFactory::askForUrl(QWidget* parent, bool* ok) {
+QUrl LocalBackendFactory::askForUrl(QWidget* parent, std::function<QVariant(QString)> getOption, bool* ok) {
     //Don't allow saving for now
     *ok = false;
     return QUrl();
