@@ -65,6 +65,6 @@ copy "C:\OpenSSL-Win64\bin\openssl.exe" deploy
 copy "C:\OpenSSL-Win64\bin\libeay32.dll" deploy
 copy "C:\OpenSSL-Win64\bin\ssleay32.dll" deploy
 copy "C:\OpenSSL-Win64\bin\openssl.cfg" deploy
-copy "C:\Program Files (x86)\KSyntaxHighlighting\bin\KF5SyntaxHighlighting.dll" deploy
+copy "C:/Program Files (x86)/ECM/lib/KF5SyntaxHighlighting.dll" deploy
 cd deploy
 windeployqt theslate.exe -network
