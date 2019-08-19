@@ -51,12 +51,15 @@ mkdir deploy\filebackends
 mkdir deploy\translations
 mkdir deploy\ColorDefinitions
 mkdir deploy\ColorDefinitions\themes
+mkdir deploy\auxiliarypanes
 copy "contemporary-theme\release\Contemporary.dll" deploy\styles
 copy slate\release\theslate.exe deploy
 copy slate\translations\*.qm deploy\translations
 copy slate\ColorDefinitions\themes\* deploy\ColorDefinitions\themes
 copy FileBackends\LocalFileBackend\release\LocalFileBackend.dll deploy\filebackends
 copy FileBackends\HttpBackend\release\HttpBackend.dll deploy\filebackends
+copy AuxiliaryPanes\HtmlPreview\release\HtmlPreview.dll deploy\auxiliarypanes
+copy AuxiliaryPanes\MarkdownPreview\release\MdPreview.dll deploy\auxiliarypanes
 copy "C:\Program Files\thelibs\lib\the-libs.dll" deploy
 copy "C:\OpenSSL-Win64\bin\openssl.exe" deploy
 copy "C:\OpenSSL-Win64\bin\libeay32.dll" deploy
