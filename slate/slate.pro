@@ -42,8 +42,8 @@ win32 {
     include(C:/Program Files/thelibs/pri/buildmaster.pri)
 
     QT += thelib
-    INCLUDEPATH += "C:/Program Files/thelibs/include" "C:/Program Files (x86)/KSyntaxHighlighting/include/KF5/KSyntaxHighlighting"
-    LIBS += -L"C:/Program Files/thelibs/lib" -lthe-libs -L"C:/Program Files (x86)/KSyntaxHighlighting/lib" -lKF5SyntaxHighlighting
+    INCLUDEPATH += "C:/Program Files/thelibs/include" "C:/Program Files (x86)/ECM/include/KF5/KSyntaxHighlighting"
+    LIBS += -L"C:/Program Files/thelibs/lib" -lthe-libs -L"C:/Program Files (x86)/ECM/lib/" -lKF5SyntaxHighlighting
     RC_FILE = icon.rc
     DEFINES += "THESLATE_END_OF_LINE=2"
     TARGET = theSlate
