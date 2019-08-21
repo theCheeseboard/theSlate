@@ -67,4 +67,4 @@ copy "C:\OpenSSL-Win64\bin\ssleay32.dll" deploy
 copy "C:\OpenSSL-Win64\bin\openssl.cfg" deploy
 copy syntax-highlighting\build\bin\KF5SyntaxHighlighting.dll deploy
 cd deploy
-windeployqt theslate.exe -network -webengine -webenginecore -webenginewidgets
+windeployqt theslate.exe -network -webengine -webenginecore -webenginewidgets -quickwidgets
