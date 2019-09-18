@@ -173,7 +173,7 @@
           <item>
            <widget class="QCheckBox" name="selectTrackedFilesCheckbox">
             <property name="text">
-             <string>CheckBox</string>
+             <string notr="true">CheckBox</string>
             </property>
            </widget>
           </item>

@@ -129,11 +129,6 @@
         <translation>Bạn sẵn sàng chuẩn bị chuyển giao chưa?</translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="176"/>
-        <source>CheckBox</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="217"/>
         <source>Commit Message</source>
         <translation>Ghi chú cho chuyển giao</translation>
@@ -161,8 +156,10 @@
     <message numerus="yes">
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="82"/>
         <source>%n changed files</source>
-        <translation><numerusform>%n tệp đã thay đổi</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>%n tệp đã thay đổi</numerusform>
+        </translation>
+    </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="88"/>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="119"/>
@@ -173,8 +170,10 @@
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="90"/>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="121"/>
         <source>Commit %n files</source>
-        <translation><numerusform>Đặt %n tệp vào chuyển giao</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>Đặt %n tệp vào chuyển giao</numerusform>
+        </translation>
+    </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="99"/>
         <source>File deleted from disk</source>
@@ -262,8 +261,10 @@
     <message numerus="yes">
         <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
         <source>%n incoming commits</source>
-        <translation><numerusform>%n lần chuyển giao chờ đến</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>%n lần chuyển giao chờ đến</numerusform>
+        </translation>
+    </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
         <source>Push Local Changes</source>
@@ -272,8 +273,10 @@
     <message numerus="yes">
         <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
         <source>%n outgoing commits</source>
-        <translation><numerusform>%n lần chuyển giao chờ đi</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>%n lần chuyển giao chờ đi</numerusform>
+        </translation>
+    </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="134"/>
         <source>Up to date</source>
@@ -1238,8 +1241,10 @@
     <message numerus="yes">
         <location filename="../mainwindow.cpp" line="865"/>
         <source>%n file(s) deleted</source>
-        <translation><numerusform>%n tệp đã xóa</numerusform>
-        </translation></message>
+        <translation>
+            <numerusform>%n tệp đã xóa</numerusform>
+        </translation>
+    </message>
     <message>
         <location filename="../mainwindow.cpp" line="866"/>
         <source>%1 was deleted from your device.</source>

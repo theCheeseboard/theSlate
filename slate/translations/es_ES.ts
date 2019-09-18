@@ -129,11 +129,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="176"/>
-        <source>CheckBox</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="217"/>
         <source>Commit Message</source>
         <translation type="unfinished"></translation>

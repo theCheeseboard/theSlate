@@ -129,11 +129,6 @@
         <translation>Klaar om bestanden te committen?</translation>
     </message>
     <message>
-        <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="176"/>
-        <source>CheckBox</source>
-        <translation>CheckBox</translation>
-    </message>
-    <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="217"/>
         <source>Commit Message</source>
         <translation>Commitbericht</translation>
