@@ -27,7 +27,7 @@ if [ $STAGE = "script" ]; then
     git checkout v5.54.0
     mkdir build
     cd build
-    cmake -DCMAKE_INSTALL_PREFIX=/usr -DECM_MKSPECS_INSTALL_DIR=/opt/qt510/mkspecs/modules/ ..
+    cmake -DCMAKE_INSTALL_PREFIX=/usr -DECM_MKSPECS_INSTALL_DIR=/opt/qt512/mkspecs/modules/ ..
     make
     sudo make install
     cd ../..
