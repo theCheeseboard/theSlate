@@ -846,24 +846,38 @@ void MainWindow::on_projectTree_customContextMenuRequested(const QPoint &pos)
                 w->show();
             });
             menu->addSeparator();
-            menu->addAction(tr("Rename"), [=] {
+            menu->addAction(QIcon::fromTheme("edit-rename", QIcon(":/icons/edit-rename.svg")), tr("Rename"), [=] {
                 ui->projectTree->edit(ui->projectTree->currentIndex());
             });
-            menu->addAction(tr("Delete"), [=] {
+            menu->addAction(QIcon::fromTheme("edit-delete", QIcon(":/icons/edit-delete.svg")), tr("Delete"), [=] {
+                tMessageBox* messageBox = new tMessageBox(this->window());
+                messageBox->setWindowTitle(tr("Delete this file?"));
+                messageBox->setText(tr("%1 will be irrecoverably deleted.").arg(d->fileModel->fileName(index)));
+                messageBox->setIcon(tMessageBox::Warning);
+                messageBox->setWindowFlags(Qt::Sheet);
+                QAbstractButton* button = messageBox->addButton(tr("Delete"), tMessageBox::DestructiveRole);
+                messageBox->setStandardButtons(tMessageBox::Cancel);
 
+                connect(button, &QAbstractButton::clicked, this, [=] {
+                    QString fileName = d->fileModel->fileName(index);
+                    tToast* toast = new tToast();
+                    if (d->fileModel->remove(index)) {
+                        toast->setTitle(tr("%n file(s) deleted", nullptr, 1));
+                        toast->setText(tr("%1 was deleted from your device.").arg(fileName));
+                    } else {
+                        toast->setTitle(tr("Couldn't delete file"));
+                        toast->setText(tr("There was a problem deleting %1.").arg(fileName));
+                    }
+                    connect(toast, &tToast::dismissed, toast, &tToast::deleteLater);
+                    toast->show(this);
+                });
+
+                messageBox->exec();
+                messageBox->deleteLater();
             });
         } else if (info.isDir()) {
-            menu->addAction(tr("Rename"), [=] {
-                bool ok;
-                QString newName = QInputDialog::getText(this, tr("Rename"), tr("What do you want to call this file?"), QLineEdit::Normal, info.baseName(), &ok, Qt::Sheet);
-                if (ok) {
-                    QFile f(info.filePath());
-                    if (newName.contains(".")) {
-                        f.rename(newName);
-                    } else {
-                        f.rename(newName + info.completeSuffix());
-                    }
-                }
+            menu->addAction(QIcon::fromTheme("edit-rename", QIcon(":/icons/edit-rename.svg")), tr("Rename"), [=] {
+                ui->projectTree->edit(ui->projectTree->currentIndex());
             });
         }
         menu->exec(ui->projectTree->mapToGlobal(pos));

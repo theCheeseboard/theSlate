@@ -347,18 +347,18 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
 
         if (currentCursor.hasSelection()) {
             menu->addSection(menu->fontMetrics().elidedText(tr("For selected text \"%1\"").arg(currentCursor.selectedText()), Qt::ElideRight, SC_DPI(400)));
-            menu->addAction(QIcon::fromTheme("edit-cut", QIcon(":/icons/edit-cut")), tr("Cut"), this, &TextEditor::cut);
-            menu->addAction(QIcon::fromTheme("edit-copy", QIcon(":/icons/edit-copy")), tr("Copy"), this, &TextEditor::copy);
-            menu->addAction(QIcon::fromTheme("edit-delete", QIcon(":/icons/edit-delete")), tr("Delete"), this, [=] {
+            menu->addAction(QIcon::fromTheme("edit-cut", QIcon(":/icons/edit-cut.svg")), tr("Cut"), this, &TextEditor::cut);
+            menu->addAction(QIcon::fromTheme("edit-copy", QIcon(":/icons/edit-copy.svg")), tr("Copy"), this, &TextEditor::copy);
+            menu->addAction(QIcon::fromTheme("edit-delete", QIcon(":/icons/edit-delete.svg")), tr("Delete"), this, [=] {
                 this->textCursor().removeSelectedText();
             });
         }
 
         menu->addSection(tr("For this document"));
-        QAction* undoAction = menu->addAction(QIcon::fromTheme("edit-undo", QIcon(":/icons/edit-undo")), tr("Undo"), this, &TextEditor::undo);
-        QAction* redoAction = menu->addAction(QIcon::fromTheme("edit-redo", QIcon(":/icons/edit-redo")), tr("Redo"), this, &TextEditor::redo);
-        QAction* pasteAction = menu->addAction(QIcon::fromTheme("edit-paste", QIcon(":/icons/edit-paste")), tr("Paste"), this, &TextEditor::paste);
-        menu->addAction(QIcon::fromTheme("edit-select-all", QIcon(":/icons/edit-select-all")), tr("Select All"), this, &TextEditor::selectAll);
+        QAction* undoAction = menu->addAction(QIcon::fromTheme("edit-undo", QIcon(":/icons/edit-undo.svg")), tr("Undo"), this, &TextEditor::undo);
+        QAction* redoAction = menu->addAction(QIcon::fromTheme("edit-redo", QIcon(":/icons/edit-redo.svg")), tr("Redo"), this, &TextEditor::redo);
+        QAction* pasteAction = menu->addAction(QIcon::fromTheme("edit-paste", QIcon(":/icons/edit-paste.svg")), tr("Paste"), this, &TextEditor::paste);
+        menu->addAction(QIcon::fromTheme("edit-select-all", QIcon(":/icons/edit-select-all.svg")), tr("Select All"), this, &TextEditor::selectAll);
         menu->addSeparator();
         menu->addAction(tr("Change Syntax Highlighting"), this, &TextEditor::chooseHighlighter);
 
