@@ -13,6 +13,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
         ui->bottomBar->setVisible(false);
     #endif
 
+    ui->leftPane->setFixedWidth(SC_DPI(300));
+
     ui->systemMonospaceFont->setChecked(settings.value("font/useSystem", true).toBool());
     ui->fontBox->setCurrentFont(QFont(settings.value("font/textFontFamily", QFontDatabase::systemFont(QFontDatabase::FixedFont).family()).toString()));
     ui->sizeBox->setValue(settings.value("font/textFontSize", QFontDatabase::systemFont(QFontDatabase::FixedFont).pointSize()).toInt());

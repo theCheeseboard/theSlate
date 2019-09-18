@@ -744,6 +744,9 @@
    <property name="text">
     <string>Change Syntax Highlighting</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+F12</string>
+   </property>
   </action>
   <action name="actionChange_File_Encoding">
    <property name="text">
@@ -794,15 +797,15 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>GitWidget</class>
-   <extends>QWidget</extends>
-   <header>SourceControl/gitwidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>tStackedWidget</class>
    <extends>QStackedWidget</extends>
    <header location="global">tstackedwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>GitWidget</class>
+   <extends>QWidget</extends>
+   <header>SourceControl/gitwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

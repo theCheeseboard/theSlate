@@ -31,7 +31,7 @@ void StatusBarButton::paintEvent(QPaintEvent *event) {
     }
 
     QRect textRect;
-    textRect.setWidth(this->fontMetrics().width(this->text()) + 1);
+    textRect.setWidth(this->fontMetrics().horizontalAdvance(this->text()) + 1);
     textRect.setHeight(this->fontMetrics().height());
     textRect.moveTo(3, 3);
 
@@ -42,5 +42,5 @@ void StatusBarButton::paintEvent(QPaintEvent *event) {
 }
 
 QSize StatusBarButton::sizeHint() const {
-    return QSize(this->fontMetrics().width(this->text()) + 1 + 6 * theLibsGlobal::getDPIScaling(), this->fontMetrics().height() + 6 * theLibsGlobal::getDPIScaling());
+    return QSize(this->fontMetrics().horizontalAdvance(this->text()) + 1 + SC_DPI(6), this->fontMetrics().height() + SC_DPI(6));
 }

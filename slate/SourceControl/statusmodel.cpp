@@ -92,7 +92,7 @@ bool StatusModel::setData(const QModelIndex &index, const QVariant &value, int r
 }
 
 Qt::ItemFlags StatusModel::flags(const QModelIndex &index) const {
-    if (!index.isValid()) return 0;
+    if (!index.isValid()) return Qt::NoItemFlags;
 
     Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     if (canChangeCheckState(index.row())) {
@@ -183,9 +183,9 @@ Qt::CheckState StatusModel::allTrackedFilesSelected() {
 }
 
 QSize StatusModelDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
-    QRect checkRect = checkboxRect(option);
+//    QRect checkRect = checkboxRect(option);
     QSize normalSize = option.rect.size();
-    normalSize.setHeight(24);
+    normalSize.setHeight(SC_DPI(24));
 
     return normalSize;
 }
@@ -231,15 +231,15 @@ void StatusModelDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     QApplication::style()->drawControl(QStyle::CE_CheckBox, &checkboxOptions, painter);
 
     QRect informationRect = option.rect;
-    informationRect.setX(checkRect.right() + 3);
-    informationRect.moveTop(informationRect.top() + 3);
-    informationRect.setHeight(informationRect.height() - 6);
-    informationRect.setWidth(informationRect.width() - 3);
+    informationRect.setX(checkRect.right() + SC_DPI(3));
+    informationRect.moveTop(informationRect.top() + SC_DPI(3));
+    informationRect.setHeight(informationRect.height() - SC_DPI(6));
+    informationRect.setWidth(informationRect.width() - SC_DPI(3));
 
     //Draw filename
     QString name = index.data(Qt::DisplayRole).toString();
     QRect nameRect;
-    nameRect.setWidth(fm.width(name) + 1);
+    nameRect.setWidth(fm.horizontalAdvance(name) + 1);
     nameRect.setHeight(fm.height());
     nameRect.moveCenter(informationRect.center());
     nameRect.moveLeft(informationRect.left());
@@ -252,7 +252,7 @@ void StatusModelDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     QString status = " · " + index.data(Qt::UserRole).toString();
     QRect statusRect = nameRect;
     statusRect.moveLeft(nameRect.right());
-    statusRect.setWidth(fm.width(status) + 1);
+    statusRect.setWidth(fm.horizontalAdvance(status) + 1);
 
     painter->setPen(grayCol);
     painter->drawText(statusRect, status);
@@ -272,9 +272,9 @@ bool StatusModelDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, 
 
 QRect StatusModelDelegate::checkboxRect(const QStyleOptionViewItem &option) const {
     QRect checkRect;
-    checkRect.moveLeft(option.rect.left() + 3);
-    checkRect.moveTop(option.rect.top() + 3);
-    checkRect.setHeight(option.rect.height() - 6);
+    checkRect.moveLeft(option.rect.left() + SC_DPI(3));
+    checkRect.moveTop(option.rect.top() + SC_DPI(3));
+    checkRect.setHeight(option.rect.height() - SC_DPI(6));
     checkRect.setWidth(checkRect.height());
     return checkRect;
 }

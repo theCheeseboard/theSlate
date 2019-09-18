@@ -124,7 +124,7 @@ void GitWidget::on_branchesList_customContextMenuRequested(const QPoint &pos)
         GitIntegration::BranchPointer branch = index.data(Qt::UserRole + 1).value<GitIntegration::BranchPointer>();
         GitIntegration::BranchPointer currentBranch = d->gi->branch();
         QMenu* menu = new QMenu();
-        menu->addSection(tr("For %1").arg(branch->name));
+        menu->addSection(tr("For branch %1").arg(branch->name));
         menu->addAction(tr("Checkout"), [=] {
             d->gi->checkout(branch->name);
         });
@@ -167,7 +167,7 @@ void GitWidget::on_branchesList_activated(const QModelIndex &index)
             AddBranchDialog* dialog = new AddBranchDialog(d->gi, this->window());
 
             tPopover* p = new tPopover(dialog);
-            p->setPopoverWidth(300 * theLibsGlobal::getDPIScaling());
+            p->setPopoverWidth(SC_DPI(300));
             connect(p, &tPopover::dismissed, [=] {
                 p->deleteLater();
                 dialog->deleteLater();
@@ -216,6 +216,7 @@ void GitWidget::on_logList_customContextMenuRequested(const QPoint &pos)
         menu->addAction(tr("Copy Commit Message"), [=] {
             QApplication::clipboard()->setText(commit->message);
         });
+        menu->addSeparator();
         menu->addAction(tr("Checkout"), [=] {
             d->gi->checkout(commit->hash);
         });
@@ -233,10 +234,16 @@ void GitWidget::on_logList_customContextMenuRequested(const QPoint &pos)
 
             messageBox->setIcon(tMessageBox::Warning);
             messageBox->setWindowFlags(Qt::Sheet);
-            messageBox->setStandardButtons(tMessageBox::Yes | tMessageBox::No);
-            if (messageBox->exec() == tMessageBox::Yes) {
+            QAbstractButton* resetButton = messageBox->addButton(tr("Reset"), tMessageBox::DestructiveRole);
+            connect(resetButton, &QAbstractButton::clicked, this, [=] {
                 d->gi->resetTo(commit->hash, type);
-            }
+            });
+            messageBox->setStandardButtons(tMessageBox::Cancel);
+//            messageBox->setStandardButtons(tMessageBox::Yes | tMessageBox::No);
+//            if (messageBox->exec() == tMessageBox::Yes) {
+//                d->gi->resetTo(commit->hash, type);
+//            }
+            messageBox->exec();
             messageBox->deleteLater();
         };
 

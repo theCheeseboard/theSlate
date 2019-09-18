@@ -31,6 +31,7 @@ SelectListDialog::SelectListDialog(QWidget *parent) :
     ui->windowControlsMac->setVisible(false);
 #endif
 
+    this->setFocusProxy(ui->searchEdit);
     QScroller::grabGesture(ui->listOptions, QScroller::LeftMouseButtonGesture);
 }
 

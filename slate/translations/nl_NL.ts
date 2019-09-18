@@ -469,13 +469,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="127"/>
-        <source>For %1</source>
-        <translation>Voor %1</translation>
-    </message>
-    <message>
         <location filename="../SourceControl/gitwidget.cpp" line="128"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="219"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="220"/>
         <source>Checkout</source>
         <translation>Bekijk</translation>
     </message>
@@ -512,14 +507,14 @@
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="196"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="389"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="396"/>
         <source>Push</source>
         <translation>Push</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="199"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="336"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="412"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="343"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="419"/>
         <source>Pull</source>
         <translation>Pull</translation>
     </message>
@@ -544,170 +539,180 @@
         <translation>Kopiëer Commitbericht</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="226"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="227"/>
         <source>Reset the repository?</source>
         <translation>Wil je de repository resetten?</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="229"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="230"/>
         <source>The changes since %1 will be discarded.</source>
         <translation>De wijzigingen sinds %1 zullen worden verwijderd.</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="231"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="232"/>
         <source>Your HEAD will point to %1.</source>
         <translation>Je HEAD zal naar %1 verwijzen.</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="244"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="237"/>
+        <source>Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="251"/>
         <source>Reset to here</source>
         <translation>Tot hier resetten</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="245"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="252"/>
         <source>Hard Reset</source>
         <translation>Hard Resetten</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="248"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="255"/>
         <source>Mixed Reset</source>
         <translation>Gemixte Reset</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="251"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="258"/>
         <source>Soft Reset</source>
         <translation>Zacht Resetten</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="277"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="284"/>
         <source>Abort Merge?</source>
         <translation>Wil je de merge afbreken?</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="278"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="285"/>
         <source>Any actions taken to resolve conflict resolution will be undone, and the state of your repository will be set back to how it was before the merge operation started.</source>
         <translation>Alle acties om het conflict op te lossen zullen ongedaan worden gemaakt, en de staat van je repository zal terug worden gezet naar hoe deze was voor de merge begon.</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="310"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="357"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="317"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="364"/>
         <source>Unclean Working Directory</source>
         <translation type="unfinished">Werkmap Vervuilen</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="311"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="318"/>
         <source>Your working directory is not clean and upstream changes may not merge properly. Do you still want to attempt to pull in upstream changes?</source>
         <translation>Je werkmap is niet schoon en upstream-wijzigingen zouden niet goed kunnen mergen. Wil je echt proberen upstream-wijzigingen te pullen?</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="314"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="321"/>
         <source>Discard All Changes and Pull</source>
         <translation>Alle wijzigingen verwijderen en pullen</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="315"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="322"/>
         <source>Pull Anyway</source>
         <translation>Alsnog pullen</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="365"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="372"/>
         <source>pull</source>
         <translation>Pullen</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="435"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="442"/>
         <source>Authenticate to push to %1</source>
         <translation>Meld je aan om naar %1 te pushen</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="501"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="508"/>
         <source>The %1 operation resulted in these files conflicting:</source>
         <translation>De %1-operatie zorgde ervoor dat deze bestanden een conflict vormed:</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="504"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="511"/>
         <source>Undo %1</source>
         <translation>%1 ongedaan maken</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="544"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="551"/>
         <source>merge</source>
         <translation>Mergen</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="547"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="554"/>
         <source>Unrelated Histories</source>
         <translation>Ongerelateerde Histories</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="548"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="555"/>
         <source>You&apos;re trying to merge two branches which do not have a common base</source>
         <translation>Je probeert twee branches te mergen die geen basis delen</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="574"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="581"/>
         <source>Initialize Repository</source>
         <translation>Een Repository Initialiseren</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="337"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="344"/>
         <source>Pulling from %1...</source>
         <translation>Aan het pullen van %1...</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="390"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="397"/>
         <source>Pushing to %1...</source>
         <translation>Aan het pushen naar %1...</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="410"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="417"/>
         <source>Out of date</source>
         <translation>Verouderd</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="411"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="418"/>
         <source>Your local repository is out of date and needs to be updated by pulling.</source>
         <translation>Je lokale repository is verouderd en moet bijgewerkt worden door te pullen.</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="358"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="365"/>
         <source>Commit or discard changes in your working directory in order to pull.</source>
         <translation>Commit of verwijder je wijzigingen in je werkmap om te pullen.</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="500"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="127"/>
+        <source>For branch %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SourceControl/gitwidget.cpp" line="507"/>
         <source>Conflicting Files</source>
         <translation>Conflicten</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="501"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="508"/>
         <source>What do you want to do now?</source>
         <translation>Wat wil je nu doen?</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="505"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="512"/>
         <source>Manually Resolve Changes</source>
         <translation>Handmatig Wijzigingen Oplossen</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="506"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="513"/>
         <source>Use Local Changes</source>
         <translation>Lokale Wijzigingen Gebruiken</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="507"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="514"/>
         <source>Use Remote Changes</source>
         <translation>Remote-wijzigingen Gebruiken</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="367"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="374"/>
         <source>Authenticate to pull from %1</source>
         <translation>Meld je aan om van %1 te pullen</translation>
     </message>
     <message>
-        <location filename="../SourceControl/gitwidget.cpp" line="372"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="440"/>
-        <location filename="../SourceControl/gitwidget.cpp" line="556"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="379"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="447"/>
+        <location filename="../SourceControl/gitwidget.cpp" line="563"/>
         <source>Git Error</source>
         <translation>Git-fout</translation>
     </message>
@@ -740,12 +745,12 @@
         <translation>Ctrl+/</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="755"/>
+        <location filename="../mainwindow.ui" line="758"/>
         <source>Reload Using Encoding</source>
         <translation>Herlaad Met Codering</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="750"/>
+        <location filename="../mainwindow.ui" line="753"/>
         <source>Change File Encoding</source>
         <translation>Wijzig Bestandscodering</translation>
     </message>
@@ -970,27 +975,32 @@
         <translation>Verander Syntaxismarkering</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="760"/>
+        <location filename="../mainwindow.ui" line="748"/>
+        <source>Ctrl+F12</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="763"/>
         <source>Line</source>
         <translation>Lijn</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="763"/>
+        <location filename="../mainwindow.ui" line="766"/>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="772"/>
+        <location filename="../mainwindow.ui" line="775"/>
         <source>Uppercase</source>
         <translation>Hoofdletters</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="781"/>
+        <location filename="../mainwindow.ui" line="784"/>
         <source>Lowercase</source>
         <translation>Kleine Letters</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="790"/>
+        <location filename="../mainwindow.ui" line="793"/>
         <source>Title Case</source>
         <translation>Titel</translation>
     </message>

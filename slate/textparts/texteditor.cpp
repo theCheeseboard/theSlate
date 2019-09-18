@@ -1474,7 +1474,7 @@ void TextEditor::chooseHighlighter() {
     }
 
     std::sort(items.begin(), items.end(), [](const SelectListItem &a, const SelectListItem &b) {
-        if (a.text.localeAwareCompare(b.text) < 0) {
+        if (a.text.toUpper().localeAwareCompare(b.text.toUpper()) < 0) {
             return true;
         } else {
             return false;
