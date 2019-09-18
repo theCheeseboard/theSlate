@@ -1576,182 +1576,182 @@
         <translation>Nieuw Document</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="176"/>
+        <location filename="../textparts/texteditor.cpp" line="177"/>
         <source>Merge Conflicts were found in this file</source>
         <translation>Er zijn merge-conflicten gevonden in dit bestand</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="179"/>
+        <location filename="../textparts/texteditor.cpp" line="180"/>
         <source>Resolve Merge Conflicts</source>
         <translation>Merge-conflicten Oplossen</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="184"/>
+        <location filename="../textparts/texteditor.cpp" line="185"/>
         <source>Resolve a Merge Conflict</source>
         <translation>Een Merge-conflict Oplossen</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="227"/>
+        <location filename="../textparts/texteditor.cpp" line="228"/>
         <source>File on disk changed</source>
         <translation>Bestand op schijf is veranderd</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="228"/>
+        <location filename="../textparts/texteditor.cpp" line="229"/>
         <source>The file on the disk has changed. If you save this file you will lose the changes on disk.</source>
         <translation>Het bestand op de schijf is veranderd. Als je dit bestand opslaat zul je de wijzigingen op de schijf verliezen.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="231"/>
+        <location filename="../textparts/texteditor.cpp" line="232"/>
         <source>Reload File</source>
         <translation>Bestand Herladen</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="237"/>
+        <location filename="../textparts/texteditor.cpp" line="238"/>
         <source>Merge Changes</source>
         <translation>Wijzigingen Mergen</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="242"/>
+        <location filename="../textparts/texteditor.cpp" line="243"/>
         <source>File on Disk</source>
         <translation>Bestand op Schijf</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="242"/>
+        <location filename="../textparts/texteditor.cpp" line="243"/>
         <source>Currently open file</source>
         <translation>Huidig geopend bestand</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="247"/>
+        <location filename="../textparts/texteditor.cpp" line="248"/>
         <source>Resolve a Save Conflict</source>
         <translation>Een Opslaan-conflict Oplossen</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="299"/>
+        <location filename="../textparts/texteditor.cpp" line="300"/>
         <source>File on disk deleted</source>
         <translation>Bestand op schijf verwijderd</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="300"/>
+        <location filename="../textparts/texteditor.cpp" line="301"/>
         <source>The file on the disk has been deleted. If you save this file you will recreate the file.</source>
         <translation>Het bestand op de schijf is verwijderd. Als je dit bestand opslaat zul je het opnieuw maken.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="309"/>
+        <location filename="../textparts/texteditor.cpp" line="310"/>
         <source>Can&apos;t open file</source>
         <translation>Kan het bestand niet openen</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="318"/>
+        <location filename="../textparts/texteditor.cpp" line="319"/>
         <source>Mixed Line Endings detected</source>
         <translation>Gemengde regeleindes gevonden</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="319"/>
+        <location filename="../textparts/texteditor.cpp" line="320"/>
         <source>When saving this file, we&apos;ll normalise all the line endings. You can choose which line endings to save as on the status bar.</source>
         <translation>Wanneer je dit bestand opslaat zullen we alle regeleindes normaliseren. Je kunt kiezen met welke regeleindes opgeslagen wordt in de statusbalk.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="328"/>
+        <location filename="../textparts/texteditor.cpp" line="329"/>
         <source>Incorrect Text Encoding</source>
         <translation>Incorrecte Tekstcodering</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="348"/>
+        <location filename="../textparts/texteditor.cpp" line="349"/>
         <source>For selected text &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="349"/>
+        <location filename="../textparts/texteditor.cpp" line="350"/>
         <source>Cut</source>
         <translation type="unfinished">Knippen</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="350"/>
+        <location filename="../textparts/texteditor.cpp" line="351"/>
         <source>Copy</source>
         <translation type="unfinished">Kopiëren</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="351"/>
+        <location filename="../textparts/texteditor.cpp" line="352"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="356"/>
+        <location filename="../textparts/texteditor.cpp" line="357"/>
         <source>For this document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="357"/>
+        <location filename="../textparts/texteditor.cpp" line="358"/>
         <source>Undo</source>
         <translation type="unfinished">Maak ongedaan</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="358"/>
+        <location filename="../textparts/texteditor.cpp" line="359"/>
         <source>Redo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="359"/>
+        <location filename="../textparts/texteditor.cpp" line="360"/>
         <source>Paste</source>
         <translation type="unfinished">Plakken</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="360"/>
+        <location filename="../textparts/texteditor.cpp" line="361"/>
         <source>Select All</source>
         <translation type="unfinished">Alles Selecteren</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="362"/>
+        <location filename="../textparts/texteditor.cpp" line="363"/>
         <source>Change Syntax Highlighting</source>
         <translation type="unfinished">Verander Syntaxismarkering</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="458"/>
+        <location filename="../textparts/texteditor.cpp" line="459"/>
         <source>Retry</source>
         <translation>Opnieuw Proberen</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="484"/>
+        <location filename="../textparts/texteditor.cpp" line="485"/>
         <source>We tried opening this file with the %1 encoding, but it contains invalid characters. If you save the file in the incorrect encoding, you may lose data.</source>
         <translation>We hebben geprobeerd om dit bestand in de %1-codering te openen, maar het bevat ongeldige karakters. Als je dit bestand met de verkeerde codering opslaat, kun je data verliezen.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="529"/>
+        <location filename="../textparts/texteditor.cpp" line="530"/>
         <source>Read Only File</source>
         <translation>Alleen-lezen-bestand</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="530"/>
+        <location filename="../textparts/texteditor.cpp" line="531"/>
         <source>This file is read only. You&apos;ll need to save it as a different file.</source>
         <translation>Dit bestand is alleen-lezen. Je zult het als een ander bestand moeten opslaan.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="541"/>
+        <location filename="../textparts/texteditor.cpp" line="542"/>
         <source>Encoding Error</source>
         <translation>Coderingsfout</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="542"/>
+        <location filename="../textparts/texteditor.cpp" line="543"/>
         <source>Some characters used in this file cannot be encoded in the selected encoding. Saving this file will remove any invalid characters and may result in possible data loss.</source>
         <translation>Sommige karakters die in dit bestand worden gebruikt kunnen niet wkrden gecodeerd in de geselecteerde codering. Dit bestand opslaan zal alle ongeldige karakters weghalen en kan dataverlies als gevolg hebben.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="570"/>
+        <location filename="../textparts/texteditor.cpp" line="571"/>
         <source>There&apos;s no more space on this disk.</source>
         <translation>Er is geen ruimte over op deze schijf.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="572"/>
+        <location filename="../textparts/texteditor.cpp" line="573"/>
         <source>You don&apos;t have permission to save this file.</source>
         <translation>Je hebt geen rechten om dit bestand op te slaan.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="574"/>
+        <location filename="../textparts/texteditor.cpp" line="575"/>
         <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.</source>
         <translation>Kan dit bestand niet opslaan. Controleer of je rechten hebt om naar dit bestand te schrijven en dat er genoeg ruimte is op de schijf.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="577"/>
+        <location filename="../textparts/texteditor.cpp" line="578"/>
         <source>
 
 Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
@@ -1760,63 +1760,63 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
 Sluit theSlate niet af voordat je het bestand hebt kunnen schrijven, anders kun je data verliezen.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="580"/>
+        <location filename="../textparts/texteditor.cpp" line="581"/>
         <source>Couldn&apos;t save the file</source>
         <translation>Kon het bestand niet opslaan</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1097"/>
+        <location filename="../textparts/texteditor.cpp" line="1098"/>
         <source>Revert Changes?</source>
         <translation>Wijzigingen Terugdraaien?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1098"/>
+        <location filename="../textparts/texteditor.cpp" line="1099"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation>Wil je alle aan dit document gemaakte wijzigingen terugdraaien?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1348"/>
+        <location filename="../textparts/texteditor.cpp" line="1349"/>
         <source>Comments Not Supported</source>
         <translation>Opmerkingen Niet Ondersteund</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1349"/>
+        <location filename="../textparts/texteditor.cpp" line="1350"/>
         <source>Comments are not supported in this language. Select a different language mode to add comments.</source>
         <translation>Opmerkingen worden niet ondersteund in deze taal. Kies een andere taal om opmerkingen toe te voegen.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1511"/>
+        <location filename="../textparts/texteditor.cpp" line="1512"/>
         <source>No Highlighting</source>
         <translation>Geen Markering</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1514"/>
+        <location filename="../textparts/texteditor.cpp" line="1515"/>
         <source>Select Highlighting</source>
         <translation>Selecteer Markering</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1515"/>
+        <location filename="../textparts/texteditor.cpp" line="1516"/>
         <source>What type of code is this file?</source>
         <translation>Wat voor soort code is dit bestand?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1573"/>
+        <location filename="../textparts/texteditor.cpp" line="1574"/>
         <source>Go To Line</source>
         <translation>Ga Naar Regel</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1573"/>
+        <location filename="../textparts/texteditor.cpp" line="1574"/>
         <source>What line do you want to go to?</source>
         <translation>Naar welke regel wil je?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="331"/>
-        <location filename="../textparts/texteditor.cpp" line="1549"/>
+        <location filename="../textparts/texteditor.cpp" line="332"/>
+        <location filename="../textparts/texteditor.cpp" line="1550"/>
         <source>Select Encoding</source>
         <translation>Kies Codering</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1550"/>
+        <location filename="../textparts/texteditor.cpp" line="1551"/>
         <source>What file encoding do you want to use?</source>
         <translation>Welke bestandscodering wil je gebruiken?</translation>
     </message>

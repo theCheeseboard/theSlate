@@ -126,6 +126,7 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
         d->button = nullptr;
     });
     d->button->setText(tr("New Document"));
+    d->button->setFocusProxy(this); //Focus this tab when the user clicks on it
 
     connect(this, &TextEditor::textChanged, [=] {
         if (d->firstEdit) {
