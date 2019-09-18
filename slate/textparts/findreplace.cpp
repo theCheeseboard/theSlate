@@ -155,7 +155,7 @@ void FindReplace::on_doneButton_clicked()
 }
 
 void FindReplace::moveCursor(bool backward) {
-    if (!d->haveValidRegex) {
+    if (!d->haveValidRegex || d->matches.isEmpty()) {
         tErrorFlash::flashError(ui->findContainer);
     } else {
         QTextCursor currentCursor = d->editor->textCursor();
@@ -171,17 +171,29 @@ void FindReplace::moveCursor(bool backward) {
                 }
             }
 
+            //Move to the last match if we're going backwards at the beginning
+            if (previousIndex == -1) previousIndex = d->matches.keys().last();
+
             if (previousIndex != -1) {
                 currentCursor.setPosition(previousIndex);
                 currentCursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor, d->matches.value(previousIndex) - previousIndex);
             }
         } else {
+            bool cursorMoved = false;
             for (int index : d->matches.keys()) {
                 if (index > leftPosition) {
                     currentCursor.setPosition(index);
                     currentCursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor, d->matches.value(index) - index);
+                    cursorMoved = true;
                     break;
                 }
+            }
+
+            if (!cursorMoved) {
+                //Move to the first match if we're going forwards at the end
+                int index = d->matches.keys().first();
+                currentCursor.setPosition(index);
+                currentCursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor, d->matches.value(index) - index);
             }
         }
         d->editor->setTextCursor(currentCursor);

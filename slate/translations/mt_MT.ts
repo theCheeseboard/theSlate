@@ -409,12 +409,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/findreplace.cpp" line="248"/>
+        <location filename="../textparts/findreplace.cpp" line="260"/>
         <source>Replaced all matches</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../textparts/findreplace.cpp" line="249"/>
+        <location filename="../textparts/findreplace.cpp" line="261"/>
         <source>%n occurences replaced</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -424,7 +424,7 @@
         </translation>
     </message>
     <message>
-        <location filename="../textparts/findreplace.cpp" line="250"/>
+        <location filename="../textparts/findreplace.cpp" line="262"/>
         <source>Undo</source>
         <translation type="unfinished"></translation>
     </message>
