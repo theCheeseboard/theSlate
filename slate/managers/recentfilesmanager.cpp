@@ -7,10 +7,15 @@ RecentFilesManager::RecentFilesManager(QObject *parent) : QObject(parent)
 {
     files = settings.value("state/recents", QStringList()).toStringList();
 
+    QStringList filesToDelete;
     for (auto i = files.begin(); i != files.end(); i++) {
         if (!QFile(QUrl(*i).toLocalFile()).exists()) {
-            files.erase(i);
+            filesToDelete.append(*i);
         }
+    }
+
+    for (QString str : filesToDelete) {
+        files.removeAll(str);
     }
 }
 

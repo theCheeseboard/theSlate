@@ -32,9 +32,9 @@
    <item>
     <widget class="QStackedWidget" name="mainStack">
      <property name="currentIndex">
-      <number>3</number>
+      <number>4</number>
      </property>
-     <widget class="QWidget" name="page">
+     <widget class="QWidget" name="noRepoPage">
       <layout class="QGridLayout" name="gridLayout">
        <item row="1" column="0">
         <spacer name="horizontalSpacer">
@@ -88,7 +88,7 @@
            <widget class="QLabel" name="label">
             <property name="font">
              <font>
-              <pointsize>20</pointsize>
+              <pointsize>15</pointsize>
              </font>
             </property>
             <property name="text">
@@ -148,7 +148,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_4">
+     <widget class="QWidget" name="fileNotSavedPage">
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="1">
         <spacer name="verticalSpacer_6">
@@ -189,7 +189,7 @@
            <widget class="QLabel" name="label_5">
             <property name="font">
              <font>
-              <pointsize>20</pointsize>
+              <pointsize>15</pointsize>
              </font>
             </property>
             <property name="text">
@@ -238,7 +238,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_2">
+     <widget class="QWidget" name="gitNotFoundPage">
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="1">
         <spacer name="verticalSpacer_4">
@@ -279,7 +279,7 @@
            <widget class="QLabel" name="label_3">
             <property name="font">
              <font>
-              <pointsize>20</pointsize>
+              <pointsize>15</pointsize>
              </font>
             </property>
             <property name="text">
@@ -328,7 +328,97 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_3">
+     <widget class="QWidget" name="gitDisabledPage">
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="1">
+        <spacer name="verticalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>228</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="0">
+        <spacer name="horizontalSpacer_11">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>25</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="1">
+        <widget class="QFrame" name="frame_4">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_8">
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Git Disabled</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Visit theSlate Settings to enable Git integration if you'd like to use it.</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <spacer name="horizontalSpacer_10">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>25</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="1">
+        <spacer name="verticalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>227</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="gitWorkingPage">
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <property name="spacing">
         <number>0</number>

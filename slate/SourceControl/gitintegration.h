@@ -74,6 +74,7 @@ class GitIntegration : public QObject
         ~GitIntegration();
 
         static QStringList findGit();
+        static bool isGitEnabled();
 
     signals:
         void commitsChanged();

@@ -18,6 +18,8 @@ struct GitIntegrationPrivate {
 
     QString username;
     QString password;
+
+    QSettings settings;
 };
 
 GitIntegration::GitIntegration(QString rootDir, QObject *parent) : QObject(parent)
@@ -36,16 +38,18 @@ GitIntegration::GitIntegration(QString rootDir, QObject *parent) : QObject(paren
         }
     });
 
-    QTimer* timer = new QTimer(this);
-    timer->setInterval(30000);
-    timer->setSingleShot(true);
-    connect(timer, &QTimer::timeout, [=] {
-        fetch()->then([=] {
-            //Restart the timer after fetching is done
-            timer->start();
+    if (d->settings.value("git/periodicallyFetch", true).toBool()) {
+        QTimer* timer = new QTimer(this);
+        timer->setInterval(30000);
+        timer->setSingleShot(true);
+        connect(timer, &QTimer::timeout, [=] {
+            fetch()->then([=] {
+                //Restart the timer after fetching is done
+                timer->start();
+            });
         });
-    });
-    timer->start();
+        timer->start();
+    }
 }
 
 GitIntegration::~GitIntegration() {
@@ -80,6 +84,12 @@ void GitIntegration::init() {
 }
 
 QStringList GitIntegration::findGit() {
+    QSettings settings;
+    if (!settings.value("git/enable", true).toBool()) {
+        //Git is disabled
+        return QStringList();
+    }
+
     #ifdef Q_OS_WIN
         //Search the registry for Git
         QStringList gitExecutables;
@@ -96,7 +106,13 @@ QStringList GitIntegration::findGit() {
     #else
         //Look in the PATH
         return theLibsGlobal::searchInPath("git");
-    #endif
+#endif
+}
+
+bool GitIntegration::isGitEnabled()
+{
+    QSettings settings;
+    return settings.value("git/enable", true).toBool();
 }
 
 QProcess* GitIntegration::git(QString args) {
@@ -587,7 +603,7 @@ tPromise<void>* GitIntegration::push(QString to) {
         //We're not reading machine readable output here...
         QByteArray output = proc->readAll();
         proc->deleteLater();
-        if (output.contains("non-fast-forward") && output.contains("[rejected]")) {
+        if ((output.contains("non-fast-forward") && output.contains("[rejected]")) || (output.contains("git pull ..."))) {
             error = "out-of-date";
             return;
         } else if (output.contains("terminal prompts disabled")) {

@@ -42,10 +42,6 @@ GitWidget::GitWidget(QWidget *parent) :
 
     d->gi = new GitIntegration("");
     setCurrentDocument(QUrl());
-    if (GitIntegration::findGit().count() == 0) {
-        //Tell everyone Git isn't found
-        ui->mainStack->setCurrentIndex(2);
-    }
 
     d->commitsModel = new CommitsModel(d->gi);
 
@@ -82,18 +78,25 @@ GitWidget::~GitWidget()
 
 void GitWidget::setCurrentDocument(QUrl currentDocument) {
     d->currentDocument = currentDocument;
-    if (currentDocument.isEmpty() || !currentDocument.isLocalFile()) {
-        ui->mainStack->setCurrentIndex(1);
+    if (GitIntegration::findGit().count() == 0) {
+        if (GitIntegration::isGitEnabled()) {
+            //Tell everyone Git isn't found
+            ui->mainStack->setCurrentWidget(ui->gitNotFoundPage);
+        } else {
+            ui->mainStack->setCurrentWidget(ui->gitDisabledPage);
+        }
+    } else if (currentDocument.isEmpty() || !currentDocument.isLocalFile()) {
+        ui->mainStack->setCurrentWidget(ui->fileNotSavedPage);
     } else {
         if (d->gi->setNewRootDir(QFileInfo(currentDocument.toLocalFile()).dir().path())) {
             if (d->gi->needsInit()) {
-                ui->mainStack->setCurrentIndex(0);
+                ui->mainStack->setCurrentWidget(ui->noRepoPage);
             } else {
-                ui->mainStack->setCurrentIndex(3);
+                ui->mainStack->setCurrentWidget(ui->gitWorkingPage);
                 updateStatus();
             }
         } else {
-            ui->mainStack->setCurrentIndex(3);
+            ui->mainStack->setCurrentWidget(ui->gitWorkingPage);
         }
     }
 }

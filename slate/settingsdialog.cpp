@@ -28,6 +28,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     ui->wrapTextBox->setChecked(settings.value("behaviour/wrapText", false).toBool());
 
     ui->endOfLineComboBox->setCurrentIndex(settings.value("behaviour/endOfLine", THESLATE_END_OF_LINE).toInt());
+
+    ui->enableGitSwitch->setChecked(settings.value("git/enable", true).toBool());
+    ui->gitPeriodicallyFetch->setChecked(settings.value("git/periodicallyFetch", true).toBool());
 }
 
 SettingsDialog::~SettingsDialog()
@@ -105,4 +108,14 @@ void SettingsDialog::accept() {
 void SettingsDialog::on_wrapTextBox_toggled(bool checked)
 {
     settings.setValue("behaviour/wrapText", checked);
+}
+
+void SettingsDialog::on_enableGitSwitch_toggled(bool checked)
+{
+    settings.setValue("git/enable", checked);
+}
+
+void SettingsDialog::on_gitPeriodicallyFetch_toggled(bool checked)
+{
+    settings.setValue("git/periodicallyFetch", checked);
 }

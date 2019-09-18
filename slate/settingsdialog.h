@@ -42,6 +42,10 @@ class SettingsDialog : public QDialog
 
         void on_wrapTextBox_toggled(bool checked);
 
+        void on_enableGitSwitch_toggled(bool checked);
+
+        void on_gitPeriodicallyFetch_toggled(bool checked);
+
     private:
         Ui::SettingsDialog *ui;
 
