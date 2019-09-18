@@ -185,7 +185,7 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
             tool->resize(this->width() - 20, this->height() - 50);
             //#if THE_LIBS_API_VERSION >= 3 && !defined(Q_OS_MAC)
                 tPopover* popover = new tPopover(tool);
-                popover->setPopoverWidth(-100 * theLibsGlobal::getDPIScaling());
+                popover->setPopoverWidth(SC_DPI(-100));
                 popover->show(this->window());
 
                 connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
@@ -213,7 +213,7 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
                     d->parentWindow->menuBar()->setEnabled(true);
                 });
             #endif*/
-        });;
+        });
         d->mergeConflictsNotification->addButton(fixMergeButton);
 
         connect(d->mergeConflictsNotification, &TopNotification::closeNotification, [=] {
@@ -250,7 +250,7 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
                     #if THE_LIBS_API_VERSION >= 3 && !defined(Q_OS_MAC)
                         tool->setWindowFlags(Qt::Widget);
                         tPopover* popover = new tPopover(tool);
-                        popover->setPopoverWidth(-100 * theLibsGlobal::getDPIScaling());
+                        popover->setPopoverWidth(SC_DPI(-100));
                         popover->show(this->window());
 
                         connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
@@ -340,6 +340,35 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
             d->scrollingLock->verticalScrollBar()->setValue(position);
         }
     });
+    connect(this, &TextEditor::customContextMenuRequested, this, [=](QPoint pos) {
+        QMenu* menu = new QMenu();
+        QTextCursor currentCursor = this->textCursor();
+
+        if (currentCursor.hasSelection()) {
+            menu->addSection(menu->fontMetrics().elidedText(tr("For selected text \"%1\"").arg(currentCursor.selectedText()), Qt::ElideRight, SC_DPI(400)));
+            menu->addAction(QIcon::fromTheme("edit-cut", QIcon(":/icons/edit-cut")), tr("Cut"), this, &TextEditor::cut);
+            menu->addAction(QIcon::fromTheme("edit-copy", QIcon(":/icons/edit-copy")), tr("Copy"), this, &TextEditor::copy);
+            menu->addAction(QIcon::fromTheme("edit-delete", QIcon(":/icons/edit-delete")), tr("Delete"), this, [=] {
+                this->textCursor().removeSelectedText();
+            });
+        }
+
+        menu->addSection(tr("For this document"));
+        QAction* undoAction = menu->addAction(QIcon::fromTheme("edit-undo", QIcon(":/icons/edit-undo")), tr("Undo"), this, &TextEditor::undo);
+        QAction* redoAction = menu->addAction(QIcon::fromTheme("edit-redo", QIcon(":/icons/edit-redo")), tr("Redo"), this, &TextEditor::redo);
+        QAction* pasteAction = menu->addAction(QIcon::fromTheme("edit-paste", QIcon(":/icons/edit-paste")), tr("Paste"), this, &TextEditor::paste);
+        menu->addAction(QIcon::fromTheme("edit-select-all", QIcon(":/icons/edit-select-all")), tr("Select All"), this, &TextEditor::selectAll);
+        menu->addSeparator();
+        menu->addAction(tr("Change Syntax Highlighting"), this, &TextEditor::chooseHighlighter);
+
+        undoAction->setEnabled(this->document()->isUndoAvailable());
+        redoAction->setEnabled(this->document()->isRedoAvailable());
+        pasteAction->setEnabled(this->canPaste());
+
+        menu->popup(this->viewport()->mapToGlobal(pos));
+    });
+
+    this->setContextMenuPolicy(Qt::CustomContextMenu);
 
     connect(static_cast<QApplication*>(QApplication::instance()), &QApplication::paletteChanged, this, &TextEditor::reloadSettings);
     reloadSettings();
@@ -731,8 +760,8 @@ int TextEditor::leftMarginWidth()
         ++digits;
     }
 
-    int space = 3 + fontMetrics().height() + fontMetrics().width(QLatin1Char('9')) * digits;
-    space += 9 * theLibsGlobal::getDPIScaling();
+    int space = 3 + fontMetrics().height() + fontMetrics().horizontalAdvance(QLatin1Char('9')) * digits;
+    space += SC_DPI(9);
 
     return space;
 }
@@ -742,7 +771,7 @@ void TextEditor::updateLeftMarginAreaWidth()
     d->topPanelWidget->updateGeometry();
     int height = d->topPanelWidget->sizeHint().height();
     d->topPanelWidget->setFixedHeight(height);
-    setViewportMargins(leftMarginWidth() - 4 * theLibsGlobal::getDPIScaling(), height, 0, 0);
+    setViewportMargins(leftMarginWidth() - SC_DPI(4), height, 0, 0);
 }
 
 void TextEditor::updateLeftMarginArea(const QRect &rect, int dy)
@@ -957,10 +986,10 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
 
             painter.setFont(font);
             painter.setPen(lineNumberColor);
-            painter.drawText(0, top, d->leftMargin->width() - 9 * theLibsGlobal::getDPIScaling(), fontMetrics().height(), Qt::AlignRight | Qt::AlignCenter, number);
+            painter.drawText(0, top, d->leftMargin->width() - SC_DPI(9), fontMetrics().height(), Qt::AlignRight | Qt::AlignCenter, number);
         }
 
-        TextEditorBlockData* blockData = (TextEditorBlockData*) block.userData();
+        TextEditorBlockData* blockData = static_cast<TextEditorBlockData*>(block.userData());
         if (blockData != nullptr) {
             painter.setPen(Qt::transparent);
             switch (blockData->marginState) {
@@ -974,7 +1003,7 @@ void TextEditor::leftMarginPaintEvent(QPaintEvent *event)
                     painter.setBrush(QColor(0, 200, 0));
                     break;
             }
-            painter.drawRect(0, top, 3 * theLibsGlobal::getDPIScaling(), bottom - top);
+            painter.drawRect(0, top, SC_DPI(3), bottom - top);
         }
 
         if (d->hl->startsFoldingRegion(block)) {
@@ -1258,14 +1287,12 @@ void TextEditor::reloadSettings() {
         f = QFont(d->settings.value("font/textFontFamily", QFontDatabase::systemFont(QFontDatabase::FixedFont).family()).toString(), d->settings.value("font/textFontSize", QFontDatabase::systemFont(QFontDatabase::FixedFont).pointSize()).toInt());
     }
     this->setFont(f);
-    this->setTabStopDistance(QFontMetrics(f).width(" ") * d->settings.value("behaviour/tabWidth", 4).toInt());
+    this->setTabStopDistance(QFontMetrics(f).horizontalAdvance(" ") * d->settings.value("behaviour/tabWidth", 4).toInt());
 
     //Set up palette
     QPalette pal = QApplication::palette(this);
     pal.setColor(QPalette::Window, highlightTheme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
     pal.setColor(QPalette::Base, highlightTheme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
-    //pal.setColor(QPalette::WindowText, getSyntaxHighlighterColor("editor/fg"));
-    //pal.setColor(QPalette::Text, getSyntaxHighlighterColor("editor/fg"));
     this->setPalette(pal);
 
     if (d->statusBar != nullptr) d->statusBar->setSpacing(d->settings.value("behaviour/tabSpaces", true).toBool(), d->settings.value("behaviour/tabSpaceNumber", 4).toInt());
@@ -1489,7 +1516,7 @@ void TextEditor::chooseHighlighter() {
     dialog->setItems(items);
 
     tPopover* popover = new tPopover(dialog);
-    popover->setPopoverWidth(300 * theLibsGlobal::getDPIScaling());
+    popover->setPopoverWidth(SC_DPI(300));
     connect(dialog, &SelectListDialog::rejected, popover, &tPopover::dismiss);
     connect(dialog, &SelectListDialog::accepted, this, [=](QVariant highlighting) {
         this->setHighlighter(highlightRepo->definitionForName(highlighting.toString()));
@@ -1524,7 +1551,7 @@ void TextEditor::chooseCodec(bool reload) {
     dialog->setItems(items);
 
     tPopover* popover = new tPopover(dialog);
-    popover->setPopoverWidth(300 * theLibsGlobal::getDPIScaling());
+    popover->setPopoverWidth(SC_DPI(300));
     connect(dialog, &SelectListDialog::rejected, popover, &tPopover::dismiss);
     connect(dialog, &SelectListDialog::accepted, this, [=](QVariant codec) {
         QTimer::singleShot(0, [=] {

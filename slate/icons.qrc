@@ -42,5 +42,6 @@
         <file>icons/format-text-lowercase.svg</file>
         <file>icons/format-text-uppercase.svg</file>
         <file>icons/aboutsplash.svg</file>
+        <file>icons/go-jump.svg</file>
     </qresource>
 </RCC>

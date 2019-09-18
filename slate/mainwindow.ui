@@ -759,6 +759,10 @@
    </property>
   </action>
   <action name="actionLine">
+   <property name="icon">
+    <iconset theme="go-jump" resource="icons.qrc">
+     <normaloff>:/icons/go-jump.svg</normaloff>:/icons/go-jump.svg</iconset>
+   </property>
    <property name="text">
     <string>Line</string>
    </property>
