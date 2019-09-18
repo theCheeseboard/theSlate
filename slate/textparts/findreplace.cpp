@@ -275,3 +275,32 @@ void FindReplace::on_replaceAllButton_clicked()
         tErrorFlash::flashError(ui->findContainer);
     }
 }
+
+void FindReplace::on_replaceSelectedButton_clicked()
+{
+    bool performReplace = false;
+    QTextCursor currentCursor = d->editor->textCursor();
+    if (d->matches.contains(currentCursor.selectionStart())) {
+        int start = currentCursor.selectionStart();
+        if (d->matches.value(start) == currentCursor.selectionEnd()) {
+            performReplace = true;
+        }
+    }
+
+    if (performReplace) {
+        //Replace this instance
+        currentCursor.insertText(ui->replaceBox->text());
+
+        //Reload the status and find the next instance
+        find(ui->findBox->text());
+        moveCursor(true);
+    } else {
+        //Move to the next instance
+        moveCursor();
+    }
+}
+
+void FindReplace::on_replaceBox_returnPressed()
+{
+    ui->replaceSelectedButton->click();
+}

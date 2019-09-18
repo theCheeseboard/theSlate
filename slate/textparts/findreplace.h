@@ -41,6 +41,10 @@ class FindReplace : public QWidget
 
         void on_replaceAllButton_clicked();
 
+        void on_replaceSelectedButton_clicked();
+
+        void on_replaceBox_returnPressed();
+
     private:
         Ui::FindReplace *ui;
         FindReplacePrivate* d;

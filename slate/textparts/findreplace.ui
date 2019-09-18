@@ -197,6 +197,9 @@
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QLineEdit" name="replaceBox">
           <property name="sizePolicy">
@@ -214,6 +217,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="replaceSelectedButton">
+          <property name="text">
+           <string>Replace Once</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="replaceAllButton">
           <property name="text">
            <string>Replace All</string>
@@ -227,6 +237,16 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>findBox</tabstop>
+  <tabstop>replaceBox</tabstop>
+  <tabstop>findPrev</tabstop>
+  <tabstop>findNext</tabstop>
+  <tabstop>moreOptionsButton</tabstop>
+  <tabstop>doneButton</tabstop>
+  <tabstop>replaceSelectedButton</tabstop>
+  <tabstop>replaceAllButton</tabstop>
+ </tabstops>
  <resources>
   <include location="../icons.qrc"/>
  </resources>

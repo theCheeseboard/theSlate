@@ -358,12 +358,17 @@
         <translation>Surasti</translation>
     </message>
     <message>
-        <location filename="../textparts/findreplace.ui" line="212"/>
+        <location filename="../textparts/findreplace.ui" line="215"/>
         <source>Replace</source>
         <translation>Pakeisti</translation>
     </message>
     <message>
-        <location filename="../textparts/findreplace.ui" line="219"/>
+        <location filename="../textparts/findreplace.ui" line="222"/>
+        <source>Replace Once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/findreplace.ui" line="229"/>
         <source>Replace All</source>
         <translation>Pakeisti viską</translation>
     </message>
