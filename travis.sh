@@ -1,7 +1,7 @@
 if [ $STAGE = "script" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
     echo "[TRAVIS] Preparing build environment"
-    source /opt/qt510/bin/qt510-env.sh
+    source /opt/qt512/bin/qt512-env.sh
     echo "[TRAVIS] Building and installing the-libs"
     git clone https://github.com/vicr123/the-libs.git
     cd the-libs
@@ -91,9 +91,9 @@ elif [ $STAGE = "before_install" ]; then
     wget -O ~/vicr12345.gpg.key https://vicr123.com/repo/apt/vicr12345.gpg.key
     sudo apt-key add ~/vicr12345.gpg.key
     sudo add-apt-repository 'deb https://vicr123.com/repo/apt/ubuntu bionic main'
-    sudo add-apt-repository -y ppa:beineri/opt-qt-5.10.1-trusty
+    sudo add-apt-repository -y ppa:beineri/opt-qt-5.12.3-xenial
     sudo apt-get update -qq
-    sudo apt-get install qt510-meta-minimal qt510x11extras qt510tools qt510translations qt510svg qt510websockets qt510multimedia qt510webengine xorg-dev libxcb-util0-dev libgl1-mesa-dev cmake3
+    sudo apt-get install qt512-meta-minimal qt512x11extras qt512tools qt512translations qt512svg qt512websockets qt512multimedia qt512webengine xorg-dev libxcb-util0-dev libgl1-mesa-dev cmake3
   else
     echo "[TRAVIS] Preparing to build for macOS"
     brew tap kde-mac/kde
