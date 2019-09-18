@@ -12,12 +12,12 @@
         <location filename="../aboutwindow.ui" line="32"/>
         <location filename="../main.cpp" line="161"/>
         <source>Text Editor</source>
-        <translation>Bộ sửa chứ</translation>
+        <translation>Bộ soạn văn bản</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="52"/>
         <source>theSlate uses KSyntaxHighlighting for the syntax highlighting definitions. KSyntaxHighlighting is licensed under the MIT license.</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate sử dụng KSyntaxHighlighting để định nghĩa các đánh dấu cú pháp. KSyntaxHighlighting cấp phép theo điều khoản của giấy phép MIT.</translation>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="62"/>
@@ -121,12 +121,12 @@
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="71"/>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="344"/>
         <source>Commit</source>
-        <translation>Commit</translation>
+        <translation>Tạo lần chuyển giao mới</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="116"/>
         <source>Ready to commit files?</source>
-        <translation>Bạn có sẵn sàng commit tệp chưa?</translation>
+        <translation>Bạn sẵn sàng chuẩn bị chuyển giao chưa?</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="176"/>
@@ -136,7 +136,7 @@
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="217"/>
         <source>Commit Message</source>
-        <translation>Tin nhắn commit</translation>
+        <translation>Ghi chú cho chuyển giao</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.ui" line="337"/>
@@ -146,12 +146,12 @@
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="53"/>
         <source>Conclude Merge</source>
-        <translation>Kết thúc hợp nhất</translation>
+        <translation>Kết thúc việc hòa trộn</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="54"/>
         <source>Review your resolutions and complete the ongoing merge</source>
-        <translation>Xem lại việc giải quyết và kết thúc việc hợp nhất</translation>
+        <translation>Xem lại việc giải quyết và kết thúc việc hòa trộn</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="55"/>
@@ -161,24 +161,20 @@
     <message numerus="yes">
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="82"/>
         <source>%n changed files</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n tệp đã thay đổi</numerusform>
+        </translation></message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="88"/>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="119"/>
         <source>Create Empty Commit</source>
-        <translation type="unfinished"></translation>
+        <translation>Tạo chuyển giao trống</translation>
     </message>
     <message numerus="yes">
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="90"/>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="121"/>
         <source>Commit %n files</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>Đặt %n tệp vào chuyển giao</numerusform>
+        </translation></message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="99"/>
         <source>File deleted from disk</source>
@@ -192,22 +188,22 @@
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="160"/>
         <source>Nothing to commit</source>
-        <translation>Không có gì để commit</translation>
+        <translation>Không có tệp nào để đặt vào chuyển giao</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="161"/>
         <source>Create an empty commit anyway?</source>
-        <translation>Bạn vẫn muốn tạo commit trống không?</translation>
+        <translation>Bạn vẫn muốn tạo một chuyển giao trống không?</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="147"/>
         <source>No Commit Message</source>
-        <translation>Không có tin nhắn commit</translation>
+        <translation>Không có ghi chú cho chuyển giao này</translation>
     </message>
     <message>
         <location filename="../SourceControl/GitDialogs/commitdialog.cpp" line="148"/>
         <source>You&apos;ll need to set a commit message to commit these files.</source>
-        <translation>Bạn cần đặt tin nhắn commit để commit tệp này.</translation>
+        <translation>Bạn cần đặt ghi chú cho chuyển giao này để thực hiện một lần chuyển giao vào kho.</translation>
     </message>
 </context>
 <context>
@@ -215,38 +211,38 @@
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="110"/>
         <source>Conclude Merge</source>
-        <translation>Kết thúc hợp nhất</translation>
+        <translation>Kết thúc hòa trộn</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="110"/>
         <source>Create merge commit and conclude merge</source>
-        <translation>Tao commit hợp nhất và kết thúc việc hợp nhất</translation>
+        <translation>Tao chuyển giao hòa trộn và kết thúc việc hòa trộn</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="111"/>
         <source>Abort Merge</source>
-        <translation>Bỏ việc hợp nhất</translation>
+        <translation>Bỏ việc hòa trộn</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="111"/>
         <source>Revert to state before merge</source>
-        <translation>Khôi phục trạng thái lại trước khi việc hợp nhất</translation>
+        <translation>Khôi phục trạng thái lại trước khi việc hòa trộn</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="117"/>
         <location filename="../SourceControl/commitsmodel.cpp" line="122"/>
         <source>New Commit</source>
-        <translation>Commit mới</translation>
+        <translation>Chuyển giao mới</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="117"/>
         <source>Create new commit</source>
-        <translation>Tạo commit mới</translation>
+        <translation>Tạo chuyển giao mới</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="122"/>
         <source>Create new commit on %1</source>
-        <translation>Tao commit mới trên %1</translation>
+        <translation>Tạo chuyển giao mới trên %1</translation>
     </message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="128"/>
@@ -261,15 +257,13 @@
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
         <source>Pull Remote Changes</source>
-        <translation>Kéo thay đổi cả</translation>
+        <translation>Kéo thay đổi từ xa</translation>
     </message>
     <message numerus="yes">
         <location filename="../SourceControl/commitsmodel.cpp" line="130"/>
         <source>%n incoming commits</source>
-        <translation>
-            <numerusform>%n commit đến</numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n lần chuyển giao chờ đến</numerusform>
+        </translation></message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
         <source>Push Local Changes</source>
@@ -278,10 +272,8 @@
     <message numerus="yes">
         <location filename="../SourceControl/commitsmodel.cpp" line="132"/>
         <source>%n outgoing commits</source>
-        <translation>
-            <numerusform>%n commit đi</numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n lần chuyển giao chờ đi</numerusform>
+        </translation></message>
     <message>
         <location filename="../SourceControl/commitsmodel.cpp" line="134"/>
         <source>Up to date</source>
@@ -348,17 +340,17 @@
     <message>
         <location filename="../textparts/findreplace.ui" line="215"/>
         <source>Replace</source>
-        <translation>Thay với</translation>
+        <translation>Thay thế với</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="222"/>
         <source>Replace Once</source>
-        <translation type="unfinished"></translation>
+        <translation>Thay thế một lần</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.ui" line="229"/>
         <source>Replace All</source>
-        <translation>Thay tất cả</translation>
+        <translation>Thay thế tất cả</translation>
     </message>
     <message>
         <location filename="../textparts/findreplace.cpp" line="32"/>
@@ -458,18 +450,18 @@
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="376"/>
         <source>Git Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Git bị vô hiệu</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.ui" line="383"/>
         <source>Visit theSlate Settings to enable Git integration if you&apos;d like to use it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Xem cài đặt để kích hoạt tích hợp Git nếu bạn muốn sử dụng nó.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="128"/>
         <location filename="../SourceControl/gitwidget.cpp" line="220"/>
         <source>Checkout</source>
-        <translation>Checkout</translation>
+        <translation>Lấy ra</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="131"/>
@@ -523,7 +515,7 @@
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="212"/>
         <source>For commit %1</source>
-        <translation>Cho commit %1</translation>
+        <translation>Cho lần chuyển giao %1</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="213"/>
@@ -533,7 +525,7 @@
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="216"/>
         <source>Copy Commit Message</source>
-        <translation>Chép nhắn commit</translation>
+        <translation>Chép ghi chú</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="227"/>
@@ -553,7 +545,7 @@
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="237"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Đặt lại</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="251"/>
@@ -578,7 +570,7 @@
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="284"/>
         <source>Abort Merge?</source>
-        <translation>Bỏ việc hợp nhất?</translation>
+        <translation>Bỏ việc hòa trộn?</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="285"/>
@@ -644,7 +636,7 @@
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="581"/>
         <source>Initialize Repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Khởi tạo kho</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="344"/>
@@ -669,12 +661,12 @@
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="365"/>
         <source>Commit or discard changes in your working directory in order to pull.</source>
-        <translation>Commit hoặc bỏ thay đổi trong thư mục hoạt động để kéo.</translation>
+        <translation>Đặt các thay đổi vào một chuyến giao hoặc bỏ thay đổi trong thư mục hoạt động để kéo.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="127"/>
         <source>For branch %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cho nhánh %1</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="507"/>
@@ -994,7 +986,7 @@
     <message>
         <location filename="../mainwindow.ui" line="748"/>
         <source>Ctrl+F12</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F12</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="767"/>
@@ -1236,34 +1228,32 @@
     <message>
         <location filename="../mainwindow.cpp" line="854"/>
         <source>Delete this file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Xoá tệp này?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="855"/>
         <source>%1 will be irrecoverably deleted.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 sẽ bị xóa không thể hoàn tác.</translation>
     </message>
     <message numerus="yes">
         <location filename="../mainwindow.cpp" line="865"/>
         <source>%n file(s) deleted</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
+        <translation><numerusform>%n tệp đã xóa</numerusform>
+        </translation></message>
     <message>
         <location filename="../mainwindow.cpp" line="866"/>
         <source>%1 was deleted from your device.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 đã bị xóa khỏi thiết bị của bạn.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="868"/>
         <source>Couldn&apos;t delete file</source>
-        <translation type="unfinished"></translation>
+        <translation>Không thể xóa tệp</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="869"/>
         <source>There was a problem deleting %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Đã xảy ra sự cố khi xóa %1.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="900"/>
@@ -1446,7 +1436,7 @@
         <location filename="../settingsdialog.ui" line="153"/>
         <location filename="../settingsdialog.ui" line="601"/>
         <source>Git</source>
-        <translation type="unfinished"></translation>
+        <translation>Git</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="277"/>
@@ -1516,32 +1506,32 @@
     <message>
         <location filename="../settingsdialog.ui" line="641"/>
         <source>Enable Git</source>
-        <translation type="unfinished"></translation>
+        <translation>Kích hoạt Git</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="668"/>
         <source>Git Integeration is enabled by default, but if you experience problems, you can turn off Git integration.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tích hợp Git bị kích hoạt theo mặc định, mà nếu bạn gặp vấn đề, bạn có thể vô hiệu tích hợp Git.</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="684"/>
         <source>ENABLE</source>
-        <translation type="unfinished"></translation>
+        <translation>KÍCH HOẠT</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="729"/>
         <source>TWEAKS</source>
-        <translation type="unfinished"></translation>
+        <translation>ĐIỀU CHỈNH</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="736"/>
         <source>Periodically fetch</source>
-        <translation type="unfinished"></translation>
+        <translation>Tìm nạp định kỳ</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="743"/>
         <source>We&apos;ll run &lt;code&gt;git fetch&lt;/code&gt; periodically to check for any new commits on the remote.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chúng tôi sẽ chạy &lt;code&gt;git fetch&lt;/code&gt; định kỳ để kiểm tra cho các lần chuyển giao mới trên máy chủ xa.</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="799"/>
@@ -1677,52 +1667,52 @@
     <message>
         <location filename="../textparts/texteditor.cpp" line="349"/>
         <source>For selected text &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Cho văn bản đã chọn &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="350"/>
         <source>Cut</source>
-        <translation type="unfinished">Cắt</translation>
+        <translation>Cắt</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="351"/>
         <source>Copy</source>
-        <translation type="unfinished">Chép</translation>
+        <translation>Chép</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="352"/>
         <source>Delete</source>
-        <translation type="unfinished">Xóa</translation>
+        <translation>Xóa</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="357"/>
         <source>For this document</source>
-        <translation type="unfinished"></translation>
+        <translation>Cho tài liệu này</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="358"/>
         <source>Undo</source>
-        <translation type="unfinished">Hoàn tác</translation>
+        <translation>Hoàn tác</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="359"/>
         <source>Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Làm lại</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="360"/>
         <source>Paste</source>
-        <translation type="unfinished">Dán</translation>
+        <translation>Dán</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="361"/>
         <source>Select All</source>
-        <translation type="unfinished">Chọn tất cả</translation>
+        <translation>Chọn tất cả</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="363"/>
         <source>Change Syntax Highlighting</source>
-        <translation type="unfinished">Đổi nổi bật</translation>
+        <translation>Đổi nổi bật</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="459"/>
@@ -1796,12 +1786,12 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../textparts/texteditor.cpp" line="1349"/>
         <source>Comments Not Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Không hỗ trợ bình luận</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1350"/>
         <source>Comments are not supported in this language. Select a different language mode to add comments.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bình luận không có hỗ trợ trong ngôn ngữ lập trình này. Chọn chế độ ngôn ngữ lập trình khác để thêm bình luận.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1512"/>
