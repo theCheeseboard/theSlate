@@ -93,7 +93,7 @@ elif [ $STAGE = "before_install" ]; then
     sudo add-apt-repository 'deb https://vicr123.com/repo/apt/ubuntu bionic main'
     sudo add-apt-repository -y ppa:beineri/opt-qt-5.12.3-xenial
     sudo apt-get update -qq
-    sudo apt-get install qt512-meta-minimal qt512x11extras qt512tools qt512translations qt512svg qt512websockets qt512multimedia qt512webengine xorg-dev libxcb-util0-dev libgl1-mesa-dev cmake3
+    sudo apt-get install qt512-meta-minimal qt512x11extras qt512tools qt512translations qt512svg qt512websockets qt512multimedia qt512webengine xorg-dev libxcb-util0-dev libgl1-mesa-dev cmake
   else
     echo "[TRAVIS] Preparing to build for macOS"
     brew tap kde-mac/kde
