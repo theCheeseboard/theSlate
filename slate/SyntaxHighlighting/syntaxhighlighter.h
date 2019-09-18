@@ -77,7 +77,6 @@ private:
     SyntaxHighlighterPrivate* d;
 
     SyntaxHighlighterBlockData* getBlockData(QTextBlock& block);
-    Q_INTERFACES(KSyntaxHighlighting::AbstractHighlighter)
 };
 
 #endif // SYNTAXHIGHLIGHTER_H

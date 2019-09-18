@@ -299,7 +299,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
         QList<AuxiliaryPaneCapabilities> panes = plugins->auxiliaryPanes();
         if (panes.count() == 0) {
-            QAction* action = ui->menuOpen_Auxiliary_Pane->addAction(tr("No auxiliary panes"));
+            QAction* action = ui->menuAll_Auxiliary_Panes->addAction(tr("No auxiliary panes"));
             action->setEnabled(false);
         } else {
             for (AuxiliaryPaneCapabilities pane : panes) {
