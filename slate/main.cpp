@@ -85,11 +85,13 @@ int main(int argc, char *argv[])
     }
 
     updateManager = new UpdateManager();
-
-    QTranslator qtTranslator;
-    qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-    a.installTranslator(&qtTranslator);
-
+#ifdef Q_OS_LINUX
+    if (QDir("/usr/share/theslate").exists()) {
+        a.setShareDir("/usr/share/theslate");
+    } else if (QDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theslate/")).exists()) {
+        a.setShareDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theslate/"));
+    }
+#endif
     a.installTranslators();
 
     a.setOrganizationName("theSuite");
@@ -107,11 +109,6 @@ int main(int argc, char *argv[])
     #else
         a.setApplicationName("theSlate");
     #endif
-    if (QDir("/usr/share/theslate").exists()) {
-        a.setShareDir("/usr/share/theslate");
-    } else if (QDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theslate/")).exists()) {
-        a.setShareDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theslate/"));
-    }
 
 
 #ifdef Q_OS_MAC
