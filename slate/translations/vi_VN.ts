@@ -1024,7 +1024,7 @@
     <message>
         <location filename="../mainwindow.ui" line="346"/>
         <source>Source Control</source>
-        <translation>Điều khiển mã nguồn</translation>
+        <translation>Quản lý mã nguồn</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="505"/>
