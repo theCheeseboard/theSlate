@@ -2,6 +2,7 @@ version: 1.0.{build}
 branches:
   only:
   - blueprint
+  - master
 skip_tags: true
 image: Visual Studio 2017
 clone_depth: 5
