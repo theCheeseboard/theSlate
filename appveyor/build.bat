@@ -13,7 +13,7 @@ call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary
 
 git clone https://github.com/vicr123/the-libs.git
 cd the-libs
-git checkout blueprint
+git checkout %APPVEYOR_REPO_BRANCH%
 qmake the-libs.pro "CONFIG+=release"
 nmake release
 nmake install
