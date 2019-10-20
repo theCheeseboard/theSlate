@@ -217,6 +217,16 @@
        <normaloff>:/icons/edit-paste.svg</normaloff>:/icons/edit-paste.svg</iconset>
      </property>
     </widget>
+    <widget class="QMenu" name="menuTransform">
+     <property name="title">
+      <string>Transform</string>
+     </property>
+     <addaction name="actionBeautify"/>
+     <addaction name="separator"/>
+     <addaction name="actionUppercase"/>
+     <addaction name="actionLowercase"/>
+     <addaction name="actionTitle_Case"/>
+    </widget>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
     <addaction name="separator"/>
@@ -231,9 +241,7 @@
     <addaction name="separator"/>
     <addaction name="actionComment"/>
     <addaction name="separator"/>
-    <addaction name="actionUppercase"/>
-    <addaction name="actionLowercase"/>
-    <addaction name="actionTitle_Case"/>
+    <addaction name="menuTransform"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -795,6 +803,14 @@
    </property>
    <property name="text">
     <string>Title Case</string>
+   </property>
+  </action>
+  <action name="actionBeautify">
+   <property name="text">
+    <string>Reformat Code</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F11</string>
    </property>
   </action>
  </widget>

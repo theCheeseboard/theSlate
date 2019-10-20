@@ -17,6 +17,7 @@
 #include "textparts/textstatusbar.h"
 #include "textparts/selectlistdialog.h"
 #include "texteditorblockdata.h"
+#include "transformers/astyle/astyle.h"
 
 #include <Repository>
 #include "SyntaxHighlighting/syntaxhighlighter.h"
@@ -1338,6 +1339,27 @@ QByteArray TextEditor::formatForSaving(QString text) {
 void TextEditor::setTextCodec(QTextCodec* codec) {
     d->textCodec = codec;
     if (d->statusBar != nullptr) d->statusBar->setEncoding(codec->name());
+}
+
+void TextEditor::beautify()
+{
+    //Beautify the current text file
+    AStyle as;
+    QString error;
+    QString result = as.doAStyle(this->toPlainText().toUtf8(), this->fileUrl().fileName(), &error);
+    if (error.isEmpty()) {
+        this->setPlainText(result);
+    } else {
+        tMessageBox* box = new tMessageBox(this->window());
+        box->setWindowTitle(tr("Artistic Style Error"));
+        box->setText(error);
+        box->setIcon(tMessageBox::Warning);
+        box->setWindowFlags(Qt::Sheet);
+        box->setStandardButtons(tMessageBox::Ok);
+        box->setDefaultButton(tMessageBox::Ok);
+        box->exec();
+        box->deleteLater();
+    }
 }
 
 void TextEditor::commentSelectedText() {

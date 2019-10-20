@@ -113,6 +113,8 @@ class TextEditor : public QPlainTextEdit
         void chooseCodec(bool reload = false);
         void setTextCodec(QTextCodec* codec);
 
+        void beautify();
+
         void gotoLine();
 
         void reloadSettings();

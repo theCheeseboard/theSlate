@@ -177,6 +177,7 @@ MainWindow::MainWindow(QWidget *parent) :
         singleMenu->addAction(ui->actionCopy);
         singleMenu->addAction(ui->actionPaste);
         singleMenu->addMenu(ui->menuPaste_from_Clipboard_History);
+        singleMenu->addMenu(ui->menuTransform);
         singleMenu->addSeparator();
         singleMenu->addAction(ui->actionPrint);
         singleMenu->addAction(ui->actionFind_and_Replace);
@@ -1006,4 +1007,9 @@ void MainWindow::on_actionLowercase_triggered()
 void MainWindow::on_actionTitle_Case_triggered()
 {
     currentEditor()->setSelectedTextCasing(TextEditor::Titlecase);
+}
+
+void MainWindow::on_actionBeautify_triggered()
+{
+    currentEditor()->beautify();
 }

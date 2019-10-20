@@ -13,6 +13,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
         ui->bottomBar->setVisible(false);
     #endif
 
+    ui->mainStack->setCurrentAnimation(tStackedWidget::SlideHorizontal);
     ui->leftPane->setFixedWidth(SC_DPI(300));
 
     ui->systemMonospaceFont->setChecked(settings.value("font/useSystem", true).toBool());
@@ -33,6 +34,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 
     ui->enableGitSwitch->setChecked(settings.value("git/enable", true).toBool());
     ui->gitPeriodicallyFetch->setChecked(settings.value("git/periodicallyFetch", true).toBool());
+
+    connect(ui->astyleSettings, &AStyleSettings::done, ui->mainStack, std::bind(&tStackedWidget::setCurrentWidget, ui->mainStack, ui->mainPage, true));
 }
 
 SettingsDialog::~SettingsDialog()
@@ -120,4 +123,9 @@ void SettingsDialog::on_enableGitSwitch_toggled(bool checked)
 void SettingsDialog::on_gitPeriodicallyFetch_toggled(bool checked)
 {
     settings.setValue("git/periodicallyFetch", checked);
+}
+
+void SettingsDialog::on_editAStyleConfiguration_clicked()
+{
+    ui->mainStack->setCurrentWidget(ui->astyleSettings);
 }

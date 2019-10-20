@@ -140,6 +140,8 @@ class MainWindow : public QMainWindow
 
         void on_actionTitle_Case_triggered();
 
+        void on_actionBeautify_triggered();
+
     signals:
 #ifdef Q_OS_MAC
         void changeTouchBarTopNotification(TopNotification* topNotification);

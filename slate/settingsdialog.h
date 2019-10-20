@@ -46,6 +46,8 @@ class SettingsDialog : public QDialog
 
         void on_gitPeriodicallyFetch_toggled(bool checked);
 
+        void on_editAStyleConfiguration_clicked();
+
     private:
         Ui::SettingsDialog *ui;
 

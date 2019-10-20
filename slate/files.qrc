@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>initialStartupFile</file>
+        <file>transformers/astyle/defaultconfig</file>
     </qresource>
 </RCC>

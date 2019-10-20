@@ -134,7 +134,9 @@ SOURCES += \
     SourceControl/statusmodel.cpp \
     SourceControl/GitDialogs/progressdialog.cpp \
     SourceControl/GitDialogs/authenticationdialog.cpp \
-    textwidget.cpp
+    textwidget.cpp \
+    transformers/astyle/astyle.cpp \
+    transformers/astyle/astylesettings.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -167,7 +169,9 @@ HEADERS += \
     SourceControl/statusmodel.h \
     SourceControl/GitDialogs/progressdialog.h \
     SourceControl/GitDialogs/authenticationdialog.h \
-    textwidget.h
+    textwidget.h \
+    transformers/astyle/astyle.h \
+    transformers/astyle/astylesettings.h
 
 macx {
     SOURCES += \
@@ -192,7 +196,8 @@ FORMS += \
     SourceControl/GitDialogs/commitdialog.ui \
     SourceControl/GitDialogs/progressdialog.ui \
     SourceControl/GitDialogs/authenticationdialog.ui \
-    textwidget.ui
+    textwidget.ui \
+    transformers/astyle/astylesettings.ui
 
 RESOURCES += \
     icons.qrc \

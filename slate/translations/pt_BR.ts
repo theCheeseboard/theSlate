@@ -2,6 +2,75 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="br_FR" sourcelanguage="en_US">
 <context>
+    <name>AStyle</name>
+    <message>
+        <location filename="../transformers/astyle/astyle.cpp" line="50"/>
+        <source>AStyle is not installed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../transformers/astyle/astyle.cpp" line="87"/>
+        <source>Artistic Style returned exit code %1:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AStyleSettings</name>
+    <message>
+        <location filename="../transformers/astyle/astylesettings.cpp" line="50"/>
+        <source>Special Values</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../transformers/astyle/astylesettings.cpp" line="51"/>
+        <source>Tab Character Length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../transformers/astyle/astylesettings.cpp" line="54"/>
+        <source>Tab Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../transformers/astyle/astylesettings.cpp" line="63"/>
+        <source>Reset AStyle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../transformers/astyle/astylesettings.cpp" line="64"/>
+        <source>After resetting AStyle settings, theSlate will use the default settings when beautifying your code.
+
+Your settings will be lost.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../transformers/astyle/astylesettings.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../transformers/astyle/astylesettings.ui" line="71"/>
+        <source>Artistic Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../transformers/astyle/astylesettings.ui" line="87"/>
+        <location filename="../transformers/astyle/astylesettings.ui" line="162"/>
+        <source>Reset Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../transformers/astyle/astylesettings.ui" line="124"/>
+        <source>Edit Artistic Style configuration settings here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../transformers/astyle/astylesettings.ui" line="182"/>
+        <source>Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AboutWindow</name>
     <message>
         <location filename="../aboutwindow.ui" line="14"/>
@@ -735,22 +804,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="737"/>
+        <location filename="../mainwindow.ui" line="745"/>
         <source>Toggle Comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="740"/>
+        <location filename="../mainwindow.ui" line="748"/>
         <source>Ctrl+/</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="758"/>
+        <location filename="../mainwindow.ui" line="766"/>
         <source>Reload Using Encoding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="753"/>
+        <location filename="../mainwindow.ui" line="761"/>
         <source>Change File Encoding</source>
         <translation type="unfinished"></translation>
     </message>
@@ -766,43 +835,48 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="240"/>
+        <location filename="../mainwindow.ui" line="222"/>
+        <source>Transform</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="248"/>
         <location filename="../main.cpp" line="54"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="253"/>
+        <location filename="../mainwindow.ui" line="261"/>
         <source>Wi&amp;ndow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="263"/>
+        <location filename="../mainwindow.ui" line="271"/>
         <source>Open Auxiliary Pane</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="267"/>
+        <location filename="../mainwindow.ui" line="275"/>
         <source>All Auxiliary Panes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="279"/>
+        <location filename="../mainwindow.ui" line="287"/>
         <source>Go</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="312"/>
+        <location filename="../mainwindow.ui" line="320"/>
         <source>Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="377"/>
+        <location filename="../mainwindow.ui" line="385"/>
         <source>&amp;New</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="380"/>
+        <location filename="../mainwindow.ui" line="388"/>
         <location filename="../main.cpp" line="35"/>
         <location filename="../mainwindow-objc.mm" line="154"/>
         <location filename="../mainwindow-objc.mm" line="156"/>
@@ -811,17 +885,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="383"/>
+        <location filename="../mainwindow.ui" line="391"/>
         <source>Ctrl+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="392"/>
+        <location filename="../mainwindow.ui" line="400"/>
         <source>&amp;Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="395"/>
+        <location filename="../mainwindow.ui" line="403"/>
         <location filename="../mainwindow-objc.mm" line="137"/>
         <location filename="../mainwindow-objc.mm" line="139"/>
         <location filename="../mainwindow.cpp" line="110"/>
@@ -829,188 +903,198 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="398"/>
+        <location filename="../mainwindow.ui" line="406"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="407"/>
+        <location filename="../mainwindow.ui" line="415"/>
         <source>&amp;Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="410"/>
+        <location filename="../mainwindow.ui" line="418"/>
         <location filename="../mainwindow.cpp" line="103"/>
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="413"/>
+        <location filename="../mainwindow.ui" line="421"/>
         <source>Ctrl+O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="422"/>
+        <location filename="../mainwindow.ui" line="430"/>
         <source>&amp;Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="425"/>
+        <location filename="../mainwindow.ui" line="433"/>
         <source>Ctrl+Q</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="437"/>
+        <location filename="../mainwindow.ui" line="445"/>
         <source>&amp;Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="440"/>
+        <location filename="../mainwindow.ui" line="448"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="443"/>
+        <location filename="../mainwindow.ui" line="451"/>
         <source>Ctrl+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="452"/>
+        <location filename="../mainwindow.ui" line="460"/>
         <source>C&amp;ut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="455"/>
+        <location filename="../mainwindow.ui" line="463"/>
         <source>Cut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="458"/>
+        <location filename="../mainwindow.ui" line="466"/>
         <source>Ctrl+X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="467"/>
+        <location filename="../mainwindow.ui" line="475"/>
         <source>&amp;Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="470"/>
+        <location filename="../mainwindow.ui" line="478"/>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="473"/>
+        <location filename="../mainwindow.ui" line="481"/>
         <source>Ctrl+V</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="478"/>
+        <location filename="../mainwindow.ui" line="486"/>
         <source>&amp;No Highlighting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="490"/>
+        <location filename="../mainwindow.ui" line="498"/>
         <source>&amp;About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="628"/>
+        <location filename="../mainwindow.ui" line="636"/>
         <source>Ctrl+R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="637"/>
+        <location filename="../mainwindow.ui" line="645"/>
         <source>&amp;File Bug</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="649"/>
+        <location filename="../mainwindow.ui" line="657"/>
         <source>&amp;Sources</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="658"/>
+        <location filename="../mainwindow.ui" line="666"/>
         <source>U&amp;ndo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="670"/>
+        <location filename="../mainwindow.ui" line="678"/>
         <source>&amp;Redo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="682"/>
+        <location filename="../mainwindow.ui" line="690"/>
         <source>Sett&amp;ings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="697"/>
+        <location filename="../mainwindow.ui" line="705"/>
         <source>&amp;Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="709"/>
+        <location filename="../mainwindow.ui" line="717"/>
         <source>&amp;New Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="712"/>
+        <location filename="../mainwindow.ui" line="720"/>
         <source>Ctrl+Shift+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="721"/>
+        <location filename="../mainwindow.ui" line="729"/>
         <source>Select All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="724"/>
+        <location filename="../mainwindow.ui" line="732"/>
         <source>Ctrl+A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="732"/>
+        <location filename="../mainwindow.ui" line="740"/>
         <source>Use Menubar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="745"/>
+        <location filename="../mainwindow.ui" line="753"/>
         <source>Change Syntax Highlighting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="748"/>
+        <location filename="../mainwindow.ui" line="756"/>
         <source>Ctrl+F12</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="767"/>
+        <location filename="../mainwindow.ui" line="775"/>
         <source>Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="770"/>
+        <location filename="../mainwindow.ui" line="778"/>
         <source>Ctrl+G</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="779"/>
+        <location filename="../mainwindow.ui" line="787"/>
         <source>Uppercase</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="788"/>
+        <location filename="../mainwindow.ui" line="796"/>
         <source>Lowercase</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="797"/>
+        <location filename="../mainwindow.ui" line="805"/>
         <source>Title Case</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="502"/>
+        <location filename="../mainwindow.ui" line="810"/>
+        <source>Reformat Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="813"/>
+        <source>Ctrl+F11</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="510"/>
         <source>&amp;Print</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1020,102 +1104,102 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="259"/>
+        <location filename="../mainwindow.ui" line="267"/>
         <source>&amp;View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="346"/>
+        <location filename="../mainwindow.ui" line="354"/>
         <source>Source Control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="505"/>
+        <location filename="../mainwindow.ui" line="513"/>
         <source>Ctrl+P</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="510"/>
+        <location filename="../mainwindow.ui" line="518"/>
         <source>&amp;Push</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="518"/>
+        <location filename="../mainwindow.ui" line="526"/>
         <source>P&amp;ull</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="523"/>
+        <location filename="../mainwindow.ui" line="531"/>
         <source>&amp;Fetch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="532"/>
+        <location filename="../mainwindow.ui" line="540"/>
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="535"/>
+        <location filename="../mainwindow.ui" line="543"/>
         <source>F5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="544"/>
+        <location filename="../mainwindow.ui" line="552"/>
         <source>Sa&amp;ve All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="547"/>
+        <location filename="../mainwindow.ui" line="555"/>
         <source>Ctrl+Alt+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="556"/>
+        <location filename="../mainwindow.ui" line="564"/>
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="565"/>
+        <location filename="../mainwindow.ui" line="573"/>
         <source>Step Into</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="574"/>
+        <location filename="../mainwindow.ui" line="582"/>
         <source>Step Over</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="583"/>
+        <location filename="../mainwindow.ui" line="591"/>
         <source>Step Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="592"/>
+        <location filename="../mainwindow.ui" line="600"/>
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="601"/>
+        <location filename="../mainwindow.ui" line="609"/>
         <source>&amp;Find and Replace...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="604"/>
+        <location filename="../mainwindow.ui" line="612"/>
         <source>Ctrl+F</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="613"/>
+        <location filename="../mainwindow.ui" line="621"/>
         <source>Save As...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="616"/>
+        <location filename="../mainwindow.ui" line="624"/>
         <source>Ctrl+Shift+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="625"/>
+        <location filename="../mainwindow.ui" line="633"/>
         <source>&amp;Revert</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1130,12 +1214,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="661"/>
+        <location filename="../mainwindow.ui" line="669"/>
         <source>Ctrl+Z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="673"/>
+        <location filename="../mainwindow.ui" line="681"/>
         <source>Ctrl+Shift+Z</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1145,7 +1229,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="685"/>
+        <location filename="../mainwindow.ui" line="693"/>
         <source>Ctrl+,</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1156,7 +1240,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="700"/>
+        <location filename="../mainwindow.ui" line="708"/>
         <source>Ctrl+W</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1166,79 +1250,79 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="251"/>
+        <location filename="../mainwindow.cpp" line="252"/>
         <source>No Clipboard History available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="278"/>
+        <location filename="../mainwindow.cpp" line="279"/>
         <source>No opened files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="283"/>
+        <location filename="../mainwindow.cpp" line="284"/>
         <source>No supported auxiliary panes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="302"/>
+        <location filename="../mainwindow.cpp" line="303"/>
         <source>No auxiliary panes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="313"/>
+        <location filename="../mainwindow.cpp" line="314"/>
         <source>Ctrl+Shift+V</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="622"/>
+        <location filename="../mainwindow.cpp" line="623"/>
         <source>Save Changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="623"/>
+        <location filename="../mainwindow.cpp" line="624"/>
         <source>Do you want to save your changes to this document?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="836"/>
+        <location filename="../mainwindow.cpp" line="837"/>
         <source>For %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="838"/>
+        <location filename="../mainwindow.cpp" line="839"/>
         <source>Edit in new tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="843"/>
+        <location filename="../mainwindow.cpp" line="844"/>
         <source>Edit in new window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="849"/>
-        <location filename="../mainwindow.cpp" line="879"/>
+        <location filename="../mainwindow.cpp" line="850"/>
+        <location filename="../mainwindow.cpp" line="880"/>
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="852"/>
-        <location filename="../mainwindow.cpp" line="858"/>
+        <location filename="../mainwindow.cpp" line="853"/>
+        <location filename="../mainwindow.cpp" line="859"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="854"/>
+        <location filename="../mainwindow.cpp" line="855"/>
         <source>Delete this file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="855"/>
+        <location filename="../mainwindow.cpp" line="856"/>
         <source>%1 will be irrecoverably deleted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../mainwindow.cpp" line="865"/>
+        <location filename="../mainwindow.cpp" line="866"/>
         <source>%n file(s) deleted</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -1246,27 +1330,27 @@
         </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="866"/>
+        <location filename="../mainwindow.cpp" line="867"/>
         <source>%1 was deleted from your device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="868"/>
+        <location filename="../mainwindow.cpp" line="869"/>
         <source>Couldn&apos;t delete file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="869"/>
+        <location filename="../mainwindow.cpp" line="870"/>
         <source>There was a problem deleting %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="900"/>
+        <location filename="../mainwindow.cpp" line="901"/>
         <source>No Recent Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="915"/>
+        <location filename="../mainwindow.cpp" line="916"/>
         <source>Clear Recent Items</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1430,125 +1514,146 @@
     <name>SettingsDialog</name>
     <message>
         <location filename="../settingsdialog.ui" line="14"/>
-        <location filename="../settingsdialog.ui" line="113"/>
+        <location filename="../settingsdialog.ui" line="135"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="143"/>
-        <location filename="../settingsdialog.ui" line="204"/>
+        <location filename="../settingsdialog.ui" line="165"/>
+        <location filename="../settingsdialog.ui" line="231"/>
         <source>General</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="148"/>
-        <location filename="../settingsdialog.ui" line="521"/>
+        <location filename="../settingsdialog.ui" line="170"/>
+        <location filename="../settingsdialog.ui" line="401"/>
         <source>File Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="153"/>
-        <location filename="../settingsdialog.ui" line="601"/>
+        <location filename="../settingsdialog.ui" line="175"/>
+        <location filename="../settingsdialog.ui" line="481"/>
+        <source>Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="180"/>
+        <location filename="../settingsdialog.ui" line="764"/>
         <source>Git</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="277"/>
+        <location filename="../settingsdialog.ui" line="304"/>
         <source>FONTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="284"/>
+        <location filename="../settingsdialog.ui" line="311"/>
         <source>Use System Monospace Font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="391"/>
+        <location filename="../settingsdialog.ui" line="556"/>
         <source>Tabs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="398"/>
+        <location filename="../settingsdialog.ui" line="563"/>
         <source>Spaces</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="350"/>
+        <location filename="../settingsdialog.ui" line="681"/>
+        <source>ARTISTIC STYLE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="688"/>
+        <source>Artistic Style is a code formatter for C-style languages. You can use Artistic Style when working on C, C++, C#, Objective-C, and Java files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="716"/>
+        <source>Edit Artistic Style Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="515"/>
         <source>Tab Key Behaviour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="363"/>
+        <location filename="../settingsdialog.ui" line="528"/>
         <source>BEHAVIOUR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="464"/>
+        <location filename="../settingsdialog.ui" line="629"/>
         <source>Tab Character Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="450"/>
+        <location filename="../settingsdialog.ui" line="615"/>
         <source>End of Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="432"/>
+        <location filename="../settingsdialog.ui" line="597"/>
         <source>Unix (LF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="437"/>
+        <location filename="../settingsdialog.ui" line="602"/>
         <source>Macintosh (CR)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="442"/>
+        <location filename="../settingsdialog.ui" line="607"/>
         <source>Windows (CRLF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="471"/>
+        <location filename="../settingsdialog.ui" line="636"/>
         <source>Wrap Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="555"/>
+        <location filename="../settingsdialog.ui" line="435"/>
         <source>Show Hidden Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="641"/>
+        <location filename="../settingsdialog.ui" line="804"/>
         <source>Enable Git</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="668"/>
+        <location filename="../settingsdialog.ui" line="831"/>
         <source>Git Integeration is enabled by default, but if you experience problems, you can turn off Git integration.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="684"/>
+        <location filename="../settingsdialog.ui" line="847"/>
         <source>ENABLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="729"/>
+        <location filename="../settingsdialog.ui" line="892"/>
         <source>TWEAKS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="736"/>
+        <location filename="../settingsdialog.ui" line="899"/>
         <source>Periodically fetch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="743"/>
+        <location filename="../settingsdialog.ui" line="906"/>
         <source>We&apos;ll run &lt;code&gt;git fetch&lt;/code&gt; periodically to check for any new commits on the remote.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="799"/>
+        <location filename="../settingsdialog.ui" line="962"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1594,250 +1699,255 @@
 <context>
     <name>TextEditor</name>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="128"/>
+        <location filename="../textparts/texteditor.cpp" line="129"/>
         <source>New Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="177"/>
+        <location filename="../textparts/texteditor.cpp" line="178"/>
         <source>Merge Conflicts were found in this file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="180"/>
+        <location filename="../textparts/texteditor.cpp" line="181"/>
         <source>Resolve Merge Conflicts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="185"/>
+        <location filename="../textparts/texteditor.cpp" line="186"/>
         <source>Resolve a Merge Conflict</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="228"/>
+        <location filename="../textparts/texteditor.cpp" line="229"/>
         <source>File on disk changed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="229"/>
+        <location filename="../textparts/texteditor.cpp" line="230"/>
         <source>The file on the disk has changed. If you save this file you will lose the changes on disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="232"/>
+        <location filename="../textparts/texteditor.cpp" line="233"/>
         <source>Reload File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="238"/>
+        <location filename="../textparts/texteditor.cpp" line="239"/>
         <source>Merge Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="243"/>
+        <location filename="../textparts/texteditor.cpp" line="244"/>
         <source>File on Disk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="243"/>
+        <location filename="../textparts/texteditor.cpp" line="244"/>
         <source>Currently open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="248"/>
+        <location filename="../textparts/texteditor.cpp" line="249"/>
         <source>Resolve a Save Conflict</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="300"/>
+        <location filename="../textparts/texteditor.cpp" line="301"/>
         <source>File on disk deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="301"/>
+        <location filename="../textparts/texteditor.cpp" line="302"/>
         <source>The file on the disk has been deleted. If you save this file you will recreate the file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="310"/>
+        <location filename="../textparts/texteditor.cpp" line="311"/>
         <source>Can&apos;t open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="319"/>
+        <location filename="../textparts/texteditor.cpp" line="320"/>
         <source>Mixed Line Endings detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="320"/>
+        <location filename="../textparts/texteditor.cpp" line="321"/>
         <source>When saving this file, we&apos;ll normalise all the line endings. You can choose which line endings to save as on the status bar.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="329"/>
+        <location filename="../textparts/texteditor.cpp" line="330"/>
         <source>Incorrect Text Encoding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="349"/>
+        <location filename="../textparts/texteditor.cpp" line="350"/>
         <source>For selected text &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="350"/>
+        <location filename="../textparts/texteditor.cpp" line="351"/>
         <source>Cut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="351"/>
+        <location filename="../textparts/texteditor.cpp" line="352"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="352"/>
+        <location filename="../textparts/texteditor.cpp" line="353"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="357"/>
+        <location filename="../textparts/texteditor.cpp" line="358"/>
         <source>For this document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="358"/>
+        <location filename="../textparts/texteditor.cpp" line="359"/>
         <source>Undo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="359"/>
+        <location filename="../textparts/texteditor.cpp" line="360"/>
         <source>Redo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="360"/>
+        <location filename="../textparts/texteditor.cpp" line="361"/>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="361"/>
+        <location filename="../textparts/texteditor.cpp" line="362"/>
         <source>Select All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="363"/>
+        <location filename="../textparts/texteditor.cpp" line="364"/>
         <source>Change Syntax Highlighting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="459"/>
+        <location filename="../textparts/texteditor.cpp" line="460"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="485"/>
+        <location filename="../textparts/texteditor.cpp" line="486"/>
         <source>We tried opening this file with the %1 encoding, but it contains invalid characters. If you save the file in the incorrect encoding, you may lose data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="530"/>
+        <location filename="../textparts/texteditor.cpp" line="531"/>
         <source>Read Only File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="531"/>
+        <location filename="../textparts/texteditor.cpp" line="532"/>
         <source>This file is read only. You&apos;ll need to save it as a different file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="542"/>
+        <location filename="../textparts/texteditor.cpp" line="543"/>
         <source>Encoding Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="543"/>
+        <location filename="../textparts/texteditor.cpp" line="544"/>
         <source>Some characters used in this file cannot be encoded in the selected encoding. Saving this file will remove any invalid characters and may result in possible data loss.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="571"/>
+        <location filename="../textparts/texteditor.cpp" line="572"/>
         <source>There&apos;s no more space on this disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="573"/>
+        <location filename="../textparts/texteditor.cpp" line="574"/>
         <source>You don&apos;t have permission to save this file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="575"/>
+        <location filename="../textparts/texteditor.cpp" line="576"/>
         <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="578"/>
+        <location filename="../textparts/texteditor.cpp" line="579"/>
         <source>
 
 Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="581"/>
+        <location filename="../textparts/texteditor.cpp" line="582"/>
         <source>Couldn&apos;t save the file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1098"/>
+        <location filename="../textparts/texteditor.cpp" line="1099"/>
         <source>Revert Changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1099"/>
+        <location filename="../textparts/texteditor.cpp" line="1100"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1349"/>
+        <location filename="../textparts/texteditor.cpp" line="1371"/>
         <source>Comments Not Supported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1350"/>
+        <location filename="../textparts/texteditor.cpp" line="1372"/>
         <source>Comments are not supported in this language. Select a different language mode to add comments.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1512"/>
+        <location filename="../textparts/texteditor.cpp" line="1534"/>
         <source>No Highlighting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1515"/>
+        <location filename="../textparts/texteditor.cpp" line="1537"/>
         <source>Select Highlighting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1516"/>
+        <location filename="../textparts/texteditor.cpp" line="1538"/>
         <source>What type of code is this file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1574"/>
+        <location filename="../textparts/texteditor.cpp" line="1596"/>
         <source>Go To Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1574"/>
+        <location filename="../textparts/texteditor.cpp" line="1596"/>
         <source>What line do you want to go to?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="332"/>
-        <location filename="../textparts/texteditor.cpp" line="1550"/>
+        <location filename="../textparts/texteditor.cpp" line="333"/>
+        <location filename="../textparts/texteditor.cpp" line="1572"/>
         <source>Select Encoding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1551"/>
+        <location filename="../textparts/texteditor.cpp" line="1354"/>
+        <source>Artistic Style Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../textparts/texteditor.cpp" line="1573"/>
         <source>What file encoding do you want to use?</source>
         <translation type="unfinished"></translation>
     </message>
