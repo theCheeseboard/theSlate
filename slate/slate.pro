@@ -112,6 +112,7 @@ SOURCES += \
     SourceControl/gitintegration.cpp \
     textparts/findreplace.cpp \
     exitsavedialog.cpp \
+    textparts/offscreenlinepopup.cpp \
     textparts/selectlistdialog.cpp \
     textparts/statusbarbutton.cpp \
     textparts/texteditor.cpp \
@@ -147,6 +148,7 @@ HEADERS += \
     SourceControl/gitintegration.h \
     textparts/findreplace.h \
     exitsavedialog.h \
+    textparts/offscreenlinepopup.h \
     textparts/selectlistdialog.h \
     textparts/statusbarbutton.h \
     textparts/texteditor.h \
@@ -184,6 +186,7 @@ FORMS += \
     aboutwindow.ui \
     textparts/findreplace.ui \
     exitsavedialog.ui \
+    textparts/offscreenlinepopup.ui \
     textparts/selectlistdialog.ui \
     textparts/textstatusbar.ui \
     textparts/topnotification.ui \

@@ -1421,6 +1421,14 @@ Your settings will be lost.</source>
     </message>
 </context>
 <context>
+    <name>OffscreenLinePopup</name>
+    <message>
+        <location filename="../textparts/offscreenlinepopup.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PluginManager</name>
     <message>
         <location filename="../plugins/pluginmanager.cpp" line="64"/>
@@ -1669,7 +1677,7 @@ Your settings will be lost.</source>
     <message>
         <location filename="../settingsdialog.cpp" line="19"/>
         <location filename="../settingsdialog.cpp" line="21"/>
-        <source>Format code by going to Transform &gt; Format Code, or by pressing %1.</source>
+        <source>Format code by going to Transform &gt; Reformat Code, or by pressing %1.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1714,290 +1722,290 @@ Your settings will be lost.</source>
 <context>
     <name>TextEditor</name>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="142"/>
+        <location filename="../textparts/texteditor.cpp" line="145"/>
         <source>New Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="191"/>
+        <location filename="../textparts/texteditor.cpp" line="196"/>
         <source>Merge Conflicts were found in this file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="194"/>
+        <location filename="../textparts/texteditor.cpp" line="199"/>
         <source>Resolve Merge Conflicts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="199"/>
+        <location filename="../textparts/texteditor.cpp" line="204"/>
         <source>Resolve a Merge Conflict</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="228"/>
+        <location filename="../textparts/texteditor.cpp" line="233"/>
         <source>File on disk changed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="229"/>
+        <location filename="../textparts/texteditor.cpp" line="234"/>
         <source>The file on the disk has changed. If you save this file you will lose the changes on disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="232"/>
+        <location filename="../textparts/texteditor.cpp" line="237"/>
         <source>Reload File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="238"/>
+        <location filename="../textparts/texteditor.cpp" line="243"/>
         <source>Merge Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="243"/>
+        <location filename="../textparts/texteditor.cpp" line="248"/>
         <source>File on Disk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="243"/>
+        <location filename="../textparts/texteditor.cpp" line="248"/>
         <source>Currently open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="248"/>
+        <location filename="../textparts/texteditor.cpp" line="253"/>
         <source>Resolve a Save Conflict</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="300"/>
+        <location filename="../textparts/texteditor.cpp" line="305"/>
         <source>File on disk deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="301"/>
+        <location filename="../textparts/texteditor.cpp" line="306"/>
         <source>The file on the disk has been deleted. If you save this file you will recreate the file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="310"/>
+        <location filename="../textparts/texteditor.cpp" line="315"/>
         <source>Can&apos;t open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="319"/>
+        <location filename="../textparts/texteditor.cpp" line="324"/>
         <source>Mixed Line Endings detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="320"/>
+        <location filename="../textparts/texteditor.cpp" line="325"/>
         <source>When saving this file, we&apos;ll normalise all the line endings. You can choose which line endings to save as on the status bar.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="329"/>
+        <location filename="../textparts/texteditor.cpp" line="334"/>
         <source>Incorrect Text Encoding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="349"/>
+        <location filename="../textparts/texteditor.cpp" line="354"/>
         <source>For selected text &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="350"/>
+        <location filename="../textparts/texteditor.cpp" line="355"/>
         <source>Cut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="351"/>
+        <location filename="../textparts/texteditor.cpp" line="356"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="352"/>
+        <location filename="../textparts/texteditor.cpp" line="357"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="357"/>
+        <location filename="../textparts/texteditor.cpp" line="362"/>
         <source>For this document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="358"/>
+        <location filename="../textparts/texteditor.cpp" line="363"/>
         <source>Undo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="359"/>
+        <location filename="../textparts/texteditor.cpp" line="364"/>
         <source>Redo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="360"/>
+        <location filename="../textparts/texteditor.cpp" line="365"/>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="361"/>
+        <location filename="../textparts/texteditor.cpp" line="366"/>
         <source>Select All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="363"/>
+        <location filename="../textparts/texteditor.cpp" line="368"/>
         <source>Change Syntax Highlighting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="461"/>
+        <location filename="../textparts/texteditor.cpp" line="466"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="487"/>
+        <location filename="../textparts/texteditor.cpp" line="492"/>
         <source>We tried opening this file with the %1 encoding, but it contains invalid characters. If you save the file in the incorrect encoding, you may lose data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="532"/>
+        <location filename="../textparts/texteditor.cpp" line="537"/>
         <source>Read Only File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="533"/>
+        <location filename="../textparts/texteditor.cpp" line="538"/>
         <source>This file is read only. You&apos;ll need to save it as a different file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="549"/>
+        <location filename="../textparts/texteditor.cpp" line="554"/>
         <source>Encoding Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="550"/>
+        <location filename="../textparts/texteditor.cpp" line="555"/>
         <source>Some characters used in this file cannot be encoded in the selected encoding. Saving this file will remove any invalid characters and may result in possible data loss.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="578"/>
+        <location filename="../textparts/texteditor.cpp" line="583"/>
         <source>There&apos;s no more space on this disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="580"/>
+        <location filename="../textparts/texteditor.cpp" line="585"/>
         <source>You don&apos;t have permission to save this file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="582"/>
+        <location filename="../textparts/texteditor.cpp" line="587"/>
         <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="585"/>
+        <location filename="../textparts/texteditor.cpp" line="590"/>
         <source>
 
 Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="588"/>
+        <location filename="../textparts/texteditor.cpp" line="593"/>
         <source>Couldn&apos;t save the file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1105"/>
+        <location filename="../textparts/texteditor.cpp" line="1130"/>
         <source>Revert Changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1106"/>
+        <location filename="../textparts/texteditor.cpp" line="1131"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1370"/>
+        <location filename="../textparts/texteditor.cpp" line="1404"/>
         <source>Select Reformatter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1371"/>
+        <location filename="../textparts/texteditor.cpp" line="1405"/>
         <source>Which code reformatter do you want to use for this file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1403"/>
+        <location filename="../textparts/texteditor.cpp" line="1437"/>
         <source>Artistic Style not installed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1404"/>
+        <location filename="../textparts/texteditor.cpp" line="1438"/>
         <source>Install Artistic Style and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1406"/>
+        <location filename="../textparts/texteditor.cpp" line="1440"/>
         <source>Artistic Style not found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1407"/>
+        <location filename="../textparts/texteditor.cpp" line="1441"/>
         <source>theSlate is damaged. You should reinstall theSlate.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1411"/>
+        <location filename="../textparts/texteditor.cpp" line="1445"/>
         <source>Artistic Style couldn&apos;t reformat your code.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1430"/>
+        <location filename="../textparts/texteditor.cpp" line="1464"/>
         <source>Comments Not Supported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1431"/>
+        <location filename="../textparts/texteditor.cpp" line="1465"/>
         <source>Comments are not supported in this language. Select a different language mode to add comments.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1593"/>
+        <location filename="../textparts/texteditor.cpp" line="1627"/>
         <source>No Highlighting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1596"/>
+        <location filename="../textparts/texteditor.cpp" line="1630"/>
         <source>Select Highlighting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1597"/>
+        <location filename="../textparts/texteditor.cpp" line="1631"/>
         <source>What type of code is this file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1655"/>
+        <location filename="../textparts/texteditor.cpp" line="1689"/>
         <source>Go To Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1655"/>
+        <location filename="../textparts/texteditor.cpp" line="1689"/>
         <source>What line do you want to go to?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="332"/>
-        <location filename="../textparts/texteditor.cpp" line="1631"/>
+        <location filename="../textparts/texteditor.cpp" line="337"/>
+        <location filename="../textparts/texteditor.cpp" line="1665"/>
         <source>Select Encoding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1410"/>
+        <location filename="../textparts/texteditor.cpp" line="1444"/>
         <source>Artistic Style Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1632"/>
+        <location filename="../textparts/texteditor.cpp" line="1666"/>
         <source>What file encoding do you want to use?</source>
         <translation type="unfinished"></translation>
     </message>

@@ -28,6 +28,7 @@ struct MergeLines;
 
 class TextEditorPrivate;
 class TextStatusBar;
+class OffscreenLinePopup;
 
 class TextEditorLeftMargin : public QWidget
 {
@@ -136,6 +137,11 @@ class TextEditor : public QPlainTextEdit
         QByteArray formatForSaving(QString text);
 
         void setTextContents(QString text);
+
+    protected:
+        friend OffscreenLinePopup;
+
+        QTextBlock lastVisibleBlock() const;
 
     private:
         TextEditorPrivate* d;

@@ -18,6 +18,7 @@
 #include "textparts/selectlistdialog.h"
 #include "texteditorblockdata.h"
 #include "transformers/astyle/astyle.h"
+#include "offscreenlinepopup.h"
 
 #include <Repository>
 #include "SyntaxHighlighting/syntaxhighlighter.h"
@@ -71,6 +72,8 @@ class TextEditorPrivate {
         TextStatusBar* statusBar = nullptr;
 
         QString codeReformatter = "";
+
+        OffscreenLinePopup* offscreenPopup;
 
         const QMap<QString, QString> codeReformattersByExtension = {
             {"c", "astyle"},
@@ -141,6 +144,8 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
     });
     d->button->setText(tr("New Document"));
     d->button->setFocusProxy(this); //Focus this tab when the user clicks on it
+
+    d->offscreenPopup = new OffscreenLinePopup(this);
 
     connect(this, &TextEditor::textChanged, [=] {
         if (d->firstEdit) {
@@ -920,6 +925,7 @@ void TextEditor::cursorLocationChanged() {
 
         if (otherPosition == -2) {
             //Mismatched!
+            d->offscreenPopup->clearBlocks();
         } else {
             //Found it!
             QTextCharFormat format;
@@ -939,8 +945,27 @@ void TextEditor::cursorLocationChanged() {
             setExtraSelectionGroup(900, "bracketLocation", {
                                        firstSelection, secondSelection
                                    });
-        }
 
+            if (this->firstVisibleBlock().blockNumber() > secondSelection.cursor.block().blockNumber()) {
+                QList<QTextBlock> blocks;
+                blocks.append(secondSelection.cursor.block().previous());
+                blocks.append(secondSelection.cursor.block());
+                blocks.append(secondSelection.cursor.block().next());
+                d->offscreenPopup->setSide(OffscreenLinePopup::Top);
+                d->offscreenPopup->setBlocks(blocks);
+            } else if (this->lastVisibleBlock().blockNumber() < secondSelection.cursor.block().blockNumber()) {
+                QList<QTextBlock> blocks;
+                blocks.append(secondSelection.cursor.block().previous());
+                blocks.append(secondSelection.cursor.block());
+                blocks.append(secondSelection.cursor.block().next());
+                d->offscreenPopup->setSide(OffscreenLinePopup::Bottom);
+                d->offscreenPopup->setBlocks(blocks);
+            } else {
+                d->offscreenPopup->clearBlocks();
+            }
+        }
+    } else {
+        d->offscreenPopup->clearBlocks();
     }
 }
 
@@ -1350,6 +1375,15 @@ void TextEditor::setTextContents(QString text)
     cursor.insertText(text);
     cursor.setPosition(oldPos);
     this->setTextCursor(cursor);
+}
+
+QTextBlock TextEditor::lastVisibleBlock() const
+{
+    QTextBlock block = firstVisibleBlock();
+    while (block.isValid() && blockBoundingGeometry(block).translated(contentOffset()).top() < this->height()) {
+        block = block.next();
+    }
+    return block;
 }
 
 void TextEditor::setTextCodec(QTextCodec* codec) {

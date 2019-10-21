@@ -16,9 +16,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     ui->mainStack->setCurrentAnimation(tStackedWidget::SlideHorizontal);
     ui->leftPane->setFixedWidth(SC_DPI(300));
 #ifdef Q_OS_MAC
-    ui->formatCodeLabel->setText(tr("Format code by going to Transform > Format Code, or by pressing %1.").arg("⌘F11"));
+    ui->formatCodeLabel->setText(tr("Format code by going to Transform > Reformat Code, or by pressing %1.").arg("⌘F11"));
 #else
-    ui->formatCodeLabel->setText(tr("Format code by going to Transform > Format Code, or by pressing %1.").arg("CTRL+F11"));
+    ui->formatCodeLabel->setText(tr("Format code by going to Transform > Reformat Code, or by pressing %1.").arg("CTRL+F11"));
 #endif
 
     ui->systemMonospaceFont->setChecked(settings.value("font/useSystem", true).toBool());
