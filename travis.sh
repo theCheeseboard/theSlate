@@ -111,6 +111,10 @@ elif [ $STAGE = "after_success" ]; then
     cp theSlate*.AppImage.zsync theSlate-linux.AppImage.zsync
     bash upload.sh theSlate-linux.AppImage*
   else
+    # Workaround for uploadtool not working correctly on macOS
+    export RELEASE_NAME="continuous"
+    export RELEASE_TITLE="Continuous build"
+    export is_prerelease="true"
     echo "[TRAVIS] Publishing Disk Image"
     cd ~
     wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
