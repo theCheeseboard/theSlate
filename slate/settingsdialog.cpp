@@ -15,6 +15,11 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 
     ui->mainStack->setCurrentAnimation(tStackedWidget::SlideHorizontal);
     ui->leftPane->setFixedWidth(SC_DPI(300));
+#ifdef Q_OS_MAC
+    ui->formatCodeLabel->setText(tr("Format code by going to Transform > Format Code, or by pressing %1.").arg("⌘F11"));
+#else
+    ui->formatCodeLabel->setText(tr("Format code by going to Transform > Format Code, or by pressing %1.").arg("CTRL+F11"));
+#endif
 
     ui->systemMonospaceFont->setChecked(settings.value("font/useSystem", true).toBool());
     ui->fontBox->setCurrentFont(QFont(settings.value("font/textFontFamily", QFontDatabase::systemFont(QFontDatabase::FixedFont).family()).toString()));
@@ -31,6 +36,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     ui->wrapTextBox->setChecked(settings.value("behaviour/wrapText", false).toBool());
 
     ui->endOfLineComboBox->setCurrentIndex(settings.value("behaviour/endOfLine", THESLATE_END_OF_LINE).toInt());
+
+    ui->formatBeforeSave->setChecked(settings.value("behaviour/formatBeforeSave", false).toBool());
 
     ui->enableGitSwitch->setChecked(settings.value("git/enable", true).toBool());
     ui->gitPeriodicallyFetch->setChecked(settings.value("git/periodicallyFetch", true).toBool());
@@ -128,4 +135,9 @@ void SettingsDialog::on_gitPeriodicallyFetch_toggled(bool checked)
 void SettingsDialog::on_editAStyleConfiguration_clicked()
 {
     ui->mainStack->setCurrentWidget(ui->astyleSettings);
+}
+
+void SettingsDialog::on_formatBeforeSave_toggled(bool checked)
+{
+    settings.setValue("behaviour/formatBeforeSave", checked);
 }

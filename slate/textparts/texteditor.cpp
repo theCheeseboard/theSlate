@@ -198,36 +198,22 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
             MergeTool* tool = new MergeTool(this->toPlainText(), d->hlDef, d->parentWindow, this->window());
             tool->setTitle(tr("Resolve a Merge Conflict"));
             tool->resize(this->width() - 20, this->height() - 50);
-            //#if THE_LIBS_API_VERSION >= 3 && !defined(Q_OS_MAC)
-                tPopover* popover = new tPopover(tool);
-                popover->setPopoverWidth(SC_DPI(-100));
-                popover->show(this->window());
 
-                connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
-                    this->setPlainText(revisedFile);
-                    removeTopPanel(d->mergeConflictsNotification);
-                });
-                connect(tool, &MergeTool::finished, [=] {
-                    d->parentWindow->menuBar()->setEnabled(true);
-                    popover->dismiss();
-                });
-                connect(popover, &tPopover::dismissed, [=] {
-                    tool->reject();
-                });
-            /*#else
-                tool->setWindowFlag(Qt::Sheet);
-                tool->setWindowModality(Qt::WindowModal);
-                tool->show();
-                d->parentWindow->menuBar()->setEnabled(false);
+            tPopover* popover = new tPopover(tool);
+            popover->setPopoverWidth(SC_DPI(-100));
+            popover->show(this->window());
 
-                connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
-                    this->setPlainText(revisedFile);
-                    removeTopPanel(d->mergeConflictsNotification);
-                });
-                connect(tool, &MergeTool::finished, [=] {
-                    d->parentWindow->menuBar()->setEnabled(true);
-                });
-            #endif*/
+            connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
+                this->setTextContents(revisedFile);
+                removeTopPanel(d->mergeConflictsNotification);
+            });
+            connect(tool, &MergeTool::finished, [=] {
+                d->parentWindow->menuBar()->setEnabled(true);
+                popover->dismiss();
+            });
+            connect(popover, &tPopover::dismissed, [=] {
+                tool->reject();
+            });
         });
         d->mergeConflictsNotification->addButton(fixMergeButton);
 
@@ -269,7 +255,7 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
                         popover->show(this->window());
 
                         connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
-                            this->setPlainText(revisedFile);
+                            this->setTextContents(revisedFile);
                             removeTopPanel(d->onDiskChanged);
                         });
                         connect(tool, &MergeTool::finished, [=] {
@@ -286,7 +272,7 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
                         d->parentWindow->menuBar()->setEnabled(false);
 
                         connect(tool, &MergeTool::acceptResolution, [=](QString revisedFile) {
-                            this->setPlainText(revisedFile);
+                            this->setTextContents(revisedFile);
                             removeTopPanel(d->onDiskChanged);
                         });
                         connect(tool, &MergeTool::finished, [=] {
@@ -295,7 +281,7 @@ TextEditor::TextEditor(QWidget *parent) : QPlainTextEdit(parent)
                     #endif
                 } else {
                     //Merge resolution tool not needed
-                    this->setPlainText(mergeFile);
+                    this->setTextContents(mergeFile);
                     removeTopPanel(d->onDiskChanged);
                 }
             })->error([=](QString err) {
@@ -552,6 +538,11 @@ bool TextEditor::saveFile() {
         messageBox->exec();
         return true;
     } else {
+        if (d->settings.value("behaviour/formatBeforeSave", false).toBool()) {
+            //Format the file if we can
+            this->beautify(true);
+        }
+
         QByteArray saveData = formatForSaving(this->toPlainText());
         if (!d->textCodec->canEncode(this->toPlainText())) {
             tMessageBox* messageBox = new tMessageBox(this->window());
@@ -1351,15 +1342,25 @@ QByteArray TextEditor::formatForSaving(QString text) {
     return a;
 }
 
+void TextEditor::setTextContents(QString text)
+{
+    QTextCursor cursor = this->textCursor();
+    int oldPos = cursor.position();
+    cursor.select(QTextCursor::Document);
+    cursor.insertText(text);
+    cursor.setPosition(oldPos);
+    this->setTextCursor(cursor);
+}
+
 void TextEditor::setTextCodec(QTextCodec* codec) {
     d->textCodec = codec;
     if (d->statusBar != nullptr) d->statusBar->setEncoding(codec->name());
 }
 
-void TextEditor::beautify()
+void TextEditor::beautify(bool silent)
 {
     //Beautify the current text file
-    if (d->codeReformatter == "") {
+    if (d->codeReformatter == "" && !silent) {
         //Ask which code formatter to use
 
         QList<SelectListItem> items;
@@ -1393,8 +1394,9 @@ void TextEditor::beautify()
         QString error;
         QString result = as.doAStyle(this->toPlainText().toUtf8(), this->fileUrl().fileName(), &error);
         if (error.isEmpty()) {
-            this->setPlainText(result);
+            this->setTextContents(result);
         } else {
+            if (silent) return;
             tMessageBox* box = new tMessageBox(this->window());
             if (error == "Artistic Style is not installed") {
                 #ifdef Q_OS_LINUX

@@ -34,6 +34,7 @@ AStyleSettings::~AStyleSettings()
 void AStyleSettings::on_backButton_clicked()
 {
     //Save the settings
+    d->as.setSettingsContents(ui->settingsFile->toPlainText());
     d->as.saveSettings();
     emit done();
 }

@@ -44,6 +44,11 @@ QString AStyle::settingsContents()
     return d->settingsContents;
 }
 
+void AStyle::setSettingsContents(QString settingsContents)
+{
+    d->settingsContents = settingsContents;
+}
+
 QByteArray AStyle::doAStyle(QByteArray input, QString filename, QString* error)
 {
     if (!isAStyleAvailable()) {
@@ -87,12 +92,6 @@ QByteArray AStyle::doAStyle(QByteArray input, QString filename, QString* error)
     proc.waitForFinished();
 
     if (proc.exitCode() == 0) {
-//        QByteArray output = proc.readAllStandardOutput();
-
-//        //Perform extra processing (HACK HACK HACK; AStyle should do this!)
-//        if (d->settings.value("behaviour/tabSpaces", true).toBool()) {
-//            output.replace("\t", QByteArray().fill(' ', d->settings.value("behaviour/tabSpaceNumber", 4).toInt()));
-//        }
         return proc.readAllStandardOutput();
     } else {
         *error = tr("Artistic Style returned exit code %1:").arg(proc.exitCode()).append("\n").append(proc.readAllStandardError());

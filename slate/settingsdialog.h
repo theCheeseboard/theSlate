@@ -48,6 +48,8 @@ class SettingsDialog : public QDialog
 
         void on_editAStyleConfiguration_clicked();
 
+        void on_formatBeforeSave_toggled(bool checked);
+
     private:
         Ui::SettingsDialog *ui;
 

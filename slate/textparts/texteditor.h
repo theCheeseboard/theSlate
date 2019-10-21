@@ -113,7 +113,7 @@ class TextEditor : public QPlainTextEdit
         void chooseCodec(bool reload = false);
         void setTextCodec(QTextCodec* codec);
 
-        void beautify();
+        void beautify(bool silent = false);
 
         void gotoLine();
 
@@ -134,6 +134,8 @@ class TextEditor : public QPlainTextEdit
 
         void connectBackend();
         QByteArray formatForSaving(QString text);
+
+        void setTextContents(QString text);
 
     private:
         TextEditorPrivate* d;

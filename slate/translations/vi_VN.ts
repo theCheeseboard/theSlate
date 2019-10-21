@@ -4,7 +4,7 @@
 <context>
     <name>AStyle</name>
     <message>
-        <location filename="../transformers/astyle/astyle.cpp" line="98"/>
+        <location filename="../transformers/astyle/astyle.cpp" line="97"/>
         <source>Artistic Style returned exit code %1:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12,28 +12,28 @@
 <context>
     <name>AStyleSettings</name>
     <message>
-        <location filename="../transformers/astyle/astylesettings.cpp" line="50"/>
+        <location filename="../transformers/astyle/astylesettings.cpp" line="51"/>
         <source>Special Values</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../transformers/astyle/astylesettings.cpp" line="51"/>
+        <location filename="../transformers/astyle/astylesettings.cpp" line="52"/>
         <source>Tab Character Length</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../transformers/astyle/astylesettings.cpp" line="54"/>
+        <location filename="../transformers/astyle/astylesettings.cpp" line="55"/>
         <source>Tab Character</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../transformers/astyle/astylesettings.cpp" line="63"/>
-        <source>Reset AStyle</source>
+        <location filename="../transformers/astyle/astylesettings.cpp" line="64"/>
+        <source>Reset Artistic Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../transformers/astyle/astylesettings.cpp" line="64"/>
-        <source>After resetting AStyle settings, theSlate will use the default settings when beautifying your code.
+        <location filename="../transformers/astyle/astylesettings.cpp" line="65"/>
+        <source>After resetting Artistic Style settings, theSlate will use the default settings when using Artistic Style to format your code.
 
 Your settings will be lost.</source>
         <translation type="unfinished"></translation>
@@ -1512,19 +1512,13 @@ Your settings will be lost.</source>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="170"/>
-        <location filename="../settingsdialog.ui" line="401"/>
+        <location filename="../settingsdialog.ui" line="548"/>
         <source>File Browser</source>
         <translation>Trình duyệt tệp</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="175"/>
-        <location filename="../settingsdialog.ui" line="481"/>
-        <source>Code</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../settingsdialog.ui" line="180"/>
-        <location filename="../settingsdialog.ui" line="764"/>
+        <location filename="../settingsdialog.ui" line="797"/>
         <source>Git</source>
         <translation>Git</translation>
     </message>
@@ -1539,109 +1533,126 @@ Your settings will be lost.</source>
         <translation>Dùng phông chữ đơn chắc của máy tính</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="556"/>
+        <location filename="../settingsdialog.ui" line="418"/>
         <source>Tabs</source>
         <translation>Tab</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="563"/>
+        <location filename="../settingsdialog.ui" line="425"/>
         <source>Spaces</source>
         <translation>Dấu cách</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="681"/>
+        <location filename="../settingsdialog.ui" line="714"/>
         <source>ARTISTIC STYLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="688"/>
+        <location filename="../settingsdialog.ui" line="721"/>
         <source>Artistic Style is a code formatter for C-style languages. You can use Artistic Style when working on C, C++, C#, Objective-C, and Java files.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="716"/>
+        <location filename="../settingsdialog.ui" line="749"/>
         <source>Edit Artistic Style Configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="515"/>
+        <location filename="../settingsdialog.ui" line="377"/>
         <source>Tab Key Behaviour</source>
         <translation>Hành vi phím Tab</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="528"/>
+        <location filename="../settingsdialog.ui" line="390"/>
         <source>BEHAVIOUR</source>
         <translation>HÀNH VI</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="629"/>
+        <location filename="../settingsdialog.ui" line="491"/>
         <source>Tab Character Width</source>
         <translation>Chiều rộng ký tự tab</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="615"/>
+        <location filename="../settingsdialog.ui" line="477"/>
         <source>End of Line</source>
         <translation>Ký tự kết thúc dòng</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="597"/>
+        <location filename="../settingsdialog.ui" line="175"/>
+        <location filename="../settingsdialog.ui" line="628"/>
+        <source>Code Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="459"/>
         <source>Unix (LF)</source>
         <translation>Unix (LF)</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="602"/>
+        <location filename="../settingsdialog.ui" line="464"/>
         <source>Macintosh (CR)</source>
         <translation>Macintosh (CR)</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="607"/>
+        <location filename="../settingsdialog.ui" line="469"/>
         <source>Windows (CRLF)</source>
         <translation>Windows (CRLF)</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="636"/>
+        <location filename="../settingsdialog.ui" line="498"/>
         <source>Wrap Text</source>
         <translation>Ngắt dòng văn bản</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="435"/>
+        <location filename="../settingsdialog.ui" line="582"/>
         <source>Show Hidden Files</source>
         <translation>Hiển thị tệp ẩn</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="804"/>
+        <location filename="../settingsdialog.ui" line="669"/>
+        <source>Automatically format code just before saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.ui" line="837"/>
         <source>Enable Git</source>
         <translation>Kích hoạt Git</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="831"/>
+        <location filename="../settingsdialog.ui" line="864"/>
         <source>Git Integeration is enabled by default, but if you experience problems, you can turn off Git integration.</source>
         <translation>Tích hợp Git bị kích hoạt theo mặc định, mà nếu bạn gặp vấn đề, bạn có thể vô hiệu tích hợp Git.</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="847"/>
+        <location filename="../settingsdialog.ui" line="880"/>
         <source>ENABLE</source>
         <translation>KÍCH HOẠT</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="892"/>
+        <location filename="../settingsdialog.ui" line="925"/>
         <source>TWEAKS</source>
         <translation>ĐIỀU CHỈNH</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="899"/>
+        <location filename="../settingsdialog.ui" line="932"/>
         <source>Periodically fetch</source>
         <translation>Tìm nạp định kỳ</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="906"/>
+        <location filename="../settingsdialog.ui" line="939"/>
         <source>We&apos;ll run &lt;code&gt;git fetch&lt;/code&gt; periodically to check for any new commits on the remote.</source>
         <translation>Chúng tôi sẽ chạy &lt;code&gt;git fetch&lt;/code&gt; định kỳ để kiểm tra cho các lần chuyển giao mới trên máy chủ xa.</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="962"/>
+        <location filename="../settingsdialog.ui" line="995"/>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../settingsdialog.cpp" line="19"/>
+        <location filename="../settingsdialog.cpp" line="21"/>
+        <source>Format code by going to Transform &gt; Format Code, or by pressing %1.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1705,167 +1716,167 @@ Your settings will be lost.</source>
         <translation>Giải quyết xung đột hợp nhất</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="242"/>
+        <location filename="../textparts/texteditor.cpp" line="228"/>
         <source>File on disk changed</source>
         <translation>Tệp trên ổ đĩa đã thay</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="243"/>
+        <location filename="../textparts/texteditor.cpp" line="229"/>
         <source>The file on the disk has changed. If you save this file you will lose the changes on disk.</source>
         <translation>Tệp trên ổ đĩa đã thay. Nếu bạn lưu tệp này, bạn sẽ mất thay đổi trên ổ đĩa.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="246"/>
+        <location filename="../textparts/texteditor.cpp" line="232"/>
         <source>Reload File</source>
         <translation>Khôi phục tệp lại</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="252"/>
+        <location filename="../textparts/texteditor.cpp" line="238"/>
         <source>Merge Changes</source>
         <translation>Hợp nhất thay đổi</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="257"/>
+        <location filename="../textparts/texteditor.cpp" line="243"/>
         <source>File on Disk</source>
         <translation>Tệp trên đĩa</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="257"/>
+        <location filename="../textparts/texteditor.cpp" line="243"/>
         <source>Currently open file</source>
         <translation>Tệp đã mở</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="262"/>
+        <location filename="../textparts/texteditor.cpp" line="248"/>
         <source>Resolve a Save Conflict</source>
         <translation>Giải quyết xung đột lưu</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="314"/>
+        <location filename="../textparts/texteditor.cpp" line="300"/>
         <source>File on disk deleted</source>
         <translation>Tệp trên ổ đĩa đã xóa</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="315"/>
+        <location filename="../textparts/texteditor.cpp" line="301"/>
         <source>The file on the disk has been deleted. If you save this file you will recreate the file.</source>
         <translation>Tệp trên ổ đĩa đã xóa. Nếu bạn lưu tệp này, bạn sẽ tạo tệp lại.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="324"/>
+        <location filename="../textparts/texteditor.cpp" line="310"/>
         <source>Can&apos;t open file</source>
         <translation>Không thể mở tệp được</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="333"/>
+        <location filename="../textparts/texteditor.cpp" line="319"/>
         <source>Mixed Line Endings detected</source>
         <translation>Ký tự kết thúc dòng hỗn hợp đã phát hiện</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="334"/>
+        <location filename="../textparts/texteditor.cpp" line="320"/>
         <source>When saving this file, we&apos;ll normalise all the line endings. You can choose which line endings to save as on the status bar.</source>
         <translation>Khi lưu tệp này, chúng tôi sẽ làm mọi dòng kết thúc với một ký tự. Bạn có thể chọn ký tự kết thúc dòng trên thanh trạng thái.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="343"/>
+        <location filename="../textparts/texteditor.cpp" line="329"/>
         <source>Incorrect Text Encoding</source>
         <translation>Mã hóa văn bản sai</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="363"/>
+        <location filename="../textparts/texteditor.cpp" line="349"/>
         <source>For selected text &quot;%1&quot;</source>
         <translation>Cho văn bản đã chọn &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="364"/>
+        <location filename="../textparts/texteditor.cpp" line="350"/>
         <source>Cut</source>
         <translation>Cắt</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="365"/>
+        <location filename="../textparts/texteditor.cpp" line="351"/>
         <source>Copy</source>
         <translation>Chép</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="366"/>
+        <location filename="../textparts/texteditor.cpp" line="352"/>
         <source>Delete</source>
         <translation>Xóa</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="371"/>
+        <location filename="../textparts/texteditor.cpp" line="357"/>
         <source>For this document</source>
         <translation>Cho tài liệu này</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="372"/>
+        <location filename="../textparts/texteditor.cpp" line="358"/>
         <source>Undo</source>
         <translation>Hoàn tác</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="373"/>
+        <location filename="../textparts/texteditor.cpp" line="359"/>
         <source>Redo</source>
         <translation>Làm lại</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="374"/>
+        <location filename="../textparts/texteditor.cpp" line="360"/>
         <source>Paste</source>
         <translation>Dán</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="375"/>
+        <location filename="../textparts/texteditor.cpp" line="361"/>
         <source>Select All</source>
         <translation>Chọn tất cả</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="377"/>
+        <location filename="../textparts/texteditor.cpp" line="363"/>
         <source>Change Syntax Highlighting</source>
         <translation>Đổi nổi bật</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="475"/>
+        <location filename="../textparts/texteditor.cpp" line="461"/>
         <source>Retry</source>
         <translation>Thử lại</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="501"/>
+        <location filename="../textparts/texteditor.cpp" line="487"/>
         <source>We tried opening this file with the %1 encoding, but it contains invalid characters. If you save the file in the incorrect encoding, you may lose data.</source>
         <translation>Chúng tôi thử mở tệp này với mã hóa %1, mà nó có ký tự không hợp lệ. Nếu bạn lưu tệp này với mã hóa văn bản sai, bạn có thể mất dữ liệu.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="546"/>
+        <location filename="../textparts/texteditor.cpp" line="532"/>
         <source>Read Only File</source>
         <translation>Tệp chỉ được đọc</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="547"/>
+        <location filename="../textparts/texteditor.cpp" line="533"/>
         <source>This file is read only. You&apos;ll need to save it as a different file.</source>
         <translation>Tệp này chỉ được đọc. Bạn sẽ cần lưu thành tệp khác.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="558"/>
+        <location filename="../textparts/texteditor.cpp" line="549"/>
         <source>Encoding Error</source>
         <translation>Lỗi với mã hóa văn bản</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="559"/>
+        <location filename="../textparts/texteditor.cpp" line="550"/>
         <source>Some characters used in this file cannot be encoded in the selected encoding. Saving this file will remove any invalid characters and may result in possible data loss.</source>
         <translation>Ký tự bị dung trong tệp này không mã hóa được. Nếu bạn lưu tệp này, kỳ tự không hợp lệ sẽ bị xóa và có thể mất dữ liệu.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="587"/>
+        <location filename="../textparts/texteditor.cpp" line="578"/>
         <source>There&apos;s no more space on this disk.</source>
         <translation>Không còn dung lượng trên ổ đĩa.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="589"/>
+        <location filename="../textparts/texteditor.cpp" line="580"/>
         <source>You don&apos;t have permission to save this file.</source>
         <translation>Bạn không có quyền để lưu tệp này.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="591"/>
+        <location filename="../textparts/texteditor.cpp" line="582"/>
         <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.</source>
         <translation>Không lưu tệp này được. Kiểm tra xem bạn có quyền để ghi tệp này, và bạn còn dung lượng trống trên ổ đĩa.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="594"/>
+        <location filename="../textparts/texteditor.cpp" line="585"/>
         <source>
 
 Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
@@ -1874,103 +1885,103 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
 Đừng thoát theSlate đến khi bạn ghi tệp này; nếu không thì bạn sẽ mất dữ liệu.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="597"/>
+        <location filename="../textparts/texteditor.cpp" line="588"/>
         <source>Couldn&apos;t save the file</source>
         <translation>Không lưu tệp được</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1114"/>
+        <location filename="../textparts/texteditor.cpp" line="1105"/>
         <source>Revert Changes?</source>
         <translation>Hoàn lại thay đổi?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1115"/>
+        <location filename="../textparts/texteditor.cpp" line="1106"/>
         <source>Do you want to revert all the edits made to this document?</source>
         <translation>Bạn có muốn bỏ thầy đối với tệp này không?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1369"/>
+        <location filename="../textparts/texteditor.cpp" line="1370"/>
         <source>Select Reformatter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1370"/>
+        <location filename="../textparts/texteditor.cpp" line="1371"/>
         <source>Which code reformatter do you want to use for this file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1401"/>
+        <location filename="../textparts/texteditor.cpp" line="1403"/>
         <source>Artistic Style not installed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1402"/>
+        <location filename="../textparts/texteditor.cpp" line="1404"/>
         <source>Install Artistic Style and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1404"/>
+        <location filename="../textparts/texteditor.cpp" line="1406"/>
         <source>Artistic Style not found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1405"/>
+        <location filename="../textparts/texteditor.cpp" line="1407"/>
         <source>theSlate is damaged. You should reinstall theSlate.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1409"/>
+        <location filename="../textparts/texteditor.cpp" line="1411"/>
         <source>Artistic Style couldn&apos;t reformat your code.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1428"/>
+        <location filename="../textparts/texteditor.cpp" line="1430"/>
         <source>Comments Not Supported</source>
         <translation>Không hỗ trợ bình luận</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1429"/>
+        <location filename="../textparts/texteditor.cpp" line="1431"/>
         <source>Comments are not supported in this language. Select a different language mode to add comments.</source>
         <translation>Bình luận không có hỗ trợ trong ngôn ngữ lập trình này. Chọn chế độ ngôn ngữ lập trình khác để thêm bình luận.</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1591"/>
+        <location filename="../textparts/texteditor.cpp" line="1593"/>
         <source>No Highlighting</source>
         <translation>Không có nổi bật</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1594"/>
+        <location filename="../textparts/texteditor.cpp" line="1596"/>
         <source>Select Highlighting</source>
         <translation>Chọn nổi bật</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1595"/>
+        <location filename="../textparts/texteditor.cpp" line="1597"/>
         <source>What type of code is this file?</source>
         <translation>Tệp này có mã nguồn nào?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1653"/>
+        <location filename="../textparts/texteditor.cpp" line="1655"/>
         <source>Go To Line</source>
         <translation>Đi tới dòng</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1653"/>
+        <location filename="../textparts/texteditor.cpp" line="1655"/>
         <source>What line do you want to go to?</source>
         <translation>Bạn muốn đi tới dòng nào?</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="346"/>
-        <location filename="../textparts/texteditor.cpp" line="1629"/>
+        <location filename="../textparts/texteditor.cpp" line="332"/>
+        <location filename="../textparts/texteditor.cpp" line="1631"/>
         <source>Select Encoding</source>
         <translation>Chọn mã hóa</translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1408"/>
+        <location filename="../textparts/texteditor.cpp" line="1410"/>
         <source>Artistic Style Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../textparts/texteditor.cpp" line="1630"/>
+        <location filename="../textparts/texteditor.cpp" line="1632"/>
         <source>What file encoding do you want to use?</source>
         <translation>Bạn muốn sử dụng mã hóa tệp nào?</translation>
     </message>
