@@ -79,6 +79,9 @@ if [ $STAGE = "script" ]; then
     install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib "$THESLATE_APPPATH/Contents/filebackends/libHttpBackend.dylib"
     install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib "$THESLATE_APPPATH/Contents/auxiliarypanes/libHtmlPreview.dylib"
     install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib "$THESLATE_APPPATH/Contents/auxiliarypanes/libMdPreview.dylib"
+    echo "[TRAVIS] Embedding astyle"
+    mkdir "$THESLATE_APPPATH/Contents/bin"
+    cp /usr/local/bin/astyle "$THESLATE_APPPATH/Contents/bin/"
     echo "[TRAVIS] Deploying Qt Libraries"
     macdeployqt "$THESLATE_APPPATH"
     echo "[TRAVIS] Preparing Disk Image creator"
@@ -98,7 +101,7 @@ elif [ $STAGE = "before_install" ]; then
     echo "[TRAVIS] Preparing to build for macOS"
     brew tap kde-mac/kde
     brew update
-    brew install qt5 kf5-syntax-highlighting
+    brew install qt5 kf5-syntax-highlighting astyle
   fi
 elif [ $STAGE = "after_success" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then

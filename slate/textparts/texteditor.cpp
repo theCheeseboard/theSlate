@@ -70,6 +70,19 @@ class TextEditorPrivate {
         FileBackend* currentBackend = nullptr;
         TextStatusBar* statusBar = nullptr;
 
+        QString codeReformatter = "";
+
+        const QMap<QString, QString> codeReformattersByExtension = {
+            {"c", "astyle"},
+            {"cpp", "astyle"},
+            {"h", "astyle"},
+            {"hpp", "astyle"},
+            {"java", "astyle"},
+            {"cs", "astyle"},
+            {"m", "astyle"},
+            {"mm", "astyle"}
+        };
+
         QString getIndentCharacters() {
             QString spacingCharacters;
             bool tabSpaces = settings.value("behaviour/tabSpaces", true).toBool();
@@ -444,6 +457,8 @@ void TextEditor::openFile(FileBackend *backend, TextEditor::OpenFileParametersMa
         }
 
         if (d->parentWindow != nullptr) d->parentWindow->updateGit();
+
+        d->codeReformatter = d->codeReformattersByExtension.value(QFileInfo(backend->url().fileName()).suffix(), "");
 
         emit backendChanged();
         d->cover->setVisible(false);
@@ -1344,21 +1359,63 @@ void TextEditor::setTextCodec(QTextCodec* codec) {
 void TextEditor::beautify()
 {
     //Beautify the current text file
-    AStyle as;
-    QString error;
-    QString result = as.doAStyle(this->toPlainText().toUtf8(), this->fileUrl().fileName(), &error);
-    if (error.isEmpty()) {
-        this->setPlainText(result);
-    } else {
-        tMessageBox* box = new tMessageBox(this->window());
-        box->setWindowTitle(tr("Artistic Style Error"));
-        box->setText(error);
-        box->setIcon(tMessageBox::Warning);
-        box->setWindowFlags(Qt::Sheet);
-        box->setStandardButtons(tMessageBox::Ok);
-        box->setDefaultButton(tMessageBox::Ok);
-        box->exec();
-        box->deleteLater();
+    if (d->codeReformatter == "") {
+        //Ask which code formatter to use
+
+        QList<SelectListItem> items;
+        items.append(SelectListItem("Artistic Style", "astyle"));
+
+        SelectListDialog* dialog = new SelectListDialog();
+        dialog->setTitle(tr("Select Reformatter"));
+        dialog->setText(tr("Which code reformatter do you want to use for this file?"));
+        dialog->setItems(items);
+
+        QEventLoop* loop = new QEventLoop();
+
+        tPopover* popover = new tPopover(dialog);
+        popover->setPopoverWidth(SC_DPI(300));
+        connect(dialog, &SelectListDialog::rejected, popover, &tPopover::dismiss);
+        connect(dialog, &SelectListDialog::accepted, this, [=](QVariant formatter) {
+            d->codeReformatter = formatter.toString();
+            popover->dismiss();
+        });
+        connect(popover, &tPopover::dismissed, dialog, &SelectListDialog::deleteLater);
+        connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
+        connect(popover, &tPopover::dismissed, loop, &QEventLoop::quit);
+        popover->show(this->window());
+
+        loop->exec();
+        loop->deleteLater();
+    }
+
+    if (d->codeReformatter == "astyle") {
+        AStyle as;
+        QString error;
+        QString result = as.doAStyle(this->toPlainText().toUtf8(), this->fileUrl().fileName(), &error);
+        if (error.isEmpty()) {
+            this->setPlainText(result);
+        } else {
+            tMessageBox* box = new tMessageBox(this->window());
+            if (error == "Artistic Style is not installed") {
+                #ifdef Q_OS_LINUX
+                    box->setWindowTitle(tr("Artistic Style not installed"));
+                    box->setText(tr("Install Artistic Style and try again."));
+                #else
+                    box->setWindowTitle(tr("Artistic Style not found"));
+                    box->setText(tr("theSlate is damaged. You should reinstall theSlate."));
+                #endif
+            } else {
+                box->setWindowTitle(tr("Artistic Style Error"));
+                box->setText(tr("Artistic Style couldn't reformat your code."));
+                box->setDetailedText(error);
+            }
+            box->setIcon(tMessageBox::Warning);
+            box->setWindowFlags(Qt::Sheet);
+            box->setStandardButtons(tMessageBox::Ok);
+            box->setDefaultButton(tMessageBox::Ok);
+            box->exec();
+            box->deleteLater();
+        }
     }
 }
 

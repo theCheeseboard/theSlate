@@ -115,6 +115,11 @@ int main(int argc, char *argv[])
     a.setAttribute(Qt::AA_DontShowIconsInMenus, true);
     a.setQuitOnLastWindowClosed(false);
 
+    //Add to the PATH
+    QByteArray oldPath = qgetenv("PATH");
+    oldPath.append(":" + a.macOSBundlePath() + "/Contents/bin");
+    qputenv("PATH", oldPath);
+
     setupMacMenubar();
     setupMacObjC();
 #elif defined(Q_OS_WIN)

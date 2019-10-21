@@ -47,7 +47,7 @@ QString AStyle::settingsContents()
 QByteArray AStyle::doAStyle(QByteArray input, QString filename, QString* error)
 {
     if (!isAStyleAvailable()) {
-        *error = tr("AStyle is not installed");
+        *error = "Artistic Style is not installed";
         return "";
     }
 
@@ -57,9 +57,20 @@ QByteArray AStyle::doAStyle(QByteArray input, QString filename, QString* error)
     this->saveSettings(&file, true);
     file.close();
 
+    QString suffix = QFileInfo(filename).suffix();
+    QString modeEntry;
+    if (suffix == "cs") {
+        modeEntry = QStringLiteral("--mode=cs");
+    } else if (suffix == "java") {
+        modeEntry = QStringLiteral("--mode=java");
+    } else {
+        modeEntry = QStringLiteral("--mode=c");
+    }
+
     QStringList bits = {
-        theLibsGlobal::searchInPath("astyle").first(),
-        QStringLiteral("--options=\"%1\"").arg(file.fileName())
+        QStringLiteral("\"%1\"").arg(theLibsGlobal::searchInPath("astyle").first()),
+        QStringLiteral("--options=\"%1\"").arg(file.fileName()),
+        modeEntry
     };
 
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
