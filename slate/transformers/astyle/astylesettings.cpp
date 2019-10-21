@@ -60,8 +60,8 @@ void AStyleSettings::on_settingsFile_customContextMenuRequested(const QPoint &po
 void AStyleSettings::on_resetSettings_clicked()
 {
     tMessageBox* box = new tMessageBox(this);
-    box->setWindowTitle(tr("Reset AStyle"));
-    box->setText(tr("After resetting AStyle settings, theSlate will use the default settings when beautifying your code.\n\nYour settings will be lost."));
+    box->setWindowTitle(tr("Reset Artistic Style"));
+    box->setText(tr("After resetting Artistic Style settings, theSlate will use the default settings when using Artistic Style to format your code.\n\nYour settings will be lost."));
     box->setIcon(tMessageBox::Warning);
     box->setWindowFlags(Qt::Sheet);
     box->setStandardButtons(tMessageBox::Reset | tMessageBox::Cancel);

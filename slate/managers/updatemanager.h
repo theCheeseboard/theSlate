@@ -28,7 +28,7 @@ class UpdateManager : public QObject
 
     private:
         const int version[3] = {
-            1, 0, 0
+            1, 1, 0
         };
 
         QList<QAction*> actions;
