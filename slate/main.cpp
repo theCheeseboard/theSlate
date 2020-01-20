@@ -77,6 +77,7 @@ int main(int argc, char *argv[])
     setupWebEngine();
 
     tApplication a(argc, argv);
+    a.registerCrashTrap();
 
     if (!qgetenv("THESLATE_PLEASE_ECHO_AND_RETURN").isEmpty()) {
         QTextStream out(stdout);

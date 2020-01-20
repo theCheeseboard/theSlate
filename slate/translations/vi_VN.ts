@@ -74,7 +74,7 @@ Your settings will be lost.</source>
     </message>
     <message>
         <location filename="../aboutwindow.ui" line="32"/>
-        <location filename="../main.cpp" line="163"/>
+        <location filename="../main.cpp" line="164"/>
         <source>Text Editor</source>
         <translation>Bộ soạn văn bản</translation>
     </message>
@@ -2060,32 +2060,32 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.cpp" line="101"/>
+        <location filename="../main.cpp" line="102"/>
         <source>Text Editor</source>
         <translation>Bộ soạn văn bản</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="106"/>
+        <location filename="../main.cpp" line="107"/>
         <source>Syntax highlighting library by the KDE project, licensed under MIT.</source>
         <translation>Thư viện nổi bật cú pháp phát hành bởi dự án KDE, được cấp phép theo MIT.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="169"/>
+        <location filename="../main.cpp" line="170"/>
         <source>Read from standard input</source>
         <translation>Đọc đầu vào tiêu chuẩn</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="172"/>
+        <location filename="../main.cpp" line="173"/>
         <source>files</source>
         <translation>tệp</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="172"/>
+        <location filename="../main.cpp" line="173"/>
         <source>Files to open</source>
         <translation>Tệp để mở</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="172"/>
+        <location filename="../main.cpp" line="173"/>
         <source>[files...]</source>
         <translation>[tệp...]</translation>
     </message>

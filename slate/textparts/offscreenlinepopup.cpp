@@ -50,11 +50,14 @@ void OffscreenLinePopup::setBlocks(QList<QTextBlock> blocks)
     }
     d->labels.clear();
 
+    int height = SC_DPI(12) + 2;
     for (QTextBlock block : blocks) {
+        if (!block.isValid()) continue; //Ignore invalid blocks
         QTextLayout* layout = block.layout();
 
         QRectF geometry = d->editor->blockBoundingGeometry(block);
         geometry.setWidth(d->editor->width() - 2 - SC_DPI(18));
+        height += geometry.toRect().height();
 
         QPixmap pixmap(geometry.size().toSize());
         pixmap.fill(d->editor->palette().color(QPalette::Window));
@@ -88,7 +91,7 @@ void OffscreenLinePopup::setBlocks(QList<QTextBlock> blocks)
         d->labels.append(label);
     }
 
-    this->resize(d->editor->width() - SC_DPI(18), this->sizeHint().height());
+    this->resize(d->editor->width() - SC_DPI(18), height);
     this->setSide(d->side);
 
     this->raise();
