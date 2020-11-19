@@ -580,95 +580,95 @@ Ayarlarınız kaybolacaktır.</translation>
         <location filename="../SourceControl/gitwidget.cpp" line="196"/>
         <location filename="../SourceControl/gitwidget.cpp" line="396"/>
         <source>Push</source>
-        <translation type="unfinished"></translation>
+        <translation>İtiş</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="199"/>
         <location filename="../SourceControl/gitwidget.cpp" line="343"/>
         <location filename="../SourceControl/gitwidget.cpp" line="419"/>
         <source>Pull</source>
-        <translation type="unfinished"></translation>
+        <translation>Çek</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="203"/>
         <source>Fetch</source>
-        <translation type="unfinished"></translation>
+        <translation>Getir</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="212"/>
         <source>For commit %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 taahhüdü için</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="213"/>
         <source>Copy Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Tanımlayıcıyı Kopyala</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="216"/>
         <source>Copy Commit Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaydetme Mesajını Kopyala</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="227"/>
         <source>Reset the repository?</source>
-        <translation type="unfinished"></translation>
+        <translation>Depo sıfırlansın mı?</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="230"/>
         <source>The changes since %1 will be discarded.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1&apos;den beri yapılan değişiklikler silinecek.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="232"/>
         <source>Your HEAD will point to %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>HEAD&apos;iniz %1&apos;i gösterecek.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="237"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Sıfırla</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="251"/>
         <source>Reset to here</source>
-        <translation type="unfinished"></translation>
+        <translation>Buraya sıfırla</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="252"/>
         <source>Hard Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Sert Sıfırlama</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="255"/>
         <source>Mixed Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Karışık Sıfırlama</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="258"/>
         <source>Soft Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Yumuşak Sıfırlama</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="284"/>
         <source>Abort Merge?</source>
-        <translation type="unfinished"></translation>
+        <translation>Merge Hakkında?</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="285"/>
         <source>Any actions taken to resolve conflict resolution will be undone, and the state of your repository will be set back to how it was before the merge operation started.</source>
-        <translation type="unfinished"></translation>
+        <translation>Çatışma çözümünü çözmek için yapılan tüm işlemler geri alınacak ve deponuzun durumu, birleştirme işlemi başlamadan önceki durumuna geri döndürülecektir.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="317"/>
         <location filename="../SourceControl/gitwidget.cpp" line="364"/>
         <source>Unclean Working Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Temiz Olmayan Çalışma Dizini</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="318"/>
         <source>Your working directory is not clean and upstream changes may not merge properly. Do you still want to attempt to pull in upstream changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Çalışma dizininiz temiz değil ve yukarı akış değişiklikleri düzgün şekilde birleştirilemeyebilir. Yine de yukarı akış değişikliklerini çekmeyi denemek istiyor musunuz?</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="321"/>
