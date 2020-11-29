@@ -788,7 +788,7 @@ Ayarlarınız kaybolacaktır.</translation>
     <message>
         <location filename="../mainwindow.ui" line="17"/>
         <source>theSlate</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="170"/>
@@ -1023,268 +1023,268 @@ Ayarlarınız kaybolacaktır.</translation>
     <message>
         <location filename="../mainwindow.ui" line="555"/>
         <source>Ctrl+Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Alt+S</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="564"/>
         <source>Continue</source>
-        <translation type="unfinished"></translation>
+        <translation>Devam et</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="573"/>
         <source>Step Into</source>
-        <translation type="unfinished"></translation>
+        <translation>İçine adım</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="582"/>
         <source>Step Over</source>
-        <translation type="unfinished"></translation>
+        <translation>Adım atmak</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="591"/>
         <source>Step Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Dışarı çıkmak</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="600"/>
         <source>Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Duraklamak</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="609"/>
         <source>&amp;Find and Replace...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bul ve Değiştir...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="612"/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="621"/>
         <source>Save As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Farklı Kaydet...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="624"/>
         <source>Ctrl+Shift+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+ÜstKarakter+S</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="633"/>
         <source>&amp;Revert</source>
-        <translation type="unfinished"></translation>
+        <translation>%Döndürmek</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="636"/>
         <source>Ctrl+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+R</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="645"/>
         <source>&amp;File Bug</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dosya Hatası</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="657"/>
         <source>&amp;Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kaynaklar</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="666"/>
         <source>U&amp;ndo</source>
-        <translation type="unfinished"></translation>
+        <translation>G&amp;eri al</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="669"/>
         <source>Ctrl+Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Z</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="678"/>
         <source>&amp;Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Yeniden Yap</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="681"/>
         <source>Ctrl+Shift+Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+ÜstKarakter+Z</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="690"/>
         <source>Sett&amp;ings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ayar&amp;lar</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="693"/>
         <source>Ctrl+,</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+,</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="705"/>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kapat</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="708"/>
         <source>Ctrl+W</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+W</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="717"/>
         <source>&amp;New Window</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Yeni Pencere</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="720"/>
         <source>Ctrl+Shift+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+ÜstKarakter+N</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="729"/>
         <source>Select All</source>
-        <translation type="unfinished"></translation>
+        <translation>Hepsini seç</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="732"/>
         <source>Ctrl+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+A</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="740"/>
         <source>Use Menubar</source>
-        <translation type="unfinished"></translation>
+        <translation>Menü Çubuğu Kullan</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="745"/>
         <source>Toggle Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Yorumu Aç / Kapat</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="748"/>
         <source>Ctrl+/</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+/</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="753"/>
         <source>Change Syntax Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Sözdizimi Vurgulamayı Değiştir</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="756"/>
         <source>Ctrl+F12</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F12</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="761"/>
         <source>Change File Encoding</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosya Kodlamasını Değiştirin</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="766"/>
         <source>Reload Using Encoding</source>
-        <translation type="unfinished"></translation>
+        <translation>Kodlamayı Kullanarak Yeniden Yükle</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="775"/>
         <source>Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Hat</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="778"/>
         <source>Ctrl+G</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+G</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="787"/>
         <source>Uppercase</source>
-        <translation type="unfinished"></translation>
+        <translation>Büyük harf</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="796"/>
         <source>Lowercase</source>
-        <translation type="unfinished"></translation>
+        <translation>Küçük harf</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="805"/>
         <source>Title Case</source>
-        <translation type="unfinished"></translation>
+        <translation>Başlık Örneği</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="810"/>
         <source>Reformat Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeniden Biçimlendirme Kodu</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="813"/>
         <source>Ctrl+F11</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F11</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="34"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosya</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="39"/>
         <source>New Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni Pencere</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="44"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ayarlar</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="49"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Vazgeç</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="55"/>
         <source>File Bug</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosya Hatası</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="58"/>
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaynaklar</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="62"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Hakkında</translation>
     </message>
     <message>
         <location filename="../mainwindow-objc.mm" line="162"/>
         <location filename="../mainwindow-objc.mm" line="164"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Kapat</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="252"/>
         <source>No Clipboard History available</source>
-        <translation type="unfinished"></translation>
+        <translation>Pano Geçmişi yok</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="279"/>
         <source>No opened files</source>
-        <translation type="unfinished"></translation>
+        <translation>Açık dosya yok</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="284"/>
         <source>No supported auxiliary panes</source>
-        <translation type="unfinished"></translation>
+        <translation>Desteklenen yardımcı bölmeler yok</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="303"/>
         <source>No auxiliary panes</source>
-        <translation type="unfinished"></translation>
+        <translation>Yardımcı bölme yok</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="314"/>
         <source>Ctrl+Shift+V</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+ÜstKarakter+V</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="623"/>
