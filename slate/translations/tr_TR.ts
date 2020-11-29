@@ -673,114 +673,114 @@ Ayarlarınız kaybolacaktır.</translation>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="321"/>
         <source>Discard All Changes and Pull</source>
-        <translation type="unfinished"></translation>
+        <translation>Tüm Değişiklikleri At ve Çek</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="322"/>
         <source>Pull Anyway</source>
-        <translation type="unfinished"></translation>
+        <translation>Yine de çekin</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="344"/>
         <source>Pulling from %1...</source>
-        <translation type="unfinished"></translation>
+        <translation>%1&apos;den çekiliyor...</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="365"/>
         <source>Commit or discard changes in your working directory in order to pull.</source>
-        <translation type="unfinished"></translation>
+        <translation>Çekmek için çalışma dizininizdeki değişiklikleri kaydedin veya atın.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="372"/>
         <source>pull</source>
-        <translation type="unfinished"></translation>
+        <translation>çek</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="374"/>
         <source>Authenticate to pull from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>% 1&apos;den çekmek için kimlik doğrulaması yapın</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="379"/>
         <location filename="../SourceControl/gitwidget.cpp" line="447"/>
         <location filename="../SourceControl/gitwidget.cpp" line="563"/>
         <source>Git Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Git Hatası</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="397"/>
         <source>Pushing to %1...</source>
-        <translation type="unfinished"></translation>
+        <translation>% 1&apos;e gönderiliyor ...</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="417"/>
         <source>Out of date</source>
-        <translation type="unfinished"></translation>
+        <translation>Tarihi geçmiş</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="418"/>
         <source>Your local repository is out of date and needs to be updated by pulling.</source>
-        <translation type="unfinished"></translation>
+        <translation>Yerel deponuz güncel değil ve çekilerek güncellenmesi gerekiyor.</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="442"/>
         <source>Authenticate to push to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>% 1&apos;e göndermek için kimlik doğrulaması yap</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="507"/>
         <source>Conflicting Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Çakışan Dosyalar</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="508"/>
         <source>The %1 operation resulted in these files conflicting:</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 işlemi şu dosyaların çakışmasına neden oldu:</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="508"/>
         <source>What do you want to do now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Şimdi ne yapmak istiyorsun?</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="511"/>
         <source>Undo %1</source>
-        <translation type="unfinished"></translation>
+        <translation>% 1&apos;i geri al</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="512"/>
         <source>Manually Resolve Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Değişiklikleri Manuel Olarak Çözme</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="513"/>
         <source>Use Local Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Yerel Değişiklikleri Kullanın</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="514"/>
         <source>Use Remote Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzaktan Değişiklikleri Kullan</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="551"/>
         <source>merge</source>
-        <translation type="unfinished"></translation>
+        <translation>birleştirmek</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="554"/>
         <source>Unrelated Histories</source>
-        <translation type="unfinished"></translation>
+        <translation>İlgisiz Geçmişler</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="555"/>
         <source>You&apos;re trying to merge two branches which do not have a common base</source>
-        <translation type="unfinished"></translation>
+        <translation>Ortak bir temeli olmayan iki dalı birleştirmeye çalışıyorsunuz</translation>
     </message>
     <message>
         <location filename="../SourceControl/gitwidget.cpp" line="581"/>
         <source>Initialize Repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Depoyu Başlat</translation>
     </message>
 </context>
 <context>
@@ -793,7 +793,7 @@ Ayarlarınız kaybolacaktır.</translation>
     <message>
         <location filename="../mainwindow.ui" line="170"/>
         <source>Fi&amp;le</source>
-        <translation type="unfinished"></translation>
+        <translation>Dos&amp;ya</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="174"/>
@@ -803,69 +803,69 @@ Ayarlarınız kaybolacaktır.</translation>
     <message>
         <location filename="../mainwindow.ui" line="179"/>
         <source>Open Recent</source>
-        <translation type="unfinished"></translation>
+        <translation>Son Kullanılanları Aç</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="209"/>
         <location filename="../mainwindow.cpp" line="152"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Düzenle</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="213"/>
         <source>Paste from Clipboard History</source>
-        <translation type="unfinished"></translation>
+        <translation>Pano Geçmişinden Yapıştır</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="222"/>
         <source>Transform</source>
-        <translation type="unfinished"></translation>
+        <translation>Dönüştürmek</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="248"/>
         <location filename="../main.cpp" line="54"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Yardım</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="261"/>
         <source>Wi&amp;ndow</source>
-        <translation type="unfinished"></translation>
+        <translation>Pe&amp;ncere</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="267"/>
         <source>&amp;View</source>
-        <translation type="unfinished"></translation>
+        <translation>G&amp;örünüm</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="271"/>
         <source>Open Auxiliary Pane</source>
-        <translation type="unfinished"></translation>
+        <translation>Yardımcı Bölmeyi Aç</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="275"/>
         <source>All Auxiliary Panes</source>
-        <translation type="unfinished"></translation>
+        <translation>Tüm Yardımcı Paneller</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="287"/>
         <source>Go</source>
-        <translation type="unfinished"></translation>
+        <translation>Git</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="320"/>
         <source>Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosyalar</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="354"/>
         <source>Source Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaynak kontrolü</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="385"/>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Yeni</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="388"/>
@@ -874,17 +874,17 @@ Ayarlarınız kaybolacaktır.</translation>
         <location filename="../mainwindow-objc.mm" line="156"/>
         <location filename="../mainwindow.cpp" line="96"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="391"/>
         <source>Ctrl+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="400"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kaydet</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="403"/>
@@ -892,133 +892,133 @@ Ayarlarınız kaybolacaktır.</translation>
         <location filename="../mainwindow-objc.mm" line="139"/>
         <location filename="../mainwindow.cpp" line="110"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaydet</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="406"/>
         <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+S</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="415"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Aç</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="418"/>
         <location filename="../mainwindow.cpp" line="103"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Aç</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="421"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="430"/>
         <source>&amp;Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vazgeç</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="433"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="445"/>
         <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kopyalamak</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="448"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopyala</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="451"/>
         <source>Ctrl+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+C</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="460"/>
         <source>C&amp;ut</source>
-        <translation type="unfinished"></translation>
+        <translation>K&amp;es</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="463"/>
         <source>Cut</source>
-        <translation type="unfinished"></translation>
+        <translation>Kes</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="466"/>
         <source>Ctrl+X</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+X</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="475"/>
         <source>&amp;Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Yapıştırmak</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="478"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Yapıştırmak</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="481"/>
         <source>Ctrl+V</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+V</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="486"/>
         <source>&amp;No Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vurgulama Yok</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="498"/>
         <source>&amp;About</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hakkında</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="510"/>
         <source>&amp;Print</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Yazdır</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="513"/>
         <source>Ctrl+P</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+P</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="518"/>
         <source>&amp;Push</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;İtiş</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="526"/>
         <source>P&amp;ull</source>
-        <translation type="unfinished"></translation>
+        <translation>Ç&amp;ek</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="531"/>
         <source>&amp;Fetch</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Getir</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="540"/>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Başlat</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="543"/>
         <source>F5</source>
-        <translation type="unfinished"></translation>
+        <translation>F5</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="552"/>
         <source>Sa&amp;ve All</source>
-        <translation type="unfinished"></translation>
+        <translation>Hepsini Ka&amp;ydet</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="555"/>
