@@ -1289,49 +1289,49 @@ Ayarlarınız kaybolacaktır.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="623"/>
         <source>Save Changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Değişiklikleri Kaydet?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="624"/>
         <source>Do you want to save your changes to this document?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu belgede yaptığınız değişiklikleri kaydetmek istiyor musunuz?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="837"/>
         <source>For %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 için</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="839"/>
         <source>Edit in new tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni sekmede düzenle</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="844"/>
         <source>Edit in new window</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni pencerede düzenle</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="850"/>
         <location filename="../mainwindow.cpp" line="880"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Adı değiştir</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="853"/>
         <location filename="../mainwindow.cpp" line="859"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Sil</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="855"/>
         <source>Delete this file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu dosya silinsin mi?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="856"/>
         <source>%1 will be irrecoverably deleted.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 geri alınamayacak şekilde silinecek.</translation>
     </message>
     <message numerus="yes">
         <location filename="../mainwindow.cpp" line="866"/>
@@ -1343,27 +1343,27 @@ Ayarlarınız kaybolacaktır.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="867"/>
         <source>%1 was deleted from your device.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 cihazınızdan silindi.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="869"/>
         <source>Couldn&apos;t delete file</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosya silinemedi</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="870"/>
         <source>There was a problem deleting %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 silinirken bir sorun oluştu.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="901"/>
         <source>No Recent Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni Öğe Yok</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="916"/>
         <source>Clear Recent Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Son Öğeleri Temizle</translation>
     </message>
 </context>
 <context>
@@ -1372,44 +1372,44 @@ Ayarlarınız kaybolacaktır.</translation>
         <location filename="../textparts/mergetool.ui" line="87"/>
         <location filename="../textparts/mergetool.ui" line="231"/>
         <source>Accept and Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Kabul Et ve Birleştir</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.ui" line="119"/>
         <source>Select portions of the file to keep by clicking on the margin of each file. You can further edit the file by editing the bottom pane.</source>
-        <translation type="unfinished"></translation>
+        <translation>Her dosyanın kenar boşluğunu tıklayarak saklanacak dosyanın bölümlerini seçin. Alt bölmeyi düzenleyerek dosyayı daha fazla düzenleyebilirsiniz.</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.ui" line="224"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>İptal</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="65"/>
         <source>%1 (Current changes)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (Mevcut değişiklikler)</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="90"/>
         <source>%1 (Incoming changes)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 (Gelen değişiklikler)</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="174"/>
         <location filename="../textparts/mergetool.cpp" line="191"/>
         <location filename="../textparts/mergetool.cpp" line="201"/>
         <source>[Awaiting merge decision]</source>
-        <translation type="unfinished"></translation>
+        <translation>[Birleştirme kararı bekleniyor]</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="193"/>
         <source>Unresolved Merge Conflicts</source>
-        <translation type="unfinished"></translation>
+        <translation>Çözülmemiş Birleştirme Çakışmaları</translation>
     </message>
     <message>
         <location filename="../textparts/mergetool.cpp" line="194"/>
         <source>You still have merge conflicts for which you have not yet selected a resolution. Are you sure you still want to accept this resolution?</source>
-        <translation type="unfinished"></translation>
+        <translation>Hala bir çözüm seçmediğiniz birleştirme çakışmaları var. Hala bu çözümü kabul etmek istediğinizden emin misiniz?</translation>
     </message>
 </context>
 <context>
@@ -1417,7 +1417,7 @@ Ayarlarınız kaybolacaktır.</translation>
     <message>
         <location filename="../textparts/offscreenlinepopup.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
 </context>
 <context>
@@ -1425,12 +1425,12 @@ Ayarlarınız kaybolacaktır.</translation>
     <message>
         <location filename="../plugins/pluginmanager.cpp" line="64"/>
         <source>theSlate may not work properly</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate düzgün çalışmayabilir</translation>
     </message>
     <message>
         <location filename="../plugins/pluginmanager.cpp" line="64"/>
         <source>The Local File Backend was unable to be loaded. theSlate may quit unexpectedly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Yerel Dosya Arka Ucu yüklenemedi. theSlate beklenmedik bir şekilde kapanabilir.</translation>
     </message>
 </context>
 <context>
@@ -1442,22 +1442,22 @@ Ayarlarınız kaybolacaktır.</translation>
         <location filename="../textparts/printdialog.ui" line="139"/>
         <location filename="../textparts/printdialog.ui" line="374"/>
         <source>Print</source>
-        <translation type="unfinished"></translation>
+        <translation>Yazdır</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="169"/>
         <source>Copies</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopya sayısı</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="176"/>
         <source>Destination</source>
-        <translation type="unfinished"></translation>
+        <translation>Gidilecek yer</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="208"/>
         <source>E&amp;verything</source>
-        <translation type="unfinished"></translation>
+        <translation>H&amp;erşey</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="218"/>
