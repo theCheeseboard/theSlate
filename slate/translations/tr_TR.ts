@@ -1462,37 +1462,37 @@ Ayarlarınız kaybolacaktır.</translation>
     <message>
         <location filename="../textparts/printdialog.ui" line="218"/>
         <source>Selected Area</source>
-        <translation type="unfinished"></translation>
+        <translation>Seçilen Alan</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="225"/>
         <source>Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Sayfalar</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="284"/>
         <source>Portrait</source>
-        <translation type="unfinished"></translation>
+        <translation>Portrait</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="294"/>
         <source>&amp;Landscape</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Manzara</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="304"/>
         <source>Orientation</source>
-        <translation type="unfinished"></translation>
+        <translation>Oryantasyon</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="314"/>
         <source>Print Double Sided</source>
-        <translation type="unfinished"></translation>
+        <translation>Çift Taraflı Yazdır</translation>
     </message>
     <message>
         <location filename="../textparts/printdialog.ui" line="367"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>İptal</translation>
     </message>
 </context>
 <context>
@@ -1501,17 +1501,17 @@ Ayarlarınız kaybolacaktır.</translation>
         <location filename="../textparts/selectlistdialog.ui" line="87"/>
         <location filename="../textparts/selectlistdialog.ui" line="198"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>PEKİ</translation>
     </message>
     <message>
         <location filename="../textparts/selectlistdialog.ui" line="145"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Ara</translation>
     </message>
     <message>
         <location filename="../textparts/selectlistdialog.ui" line="191"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>İptal</translation>
     </message>
 </context>
 <context>
@@ -1520,157 +1520,157 @@ Ayarlarınız kaybolacaktır.</translation>
         <location filename="../settingsdialog.ui" line="14"/>
         <location filename="../settingsdialog.ui" line="135"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ayarlar</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="165"/>
         <location filename="../settingsdialog.ui" line="231"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>Genel</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="170"/>
         <location filename="../settingsdialog.ui" line="548"/>
         <source>File Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosya Tarayıcısı</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="180"/>
         <location filename="../settingsdialog.ui" line="797"/>
         <source>Git</source>
-        <translation type="unfinished"></translation>
+        <translation>Git</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="304"/>
         <source>FONTS</source>
-        <translation type="unfinished"></translation>
+        <translation>FONTLAR</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="311"/>
         <source>Use System Monospace Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistem Tek Aralıklı Yazı Tipini Kullan</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="377"/>
         <source>Tab Key Behaviour</source>
-        <translation type="unfinished"></translation>
+        <translation>Sekme Tuşu Davranışı</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="390"/>
         <source>BEHAVIOUR</source>
-        <translation type="unfinished"></translation>
+        <translation>DAVRANIŞ</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="418"/>
         <source>Tabs</source>
-        <translation type="unfinished"></translation>
+        <translation>Sekmeler</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="425"/>
         <source>Spaces</source>
-        <translation type="unfinished"></translation>
+        <translation>Mekânlar</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="459"/>
         <source>Unix (LF)</source>
-        <translation type="unfinished"></translation>
+        <translation>Unix (LF)</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="464"/>
         <source>Macintosh (CR)</source>
-        <translation type="unfinished"></translation>
+        <translation>Macintosh (CR)</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="469"/>
         <source>Windows (CRLF)</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows (CRLF)</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="477"/>
         <source>End of Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Satır sonu</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="491"/>
         <source>Tab Character Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Sekme Karakter Genişliği</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="498"/>
         <source>Wrap Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Metni Kaydır</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="669"/>
         <source>Automatically format code just before saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaydetmeden hemen önce kodu otomatik olarak biçimlendirin</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="714"/>
         <source>ARTISTIC STYLE</source>
-        <translation type="unfinished"></translation>
+        <translation>SANATSAL STİL</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="721"/>
         <source>Artistic Style is a code formatter for C-style languages. You can use Artistic Style when working on C, C++, C#, Objective-C, and Java files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Artistic Style, C-stili diller için bir kod formatlayıcıdır. C, C++, C#, Objective-C ve Java dosyalarında çalışırken Artistic Style&apos;ı kullanabilirsiniz.</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="749"/>
         <source>Edit Artistic Style Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Sanatsal Stil Yapılandırmasını Düzenle</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="582"/>
         <source>Show Hidden Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Gizli dosyaları göster</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="175"/>
         <location filename="../settingsdialog.ui" line="628"/>
         <source>Code Formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>Kod Biçimlendirme</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="837"/>
         <source>Enable Git</source>
-        <translation type="unfinished"></translation>
+        <translation>Git&apos;i etkinleştir</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="864"/>
         <source>Git Integeration is enabled by default, but if you experience problems, you can turn off Git integration.</source>
-        <translation type="unfinished"></translation>
+        <translation>Git Tamsayı varsayılan olarak etkindir, ancak sorun yaşarsanız Git entegrasyonunu kapatabilirsiniz.</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="880"/>
         <source>ENABLE</source>
-        <translation type="unfinished"></translation>
+        <translation>ETKİNLEŞTİRME</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="925"/>
         <source>TWEAKS</source>
-        <translation type="unfinished"></translation>
+        <translation>TAVSİYE</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="932"/>
         <source>Periodically fetch</source>
-        <translation type="unfinished"></translation>
+        <translation>Periyodik olarak getir</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="939"/>
         <source>We&apos;ll run &lt;code&gt;git fetch&lt;/code&gt; periodically to check for any new commits on the remote.</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzaktan kumandada herhangi bir yeni işlem olup olmadığını kontrol etmek için düzenli aralıklarla &lt;code&gt;git fetch&lt;/code&gt; çalıştıracağız.</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="995"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>PEKİ</translation>
     </message>
     <message>
         <location filename="../settingsdialog.cpp" line="19"/>
         <location filename="../settingsdialog.cpp" line="21"/>
         <source>Format code by going to Transform &gt; Reformat Code, or by pressing %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kodu Dönüştür&gt; Kodu Yeniden Biçimlendir&apos;e giderek ya da %1&apos;e basarak biçimlendirin.</translation>
     </message>
 </context>
 <context>
@@ -1678,37 +1678,37 @@ Ayarlarınız kaybolacaktır.</translation>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="51"/>
         <source>conflicting</source>
-        <translation type="unfinished"></translation>
+        <translation>çelişkili</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="61"/>
         <source>untracked</source>
-        <translation type="unfinished"></translation>
+        <translation>izlenmemiş</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="62"/>
         <source>modified</source>
-        <translation type="unfinished"></translation>
+        <translation>değişmiş</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="63"/>
         <source>added</source>
-        <translation type="unfinished"></translation>
+        <translation>katma</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="64"/>
         <source>deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>silindi</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="65"/>
         <source>renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>yeniden adlandırıldı</translation>
     </message>
     <message>
         <location filename="../SourceControl/statusmodel.cpp" line="66"/>
         <source>copied</source>
-        <translation type="unfinished"></translation>
+        <translation>kopyalandı</translation>
     </message>
 </context>
 <context>
@@ -1716,12 +1716,12 @@ Ayarlarınız kaybolacaktır.</translation>
     <message>
         <location filename="../textparts/texteditor.cpp" line="145"/>
         <source>New Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni belge</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="196"/>
         <source>Merge Conflicts were found in this file</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu dosyada Birleştirme Çakışmaları bulundu</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="199"/>
