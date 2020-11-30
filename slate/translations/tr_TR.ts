@@ -798,7 +798,7 @@ Ayarlarınız kaybolacaktır.</translation>
     <message>
         <location filename="../mainwindow.ui" line="174"/>
         <source>Open From</source>
-        <translation type="unfinished"></translation>
+        <translation>Başka bir yerden aç</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="179"/>
@@ -1726,280 +1726,282 @@ Ayarlarınız kaybolacaktır.</translation>
     <message>
         <location filename="../textparts/texteditor.cpp" line="199"/>
         <source>Resolve Merge Conflicts</source>
-        <translation type="unfinished"></translation>
+        <translation>Birleştirme Çakışmalarını Çözme</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="204"/>
         <source>Resolve a Merge Conflict</source>
-        <translation type="unfinished"></translation>
+        <translation>Bir Birleştirme Çakışmasını Çözme</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="233"/>
         <source>File on disk changed</source>
-        <translation type="unfinished"></translation>
+        <translation>Diskteki dosya değişti</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="234"/>
         <source>The file on the disk has changed. If you save this file you will lose the changes on disk.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diskteki dosya değişti. Bu dosyayı kaydederseniz, diskteki değişiklikleri kaybedersiniz.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="237"/>
         <source>Reload File</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosyayı Yeniden Yükle</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="243"/>
         <source>Merge Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Değişiklikleri Birleştir</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="248"/>
         <source>File on Disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Diskteki Dosya</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="248"/>
         <source>Currently open file</source>
-        <translation type="unfinished"></translation>
+        <translation>Şu anda açık dosya</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="253"/>
         <source>Resolve a Save Conflict</source>
-        <translation type="unfinished"></translation>
+        <translation>Bir Kaydetme Çakışmasını Çözme</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="305"/>
         <source>File on disk deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Diskteki dosya artık silinmiştir</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="306"/>
         <source>The file on the disk has been deleted. If you save this file you will recreate the file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diskteki dosya silinmiştir. Bu dosyayı kaydederseniz, dosyayı yeniden oluşturursunuz.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="315"/>
         <source>Can&apos;t open file</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosya açılamıyor</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="324"/>
         <source>Mixed Line Endings detected</source>
-        <translation type="unfinished"></translation>
+        <translation>Karışık Satır Sonları algılandı</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="325"/>
         <source>When saving this file, we&apos;ll normalise all the line endings. You can choose which line endings to save as on the status bar.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu dosyayı kaydederken, tüm satır sonlarını normalleştireceğiz. Durum çubuğundaki gibi hangi satır sonlarını kaydedeceğinizi seçebilirsiniz.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="334"/>
         <source>Incorrect Text Encoding</source>
-        <translation type="unfinished"></translation>
+        <translation>Yanlış Metin Kodlaması</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="337"/>
         <location filename="../textparts/texteditor.cpp" line="1665"/>
         <source>Select Encoding</source>
-        <translation type="unfinished"></translation>
+        <translation>Kodlamayı Seçin</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="354"/>
         <source>For selected text &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Seçili metin &quot;%1&quot; için</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="355"/>
         <source>Cut</source>
-        <translation type="unfinished"></translation>
+        <translation>Kes</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="356"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopyala</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="357"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Sil</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="362"/>
         <source>For this document</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu belge için</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="363"/>
         <source>Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>Geri alma</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="364"/>
         <source>Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeniden Yap</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="365"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Yapıştırmak</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="366"/>
         <source>Select All</source>
-        <translation type="unfinished"></translation>
+        <translation>Hepsini seç</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="368"/>
         <source>Change Syntax Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Sözdizimi Vurgulamayı Değiştir</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="466"/>
         <source>Retry</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeniden dene</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="492"/>
         <source>We tried opening this file with the %1 encoding, but it contains invalid characters. If you save the file in the incorrect encoding, you may lose data.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu dosyayı %1 kodlamayla açmayı denedik, ancak geçersiz karakterler içeriyor. Dosyayı yanlış kodlamayla kaydederseniz, verileri kaybedebilirsiniz.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="537"/>
         <source>Read Only File</source>
-        <translation type="unfinished"></translation>
+        <translation>Salt Okunur Dosya</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="538"/>
         <source>This file is read only. You&apos;ll need to save it as a different file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu dosya salt okunurdur. Bunu farklı bir dosya olarak kaydetmeniz gerekecek.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="554"/>
         <source>Encoding Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Kodlama Hatası</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="555"/>
         <source>Some characters used in this file cannot be encoded in the selected encoding. Saving this file will remove any invalid characters and may result in possible data loss.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu dosyada kullanılan bazı karakterler, seçilen kodlamada kodlanamaz. Bu dosyanın kaydedilmesi tüm geçersiz karakterleri kaldırır ve olası veri kaybına neden olabilir.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="583"/>
         <source>There&apos;s no more space on this disk.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu diskte daha fazla yer yok.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="585"/>
         <source>You don&apos;t have permission to save this file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu dosyayı kaydetme izniniz yok.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="587"/>
         <source>Unable to save this file. Check that you have permissions to write to this file and that there&apos;s enough space on disk.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu dosya kaydedilemiyor. Bu dosyaya yazma izninizin olup olmadığını ve diskte yeterli alan olduğunu kontrol edin.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="590"/>
         <source>
 
 Do not exit theSlate until you&apos;ve managed to write the file, otherwise you may lose data.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Dosyayı yazmayı başarana kadar Slate&apos;ten çıkmayın, aksi takdirde verileri kaybedebilirsiniz.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="593"/>
         <source>Couldn&apos;t save the file</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosya kaydedilemedi</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1130"/>
         <source>Revert Changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Değişiklikleri geri al?</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1131"/>
         <source>Do you want to revert all the edits made to this document?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu belgede yapılan tüm düzenlemeleri geri almak istiyor musunuz?</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1404"/>
         <source>Select Reformatter</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeniden Biçimlendiriciyi Seçin</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1405"/>
         <source>Which code reformatter do you want to use for this file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu dosya için hangi kod yeniden biçimlendiriciyi kullanmak istiyorsunuz?</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1437"/>
         <source>Artistic Style not installed</source>
-        <translation type="unfinished"></translation>
+        <translation>Sanatsal stil yüklü değil</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1438"/>
         <source>Install Artistic Style and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sanatsal stili yükleyin ve tekrar deneyin.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1440"/>
         <source>Artistic Style not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Sanatsal stil bulunamadı</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1441"/>
         <source>theSlate is damaged. You should reinstall theSlate.</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate hasar gördü. theSlate yeniden yüklemeniz gerekir.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1444"/>
         <source>Artistic Style Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Sanatsal Stil Hatası</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1445"/>
         <source>Artistic Style couldn&apos;t reformat your code.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sanatsal Stil kodunuzu yeniden biçimlendiremedi.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1464"/>
         <source>Comments Not Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Desteklenmeyen Yorumlar</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1465"/>
         <source>Comments are not supported in this language. Select a different language mode to add comments.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu dilde yorumlar desteklenmemektedir. Yorum eklemek için farklı bir dil modu seçin.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1627"/>
         <source>No Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Vurgulama Yok</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1630"/>
         <source>Select Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Vurgulamayı Seçin</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1631"/>
         <source>What type of code is this file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu dosya ne tür bir kod?</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1666"/>
         <source>What file encoding do you want to use?</source>
-        <translation type="unfinished"></translation>
+        <translation>Hangi dosya kodlamasını kullanmak istiyorsunuz?</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1689"/>
         <source>Go To Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Satıra Git</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1689"/>
         <source>What line do you want to go to?</source>
-        <translation type="unfinished"></translation>
+        <translation>Hangi hatta gitmek istiyorsun?</translation>
     </message>
 </context>
 <context>
@@ -2007,36 +2009,38 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../textparts/textstatusbar.cpp" line="44"/>
         <source>Line Endings for this file</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu dosya için Satır Sonları</translation>
     </message>
     <message>
         <location filename="../textparts/textstatusbar.cpp" line="62"/>
         <source>No Highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Vurgulama Yok</translation>
     </message>
     <message>
         <location filename="../textparts/textstatusbar.cpp" line="95"/>
         <source>Ln %1, Col %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Ln %1, Col %2</translation>
     </message>
     <message numerus="yes">
         <location filename="../textparts/textstatusbar.cpp" line="100"/>
         <source>%n spaces</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n boşluk</numerusform>
+            <numerusform>%n boşluk</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../textparts/textstatusbar.cpp" line="102"/>
         <source>%n tabs</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n sekme</numerusform>
+            <numerusform>%n sekme</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../textparts/textstatusbar.ui" line="44"/>
         <source>AUX</source>
-        <translation type="unfinished"></translation>
+        <translation>AUX</translation>
     </message>
 </context>
 <context>
@@ -2044,7 +2048,7 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../textwidget.cpp" line="100"/>
         <source>Supported Auxiliary Panes</source>
-        <translation type="unfinished"></translation>
+        <translation>Desteklenen Yardımcı Paneller</translation>
     </message>
 </context>
 <context>
@@ -2052,17 +2056,17 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../managers/updatemanager.cpp" line="50"/>
         <source>Checking for updates...</source>
-        <translation type="unfinished"></translation>
+        <translation>Güncellemeler kontrol ediliyor...</translation>
     </message>
     <message>
         <location filename="../managers/updatemanager.cpp" line="54"/>
         <source>Check for updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Güncellemeler kontrol et</translation>
     </message>
     <message>
         <location filename="../managers/updatemanager.cpp" line="58"/>
         <source>Update to %1 available</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 güncellemesi mevcut</translation>
     </message>
 </context>
 <context>
@@ -2070,32 +2074,32 @@ Do not exit theSlate until you&apos;ve managed to write the file, otherwise you 
     <message>
         <location filename="../main.cpp" line="102"/>
         <source>Text Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Metin düzeltici</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="107"/>
         <source>Syntax highlighting library by the KDE project, licensed under MIT.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sözdizimi vurgulama kitaplığı KDE projesi tarafından, MIT altında lisanslanmıştır.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="170"/>
         <source>Read from standard input</source>
-        <translation type="unfinished"></translation>
+        <translation>Standart girişten oku</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="173"/>
         <source>files</source>
-        <translation type="unfinished"></translation>
+        <translation>dosyalar</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="173"/>
         <source>Files to open</source>
-        <translation type="unfinished"></translation>
+        <translation>Açılacak dosyalar</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="173"/>
         <source>[files...]</source>
-        <translation type="unfinished"></translation>
+        <translation>[dosyalar...]</translation>
     </message>
 </context>
 </TS>
