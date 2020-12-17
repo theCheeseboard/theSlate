@@ -6,7 +6,7 @@
     <message>
         <location filename="../transformers/astyle/astyle.cpp" line="97"/>
         <source>Artistic Style returned exit code %1:</source>
-        <translation type="unfinished"></translation>
+        <translation>Artistic Style gaf exit-code %1:</translation>
     </message>
 </context>
 <context>
@@ -14,22 +14,22 @@
     <message>
         <location filename="../transformers/astyle/astylesettings.cpp" line="51"/>
         <source>Special Values</source>
-        <translation type="unfinished"></translation>
+        <translation>Speciale Waardes</translation>
     </message>
     <message>
         <location filename="../transformers/astyle/astylesettings.cpp" line="52"/>
         <source>Tab Character Length</source>
-        <translation type="unfinished"></translation>
+        <translation>Tab-lengte</translation>
     </message>
     <message>
         <location filename="../transformers/astyle/astylesettings.cpp" line="55"/>
         <source>Tab Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Tab-teken</translation>
     </message>
     <message>
         <location filename="../transformers/astyle/astylesettings.cpp" line="64"/>
         <source>Reset Artistic Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Artistic Style resetten</translation>
     </message>
     <message>
         <location filename="../transformers/astyle/astylesettings.cpp" line="65"/>
@@ -1116,7 +1116,7 @@ Your settings will be lost.</source>
     <message>
         <location filename="../mainwindow.ui" line="526"/>
         <source>P&amp;ull</source>
-        <translation type="unfinished">Pullen</translation>
+        <translation>P&amp;ullen</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="531"/>
@@ -1232,7 +1232,7 @@ Your settings will be lost.</source>
     <message>
         <location filename="../mainwindow.ui" line="261"/>
         <source>Wi&amp;ndow</source>
-        <translation type="unfinished">Venster</translation>
+        <translation>Ve&amp;nster</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="621"/>
@@ -1309,12 +1309,12 @@ Your settings will be lost.</source>
     <message>
         <location filename="../mainwindow.cpp" line="855"/>
         <source>Delete this file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit bestand verwijderen?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="856"/>
         <source>%1 will be irrecoverably deleted.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 zal onomkeerbaar verwijderd worden.</translation>
     </message>
     <message numerus="yes">
         <location filename="../mainwindow.cpp" line="866"/>
@@ -1327,17 +1327,17 @@ Your settings will be lost.</source>
     <message>
         <location filename="../mainwindow.cpp" line="867"/>
         <source>%1 was deleted from your device.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 is verwijderd van je apparaat.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="869"/>
         <source>Couldn&apos;t delete file</source>
-        <translation type="unfinished"></translation>
+        <translation>Kon bestand niet verwijderen</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="870"/>
         <source>There was a problem deleting %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Er ging iets mis bij het verwijderen van %1.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="901"/>
@@ -1537,7 +1537,7 @@ Your settings will be lost.</source>
         <location filename="../settingsdialog.ui" line="180"/>
         <location filename="../settingsdialog.ui" line="797"/>
         <source>Git</source>
-        <translation type="unfinished"></translation>
+        <translation>Git</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="304"/>
@@ -1562,7 +1562,7 @@ Your settings will be lost.</source>
     <message>
         <location filename="../settingsdialog.ui" line="714"/>
         <source>ARTISTIC STYLE</source>
-        <translation type="unfinished"></translation>
+        <translation>ARTISTIC STYLE</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="721"/>
@@ -1643,22 +1643,22 @@ Your settings will be lost.</source>
     <message>
         <location filename="../settingsdialog.ui" line="880"/>
         <source>ENABLE</source>
-        <translation type="unfinished"></translation>
+        <translation>AANZETTEN</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="925"/>
         <source>TWEAKS</source>
-        <translation type="unfinished"></translation>
+        <translation>AANPASSINGEN</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="932"/>
         <source>Periodically fetch</source>
-        <translation type="unfinished"></translation>
+        <translation>Periodiek ophalen</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="939"/>
         <source>We&apos;ll run &lt;code&gt;git fetch&lt;/code&gt; periodically to check for any new commits on the remote.</source>
-        <translation type="unfinished"></translation>
+        <translation>We voeren &lt;code&gt;git fetch&lt;/code&gt; periodiek uit om naar nieuwe commits te zoeken op de remote.</translation>
     </message>
     <message>
         <location filename="../settingsdialog.ui" line="995"/>
@@ -1800,52 +1800,52 @@ Your settings will be lost.</source>
     <message>
         <location filename="../textparts/texteditor.cpp" line="354"/>
         <source>For selected text &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Voor geselecteerde tekst &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="355"/>
         <source>Cut</source>
-        <translation type="unfinished">Knippen</translation>
+        <translation>Knippen</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="356"/>
         <source>Copy</source>
-        <translation type="unfinished">Kopiëren</translation>
+        <translation>Kopiëren</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="357"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="362"/>
         <source>For this document</source>
-        <translation type="unfinished"></translation>
+        <translation>Voor dit document</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="363"/>
         <source>Undo</source>
-        <translation type="unfinished">Maak ongedaan</translation>
+        <translation>Ongedaan maken</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="364"/>
         <source>Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Opnieuw doen</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="365"/>
         <source>Paste</source>
-        <translation type="unfinished">Plakken</translation>
+        <translation>Plakken</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="366"/>
         <source>Select All</source>
-        <translation type="unfinished">Alles Selecteren</translation>
+        <translation>Alles Selecteren</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="368"/>
         <source>Change Syntax Highlighting</source>
-        <translation type="unfinished">Verander Syntaxismarkering</translation>
+        <translation>Syntaxismarkering Veranderen</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="466"/>
@@ -1929,22 +1929,22 @@ Sluit theSlate niet af voordat je het bestand hebt kunnen schrijven, anders kun 
     <message>
         <location filename="../textparts/texteditor.cpp" line="1437"/>
         <source>Artistic Style not installed</source>
-        <translation type="unfinished"></translation>
+        <translation>Artistic Style niet geïnstalleerd</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1438"/>
         <source>Install Artistic Style and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Installeer Artistic Style en probeer het opnieuw.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1440"/>
         <source>Artistic Style not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Artistic Style niet gevonden</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1441"/>
         <source>theSlate is damaged. You should reinstall theSlate.</source>
-        <translation type="unfinished"></translation>
+        <translation>theSlate is beschadigd. Installeer theSlate opnieuw.</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1445"/>
@@ -1995,7 +1995,7 @@ Sluit theSlate niet af voordat je het bestand hebt kunnen schrijven, anders kun 
     <message>
         <location filename="../textparts/texteditor.cpp" line="1444"/>
         <source>Artistic Style Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Artistic File-fout</translation>
     </message>
     <message>
         <location filename="../textparts/texteditor.cpp" line="1666"/>
