@@ -1336,8 +1336,8 @@ Ayarlarınız kaybolacaktır.</translation>
     <message numerus="yes">
         <location filename="../mainwindow.cpp" line="866"/>
         <source>%n file(s) deleted</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n dosya silindi</numerusform>
         </translation>
     </message>
     <message>
