@@ -393,14 +393,12 @@ Ayarlarınız kaybolacaktır.</translation>
         <source>Save %n</source>
         <translation>
             <numerusform>%n kaydet</numerusform>
-            <numerusform>%n kaydet</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../exitsavedialog.cpp" line="45"/>
         <source>Discard %n</source>
         <translation>
-            <numerusform>%n&apos;yi sil</numerusform>
             <numerusform>%n&apos;yi sil</numerusform>
         </translation>
     </message>
@@ -2026,14 +2024,12 @@ Dosyayı yazmayı başarana kadar Slate&apos;ten çıkmayın, aksi takdirde veri
         <source>%n spaces</source>
         <translation>
             <numerusform>%n boşluk</numerusform>
-            <numerusform>%n boşluk</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../textparts/textstatusbar.cpp" line="102"/>
         <source>%n tabs</source>
         <translation>
-            <numerusform>%n sekme</numerusform>
             <numerusform>%n sekme</numerusform>
         </translation>
     </message>
