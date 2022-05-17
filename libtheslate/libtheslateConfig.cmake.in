@@ -1,0 +1,7 @@
+set(libtheslate_VERSION 1.0.0)
+
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/libtheslateTargets.cmake")
+
+check_required_components(libtheslate)
