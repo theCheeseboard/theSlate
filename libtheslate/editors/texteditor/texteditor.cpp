@@ -9,6 +9,7 @@
 #include <QWheelEvent>
 #include <libcontemporary_global.h>
 
+#include "commands/careterasecommand.h"
 #include "commands/carettextcommand.h"
 
 #include "texteditor_p.h"
@@ -323,7 +324,9 @@ void TextEditor::keyPressEvent(QKeyEvent* event) {
 
     if (modifiers == Qt::NoModifier || modifiers == Qt::ShiftModifier) {
         if (event->key() == Qt::Key_Backspace) {
-            //            event();
+            d->undoStack->push(new CaretEraseCommand(this, true));
+        } else if (event->key() == Qt::Key_Return) {
+            d->undoStack->push(new CaretTextCommand(this, QStringLiteral("\n")));
         } else if (!event->text().isEmpty()) {
             d->undoStack->push(new CaretTextCommand(this, event->text()));
         }
@@ -334,18 +337,32 @@ void TextEditor::keyPressEvent(QKeyEvent* event) {
             for (TextCaret* caret : d->carets) {
                 caret->moveCaretRelative(-1, 0);
             }
+            this->simplifyCarets();
         } else if (event->key() == Qt::Key_Down) {
             for (TextCaret* caret : d->carets) {
                 caret->moveCaretRelative(1, 0);
             }
+            this->simplifyCarets();
         } else if (event->key() == Qt::Key_Left) {
             for (TextCaret* caret : d->carets) {
                 caret->moveCaretRelative(0, -1);
             }
+            this->simplifyCarets();
         } else if (event->key() == Qt::Key_Right) {
             for (TextCaret* caret : d->carets) {
                 caret->moveCaretRelative(0, 1);
             }
+            this->simplifyCarets();
+        } else if (event->key() == Qt::Key_End) {
+            for (TextCaret* caret : d->carets) {
+                caret->moveCaretToEndOfLine();
+            }
+            this->simplifyCarets();
+        } else if (event->key() == Qt::Key_Home) {
+            for (TextCaret* caret : d->carets) {
+                caret->moveCaretToStartOfLine();
+            }
+            this->simplifyCarets();
         }
     }
 
@@ -356,7 +373,7 @@ void TextEditor::keyPressEvent(QKeyEvent* event) {
 void TextEditor::keyReleaseEvent(QKeyEvent* event) {
 }
 
-QList<TextCaret::SavedCaret> TextEditorPrivate::saveCarets() {
+SavedCarets TextEditorPrivate::saveCarets() {
     QList<TextCaret::SavedCaret> carets;
     for (TextCaret* caret : this->carets) {
         carets.append(caret->saveCaret());
@@ -364,7 +381,7 @@ QList<TextCaret::SavedCaret> TextEditorPrivate::saveCarets() {
     return carets;
 }
 
-void TextEditorPrivate::loadCarets(QList<TextCaret::SavedCaret> carets) {
+void TextEditorPrivate::loadCarets(SavedCarets carets) {
     if (carets.isEmpty()) return;
 
     QList<TextCaret*> cs;

@@ -110,6 +110,14 @@ void TextCaret::moveCaretRelative(int lines, int cols) {
     moveCaret(d->editor->charToLinePos(d->editor->linePosToChar(QPoint(d->pos, newLine)) + cols));
 }
 
+void TextCaret::moveCaretToStartOfLine() {
+    moveCaret(d->line, 0);
+}
+
+void TextCaret::moveCaretToEndOfLine() {
+    moveCaret(d->line, d->editor->d->lines.at(d->line)->contents.length());
+}
+
 void TextCaret::drawCaret(QPainter* painter) {
     painter->save();
     QRect rect = d->anim->currentValue().toRect();
@@ -135,14 +143,18 @@ void TextCaret::insertText(QString text) {
     QStringList splitLines = text.split(d->newLineSplit);
     QString firstLineText = splitLines.takeFirst();
 
-    line->contents = line->contents.insert(d->pos, text);
+    line->contents = line->contents.insert(d->pos, firstLineText);
 
     // Move each affected caret
     for (TextCaret* caret : d->editor->d->carets) {
         if (caret->d->line == d->line && caret->d->pos >= d->pos) {
-            caret->moveCaret(caret->d->line, caret->d->pos + text.length());
+            caret->moveCaret(caret->d->line, caret->d->pos + firstLineText.length());
         }
     }
+
+    // Remove the rest of the line while handing new lines
+    QString restOfLine = line->contents.mid(d->pos);
+    line->contents.truncate(d->pos);
 
     // Handle new lines
     while (!splitLines.isEmpty()) {
@@ -157,6 +169,8 @@ void TextCaret::insertText(QString text) {
         }
         this->moveCaret(d->line + 1, newLine->contents.length());
     }
+
+    d->editor->d->lines.at(d->line)->contents.append(restOfLine);
 }
 
 void TextCaret::backspace() {

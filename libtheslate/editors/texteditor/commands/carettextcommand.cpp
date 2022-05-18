@@ -8,7 +8,7 @@ struct CaretTextCommandPrivate {
         TextEditor* editor;
         QString text;
 
-        QList<TextCaret::SavedCaret> carets;
+        SavedCarets carets;
 };
 
 CaretTextCommand::CaretTextCommand(TextEditor* editor, QString text) :

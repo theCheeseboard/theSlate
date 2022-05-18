@@ -25,6 +25,8 @@ class TextCaret : public QObject {
         void moveCaret(int line, int pos);
         void moveCaret(QPoint linePos);
         void moveCaretRelative(int lines, int cols);
+        void moveCaretToStartOfLine();
+        void moveCaretToEndOfLine();
         void drawCaret(QPainter* painter);
 
         void setIsPrimary(bool primary);
@@ -46,5 +48,7 @@ class TextCaret : public QObject {
     public:
         bool eventFilter(QObject* watched, QEvent* event);
 };
+
+typedef QList<TextCaret::SavedCaret> SavedCarets;
 
 #endif // TEXTCARET_H

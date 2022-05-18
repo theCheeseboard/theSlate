@@ -16,6 +16,7 @@ set(SOURCES
     editors/texteditor/texteditorfactory.cpp
     editors/texteditor/textcaret.cpp
     editors/texteditor/commands/carettextcommand.cpp
+    editors/texteditor/commands/careterasecommand.cpp
 )
 
 set(HEADERS
@@ -35,6 +36,7 @@ set(PRIVATE_HEADERS
     editors/texteditor/textcaret.h
     editors/texteditor/texteditorfactory.h
     editors/texteditor/commands/carettextcommand.h
+    editors/texteditor/commands/careterasecommand.h
 )
 
 add_library(libtheslate SHARED ${SOURCES} ${HEADERS} ${PRIVATE_HEADERS})

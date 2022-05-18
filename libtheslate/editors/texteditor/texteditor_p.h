@@ -18,8 +18,8 @@ struct TextEditorPrivate {
         QList<TextCaret*> carets;
         QUndoStack* undoStack;
 
-        QList<TextCaret::SavedCaret> saveCarets();
-        void loadCarets(QList<TextCaret::SavedCaret> carets);
+        SavedCarets saveCarets();
+        void loadCarets(SavedCarets carets);
 };
 
 #endif // TEXTEDITOR_P_H
