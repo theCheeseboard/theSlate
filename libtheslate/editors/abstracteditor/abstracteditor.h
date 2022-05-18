@@ -11,6 +11,9 @@ class AbstractEditor : public QWidget {
         explicit AbstractEditor(QWidget* parent = nullptr);
         ~AbstractEditor();
 
+        virtual void undo() = 0;
+        virtual void redo() = 0;
+
         AbstractEditorColorScheme* colorScheme();
         void setColorScheme(QString scheme);
 

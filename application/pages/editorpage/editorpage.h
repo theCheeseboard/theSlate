@@ -15,6 +15,9 @@ class EditorPage : public AbstractPage {
         explicit EditorPage(QString editorType = "text", QWidget* parent = nullptr);
         ~EditorPage();
 
+        void undo();
+        void redo();
+
         tWindowTabberButton* tabButton();
 
     private:

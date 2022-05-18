@@ -9,6 +9,8 @@
 #include <QWheelEvent>
 #include <libcontemporary_global.h>
 
+#include "commands/carettextcommand.h"
+
 #include "texteditor_p.h"
 
 TextEditor::TextEditor(QWidget* parent) :
@@ -24,6 +26,7 @@ TextEditor::TextEditor(QWidget* parent) :
     d->lines.append(new TextEditorPrivate::Line{"Line 3 Text"});
     d->lines.append(new TextEditorPrivate::Line{"Line 4 Text"});
     d->lines.append(new TextEditorPrivate::Line{"Line 5 Text"});
+    d->undoStack = new QUndoStack(this);
 
     d->vScrollBar = new QScrollBar(Qt::Vertical);
     d->vScrollBar->setFixedWidth(this->style()->pixelMetric(QStyle::PM_ScrollBarExtent));
@@ -47,6 +50,14 @@ TextEditor::TextEditor(QWidget* parent) :
 
 TextEditor::~TextEditor() {
     delete d;
+}
+
+void TextEditor::undo() {
+    d->undoStack->undo();
+}
+
+void TextEditor::redo() {
+    d->undoStack->redo();
 }
 
 void TextEditor::repositionElements() {
@@ -305,4 +316,77 @@ void TextEditor::mouseMoveEvent(QMouseEvent* event) {
     } else {
         this->setCursor(QCursor(Qt::IBeamCursor));
     }
+}
+
+void TextEditor::keyPressEvent(QKeyEvent* event) {
+    Qt::KeyboardModifiers modifiers = event->modifiers() & ~Qt::KeypadModifier;
+
+    if (modifiers == Qt::NoModifier || modifiers == Qt::ShiftModifier) {
+        if (event->key() == Qt::Key_Backspace) {
+            //            event();
+        } else if (!event->text().isEmpty()) {
+            d->undoStack->push(new CaretTextCommand(this, event->text()));
+        }
+    }
+
+    if (modifiers == Qt::NoModifier) {
+        if (event->key() == Qt::Key_Up) {
+            for (TextCaret* caret : d->carets) {
+                caret->moveCaretRelative(-1, 0);
+            }
+        } else if (event->key() == Qt::Key_Down) {
+            for (TextCaret* caret : d->carets) {
+                caret->moveCaretRelative(1, 0);
+            }
+        } else if (event->key() == Qt::Key_Left) {
+            for (TextCaret* caret : d->carets) {
+                caret->moveCaretRelative(0, -1);
+            }
+        } else if (event->key() == Qt::Key_Right) {
+            for (TextCaret* caret : d->carets) {
+                caret->moveCaretRelative(0, 1);
+            }
+        }
+    }
+
+    //        d->editor->update();
+    //    return false;
+}
+
+void TextEditor::keyReleaseEvent(QKeyEvent* event) {
+}
+
+QList<TextCaret::SavedCaret> TextEditorPrivate::saveCarets() {
+    QList<TextCaret::SavedCaret> carets;
+    for (TextCaret* caret : this->carets) {
+        carets.append(caret->saveCaret());
+    }
+    return carets;
+}
+
+void TextEditorPrivate::loadCarets(QList<TextCaret::SavedCaret> carets) {
+    if (carets.isEmpty()) return;
+
+    QList<TextCaret*> cs;
+    for (TextCaret::SavedCaret c : carets) {
+        if (this->carets.isEmpty()) {
+            TextCaret* editingCaret = TextCaret::fromSavedCaret(c);
+            cs.append(editingCaret);
+        } else {
+            TextCaret* editingCaret = this->carets.takeFirst();
+            editingCaret->loadCaret(c);
+            cs.append(editingCaret);
+        }
+    }
+
+    for (TextCaret* oldCaret : this->carets) {
+        oldCaret->deleteLater();
+
+        // We need to add the caret to the new caret list becase
+        // when the caret is destroyed, it tries to remove itself
+        // from the list of carets
+        //        cs.append(oldCaret);
+    }
+
+    this->carets = cs;
 }

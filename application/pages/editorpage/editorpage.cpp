@@ -32,6 +32,14 @@ EditorPage::~EditorPage() {
     delete d;
 }
 
+void EditorPage::undo() {
+    if (d->editor) d->editor->undo();
+}
+
+void EditorPage::redo() {
+    if (d->editor) d->editor->redo();
+}
+
 tWindowTabberButton* EditorPage::tabButton() {
     return d->tabButton;
 }

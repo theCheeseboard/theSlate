@@ -54,11 +54,32 @@ TextCaret::TextCaret(int line, int pos, TextEditor* parent) :
     d->anim->stop();
     d->anim->setStartValue(d->anim->endValue());
 
-    parent->installEventFilter(this);
+    //    parent->installEventFilter(this);
 }
 
 TextCaret::~TextCaret() {
     delete d;
+}
+
+TextCaret* TextCaret::fromSavedCaret(SavedCaret caret) {
+    TextCaret* c = new TextCaret(caret.line, caret.pos, caret.parent);
+    c->loadCaret(caret);
+    return c;
+}
+
+TextCaret::SavedCaret TextCaret::saveCaret() {
+    SavedCaret saved;
+    saved.parent = d->editor;
+    saved.line = d->line;
+    saved.pos = d->pos;
+    return saved;
+}
+
+void TextCaret::loadCaret(SavedCaret caret) {
+    // Not a caret for this editor
+    if (caret.parent != d->editor) return;
+    d->line = caret.line;
+    d->pos = caret.pos;
 }
 
 void TextCaret::moveCaret(int line, int pos) {

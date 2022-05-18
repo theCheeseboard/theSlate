@@ -72,3 +72,13 @@ void MainWindow::addPage(AbstractPage* page) {
     ui->windowTabber->addButton(page->tabButton());
     page->tabButton()->syncWithStackedWidget(ui->stackedWidget, page);
 }
+
+void MainWindow::on_actionUndo_triggered() {
+    AbstractPage* currentPage = qobject_cast<AbstractPage*>(ui->stackedWidget->currentWidget());
+    currentPage->undo();
+}
+
+void MainWindow::on_actionRedo_triggered() {
+    AbstractPage* currentPage = qobject_cast<AbstractPage*>(ui->stackedWidget->currentWidget());
+    currentPage->redo();
+}

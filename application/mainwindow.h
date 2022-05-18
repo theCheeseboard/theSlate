@@ -22,6 +22,10 @@ class MainWindow : public QMainWindow {
 
         void on_actionEmpty_Text_File_triggered();
 
+        void on_actionUndo_triggered();
+
+        void on_actionRedo_triggered();
+
     private:
         Ui::MainWindow* ui;
         MainWindowPrivate* d;

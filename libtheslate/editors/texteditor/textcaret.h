@@ -12,6 +12,16 @@ class TextCaret : public QObject {
         explicit TextCaret(int line, int pos, TextEditor* parent = nullptr);
         ~TextCaret();
 
+        struct SavedCaret {
+                TextEditor* parent;
+                int line;
+                int pos;
+        };
+
+        static TextCaret* fromSavedCaret(SavedCaret caret);
+        SavedCaret saveCaret();
+        void loadCaret(SavedCaret caret);
+
         void moveCaret(int line, int pos);
         void moveCaret(QPoint linePos);
         void moveCaretRelative(int lines, int cols);
