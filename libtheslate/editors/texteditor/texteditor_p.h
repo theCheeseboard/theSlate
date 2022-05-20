@@ -16,6 +16,7 @@ struct TextEditorPrivate {
         QList<int> lineTops;
 
         QList<TextCaret*> carets;
+        TextCaret* draggingCaret = nullptr;
         QUndoStack* undoStack;
 
         SavedCarets saveCarets();

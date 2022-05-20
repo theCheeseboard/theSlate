@@ -16,6 +16,7 @@ class TextCaret : public QObject {
                 TextEditor* parent;
                 int line;
                 int pos;
+                int anchor;
         };
 
         static TextCaret* fromSavedCaret(SavedCaret caret);
@@ -27,6 +28,14 @@ class TextCaret : public QObject {
         void moveCaretRelative(int lines, int cols);
         void moveCaretToStartOfLine();
         void moveCaretToEndOfLine();
+
+        void setAnchor(int line, int pos);
+        void setAnchor(QPoint linePos);
+        void moveAnchorRelative(int lines, int cols);
+
+        QPoint firstAnchor();
+        QPoint lastAnchor();
+
         void drawCaret(QPainter* painter);
 
         void setIsPrimary(bool primary);

@@ -13,6 +13,7 @@ struct TextCaretPrivate {
         TextEditor* editor;
         int line;
         int pos;
+        int anchor;
 
         bool isPrimary = false;
 
@@ -29,6 +30,7 @@ TextCaret::TextCaret(int line, int pos, TextEditor* parent) :
     QObject{parent} {
     d = new TextCaretPrivate();
     d->editor = parent;
+    d->anchor = 0;
 
     if (d->caretBlinkTimer == nullptr) {
         d->caretBlinkTimer = new tVariantAnimation();
@@ -72,6 +74,7 @@ TextCaret::SavedCaret TextCaret::saveCaret() {
     saved.parent = d->editor;
     saved.line = d->line;
     saved.pos = d->pos;
+    saved.anchor = d->anchor;
     return saved;
 }
 
@@ -80,11 +83,13 @@ void TextCaret::loadCaret(SavedCaret caret) {
     if (caret.parent != d->editor) return;
     d->line = caret.line;
     d->pos = caret.pos;
+    d->anchor = caret.anchor;
 }
 
 void TextCaret::moveCaret(int line, int pos) {
     d->line = line;
     d->pos = pos;
+    d->anchor = 0;
 
     QString lineContents = d->editor->d->lines.at(line)->contents;
 
@@ -118,6 +123,38 @@ void TextCaret::moveCaretToEndOfLine() {
     moveCaret(d->line, d->editor->d->lines.at(d->line)->contents.length());
 }
 
+void TextCaret::setAnchor(int line, int pos) {
+    int c = d->editor->linePosToChar(QPoint(d->pos, d->line));
+    d->anchor = d->editor->linePosToChar(QPoint(pos, line)) - c;
+}
+
+void TextCaret::setAnchor(QPoint linePos) {
+    setAnchor(linePos.y(), linePos.x());
+}
+
+void TextCaret::moveAnchorRelative(int lines, int cols) {
+    int c = d->editor->linePosToChar(QPoint(d->pos, d->line));
+    QPoint anchorPos = d->editor->charToLinePos(c + d->anchor);
+    int newAnchorC = d->editor->linePosToChar(anchorPos + QPoint(cols, lines));
+    d->anchor = newAnchorC - c;
+}
+
+QPoint TextCaret::firstAnchor() {
+    if (d->anchor < 0) {
+        return d->editor->charToLinePos(d->editor->linePosToChar(QPoint(d->pos, d->line)) + d->anchor);
+    } else {
+        return QPoint(d->pos, d->line);
+    }
+}
+
+QPoint TextCaret::lastAnchor() {
+    if (d->anchor > 0) {
+        return d->editor->charToLinePos(d->editor->linePosToChar(QPoint(d->pos, d->line)) + d->anchor);
+    } else {
+        return QPoint(d->pos, d->line);
+    }
+}
+
 void TextCaret::drawCaret(QPainter* painter) {
     painter->save();
     QRect rect = d->anim->currentValue().toRect();
@@ -126,6 +163,21 @@ void TextCaret::drawCaret(QPainter* painter) {
     painter->setOpacity(d->caretBlinkTimer->currentValue().toReal());
     painter->fillRect(rect, d->editor->colorScheme()->item(AbstractEditorColorScheme::NormalText));
     painter->restore();
+
+    if (d->anchor != 0) {
+        painter->save();
+        // Draw the anchor
+        QPolygon anchorPoly;
+        int firstAnchor = d->editor->linePosToChar(this->firstAnchor());
+        int lastAnchor = d->editor->linePosToChar(this->lastAnchor());
+        for (int i = firstAnchor; i < lastAnchor; i++) {
+            anchorPoly = anchorPoly.united(d->editor->characterRect(d->editor->charToLinePos(i)));
+        }
+        painter->setBrush(d->editor->colorScheme()->item(AbstractEditorColorScheme::HighlightedText));
+        painter->setPen(d->editor->colorScheme()->item(AbstractEditorColorScheme::HighlightedTextBorder).color());
+        painter->drawPolygon(anchorPoly);
+        painter->restore();
+    }
 }
 
 void TextCaret::setIsPrimary(bool primary) {

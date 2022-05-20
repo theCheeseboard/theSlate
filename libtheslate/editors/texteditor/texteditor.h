@@ -33,6 +33,7 @@ class TextEditor : public AbstractEditor {
         int lineHeight(int line);
         int firstLineOnScreen();
         int lastLineOnScreen();
+        QRect characterRect(QPoint linePos);
 
         void drawLine(int line, QPainter* painter);
         void addCaret(int line, int pos);

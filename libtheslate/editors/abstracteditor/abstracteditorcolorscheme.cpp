@@ -22,6 +22,10 @@ QBrush AbstractEditorColorScheme::item(ColorSchemeItem item) {
             return QColor(100, 100, 100, 100);
         case AbstractEditorColorScheme::ActiveLineMarginText:
             return QColor(255, 255, 255);
+        case AbstractEditorColorScheme::HighlightedText:
+            return QColor(255, 255, 255, 100);
+        case AbstractEditorColorScheme::HighlightedTextBorder:
+            return QColor(255, 255, 255);
     }
 
     return QColor();

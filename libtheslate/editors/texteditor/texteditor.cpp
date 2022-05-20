@@ -116,6 +116,18 @@ int TextEditor::lastLineOnScreen() {
     return d->lines.length() - 1;
 }
 
+QRect TextEditor::characterRect(QPoint linePos) {
+    QString contents = d->lines.at(linePos.y())->contents;
+
+    QRect r;
+    r.setTop(lineTop(linePos.y()));
+    r.setHeight(lineHeight(linePos.y()));
+    r.setLeft(this->fontMetrics().horizontalAdvance(contents.left(linePos.x())));
+    r.setRight(this->fontMetrics().horizontalAdvance(contents.left(linePos.x() + 1)));
+    r.moveTopLeft(r.topLeft() + QPoint(this->leftMarginWidth() - d->hScrollBar->value(), -d->vScrollBar->value()));
+    return r;
+}
+
 void TextEditor::drawLine(int line, QPainter* painter) {
     QRect lineRect;
     lineRect.setHeight(lineHeight(line));
@@ -131,8 +143,11 @@ void TextEditor::drawLine(int line, QPainter* painter) {
 
     bool isActiveLine = false;
     for (TextCaret* caret : d->carets) {
-        if (caret->linePos().y() == line) {
-            isActiveLine = true;
+        if (caret->linePos().y() == line) isActiveLine = true;
+
+        // Don't draw any active line highlights if there is an active selection
+        if (caret->firstAnchor() != caret->lastAnchor()) {
+            isActiveLine = false;
             break;
         }
     }
@@ -272,6 +287,7 @@ void TextEditor::paintEvent(QPaintEvent* event) {
     margin.setWidth(this->leftMarginWidth());
     painter.fillRect(margin, this->colorScheme()->item(AbstractEditorColorScheme::Margin));
 
+    // TODO: Take the draw rect into account
     for (int i = this->firstLineOnScreen(); i <= this->lastLineOnScreen(); i++) {
         drawLine(i, &painter);
     }
@@ -300,6 +316,7 @@ void TextEditor::mousePressEvent(QMouseEvent* event) {
         for (TextCaret* caret : d->carets) {
             if (caret->isPrimary()) {
                 caret->moveCaret(hitTest(event->pos()));
+                d->draggingCaret = caret;
             } else {
                 caret->deleteLater();
             }
@@ -309,6 +326,7 @@ void TextEditor::mousePressEvent(QMouseEvent* event) {
 
 void TextEditor::mouseReleaseEvent(QMouseEvent* event) {
     event->accept();
+    d->draggingCaret = nullptr;
 }
 
 void TextEditor::mouseMoveEvent(QMouseEvent* event) {
@@ -316,6 +334,11 @@ void TextEditor::mouseMoveEvent(QMouseEvent* event) {
         this->setCursor(QCursor(Qt::ArrowCursor));
     } else {
         this->setCursor(QCursor(Qt::IBeamCursor));
+    }
+
+    if (d->draggingCaret) {
+        d->draggingCaret->setAnchor(hitTest(event->pos()));
+        this->update();
     }
 }
 
@@ -364,6 +387,42 @@ void TextEditor::keyPressEvent(QKeyEvent* event) {
             }
             this->simplifyCarets();
         }
+
+        this->update();
+    } else if (modifiers == Qt::ShiftModifier) {
+        if (event->key() == Qt::Key_Up) {
+            for (TextCaret* caret : d->carets) {
+                caret->moveAnchorRelative(-1, 0);
+            }
+            this->simplifyCarets();
+        } else if (event->key() == Qt::Key_Down) {
+            for (TextCaret* caret : d->carets) {
+                caret->moveAnchorRelative(1, 0);
+            }
+            this->simplifyCarets();
+        } else if (event->key() == Qt::Key_Left) {
+            for (TextCaret* caret : d->carets) {
+                caret->moveAnchorRelative(0, -1);
+            }
+            this->simplifyCarets();
+        } else if (event->key() == Qt::Key_Right) {
+            for (TextCaret* caret : d->carets) {
+                caret->moveAnchorRelative(0, 1);
+            }
+            this->simplifyCarets();
+        } else if (event->key() == Qt::Key_End) {
+            for (TextCaret* caret : d->carets) {
+                //                caret->moveCaretToEndOfLine();
+            }
+            this->simplifyCarets();
+        } else if (event->key() == Qt::Key_Home) {
+            for (TextCaret* caret : d->carets) {
+                //                caret->moveCaretToStartOfLine();
+            }
+            this->simplifyCarets();
+        }
+
+        this->update();
     }
 
     //        d->editor->update();

@@ -15,7 +15,9 @@ class AbstractEditorColorScheme : public QObject {
             MarginText,
             Breakpoint,
             ActiveLine,
-            ActiveLineMarginText
+            ActiveLineMarginText,
+            HighlightedText,
+            HighlightedTextBorder,
         };
         QBrush item(ColorSchemeItem item);
 
