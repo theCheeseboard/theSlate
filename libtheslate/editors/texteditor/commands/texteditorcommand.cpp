@@ -30,10 +30,12 @@ void TextEditorCommand::undo() {
         TextCaret* caret = d->editor->d->carets.at(command->caret);
         if (command->isInsert) {
             for (int i = 0; i < command->text.length(); i++) {
+                if (command->insertAfter) caret->moveCaretRelative(0, 1);
                 caret->backspace();
             }
         } else {
             caret->insertText(command->text);
+            if (command->insertAfter) caret->moveCaretRelative(0, -command->text.length());
         }
     }
     d->carets = d->editor->d->saveCarets();
@@ -41,12 +43,14 @@ void TextEditorCommand::undo() {
 
 void TextEditorCommand::redo() {
     d->editor->d->loadCarets(d->carets);
-    for (const EditorCommand& command : d->commands) {
-        TextCaret* caret = d->editor->d->carets.at(command.caret);
-        if (command.isInsert) {
-            caret->insertText(command.text);
+    for (auto command = d->commands.cbegin(); command != d->commands.cend(); command++) {
+        TextCaret* caret = d->editor->d->carets.at(command->caret);
+        if (command->isInsert) {
+            caret->insertText(command->text);
+            if (command->insertAfter) caret->moveCaretRelative(0, -command->text.length());
         } else {
-            for (int i = 0; i < command.text.length(); i++) {
+            for (int i = 0; i < command->text.length(); i++) {
+                if (command->insertAfter) caret->moveCaretRelative(0, 1);
                 caret->backspace();
             }
         }
@@ -62,7 +66,9 @@ bool TextEditorCommand::mergeWith(const QUndoCommand* other) {
 
     SavedCarets carets = d->carets;
     for (const EditorCommand& command : otherCommand->d->commands) {
-        carets[command.caret].pos += command.isInsert ? command.text.length() : -command.text.length();
+        if (!command.insertAfter) {
+            carets[command.caret].pos += command.isInsert ? command.text.length() : -command.text.length();
+        }
     }
     for (int i = 0; i < this->d->carets.length(); i++) {
         TextCaret::SavedCaret saved = otherCommand->d->carets.at(i);

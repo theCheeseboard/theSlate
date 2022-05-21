@@ -353,6 +353,8 @@ void TextEditor::keyPressEvent(QKeyEvent* event) {
     if (modifiers == Qt::NoModifier || modifiers == Qt::ShiftModifier) {
         if (event->key() == Qt::Key_Backspace) {
             d->undoStack->push(new CaretEraseCommand(this, true));
+        } else if (event->key() == Qt::Key_Delete) {
+            d->undoStack->push(new CaretEraseCommand(this, false));
         } else if (event->key() == Qt::Key_Return) {
             d->undoStack->push(new CaretTextCommand(this, QStringLiteral("\n")));
         } else if (!event->text().isEmpty()) {

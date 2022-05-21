@@ -12,11 +12,14 @@ CaretEraseCommand::CaretEraseCommand(TextEditor* editor, bool backwardDelete) :
         // TODO: If there is an anchor set, delete that
         if (caretPos.x() == 0 && caretPos.y() == 0) {
             // Caret is blocked from moving backwards at beginning of document
-        } else if (caretPos.x() == 0) {
+        } else if (caretPos.x() == 0 && backwardDelete) {
             // Erase the line
             this->pushEditorCommand({i, "\n", false, !backwardDelete});
+        } else if (caretPos.x() == editor->d->lines.at(caretPos.y())->contents.length() && !backwardDelete) {
+            // Erase the next line
+            this->pushEditorCommand({i, "\n", false, !backwardDelete});
         } else {
-            this->pushEditorCommand({i, editor->d->lines.at(caretPos.y())->contents.at(caretPos.x() - 1), false, !backwardDelete});
+            this->pushEditorCommand({i, editor->d->lines.at(caretPos.y())->contents.at(caretPos.x() + (backwardDelete ? -1 : 0)), false, !backwardDelete});
         }
     }
 }
