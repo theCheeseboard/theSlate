@@ -1,22 +1,34 @@
 #include "abstracteditor.h"
 
-#include "abstracteditorcolorscheme.h"
+#include <QUrl>
+#include <texteditorcolorscheme.h>
 
 struct AbstractEditorPrivate {
-        AbstractEditorColorScheme* colorScheme;
+        TextEditorColorScheme* colorScheme;
+        QUrl currentUrl;
 };
 
 AbstractEditor::AbstractEditor(QWidget* parent) :
     QWidget{parent} {
     d = new AbstractEditorPrivate();
-    d->colorScheme = new AbstractEditorColorScheme(this);
+    d->colorScheme = new TextEditorColorScheme(this);
 }
 
 AbstractEditor::~AbstractEditor() {
     delete d;
 }
 
-AbstractEditorColorScheme* AbstractEditor::colorScheme() {
+void AbstractEditor::setCurrentUrl(QUrl url) {
+    d->currentUrl = url;
+    emit currentFileChanged(url);
+}
+
+QUrl AbstractEditor::currentUrl()
+{
+    return d->currentUrl;
+}
+
+TextEditorColorScheme* AbstractEditor::colorScheme() {
     return d->colorScheme;
 }
 

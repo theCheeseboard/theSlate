@@ -1,11 +1,11 @@
 #include "texteditorfactory.h"
 
-#include "texteditor.h"
+#include "ttexteditoreditor.h"
 
 TextEditorFactory::TextEditorFactory(QObject* parent) :
     AbstractEditorFactory{parent} {
 }
 
 AbstractEditor* TextEditorFactory::create() {
-    return new TextEditor();
+    return new TTextEditorEditor();
 }

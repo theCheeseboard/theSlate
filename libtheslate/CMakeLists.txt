@@ -4,6 +4,7 @@ project(lib VERSION 1.0.0 LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(libcontemporary REQUIRED)
+find_package(ttexteditor REQUIRED)
 
 set(SOURCES
     statemanager.cpp
@@ -11,13 +12,8 @@ set(SOURCES
     editormanager.cpp
     editors/abstracteditor/abstracteditor.cpp
     editors/abstracteditor/abstracteditorfactory.cpp
-    editors/abstracteditor/abstracteditorcolorscheme.cpp
-    editors/texteditor/texteditor.cpp
     editors/texteditor/texteditorfactory.cpp
-    editors/texteditor/textcaret.cpp
-    editors/texteditor/commands/carettextcommand.cpp
-    editors/texteditor/commands/careterasecommand.cpp
-    editors/texteditor/commands/texteditorcommand.cpp
+    editors/texteditor/ttexteditoreditor.cpp
 )
 
 set(HEADERS
@@ -28,17 +24,11 @@ set(HEADERS
     editormanager.h
     editors/abstracteditor/abstracteditor.h
     editors/abstracteditor/abstracteditorfactory.h
-    editors/abstracteditor/abstracteditorcolorscheme.h
 )
 
 set(PRIVATE_HEADERS
-    editors/texteditor/texteditor_p.h
-    editors/texteditor/texteditor.h
-    editors/texteditor/textcaret.h
     editors/texteditor/texteditorfactory.h
-    editors/texteditor/commands/carettextcommand.h
-    editors/texteditor/commands/careterasecommand.h
-    editors/texteditor/commands/texteditorcommand.h
+    editors/texteditor/ttexteditoreditor.h
 )
 
 add_library(libtheslate SHARED ${SOURCES} ${HEADERS} ${PRIVATE_HEADERS})
@@ -50,7 +40,7 @@ set_target_properties(libtheslate PROPERTIES
         VERSION 1.0.0
         PUBLIC_HEADER "${HEADERS}")
 
-target_link_libraries(libtheslate Qt6::Widgets libcontemporary)
+target_link_libraries(libtheslate Qt6::Widgets libcontemporary ttexteditor)
 target_compile_definitions(libtheslate PRIVATE LIBTHESLATE_LIBRARY)
 
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")

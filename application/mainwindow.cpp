@@ -1,6 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QFileDialog>
+#include <editormanager.h>
+#include <editors/abstracteditor/abstracteditor.h>
+#include <statemanager.h>
 #include <tapplication.h>
 #include <tcsdtools.h>
 #include <thelpmenu.h>
@@ -35,14 +39,16 @@ MainWindow::MainWindow(QWidget* parent) :
 
 #ifdef Q_OS_MAC
     ui->menubar->addMenu(new tHelpMenu(this));
-    ui->menuButton->setVisible(false);
-#else
+    //    ui->menuButton->setVisible(false);
+    //#else
     ui->menubar->setVisible(false);
     QMenu* menu = new QMenu(this);
-
-    tHelpMenu* helpMenu = new tHelpMenu(this);
-
-    menu->addMenu(helpMenu);
+    menu->addMenu(ui->menuOpen);
+    menu->addAction(ui->actionSave);
+    menu->addAction(ui->actionSave_As);
+    menu->addAction(ui->actionSave_All);
+    menu->addSeparator();
+    menu->addMenu(new tHelpMenu(this));
     menu->addAction(ui->actionExit);
 
     ui->menuButton->setIcon(tApplication::applicationIcon());
@@ -71,6 +77,12 @@ void MainWindow::addPage(AbstractPage* page) {
     ui->stackedWidget->addWidget(page);
     ui->windowTabber->addButton(page->tabButton());
     page->tabButton()->syncWithStackedWidget(ui->stackedWidget, page);
+
+    connect(page, &AbstractPage::done, this, [=] {
+        ui->stackedWidget->removeWidget(page);
+        ui->windowTabber->removeButton(page->tabButton());
+        page->deleteLater();
+    });
 }
 
 void MainWindow::on_actionUndo_triggered() {
@@ -81,4 +93,51 @@ void MainWindow::on_actionUndo_triggered() {
 void MainWindow::on_actionRedo_triggered() {
     AbstractPage* currentPage = qobject_cast<AbstractPage*>(ui->stackedWidget->currentWidget());
     currentPage->redo();
+}
+
+void MainWindow::on_actionOpenFile_triggered() {
+    QFileDialog* fileDialog = new QFileDialog(this);
+    fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
+    fileDialog->setFileMode(QFileDialog::ExistingFiles);
+    connect(fileDialog, &QFileDialog::finished, this, [=](int result) {
+        if (result == QFileDialog::Accepted) {
+            for (auto file : fileDialog->selectedFiles()) {
+                QString fileType = StateManager::editor()->editorTypeForFileName(file);
+
+                EditorPage* editor = new EditorPage(fileType);
+                this->addPage(editor);
+
+                QFile f(file);
+                f.open(QFile::ReadOnly);
+                editor->editor()->setData(f.readAll());
+                f.close();
+
+                editor->editor()->setCurrentUrl(QUrl::fromLocalFile(file));
+            }
+        }
+    });
+    connect(fileDialog, &QFileDialog::finished, fileDialog, &QFileDialog::deleteLater);
+    fileDialog->open();
+}
+
+void MainWindow::on_actionSave_triggered() {
+    AbstractPage* currentPage = qobject_cast<AbstractPage*>(ui->stackedWidget->currentWidget());
+    currentPage->save();
+}
+
+void MainWindow::on_actionSave_As_triggered() {
+    AbstractPage* currentPage = qobject_cast<AbstractPage*>(ui->stackedWidget->currentWidget());
+    currentPage->saveAs();
+}
+
+void MainWindow::on_actionSave_All_triggered() {
+    for (int i = 0; i < ui->stackedWidget->count(); i++) {
+        AbstractPage* page = qobject_cast<AbstractPage*>(ui->stackedWidget->widget(i));
+        page->saveAll();
+    }
+}
+
+void MainWindow::on_actionClose_Tab_triggered() {
+    AbstractPage* currentPage = qobject_cast<AbstractPage*>(ui->stackedWidget->currentWidget());
+    currentPage->saveAndClose(false);
 }

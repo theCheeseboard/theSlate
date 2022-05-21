@@ -26,6 +26,16 @@ class MainWindow : public QMainWindow {
 
         void on_actionRedo_triggered();
 
+        void on_actionOpenFile_triggered();
+
+        void on_actionSave_triggered();
+
+        void on_actionSave_As_triggered();
+
+        void on_actionSave_All_triggered();
+
+        void on_actionClose_Tab_triggered();
+
     private:
         Ui::MainWindow* ui;
         MainWindowPrivate* d;

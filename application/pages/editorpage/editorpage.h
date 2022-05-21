@@ -7,6 +7,7 @@ namespace Ui {
     class EditorPage;
 }
 
+class AbstractEditor;
 struct EditorPagePrivate;
 class EditorPage : public AbstractPage {
         Q_OBJECT
@@ -19,10 +20,21 @@ class EditorPage : public AbstractPage {
         void redo();
 
         tWindowTabberButton* tabButton();
+        AbstractEditor* editor();
 
     private:
         Ui::EditorPage* ui;
         EditorPagePrivate* d;
+
+        void saveToFile(QUrl url);
+
+        // AbstractPage interface
+    public:
+        tPromise<void>* save();
+        tPromise<void>* saveAs();
+        tPromise<void>* saveAll();
+        void saveAndClose(bool silent);
+        bool saveAndCloseShouldAskUserConfirmation();
 };
 
 #endif // EDITORPAGE_H
