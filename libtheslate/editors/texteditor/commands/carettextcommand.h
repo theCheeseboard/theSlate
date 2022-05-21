@@ -1,26 +1,19 @@
 #ifndef CARETTEXTCOMMAND_H
 #define CARETTEXTCOMMAND_H
 
-#include <QUndoCommand>
+#include "texteditorcommand.h"
 
 class TextEditor;
-struct CaretTextCommandPrivate;
-class CaretTextCommand : public QUndoCommand {
+class CaretTextCommand : public TextEditorCommand {
     public:
         explicit CaretTextCommand(TextEditor* editor, QString text);
         ~CaretTextCommand();
 
     signals:
 
-    private:
-        CaretTextCommandPrivate* d;
-
         // QUndoCommand interface
     public:
-        void undo();
-        void redo();
         int id() const;
-        bool mergeWith(const QUndoCommand* other);
 };
 
 #endif // CARETTEXTCOMMAND_H

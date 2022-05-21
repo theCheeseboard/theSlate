@@ -119,12 +119,17 @@ int TextEditor::lastLineOnScreen() {
 QRect TextEditor::characterRect(QPoint linePos) {
     QString contents = d->lines.at(linePos.y())->contents;
 
+    int xOffset = this->leftMarginWidth() - d->hScrollBar->value();
+
     QRect r;
-    r.setTop(lineTop(linePos.y()));
+    r.setTop(lineTop(linePos.y()) - d->vScrollBar->value());
     r.setHeight(lineHeight(linePos.y()));
-    r.setLeft(this->fontMetrics().horizontalAdvance(contents.left(linePos.x())));
-    r.setRight(this->fontMetrics().horizontalAdvance(contents.left(linePos.x() + 1)));
-    r.moveTopLeft(r.topLeft() + QPoint(this->leftMarginWidth() - d->hScrollBar->value(), -d->vScrollBar->value()));
+    r.setLeft(this->fontMetrics().horizontalAdvance(contents.left(linePos.x())) + xOffset);
+    if (linePos.x() + 1 == contents.length() + 1) {
+        r.setRight(this->width());
+    } else {
+        r.setRight(this->fontMetrics().horizontalAdvance(contents.left(linePos.x() + 1)) + xOffset);
+    }
     return r;
 }
 
@@ -202,7 +207,7 @@ void TextEditor::drawLine(int line, QPainter* painter) {
 
 void TextEditor::addCaret(int line, int pos) {
     TextCaret* caret = new TextCaret(line, pos, this);
-    connect(caret, &TextCaret::destroyed, this, [=] {
+    connect(caret, &TextCaret::discontinued, this, [=] {
         d->carets.removeAll(caret);
     });
     d->carets.append(caret);
@@ -217,7 +222,7 @@ void TextEditor::simplifyCarets() {
     for (TextCaret* caret : d->carets) {
         QPoint linePos = caret->linePos();
         if (foundCarets.contains(linePos)) {
-            caret->deleteLater();
+            caret->discontinueAndDelete();
         } else {
             foundCarets.append(linePos);
         }
@@ -318,7 +323,7 @@ void TextEditor::mousePressEvent(QMouseEvent* event) {
                 caret->moveCaret(hitTest(event->pos()));
                 d->draggingCaret = caret;
             } else {
-                caret->deleteLater();
+                caret->discontinueAndDelete();
             }
         }
     }
@@ -456,7 +461,7 @@ void TextEditorPrivate::loadCarets(SavedCarets carets) {
     }
 
     for (TextCaret* oldCaret : this->carets) {
-        oldCaret->deleteLater();
+        oldCaret->discontinueAndDelete();
 
         // We need to add the caret to the new caret list becase
         // when the caret is destroyed, it tries to remove itself

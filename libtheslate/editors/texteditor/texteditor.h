@@ -6,6 +6,7 @@
 class TextCaret;
 class CaretTextCommand;
 class CaretEraseCommand;
+class TextEditorCommand;
 struct TextEditorPrivate;
 class TextEditor : public AbstractEditor {
         Q_OBJECT
@@ -22,6 +23,7 @@ class TextEditor : public AbstractEditor {
         friend TextCaret;
         friend CaretTextCommand;
         friend CaretEraseCommand;
+        friend TextEditorCommand;
         TextEditorPrivate* d;
 
     private:

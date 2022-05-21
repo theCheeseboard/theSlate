@@ -46,7 +46,10 @@ class TextCaret : public QObject {
 
         QPoint linePos();
 
+        void discontinueAndDelete();
+
     signals:
+        void discontinued();
 
     private:
         TextCaretPrivate* d;

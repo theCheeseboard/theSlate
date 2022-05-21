@@ -260,6 +260,11 @@ QPoint TextCaret::linePos() {
     return QPoint(d->pos, d->line);
 }
 
+void TextCaret::discontinueAndDelete() {
+    emit discontinued();
+    this->deleteLater();
+}
+
 void TextCaret::moveCaret(QRect newPos) {
     d->anim->stop();
     d->anim->setStartValue(d->anim->currentValue());

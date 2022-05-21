@@ -1,24 +1,18 @@
 #ifndef CARETERASECOMMAND_H
 #define CARETERASECOMMAND_H
 
-#include <QUndoCommand>
+#include "texteditorcommand.h"
 
 class TextEditor;
-struct CaretEraseCommandPrivate;
-class CaretEraseCommand : public QUndoCommand {
+class CaretEraseCommand : public TextEditorCommand {
     public:
         CaretEraseCommand(TextEditor* editor, bool backwardDelete);
         ~CaretEraseCommand();
 
     private:
-        CaretEraseCommandPrivate* d;
-
         // QUndoCommand interface
     public:
-        void undo();
-        void redo();
         int id() const;
-        bool mergeWith(const QUndoCommand* other);
 };
 
 #endif // CARETERASECOMMAND_H
