@@ -18,7 +18,8 @@ class AbstractPage : public QWidget {
         virtual tPromise<void>* saveAs() = 0;
         virtual tPromise<void>* saveAll() = 0;
 
-        virtual void saveAndClose(bool silent) = 0;
+        void saveAndClose(bool silent);
+        virtual tPromise<void>* saveBeforeClose(bool silent) = 0;
         virtual bool saveAndCloseShouldAskUserConfirmation() = 0;
 
     signals:

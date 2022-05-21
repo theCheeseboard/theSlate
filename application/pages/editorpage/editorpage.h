@@ -33,7 +33,7 @@ class EditorPage : public AbstractPage {
         tPromise<void>* save();
         tPromise<void>* saveAs();
         tPromise<void>* saveAll();
-        void saveAndClose(bool silent);
+        tPromise<void>* saveBeforeClose(bool silent);
         bool saveAndCloseShouldAskUserConfirmation();
 };
 

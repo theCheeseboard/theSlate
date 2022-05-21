@@ -11,12 +11,14 @@ set(SOURCES
 
         pages/abstractpage/abstractpage.cpp
         pages/editorpage/editorpage.cpp pages/editorpage/editorpage.ui
+        unsavedchangespopover.cpp unsavedchangespopover.ui
 )
 
 set(HEADERS
         mainwindow.h
         pages/abstractpage/abstractpage.h
         pages/editorpage/editorpage.h
+        unsavedchangespopover.h
 )
 
 # Find Apple lproj files

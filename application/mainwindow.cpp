@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QCloseEvent>
 #include <QFileDialog>
 #include <editormanager.h>
 #include <editors/abstracteditor/abstracteditor.h>
@@ -13,9 +14,12 @@
 #include <twindowtabberbutton.h>
 
 #include "pages/editorpage/editorpage.h"
+#include "unsavedchangespopover.h"
 
 struct MainWindowPrivate {
         tCsdTools csd;
+
+        bool forceClose = false;
 };
 
 MainWindow::MainWindow(QWidget* parent) :
@@ -39,8 +43,8 @@ MainWindow::MainWindow(QWidget* parent) :
 
 #ifdef Q_OS_MAC
     ui->menubar->addMenu(new tHelpMenu(this));
-    //    ui->menuButton->setVisible(false);
-    //#else
+    ui->menuButton->setVisible(false);
+#else
     ui->menubar->setVisible(false);
     QMenu* menu = new QMenu(this);
     menu->addMenu(ui->menuOpen);
@@ -64,8 +68,69 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
+tPromise<void>* MainWindow::tryClose() {
+    return TPROMISE_CREATE_SAME_THREAD(void, {
+        QList<AbstractPage*> unsavedChangesPages;
+        for (int i = 0; i < ui->stackedWidget->count(); i++) {
+            AbstractPage* page = qobject_cast<AbstractPage*>(ui->stackedWidget->widget(i));
+            if (page->saveAndCloseShouldAskUserConfirmation()) unsavedChangesPages.append(page);
+        }
+
+        if (unsavedChangesPages.isEmpty()) {
+            d->forceClose = true;
+            this->close();
+            res();
+            return;
+        }
+
+        UnsavedChangesPopover* jp = new UnsavedChangesPopover(unsavedChangesPages);
+        std::function<void()> showPopover = [=] {
+            tPopover* popover = new tPopover(jp);
+            popover->setPopoverWidth(SC_DPI_W(-200, this));
+            popover->setPopoverSide(tPopover::Bottom);
+            connect(jp, &UnsavedChangesPopover::accepted, popover, &tPopover::dismiss);
+            connect(jp, &UnsavedChangesPopover::rejected, popover, &tPopover::dismiss);
+            connect(jp, &UnsavedChangesPopover::hide, popover, &tPopover::dismiss);
+            connect(popover, &tPopover::dismissed, popover, [=] {
+                jp->setParent(nullptr);
+                popover->deleteLater();
+            });
+            popover->show(this->window());
+        };
+
+        connect(jp, &UnsavedChangesPopover::rejected, this, [=] {
+            rej("User cancelled");
+            jp->deleteLater();
+        });
+        connect(jp, &UnsavedChangesPopover::accepted, this, [=] {
+            d->forceClose = true;
+            this->close();
+            res();
+            jp->deleteLater();
+        });
+        connect(jp, &UnsavedChangesPopover::show, this, showPopover);
+
+        showPopover();
+    });
+}
+
 void MainWindow::on_actionExit_triggered() {
-    QApplication::exit();
+    QQueue<MainWindow*> mainWindows;
+    for (auto widget : QApplication::topLevelWidgets()) {
+        auto mw = qobject_cast<MainWindow*>(widget);
+        if (mw) mainWindows.append(mw);
+    }
+
+    std::function<void(QQueue<MainWindow*>)> closeNextWindow = [&closeNextWindow](QQueue<MainWindow*> mainWindows) {
+        // We've closed everything
+        if (mainWindows.isEmpty()) QApplication::exit();
+
+        MainWindow* mw = mainWindows.dequeue();
+        mw->tryClose()->then([=] {
+            closeNextWindow(mainWindows);
+        });
+    };
+    closeNextWindow(mainWindows);
 }
 
 void MainWindow::on_actionEmpty_Text_File_triggered() {
@@ -140,4 +205,14 @@ void MainWindow::on_actionSave_All_triggered() {
 void MainWindow::on_actionClose_Tab_triggered() {
     AbstractPage* currentPage = qobject_cast<AbstractPage*>(ui->stackedWidget->currentWidget());
     currentPage->saveAndClose(false);
+}
+
+void MainWindow::closeEvent(QCloseEvent* event) {
+    if (d->forceClose) {
+        this->deleteLater();
+        return;
+    }
+
+    event->ignore();
+    this->tryClose();
 }

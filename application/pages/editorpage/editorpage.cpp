@@ -112,61 +112,54 @@ tPromise<void>* EditorPage::saveAll() {
     });
 }
 
-void EditorPage::saveAndClose(bool silent) {
-    if (!d->editor) {
-        emit done();
-        return;
-    }
-
-    if (!d->editor->haveUnsavedChanges()) {
-        emit done();
-        return;
-    }
-
-    if (silent) {
-        if (d->editor->currentUrl().isEmpty()) {
-            // Discard these changes
-            emit done();
+tPromise<void>* EditorPage::saveBeforeClose(bool silent) {
+    return TPROMISE_CREATE_SAME_THREAD(void, {
+        if (!d->editor) {
+            res();
             return;
-        } else {
-            this->save()->then([=] {
-                emit done();
-                return;
-            });
         }
-    }
 
-    tMessageBox* box = new tMessageBox(this->window());
-    if (d->editor->currentUrl().isEmpty()) {
-        box->setTitleBarText(tr("Save changes?"));
-    } else {
-        box->setTitleBarText(tr("Save changes to %1?").arg(d->editor->currentUrl().fileName()));
-    }
-    box->setMessageText(tr("Do you want to save the changes you made to this file?"));
-    box->setInformativeText(tr("If you don't save this document, any changes will be lost forever."));
-
-    tMessageBoxButton* saveButton;
-    if (d->editor->currentUrl().isEmpty()) {
-        saveButton = box->addButton(tr("Save As..."), QMessageBox::AcceptRole);
-    } else {
-        saveButton = box->addButton(tr("Save"), QMessageBox::AcceptRole);
-    }
-    connect(saveButton, &tMessageBoxButton::buttonPressed, this, [=] {
-        this->save()->then([=] {
-            emit done();
+        if (!d->editor->haveUnsavedChanges()) {
+            res();
             return;
-        });
-    });
+        }
 
-    tMessageBoxButton* discardButton = box->addStandardButton(QMessageBox::Discard);
-    connect(discardButton, &tMessageBoxButton::buttonPressed, this, [=] {
-        emit done();
+        if (silent) {
+            if (d->editor->currentUrl().isEmpty()) {
+                // Discard these changes
+                res();
+                return;
+            } else {
+                this->save()->then(res)->error(rej);
+            }
+        }
+
+        tMessageBox* box = new tMessageBox(this->window());
+        if (d->editor->currentUrl().isEmpty()) {
+            box->setTitleBarText(tr("Save changes?"));
+        } else {
+            box->setTitleBarText(tr("Save changes to %1?").arg(d->editor->currentUrl().fileName()));
+        }
+        box->setMessageText(tr("Do you want to save the changes you made to this file?"));
+        box->setInformativeText(tr("If you don't save this document, any changes will be lost forever."));
+
+        tMessageBoxButton* saveButton;
+        if (d->editor->currentUrl().isEmpty()) {
+            saveButton = box->addButton(tr("Save As..."), QMessageBox::AcceptRole);
+        } else {
+            saveButton = box->addButton(tr("Save"), QMessageBox::AcceptRole);
+        }
+        connect(saveButton, &tMessageBoxButton::buttonPressed, this, [=] {
+            this->save()->then(res)->error(rej);
+        });
+
+        tMessageBoxButton* discardButton = box->addStandardButton(QMessageBox::Discard);
+        connect(discardButton, &tMessageBoxButton::buttonPressed, this, res);
+
+        tMessageBoxButton* cancelButton = box->addStandardButton(QMessageBox::Cancel);
+        box->show(true);
         return;
     });
-
-    tMessageBoxButton* cancelButton = box->addStandardButton(QMessageBox::Cancel);
-    box->show(true);
-    return;
 }
 
 bool EditorPage::saveAndCloseShouldAskUserConfirmation() {

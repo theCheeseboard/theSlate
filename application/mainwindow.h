@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <tpromise.h>
 
 namespace Ui {
     class MainWindow;
@@ -16,6 +17,8 @@ class MainWindow : public QMainWindow {
     public:
         explicit MainWindow(QWidget* parent = nullptr);
         ~MainWindow();
+
+        tPromise<void>* tryClose();
 
     private slots:
         void on_actionExit_triggered();
@@ -41,6 +44,10 @@ class MainWindow : public QMainWindow {
         MainWindowPrivate* d;
 
         void addPage(AbstractPage* page);
+
+        // QWidget interface
+    protected:
+        void closeEvent(QCloseEvent* event);
 };
 
 #endif // MAINWINDOW_H
