@@ -4,5 +4,5 @@
         "background": "dist/app-dmg-background.png"
     },
     "desktop-id": "com.vicr123.theslate",
-    "theme-colors": ["#646400", "#c8c864"]
+    "theme-colors": ["#6464ff", "#c8c8ff"]
 }

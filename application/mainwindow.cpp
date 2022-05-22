@@ -47,6 +47,7 @@ MainWindow::MainWindow(QWidget* parent) :
 #else
     ui->menubar->setVisible(false);
     QMenu* menu = new QMenu(this);
+    menu->addMenu(ui->menuNew);
     menu->addMenu(ui->menuOpen);
     menu->addAction(ui->actionSave);
     menu->addAction(ui->actionSave_As);
