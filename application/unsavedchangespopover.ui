@@ -55,7 +55,7 @@
          </property>
         </widget>
        </item>
-       <item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QWidget" name="descriptionContainer" native="true">
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <property name="spacing">

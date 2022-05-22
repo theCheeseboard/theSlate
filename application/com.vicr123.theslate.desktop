@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name[]=theSlate
+GenericName[]=Integrated Development Environment
+Exec=theslate %U
+Icon=com.vicr123.theslate
+StartupWMClass=theSlate

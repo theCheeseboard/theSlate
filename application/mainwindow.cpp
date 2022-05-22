@@ -123,7 +123,10 @@ void MainWindow::on_actionExit_triggered() {
 
     std::function<void(QQueue<MainWindow*>)> closeNextWindow = [&closeNextWindow](QQueue<MainWindow*> mainWindows) {
         // We've closed everything
-        if (mainWindows.isEmpty()) QApplication::exit();
+        if (mainWindows.isEmpty()) {
+            QApplication::exit();
+            return;
+        }
 
         MainWindow* mw = mainWindows.dequeue();
         mw->tryClose()->then([=] {
