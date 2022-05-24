@@ -3,6 +3,7 @@
 
 #include <QCloseEvent>
 #include <QFileDialog>
+#include <QStandardPaths>
 #include <editormanager.h>
 #include <editors/abstracteditor/abstracteditor.h>
 #include <statemanager.h>
@@ -14,6 +15,7 @@
 #include <twindowtabberbutton.h>
 
 #include "pages/editorpage/editorpage.h"
+#include "pages/projectpage/projectpage.h"
 #include "unsavedchangespopover.h"
 
 struct MainWindowPrivate {
@@ -168,6 +170,7 @@ void MainWindow::on_actionOpenFile_triggered() {
     QFileDialog* fileDialog = new QFileDialog(this);
     fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
     fileDialog->setFileMode(QFileDialog::ExistingFiles);
+    fileDialog->setDirectory(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
     connect(fileDialog, &QFileDialog::finished, this, [=](int result) {
         if (result == QFileDialog::Accepted) {
             for (auto file : fileDialog->selectedFiles()) {
@@ -175,13 +178,7 @@ void MainWindow::on_actionOpenFile_triggered() {
 
                 EditorPage* editor = new EditorPage(fileType);
                 this->addPage(editor);
-
-                QFile f(file);
-                f.open(QFile::ReadOnly);
-                editor->editor()->setData(f.readAll());
-                f.close();
-
-                editor->editor()->setCurrentUrl(QUrl::fromLocalFile(file));
+                editor->discardContentsAndOpenFile(QUrl::fromLocalFile(file));
             }
         }
     });
@@ -219,4 +216,21 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 
     event->ignore();
     this->tryClose();
+}
+
+void MainWindow::on_actionOpenDirectory_triggered() {
+    QFileDialog* fileDialog = new QFileDialog(this);
+    fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
+    fileDialog->setFileMode(QFileDialog::Directory);
+    fileDialog->setDirectory(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+    connect(fileDialog, &QFileDialog::finished, this, [=](int result) {
+        if (result == QFileDialog::Accepted) {
+            auto dir = fileDialog->selectedFiles().first();
+
+            ProjectPage* project = new ProjectPage(dir);
+            this->addPage(project);
+        }
+    });
+    connect(fileDialog, &QFileDialog::finished, fileDialog, &QFileDialog::deleteLater);
+    fileDialog->open();
 }

@@ -39,6 +39,8 @@ class MainWindow : public QMainWindow {
 
         void on_actionClose_Tab_triggered();
 
+        void on_actionOpenDirectory_triggered();
+
     private:
         Ui::MainWindow* ui;
         MainWindowPrivate* d;

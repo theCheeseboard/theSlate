@@ -6,6 +6,9 @@
 #include <tsettings.h>
 #include <tstylemanager.h>
 
+#include <plugins/tpluginmanager.h>
+#include <theslateplugin.h>
+
 #include "mainwindow.h"
 
 int main(int argc, char* argv[]) {
@@ -41,6 +44,9 @@ int main(int argc, char* argv[]) {
         }
     });
     tStyleManager::setOverrideStyleForApplication(settings.value("theme/mode").toString() == "light" ? tStyleManager::ContemporaryLight : tStyleManager::ContemporaryDark);
+
+    tPluginManager<TheSlatePlugin> pluginManager;
+    pluginManager.load();
 
     MainWindow* w = new MainWindow();
     w->show();

@@ -9,3 +9,4 @@ ENDIF()
 
 add_subdirectory(libtheslate)
 add_subdirectory(application)
+add_subdirectory(plugins)

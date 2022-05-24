@@ -14,6 +14,7 @@ set(SOURCES
     editors/abstracteditor/abstracteditorfactory.cpp
     editors/texteditor/texteditorfactory.cpp
     editors/texteditor/ttexteditoreditor.cpp
+    project.cpp
 )
 
 set(HEADERS
@@ -24,6 +25,8 @@ set(HEADERS
     editormanager.h
     editors/abstracteditor/abstracteditor.h
     editors/abstracteditor/abstracteditorfactory.h
+    theslateplugin.h
+    project.h
 )
 
 set(PRIVATE_HEADERS

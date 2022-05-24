@@ -39,6 +39,17 @@ EditorPage::~EditorPage() {
     delete d;
 }
 
+void EditorPage::discardContentsAndOpenFile(QUrl file) {
+    if (!d->editor) return;
+
+    QFile f(file.toLocalFile());
+    f.open(QFile::ReadOnly);
+    d->editor->setData(f.readAll());
+    f.close();
+
+    d->editor->setCurrentUrl(file);
+}
+
 void EditorPage::undo() {
     if (d->editor) d->editor->undo();
 }

@@ -12,6 +12,9 @@ set(SOURCES
         pages/abstractpage/abstractpage.cpp
         pages/editorpage/editorpage.cpp pages/editorpage/editorpage.ui
         unsavedchangespopover.cpp unsavedchangespopover.ui
+        pages/projectpage/projectpage.cpp pages/projectpage/projectpage.ui
+        pages/projectpage/leftpanes/abstractleftpane/abstractleftpane.cpp
+        pages/projectpage/leftpanes/filetreeleftpane/filetreeleftpane.cpp pages/projectpage/leftpanes/filetreeleftpane/filetreeleftpane.ui
 )
 
 set(HEADERS
@@ -19,6 +22,9 @@ set(HEADERS
         pages/abstractpage/abstractpage.h
         pages/editorpage/editorpage.h
         unsavedchangespopover.h
+        pages/projectpage/projectpage.h
+        pages/projectpage/leftpanes/abstractleftpane/abstractleftpane.h
+        pages/projectpage/leftpanes/filetreeleftpane/filetreeleftpane.h
 )
 
 # Find Apple lproj files

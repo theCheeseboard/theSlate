@@ -16,6 +16,8 @@ class EditorPage : public AbstractPage {
         explicit EditorPage(QString editorType = "text", QWidget* parent = nullptr);
         ~EditorPage();
 
+        void discardContentsAndOpenFile(QUrl file);
+
         void undo();
         void redo();
 
