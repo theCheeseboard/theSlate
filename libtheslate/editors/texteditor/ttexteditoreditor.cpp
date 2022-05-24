@@ -2,19 +2,20 @@
 
 #include <QBoxLayout>
 #include <QUrl>
+#include <completetexteditor.h>
 #include <texteditor.h>
 
 struct TTextEditorEditorPrivate {
-        TextEditor* editor;
+        CompleteTextEditor* editor;
 };
 
 TTextEditorEditor::TTextEditorEditor(QWidget* parent) :
     AbstractEditor{parent} {
     d = new TTextEditorEditorPrivate();
-    d->editor = new TextEditor(this);
+    d->editor = new CompleteTextEditor(this);
 
-    connect(d->editor, &TextEditor::currentFileChanged, this, &TTextEditorEditor::currentFileChanged);
-    connect(d->editor, &TextEditor::unsavedChangesChanged, this, &TTextEditorEditor::unsavedChangesChanged);
+    connect(d->editor->editor(), &TextEditor::currentFileChanged, this, &TTextEditorEditor::currentFileChanged);
+    connect(d->editor->editor(), &TextEditor::unsavedChangesChanged, this, &TTextEditorEditor::unsavedChangesChanged);
 
     QBoxLayout* layout = new QBoxLayout(QBoxLayout::LeftToRight);
     layout->setContentsMargins(0, 0, 0, 0);
@@ -27,36 +28,36 @@ TTextEditorEditor::~TTextEditorEditor() {
 }
 
 void TTextEditorEditor::undo() {
-    d->editor->undo();
+    d->editor->editor()->undo();
 }
 
 void TTextEditorEditor::redo() {
-    d->editor->redo();
+    d->editor->editor()->redo();
 }
 
 void TTextEditorEditor::setData(QByteArray data) {
     // TODO: Other encodings
-    d->editor->setText(QString::fromUtf8(data));
+    d->editor->editor()->setText(QString::fromUtf8(data));
 }
 
 QByteArray TTextEditorEditor::data() {
-    return d->editor->text().toUtf8();
+    return d->editor->editor()->text().toUtf8();
 }
 
 void TTextEditorEditor::setCurrentUrl(QUrl url) {
-    d->editor->setCurrentFile(url);
+    d->editor->editor()->setCurrentFile(url);
 }
 
 QUrl TTextEditorEditor::currentUrl() {
-    return d->editor->currentFile();
+    return d->editor->editor()->currentFile();
 }
 
 bool TTextEditorEditor::haveUnsavedChanges() {
-    return d->editor->haveUnsavedChanges();
+    return d->editor->editor()->haveUnsavedChanges();
 }
 
 void TTextEditorEditor::setChangesSaved() {
-    d->editor->setChangesSaved();
+    d->editor->editor()->setChangesSaved();
 }
 
 QStringList TTextEditorEditor::nameFilters() {
