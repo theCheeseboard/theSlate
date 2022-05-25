@@ -15,6 +15,11 @@ set(SOURCES
     editors/texteditor/texteditorfactory.cpp
     editors/texteditor/ttexteditoreditor.cpp
     project.cpp
+
+    project/buildengine.cpp
+    project/runconfiguration.cpp
+    project/buildenginemanager.cpp
+    project/buildjob.cpp
 )
 
 set(HEADERS
@@ -27,6 +32,11 @@ set(HEADERS
     editors/abstracteditor/abstracteditorfactory.h
     theslateplugin.h
     project.h
+
+    project/buildengine.h
+    project/runconfiguration.h
+    project/buildenginemanager.h
+    project/buildjob.h
 )
 
 set(PRIVATE_HEADERS

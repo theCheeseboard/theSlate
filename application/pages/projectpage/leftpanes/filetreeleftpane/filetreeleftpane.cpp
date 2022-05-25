@@ -22,9 +22,10 @@ FileTreeLeftPane::FileTreeLeftPane(ProjectPtr project, QWidget* parent) :
     d->project = project;
 
     d->model = new QFileSystemModel(this);
-    d->model->setRootPath(d->project->projectDir());
+    d->model->setRootPath(d->project->projectDir().path());
+    d->model->setFilter(static_cast<QDir::Filters>(QDir::Files | QDir::Dirs | QDir::DirsFirst | QDir::Hidden | QDir::NoDotAndDotDot));
     ui->fileSystemView->setModel(d->model);
-    ui->fileSystemView->setRootIndex(d->model->index(d->project->projectDir()));
+    ui->fileSystemView->setRootIndex(d->model->index(d->project->projectDir().path()));
     ui->fileSystemView->setColumnHidden(1, true);
     ui->fileSystemView->setColumnHidden(2, true);
     ui->fileSystemView->setColumnHidden(3, true);

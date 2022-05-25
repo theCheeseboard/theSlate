@@ -68,6 +68,8 @@ MainWindow::MainWindow(QWidget* parent) :
 }
 
 MainWindow::~MainWindow() {
+    //    d->csd.removeResizeAction(this);
+    delete d;
     delete ui;
 }
 
@@ -174,11 +176,12 @@ void MainWindow::on_actionOpenFile_triggered() {
     connect(fileDialog, &QFileDialog::finished, this, [=](int result) {
         if (result == QFileDialog::Accepted) {
             for (auto file : fileDialog->selectedFiles()) {
-                QString fileType = StateManager::editor()->editorTypeForFileName(file);
+                QUrl fileUrl = QUrl::fromLocalFile(file);
+                QString fileType = StateManager::editor()->editorTypeForUrl(fileUrl);
 
                 EditorPage* editor = new EditorPage(fileType);
                 this->addPage(editor);
-                editor->discardContentsAndOpenFile(QUrl::fromLocalFile(file));
+                editor->discardContentsAndOpenFile(fileUrl);
             }
         }
     });

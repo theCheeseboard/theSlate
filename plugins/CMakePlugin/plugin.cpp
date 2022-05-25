@@ -19,6 +19,9 @@
  * *************************************/
 #include "plugin.h"
 
+#include "cmakebuildengine.h"
+#include <project/buildenginemanager.h>
+#include <statemanager.h>
 #include <tapplication.h>
 #include <tlogger.h>
 
@@ -28,6 +31,8 @@ struct PluginPrivate {
 Plugin::Plugin() {
     d = new PluginPrivate();
     tApplication::addPluginTranslator("CMakePlugin");
+
+    StateManager::buildEngine()->registerBuildEngine(new CmakeBuildEngine());
 }
 
 Plugin::~Plugin() {

@@ -8,6 +8,7 @@
 
 #include "../editorpage/editorpage.h"
 #include "leftpanes/filetreeleftpane/filetreeleftpane.h"
+#include "leftpanes/runconfigurationleftpane/runconfigurationleftpane.h"
 
 struct ProjectPagePrivate {
         tWindowTabberButton* tabButton;
@@ -25,15 +26,19 @@ ProjectPage::ProjectPage(QString projectDirectory, QWidget* parent) :
     d->tabButton = new tWindowTabberButton();
     d->tabButton->setText("Project");
 
-    d->project = ProjectPtr(new Project(projectDirectory));
+    d->project = Project::createProject(projectDirectory);
 
     ui->leftPaneStack->setCurrentAnimation(tStackedWidget::SlideHorizontal);
     ui->stackedWidget->setCurrentAnimation(tStackedWidget::Lift);
     ui->leftPaneContainer->setFixedWidth(SC_DPI_W(300, this));
+    ui->buildTasks->setProject(d->project);
 
     auto fileTreeLeftPane = new FileTreeLeftPane(d->project);
     connect(fileTreeLeftPane, &FileTreeLeftPane::requestFileOpen, this, &ProjectPage::openUrl);
     addLeftPaneItem(fileTreeLeftPane);
+
+    auto runConfigLeftPane = new RunConfigurationLeftPane(d->project);
+    addLeftPaneItem(runConfigLeftPane);
 }
 
 ProjectPage::~ProjectPage() {
@@ -52,7 +57,7 @@ void ProjectPage::openUrl(QUrl url) {
         ui->stackedWidget->setCurrentWidget(d->editors.value(url));
     }
 
-    QString editorType = StateManager::editor()->editorTypeForFileName(url.fileName());
+    QString editorType = StateManager::editor()->editorTypeForUrl(url);
     auto* editor = new EditorPage(editorType);
     editor->discardContentsAndOpenFile(url);
     ui->stackedWidget->addWidget(editor);
@@ -71,7 +76,7 @@ void ProjectPage::undo() {
 
 void ProjectPage::redo() {
     auto editor = qobject_cast<EditorPage*>(ui->stackedWidget->currentWidget());
-    if (editor) editor->undo();
+    if (editor) editor->redo();
 }
 
 tPromise<void>* ProjectPage::save() {

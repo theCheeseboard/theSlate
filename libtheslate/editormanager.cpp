@@ -2,6 +2,7 @@
 
 #include "editors/texteditor/texteditorfactory.h"
 #include <QMap>
+#include <QUrl>
 
 struct EditorManagerPrivate {
         QMap<QString, AbstractEditorFactory*> factories;
@@ -15,7 +16,7 @@ AbstractEditor* EditorManager::createEditor(QString editorType) {
     return d->factories.value(editorType)->create();
 }
 
-QString EditorManager::editorTypeForFileName(QString fileName) {
+QString EditorManager::editorTypeForUrl(QUrl url) {
     return "text";
 }
 

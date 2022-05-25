@@ -4,6 +4,7 @@
 #include <QObject>
 
 class EditorManager;
+class BuildEngineManager;
 
 struct StateManagerPrivate;
 class StateManager : public QObject {
@@ -13,6 +14,7 @@ class StateManager : public QObject {
 
         static StateManager* instance();
         static EditorManager* editor();
+        static BuildEngineManager* buildEngine();
 
     signals:
 

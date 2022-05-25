@@ -13,7 +13,7 @@ class EditorManager : public QObject {
         ~EditorManager();
 
         AbstractEditor* createEditor(QString editorType);
-        QString editorTypeForFileName(QString fileName);
+        QString editorTypeForUrl(QUrl url);
 
         void registerFactory(QString name, AbstractEditorFactory* factory);
 

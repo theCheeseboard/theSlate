@@ -92,23 +92,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="buildTasksLayout">
-     <property name="spacing">
-      <number>0</number>
-     </property>
-     <property name="leftMargin">
-      <number>0</number>
-     </property>
-     <property name="topMargin">
-      <number>0</number>
-     </property>
-     <property name="rightMargin">
-      <number>0</number>
-     </property>
-     <property name="bottomMargin">
-      <number>0</number>
-     </property>
-    </layout>
+    <widget class="BuildTasksContainer" name="buildTasks" native="true"/>
    </item>
   </layout>
  </widget>
@@ -126,6 +110,12 @@
    <class>tWindowTabber</class>
    <extends>QWidget</extends>
    <header location="global">twindowtabber.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BuildTasksContainer</class>
+   <extends>QWidget</extends>
+   <header>pages/projectpage/buildtasks/buildtaskscontainer.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

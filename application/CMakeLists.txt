@@ -15,6 +15,9 @@ set(SOURCES
         pages/projectpage/projectpage.cpp pages/projectpage/projectpage.ui
         pages/projectpage/leftpanes/abstractleftpane/abstractleftpane.cpp
         pages/projectpage/leftpanes/filetreeleftpane/filetreeleftpane.cpp pages/projectpage/leftpanes/filetreeleftpane/filetreeleftpane.ui
+        pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationleftpane.cpp pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationleftpane.ui
+        pages/projectpage/buildtasks/buildtaskscontainer.cpp pages/projectpage/buildtasks/buildtaskscontainer.ui
+        pages/projectpage/buildtasks/buildtaskprogressitem.cpp pages/projectpage/buildtasks/buildtaskprogressitem.ui
 )
 
 set(HEADERS
@@ -25,6 +28,9 @@ set(HEADERS
         pages/projectpage/projectpage.h
         pages/projectpage/leftpanes/abstractleftpane/abstractleftpane.h
         pages/projectpage/leftpanes/filetreeleftpane/filetreeleftpane.h
+        pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationleftpane.h
+        pages/projectpage/buildtasks/buildtaskscontainer.h
+        pages/projectpage/buildtasks/buildtaskprogressitem.h
 )
 
 # Find Apple lproj files
