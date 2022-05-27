@@ -9,3 +9,7 @@ TextEditorFactory::TextEditorFactory(QObject* parent) :
 AbstractEditor* TextEditorFactory::create() {
     return new TTextEditorEditor();
 }
+
+bool TextEditorFactory::canOpen(QUrl url) {
+    return false;
+}

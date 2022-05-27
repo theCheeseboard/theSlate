@@ -17,6 +17,9 @@ class RunConfigurationLeftPane : public AbstractLeftPane {
         explicit RunConfigurationLeftPane(ProjectPtr project, QWidget* parent = nullptr);
         ~RunConfigurationLeftPane();
 
+    signals:
+        void requestFileOpen(QUrl url);
+
     private:
         Ui::RunConfigurationLeftPane* ui;
         RunConfigurationLeftPanePrivate* d;

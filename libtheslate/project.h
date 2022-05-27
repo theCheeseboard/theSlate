@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QEnableSharedFromThis>
 #include <QObject>
+#include <tpromise.h>
 
 struct ProjectPrivate;
 class Project : public QObject,
@@ -37,6 +38,8 @@ class Project : public QObject,
 
         QList<BuildJobPtr> buildJobs();
 
+        void addBeforeBuildEventHandler(std::function<tPromise<void>*()> eventHandler);
+
     signals:
         void runConfigurationsUpdated();
         void buildJobAdded(BuildJobPtr buildJob);
@@ -44,6 +47,8 @@ class Project : public QObject,
     private:
         ProjectPrivate* d;
         explicit Project(QString projectDir, QObject* parent = nullptr);
+
+        tPromise<void>* runBeforeBuildEventHandlers();
 };
 
 typedef QSharedPointer<Project> ProjectPtr;

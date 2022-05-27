@@ -1,9 +1,12 @@
 #include "buildjob.h"
 
+#include <QDateTime>
+
 struct BuildJobPrivate {
         BuildJob::State state = BuildJob::Running;
 
         QString buildLog;
+        QList<BuildJob::BuildIssue> buildIssues;
 
         QString title;
         QString description;
@@ -12,11 +15,14 @@ struct BuildJobPrivate {
         int maxProgress = 0;
         int step = 0;
         int maxStep = 0;
+
+        QDateTime buildStartDate;
 };
 
 BuildJob::BuildJob(QObject* parent) :
     QObject{parent} {
     d = new BuildJobPrivate();
+    d->buildStartDate = QDateTime::currentDateTime();
 }
 
 BuildJob::~BuildJob() {
@@ -53,6 +59,14 @@ int BuildJob::maxStep() {
 
 QString BuildJob::buildLog() {
     return d->buildLog;
+}
+
+QList<BuildJob::BuildIssue> BuildJob::buildIssues() {
+    return d->buildIssues;
+}
+
+QDateTime BuildJob::buildStartDate() {
+    return d->buildStartDate;
 }
 
 void BuildJob::setState(State state) {
@@ -93,4 +107,9 @@ void BuildJob::setMaxStep(int maxStep) {
 void BuildJob::appendToBuildLog(QString buildLog) {
     d->buildLog.append(buildLog);
     emit buildLogAppendedTo(buildLog);
+}
+
+void BuildJob::appendToBuildIssues(BuildIssue issue) {
+    d->buildIssues.append(issue);
+    emit buildIssuesAppendedTo(issue);
 }

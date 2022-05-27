@@ -42,10 +42,14 @@ EditorPage::~EditorPage() {
 void EditorPage::discardContentsAndOpenFile(QUrl file) {
     if (!d->editor) return;
 
-    QFile f(file.toLocalFile());
-    f.open(QFile::ReadOnly);
-    d->editor->setData(f.readAll());
-    f.close();
+    if (file.scheme() == "editor") {
+        d->editor->setData(file.toString().toUtf8());
+    } else {
+        QFile f(file.toLocalFile());
+        f.open(QFile::ReadOnly);
+        d->editor->setData(f.readAll());
+        f.close();
+    }
 
     d->editor->setCurrentUrl(file);
 }
@@ -114,7 +118,7 @@ tPromise<void>* EditorPage::saveAs() {
 
 tPromise<void>* EditorPage::saveAll() {
     return TPROMISE_CREATE_SAME_THREAD(void, {
-        if (d->editor->currentUrl().isEmpty()) {
+        if (!d->editor->currentUrl().isEmpty()) {
             this->saveToFile(d->editor->currentUrl());
             res();
         } else {

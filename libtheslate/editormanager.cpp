@@ -17,6 +17,9 @@ AbstractEditor* EditorManager::createEditor(QString editorType) {
 }
 
 QString EditorManager::editorTypeForUrl(QUrl url) {
+    for (const auto& factory : d->factories.keys()) {
+        if (d->factories.value(factory)->canOpen(url)) return factory;
+    }
     return "text";
 }
 

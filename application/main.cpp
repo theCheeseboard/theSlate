@@ -6,8 +6,12 @@
 #include <tsettings.h>
 #include <tstylemanager.h>
 
+#include <editormanager.h>
 #include <plugins/tpluginmanager.h>
+#include <statemanager.h>
 #include <theslateplugin.h>
+
+#include "widgetholder/widgetholdereditorfactory.h"
 
 #include "mainwindow.h"
 
@@ -47,6 +51,8 @@ int main(int argc, char* argv[]) {
 
     tPluginManager<TheSlatePlugin> pluginManager;
     pluginManager.load();
+
+    StateManager::editor()->registerFactory("widgetholder", new WidgetHolderEditorFactory());
 
     MainWindow* w = new MainWindow();
     w->show();

@@ -10,6 +10,7 @@ class AbstractEditorFactory : public QObject {
         explicit AbstractEditorFactory(QObject* parent = nullptr);
 
         virtual AbstractEditor* create() = 0;
+        virtual bool canOpen(QUrl url) = 0;
 
     signals:
 };

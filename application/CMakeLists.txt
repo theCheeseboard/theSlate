@@ -18,6 +18,10 @@ set(SOURCES
         pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationleftpane.cpp pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationleftpane.ui
         pages/projectpage/buildtasks/buildtaskscontainer.cpp pages/projectpage/buildtasks/buildtaskscontainer.ui
         pages/projectpage/buildtasks/buildtaskprogressitem.cpp pages/projectpage/buildtasks/buildtaskprogressitem.ui
+        widgetholder/widgetholdereditor.cpp widgetholder/widgetholdereditor.ui
+        pages/projectpage/pagewidgets/buildjobpagewidget.cpp pages/projectpage/pagewidgets/buildjobpagewidget.ui
+        widgetholder/widgetholdereditorfactory.cpp
+        pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationbuilditem.cpp pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationbuilditem.ui
 )
 
 set(HEADERS
@@ -31,6 +35,10 @@ set(HEADERS
         pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationleftpane.h
         pages/projectpage/buildtasks/buildtaskscontainer.h
         pages/projectpage/buildtasks/buildtaskprogressitem.h
+        widgetholder/widgetholdereditor.h
+        pages/projectpage/pagewidgets/buildjobpagewidget.h
+        widgetholder/widgetholdereditorfactory.h
+        pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationbuilditem.h
 )
 
 # Find Apple lproj files

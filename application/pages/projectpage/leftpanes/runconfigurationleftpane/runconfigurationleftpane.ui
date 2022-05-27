@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>477</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,45 +43,128 @@
         <x>0</x>
         <y>0</y>
         <width>400</width>
-        <height>381</height>
+        <height>477</height>
        </rect>
       </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Selected Run Configuration</string>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <property name="leftMargin">
+          <number>9</number>
+         </property>
+         <property name="topMargin">
+          <number>9</number>
+         </property>
+         <property name="rightMargin">
+          <number>9</number>
+         </property>
+         <property name="bottomMargin">
+          <number>9</number>
+         </property>
+         <property name="spacing">
+          <number>6</number>
+         </property>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Selected Run Configuration</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QComboBox" name="runConfigurationsComboBox"/>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Run Configurations define the steps to run this project.</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" colspan="2">
+          <widget class="tSubtitleLabel" name="label">
+           <property name="text">
+            <string>Run Configurations</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0" colspan="2">
+          <widget class="QPushButton" name="configureButton">
+           <property name="text">
+            <string>Configure</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0" colspan="2">
+          <widget class="QPushButton" name="buildButton">
+           <property name="text">
+            <string>Build</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="Line" name="line">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>1</height>
+          </size>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
-       <item row="3" column="0" colspan="2">
-        <widget class="QPushButton" name="configureButton">
-         <property name="text">
-          <string>Configure</string>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <property name="spacing">
+          <number>0</number>
          </property>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Run Configurations define the steps to run this project.</string>
+         <property name="leftMargin">
+          <number>9</number>
          </property>
-         <property name="wordWrap">
-          <bool>true</bool>
+         <property name="topMargin">
+          <number>9</number>
          </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QComboBox" name="runConfigurationsComboBox"/>
-       </item>
-       <item row="0" column="0" colspan="2">
-        <widget class="tSubtitleLabel" name="label">
-         <property name="text">
-          <string>Run Configurations</string>
+         <property name="rightMargin">
+          <number>9</number>
          </property>
-        </widget>
+         <property name="bottomMargin">
+          <number>9</number>
+         </property>
+         <item>
+          <widget class="tSubtitleLabel" name="label_4">
+           <property name="text">
+            <string>Builds</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
-       <item row="5" column="0">
+       <item>
+        <layout class="QVBoxLayout" name="buildsLayout"/>
+       </item>
+       <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -89,17 +172,10 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>201</height>
+           <height>40</height>
           </size>
          </property>
         </spacer>
-       </item>
-       <item row="4" column="0" colspan="2">
-        <widget class="QPushButton" name="buildButton">
-         <property name="text">
-          <string>Build</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>

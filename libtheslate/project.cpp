@@ -11,6 +11,8 @@ struct ProjectPrivate {
         QString projectDir;
 
         QList<BuildJobPtr> buildJobs;
+
+        QList<std::function<tPromise<void>*()>> beforeBuildEventHandlers;
 };
 
 Project::Project(QString projectDir, QObject* parent) :
@@ -19,6 +21,20 @@ Project::Project(QString projectDir, QObject* parent) :
     d->projectDir = projectDir;
 
     QTimer::singleShot(0, this, &Project::reloadProjectConfigurations);
+}
+
+tPromise<void>* Project::runBeforeBuildEventHandlers() {
+    return TPROMISE_CREATE_NEW_THREAD(void, {
+        for (auto handler : d->beforeBuildEventHandlers) {
+            auto results = handler()->await();
+            if (!results.error.isEmpty()) {
+                rej(results.error);
+                return;
+            }
+        }
+
+        res();
+    });
 }
 
 Project::~Project() {
@@ -72,12 +88,14 @@ bool Project::canActiveRunConfigurationConfigure() {
 void Project::activeRunConfigurationConfigure() {
     if (!d->activeRunConfiguration) return;
 
-    auto buildJob = d->activeRunConfiguration->configure();
-    if (!buildJob) return;
-    d->buildJobs.append(buildJob);
-    emit buildJobAdded(buildJob);
+    this->runBeforeBuildEventHandlers()->then([=] {
+        auto buildJob = d->activeRunConfiguration->configure();
+        if (!buildJob) return;
+        d->buildJobs.append(buildJob);
+        emit buildJobAdded(buildJob);
 
-    buildJob->start();
+        buildJob->start();
+    });
 }
 
 bool Project::canActiveRunConfigurationBuild() {
@@ -88,12 +106,14 @@ bool Project::canActiveRunConfigurationBuild() {
 void Project::activeRunConfigurationBuild() {
     if (!d->activeRunConfiguration) return;
 
-    auto buildJob = d->activeRunConfiguration->build();
-    if (!buildJob) return;
-    d->buildJobs.append(buildJob);
-    emit buildJobAdded(buildJob);
+    this->runBeforeBuildEventHandlers()->then([=] {
+        auto buildJob = d->activeRunConfiguration->build();
+        if (!buildJob) return;
+        d->buildJobs.append(buildJob);
+        emit buildJobAdded(buildJob);
 
-    buildJob->start();
+        buildJob->start();
+    });
 }
 
 void Project::reloadProjectConfigurations() {
@@ -119,4 +139,8 @@ void Project::reloadProjectConfigurations() {
 
 QList<BuildJobPtr> Project::buildJobs() {
     return d->buildJobs;
+}
+
+void Project::addBeforeBuildEventHandler(std::function<tPromise<void>*()> eventHandler) {
+    d->beforeBuildEventHandlers.append(eventHandler);
 }

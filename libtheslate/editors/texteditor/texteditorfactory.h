@@ -9,6 +9,7 @@ class TextEditorFactory : public AbstractEditorFactory {
         explicit TextEditorFactory(QObject* parent = nullptr);
 
         AbstractEditor* create();
+        bool canOpen(QUrl url);
 
     signals:
 };

@@ -27,6 +27,9 @@ ProjectPage::ProjectPage(QString projectDirectory, QWidget* parent) :
     d->tabButton->setText("Project");
 
     d->project = Project::createProject(projectDirectory);
+    d->project->addBeforeBuildEventHandler([=] {
+        return this->saveAll();
+    });
 
     ui->leftPaneStack->setCurrentAnimation(tStackedWidget::SlideHorizontal);
     ui->stackedWidget->setCurrentAnimation(tStackedWidget::Lift);
@@ -38,6 +41,7 @@ ProjectPage::ProjectPage(QString projectDirectory, QWidget* parent) :
     addLeftPaneItem(fileTreeLeftPane);
 
     auto runConfigLeftPane = new RunConfigurationLeftPane(d->project);
+    connect(runConfigLeftPane, &RunConfigurationLeftPane::requestFileOpen, this, &ProjectPage::openUrl);
     addLeftPaneItem(runConfigLeftPane);
 }
 
@@ -53,8 +57,12 @@ void ProjectPage::addLeftPaneItem(AbstractLeftPane* leftPane) {
 }
 
 void ProjectPage::openUrl(QUrl url) {
-    if (d->editors.contains(url)) {
-        ui->stackedWidget->setCurrentWidget(d->editors.value(url));
+    this->saveAll();
+
+    QUrl canonicalUrl = url.adjusted(QUrl::RemoveQuery);
+
+    if (d->editors.contains(canonicalUrl)) {
+        ui->stackedWidget->setCurrentWidget(d->editors.value(canonicalUrl));
     }
 
     QString editorType = StateManager::editor()->editorTypeForUrl(url);
@@ -62,7 +70,7 @@ void ProjectPage::openUrl(QUrl url) {
     editor->discardContentsAndOpenFile(url);
     ui->stackedWidget->addWidget(editor);
     ui->stackedWidget->setCurrentWidget(editor);
-    d->editors.insert(url, editor);
+    d->editors.insert(canonicalUrl, editor);
 }
 
 tWindowTabberButton* ProjectPage::tabButton() {
@@ -88,7 +96,14 @@ tPromise<void>* ProjectPage::saveAs() {
 }
 
 tPromise<void>* ProjectPage::saveAll() {
-    return TPROMISE_CREATE_SAME_THREAD(void, {});
+    return TPROMISE_CREATE_NEW_THREAD(void, {
+        for (int i = 0; i < ui->stackedWidget->count(); i++) {
+            auto editor = qobject_cast<EditorPage*>(ui->stackedWidget->widget(i));
+            if (editor) editor->saveAll()->await();
+        }
+
+        res();
+    });
 }
 
 tPromise<void>* ProjectPage::saveBeforeClose(bool silent) {

@@ -10,6 +10,17 @@ class BuildJob : public QObject {
         explicit BuildJob(QObject* parent = nullptr);
         ~BuildJob();
 
+        struct BuildIssue {
+                enum Type {
+                    Informational,
+                    Warning,
+                    Error
+                };
+
+                Type issueType;
+                QString message;
+        };
+
         enum State {
             Running,
             Failed,
@@ -26,6 +37,9 @@ class BuildJob : public QObject {
         int maxStep();
 
         QString buildLog();
+        QList<BuildIssue> buildIssues();
+
+        QDateTime buildStartDate();
 
         virtual void start() = 0;
 
@@ -40,6 +54,7 @@ class BuildJob : public QObject {
         void setMaxStep(int maxStep);
 
         void appendToBuildLog(QString buildLog);
+        void appendToBuildIssues(BuildIssue issue);
 
     signals:
         void stateChanged(BuildJob::State state);
@@ -50,6 +65,7 @@ class BuildJob : public QObject {
         void stepChanged(int step, int maxStep);
 
         void buildLogAppendedTo(QString appendedContents);
+        void buildIssuesAppendedTo(BuildIssue issue);
 
     private:
         BuildJobPrivate* d;

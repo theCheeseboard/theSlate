@@ -1,6 +1,9 @@
 #include "runconfigurationleftpane.h"
 #include "ui_runconfigurationleftpane.h"
 
+#include "../../pagewidgets/buildjobpagewidget.h"
+#include "runconfigurationbuilditem.h"
+#include "widgetholder/widgetholdereditor.h"
 #include <twindowtabberbutton.h>
 
 struct RunConfigurationLeftPanePrivate {
@@ -18,8 +21,16 @@ RunConfigurationLeftPane::RunConfigurationLeftPane(ProjectPtr project, QWidget* 
     d->tabButton = new tWindowTabberButton();
     d->tabButton->setText("Run");
 
+    ui->buildsLayout->setDirection(QBoxLayout::BottomToTop);
+
     connect(project.data(), &Project::runConfigurationsUpdated, this, &RunConfigurationLeftPane::updateRunConfigurations);
     updateRunConfigurations();
+
+    connect(project.data(), &Project::buildJobAdded, this, [=](BuildJobPtr job) {
+        auto* item = new RunConfigurationBuildItem(job);
+        connect(item, &RunConfigurationBuildItem::requestFileOpen, this, &RunConfigurationLeftPane::requestFileOpen);
+        ui->buildsLayout->addWidget(item);
+    });
 }
 
 RunConfigurationLeftPane::~RunConfigurationLeftPane() {
