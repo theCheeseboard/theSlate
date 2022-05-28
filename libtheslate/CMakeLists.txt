@@ -20,6 +20,8 @@ set(SOURCES
     project/runconfiguration.cpp
     project/buildenginemanager.cpp
     project/buildjob.cpp
+    project/logscanner.cpp
+    project/logscannermanager.cpp
 )
 
 set(HEADERS
@@ -37,6 +39,8 @@ set(HEADERS
     project/runconfiguration.h
     project/buildenginemanager.h
     project/buildjob.h
+    project/logscanner.h
+    project/logscannermanager.h
 )
 
 set(PRIVATE_HEADERS

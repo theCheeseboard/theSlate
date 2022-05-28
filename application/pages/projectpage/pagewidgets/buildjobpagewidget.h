@@ -18,6 +18,12 @@ class BuildJobPageWidget : public QWidget {
 
         void appendToLog(QString contents);
 
+    signals:
+        void requestFileOpen(QUrl url);
+
+    private slots:
+        void on_issuesList_clicked(const QModelIndex& index);
+
     private:
         Ui::BuildJobPageWidget* ui;
         BuildJobPageWidgetPrivate* d;

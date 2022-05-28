@@ -1,5 +1,7 @@
 #include "buildjob.h"
 
+#include "logscannermanager.h"
+#include "statemanager.h"
 #include <QDateTime>
 
 struct BuildJobPrivate {
@@ -65,6 +67,14 @@ QList<BuildJob::BuildIssue> BuildJob::buildIssues() {
     return d->buildIssues;
 }
 
+int BuildJob::countIssues(BuildIssue::Type issueType) {
+    int sum = 0;
+    for (const auto& issue : d->buildIssues) {
+        if (issue.issueType == issueType) sum++;
+    }
+    return sum;
+}
+
 QDateTime BuildJob::buildStartDate() {
     return d->buildStartDate;
 }
@@ -107,6 +117,14 @@ void BuildJob::setMaxStep(int maxStep) {
 void BuildJob::appendToBuildLog(QString buildLog) {
     d->buildLog.append(buildLog);
     emit buildLogAppendedTo(buildLog);
+
+    for (const auto& line : buildLog.split("\n")) {
+        auto issues = StateManager::logScanner()->scanLine(line);
+        d->buildIssues.append(issues);
+        for (const auto& issue : issues) {
+            emit buildIssuesAppendedTo(issue);
+        }
+    }
 }
 
 void BuildJob::appendToBuildIssues(BuildIssue issue) {

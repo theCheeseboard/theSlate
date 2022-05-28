@@ -22,6 +22,7 @@ set(SOURCES
         pages/projectpage/pagewidgets/buildjobpagewidget.cpp pages/projectpage/pagewidgets/buildjobpagewidget.ui
         widgetholder/widgetholdereditorfactory.cpp
         pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationbuilditem.cpp pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationbuilditem.ui
+        pages/projectpage/models/buildjobissuesmodel.cpp
 )
 
 set(HEADERS
@@ -39,6 +40,7 @@ set(HEADERS
         pages/projectpage/pagewidgets/buildjobpagewidget.h
         widgetholder/widgetholdereditorfactory.h
         pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationbuilditem.h
+        pages/projectpage/models/buildjobissuesmodel.h
 )
 
 # Find Apple lproj files

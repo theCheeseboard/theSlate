@@ -5,6 +5,7 @@
 
 class EditorManager;
 class BuildEngineManager;
+class LogScannerManager;
 
 struct StateManagerPrivate;
 class StateManager : public QObject {
@@ -15,6 +16,7 @@ class StateManager : public QObject {
         static StateManager* instance();
         static EditorManager* editor();
         static BuildEngineManager* buildEngine();
+        static LogScannerManager* logScanner();
 
     signals:
 

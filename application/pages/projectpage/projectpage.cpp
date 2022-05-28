@@ -1,6 +1,7 @@
 #include "projectpage.h"
 #include "ui_projectpage.h"
 
+#include <QAction>
 #include <editormanager.h>
 #include <project.h>
 #include <statemanager.h>
@@ -43,6 +44,14 @@ ProjectPage::ProjectPage(QString projectDirectory, QWidget* parent) :
     auto runConfigLeftPane = new RunConfigurationLeftPane(d->project);
     connect(runConfigLeftPane, &RunConfigurationLeftPane::requestFileOpen, this, &ProjectPage::openUrl);
     addLeftPaneItem(runConfigLeftPane);
+
+    QAction* buildAction = new QAction();
+    buildAction->setText(tr("Build"));
+    buildAction->setIcon(QIcon::fromTheme("package")); // TODO: Make a better icon
+    connect(buildAction, &QAction::triggered, this, [=] {
+        d->project->activeRunConfigurationBuild();
+    });
+    d->tabButton->addAction(buildAction);
 }
 
 ProjectPage::~ProjectPage() {

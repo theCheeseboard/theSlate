@@ -1,12 +1,14 @@
 #include "buildjobpagewidget.h"
 #include "ui_buildjobpagewidget.h"
 
+#include "../models/buildjobissuesmodel.h"
 #include <QFontDatabase>
 #include <QScrollBar>
 
 struct BuildJobPageWidgetPrivate {
         BuildJobPtr buildJob;
         bool scrollLogToBottom = false;
+        BuildJobIssuesModel* issuesModel;
 };
 
 BuildJobPageWidget::BuildJobPageWidget(BuildJobPtr buildJob, QWidget* parent) :
@@ -41,6 +43,10 @@ BuildJobPageWidget::BuildJobPageWidget(BuildJobPtr buildJob, QWidget* parent) :
     });
     ui->logBrowser->verticalScrollBar()->setValue(ui->logBrowser->verticalScrollBar()->maximum());
     d->scrollLogToBottom = true;
+
+    d->issuesModel = new BuildJobIssuesModel(d->buildJob);
+    ui->issuesList->setModel(d->issuesModel);
+    ui->issuesList->setItemDelegate(new BuildJobIssuesDelegate(this));
 }
 
 BuildJobPageWidget::~BuildJobPageWidget() {
@@ -50,4 +56,8 @@ BuildJobPageWidget::~BuildJobPageWidget() {
 
 void BuildJobPageWidget::appendToLog(QString contents) {
     ui->logBrowser->append(contents);
+}
+
+void BuildJobPageWidget::on_issuesList_clicked(const QModelIndex& index) {
+    emit requestFileOpen(index.data(BuildJobIssuesModel::EditorUrl).toUrl());
 }

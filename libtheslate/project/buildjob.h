@@ -19,6 +19,10 @@ class BuildJob : public QObject {
 
                 Type issueType;
                 QString message;
+
+                QString file;
+                int line;
+                int col;
         };
 
         enum State {
@@ -38,6 +42,7 @@ class BuildJob : public QObject {
 
         QString buildLog();
         QList<BuildIssue> buildIssues();
+        int countIssues(BuildIssue::Type issueType);
 
         QDateTime buildStartDate();
 

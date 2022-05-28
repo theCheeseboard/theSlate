@@ -55,8 +55,9 @@ void RunConfigurationBuildItem::mousePressEvent(QMouseEvent* event) {
 }
 
 void RunConfigurationBuildItem::mouseReleaseEvent(QMouseEvent* event) {
-    if (this->underMouse()) {
+    if (this->underMouse() && event->button() == Qt::LeftButton && event->buttons() == Qt::NoButton) {
         auto* pageWidget = new BuildJobPageWidget(d->trackedBuildJob);
+        connect(pageWidget, &BuildJobPageWidget::requestFileOpen, this, &RunConfigurationBuildItem::requestFileOpen);
         emit requestFileOpen(WidgetHolderEditor::urlForWidget(pageWidget));
     }
 }

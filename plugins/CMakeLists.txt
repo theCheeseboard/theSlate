@@ -1,1 +1,2 @@
 add_subdirectory(CMakePlugin)
+add_subdirectory(ClangPlugin)
