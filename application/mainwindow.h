@@ -41,6 +41,8 @@ class MainWindow : public QMainWindow {
 
         void on_actionOpenDirectory_triggered();
 
+        void on_actionClone_Repository_triggered();
+
     private:
         Ui::MainWindow* ui;
         MainWindowPrivate* d;

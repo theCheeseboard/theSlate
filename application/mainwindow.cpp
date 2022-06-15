@@ -16,7 +16,11 @@
 
 #include "pages/editorpage/editorpage.h"
 #include "pages/projectpage/projectpage.h"
+#include "pages/repositoryclonepage/repositoryclonepage.h"
 #include "unsavedchangespopover.h"
+
+#include <objects/repository.h>
+#include <popovers/clonerepositorypopover.h>
 
 struct MainWindowPrivate {
         tCsdTools csd;
@@ -230,10 +234,25 @@ void MainWindow::on_actionOpenDirectory_triggered() {
         if (result == QFileDialog::Accepted) {
             auto dir = fileDialog->selectedFiles().first();
 
-            ProjectPage* project = new ProjectPage(dir);
+            auto* project = new ProjectPage(dir);
             this->addPage(project);
         }
     });
     connect(fileDialog, &QFileDialog::finished, fileDialog, &QFileDialog::deleteLater);
     fileDialog->open();
+}
+
+void MainWindow::on_actionClone_Repository_triggered() {
+    auto* jp = new CloneRepositoryPopover();
+    auto* popover = new tPopover(jp);
+    popover->setPopoverWidth(SC_DPI_W(-200, this));
+    popover->setPopoverSide(tPopover::Bottom);
+    connect(jp, &CloneRepositoryPopover::done, popover, &tPopover::dismiss);
+    connect(jp, &CloneRepositoryPopover::openRepository, this, [=](RepositoryPtr repository) {
+                auto* page = new RepositoryClonePage(repository);
+                this->addPage(page);
+    });
+    connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
+    connect(popover, &tPopover::dismissed, jp, &CloneRepositoryPopover::deleteLater);
+    popover->show(this->window());
 }

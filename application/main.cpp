@@ -11,6 +11,7 @@
 #include <statemanager.h>
 #include <theslateplugin.h>
 
+#include "libthebranch/libthebranch_global.h"
 #include "widgetholder/widgetholdereditorfactory.h"
 
 #include "mainwindow.h"
@@ -41,6 +42,8 @@ int main(int argc, char* argv[]) {
     a.setQuitOnLastWindowClosed(false);
 #endif
 
+    theBranch::init();
+
     tSettings settings;
     QObject::connect(&settings, &tSettings::settingChanged, [=](QString key, QVariant value) {
         if (key == "theme/mode") {
@@ -58,5 +61,8 @@ int main(int argc, char* argv[]) {
     w->show();
 
     int retval = a.exec();
+
+    theBranch::teardown();
+
     return retval;
 }

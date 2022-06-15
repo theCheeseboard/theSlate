@@ -4,6 +4,7 @@ project(theslate VERSION 1.0.0 LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(libcontemporary REQUIRED)
+find_package(libthebranch REQUIRED)
 
 set(SOURCES
         main.cpp
@@ -23,6 +24,8 @@ set(SOURCES
         widgetholder/widgetholdereditorfactory.cpp
         pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationbuilditem.cpp pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationbuilditem.ui
         pages/projectpage/models/buildjobissuesmodel.cpp
+        pages/repositoryclonepage/repositoryclonepage.cpp pages/repositoryclonepage/repositoryclonepage.ui
+         pages/passthroughpage/passthroughpage.cpp
 )
 
 set(HEADERS
@@ -41,6 +44,8 @@ set(HEADERS
         widgetholder/widgetholdereditorfactory.h
         pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationbuilditem.h
         pages/projectpage/models/buildjobissuesmodel.h
+        pages/repositoryclonepage/repositoryclonepage.h
+        pages/passthroughpage/passthroughpage.h
 )
 
 # Find Apple lproj files
@@ -78,7 +83,7 @@ cntp_target_desktop_file(theslate
 cntp_defaults_file(theslate
     DEFAULTS_FILE theslate.conf)
 
-target_link_libraries(theslate Qt6::Widgets libcontemporary libtheslate)
+target_link_libraries(theslate Qt6::Widgets libcontemporary libtheslate libthebranch)
 target_include_directories(theslate PUBLIC ../libtheslate/)
 
 install(TARGETS theslate

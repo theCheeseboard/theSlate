@@ -54,7 +54,7 @@ ProjectPage::ProjectPage(QString projectDirectory, QWidget* parent) :
     d->tabButton->addAction(buildAction);
 
     auto* runAction = new QAction();
-    runAction->setText("run");
+    runAction->setText(tr("Run"));
     runAction->setIcon(QIcon::fromTheme("media-playback-start"));
     connect(runAction, &QAction::triggered, this, [=] {
         d->project->activeRunConfigurationRun();

@@ -131,6 +131,8 @@
      </property>
      <addaction name="actionOpenFile"/>
      <addaction name="actionOpenDirectory"/>
+     <addaction name="separator"/>
+     <addaction name="actionClone_Repository"/>
     </widget>
     <addaction name="menuNew"/>
     <addaction name="separator"/>
@@ -256,6 +258,11 @@
   <action name="actionOpenDirectory">
    <property name="text">
     <string>Directory...</string>
+   </property>
+  </action>
+  <action name="actionClone_Repository">
+   <property name="text">
+    <string>Clone Repository</string>
    </property>
   </action>
  </widget>
