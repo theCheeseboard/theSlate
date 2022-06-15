@@ -37,21 +37,34 @@ ProjectPage::ProjectPage(QString projectDirectory, QWidget* parent) :
     ui->leftPaneContainer->setFixedWidth(SC_DPI_W(300, this));
     ui->buildTasks->setProject(d->project);
 
-    auto fileTreeLeftPane = new FileTreeLeftPane(d->project);
+    auto* fileTreeLeftPane = new FileTreeLeftPane(d->project);
     connect(fileTreeLeftPane, &FileTreeLeftPane::requestFileOpen, this, &ProjectPage::openUrl);
     addLeftPaneItem(fileTreeLeftPane);
 
-    auto runConfigLeftPane = new RunConfigurationLeftPane(d->project);
+    auto* runConfigLeftPane = new RunConfigurationLeftPane(d->project);
     connect(runConfigLeftPane, &RunConfigurationLeftPane::requestFileOpen, this, &ProjectPage::openUrl);
     addLeftPaneItem(runConfigLeftPane);
 
-    QAction* buildAction = new QAction();
+    auto* buildAction = new QAction(this);
     buildAction->setText(tr("Build"));
     buildAction->setIcon(QIcon::fromTheme("package")); // TODO: Make a better icon
     connect(buildAction, &QAction::triggered, this, [=] {
         d->project->activeRunConfigurationBuild();
     });
     d->tabButton->addAction(buildAction);
+
+    auto* runAction = new QAction();
+    runAction->setText("run");
+    runAction->setIcon(QIcon::fromTheme("media-playback-start"));
+    connect(runAction, &QAction::triggered, this, [=] {
+        d->project->activeRunConfigurationRun();
+    });
+    d->tabButton->addAction(runAction);
+
+    runAction->setEnabled(d->project->canActiveRunConfigurationRun());
+    connect(d->project.data(), &Project::currentTargetChanged, this, [=] {
+        runAction->setEnabled(d->project->canActiveRunConfigurationRun());
+    });
 }
 
 ProjectPage::~ProjectPage() {

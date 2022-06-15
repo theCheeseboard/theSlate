@@ -29,11 +29,21 @@ CmakeConfigureJob::~CmakeConfigureJob() {
 }
 
 void CmakeConfigureJob::start() {
+    // Request information from file API
+    QDir queryFolder = d->buildDirectory.absoluteFilePath(".cmake/api/v1/query");
+    queryFolder.mkpath(".");
+
+    QFile codemodelRequestFile(queryFolder.absoluteFilePath("codemodel-v2"));
+    codemodelRequestFile.open(QFile::WriteOnly);
+    codemodelRequestFile.close();
+
     QStringList args = {
         "-S",
         d->project->projectDir().path(),
         "-B",
-        d->buildDirectory.path()};
+        d->buildDirectory.path(),
+        QStringLiteral("--graphviz=%1").arg(d->buildDirectory.absoluteFilePath("graph.dot")),
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"};
     args.append(d->cmakeArgs);
 
     auto* cmakeProc = new QProcess();

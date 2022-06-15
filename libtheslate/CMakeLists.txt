@@ -22,6 +22,8 @@ set(SOURCES
     project/buildjob.cpp
     project/logscanner.cpp
     project/logscannermanager.cpp
+    project/runjob.cpp
+    project/presets/processrunjob.cpp
 )
 
 set(HEADERS
@@ -41,6 +43,9 @@ set(HEADERS
     project/buildjob.h
     project/logscanner.h
     project/logscannermanager.h
+    project/runjob.h
+
+    project/presets/processrunjob.h
 )
 
 set(PRIVATE_HEADERS

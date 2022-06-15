@@ -30,10 +30,16 @@ class Project : public QObject,
         RunConfigurationPtr activeRunConfiguration();
         void setActiveRunConfiguration(RunConfigurationPtr runConfiguration);
 
+        QStringList targets();
+        QString activeTarget();
+        void setActiveTarget(QString target);
+
         bool canActiveRunConfigurationConfigure();
         void activeRunConfigurationConfigure();
         bool canActiveRunConfigurationBuild();
         void activeRunConfigurationBuild();
+        bool canActiveRunConfigurationRun();
+        void activeRunConfigurationRun();
         void reloadProjectConfigurations();
 
         QList<BuildJobPtr> buildJobs();
@@ -43,12 +49,15 @@ class Project : public QObject,
     signals:
         void runConfigurationsUpdated();
         void buildJobAdded(BuildJobPtr buildJob);
+        void targetsChanged();
+        void currentTargetChanged(QString target);
 
     private:
         ProjectPrivate* d;
         explicit Project(QString projectDir, QObject* parent = nullptr);
 
         tPromise<void>* runBeforeBuildEventHandlers();
+        BuildJobPtr startBuildJob();
 };
 
 typedef QSharedPointer<Project> ProjectPtr;

@@ -2,6 +2,7 @@
 #define RUNCONFIGURATION_H
 
 #include "buildjob.h"
+#include "runjob.h"
 #include <QObject>
 
 class RunConfiguration : public QObject {
@@ -14,10 +15,17 @@ class RunConfiguration : public QObject {
         virtual bool haveConfigurationStep() = 0;
         virtual BuildJobPtr configure() = 0;
 
+        virtual QStringList targets() = 0;
+        virtual QString recommendedTarget() = 0;
+
         virtual bool haveBuildStep() = 0;
-        virtual BuildJobPtr build() = 0;
+        virtual BuildJobPtr build(QString target = "") = 0;
+
+        virtual bool canRun(QString target = "") = 0;
+        virtual RunJobPtr run(QString target = "") = 0;
 
     signals:
+        void targetsChanged();
 };
 typedef QSharedPointer<RunConfiguration> RunConfigurationPtr;
 

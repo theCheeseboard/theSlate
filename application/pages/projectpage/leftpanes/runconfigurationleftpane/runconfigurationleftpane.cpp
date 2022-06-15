@@ -24,7 +24,10 @@ RunConfigurationLeftPane::RunConfigurationLeftPane(ProjectPtr project, QWidget* 
     ui->buildsLayout->setDirection(QBoxLayout::BottomToTop);
 
     connect(project.data(), &Project::runConfigurationsUpdated, this, &RunConfigurationLeftPane::updateRunConfigurations);
+    connect(project.data(), &Project::targetsChanged, this, &RunConfigurationLeftPane::updateTargets);
+    connect(project.data(), &Project::currentTargetChanged, this, &RunConfigurationLeftPane::updateTargets);
     updateRunConfigurations();
+    updateTargets();
 
     connect(project.data(), &Project::buildJobAdded, this, [=](BuildJobPtr job) {
         auto* item = new RunConfigurationBuildItem(job);
@@ -56,6 +59,16 @@ void RunConfigurationLeftPane::updateRunConfigurations() {
     ui->buildButton->setVisible(d->project->canActiveRunConfigurationBuild());
 }
 
+void RunConfigurationLeftPane::updateTargets() {
+    QSignalBlocker blocker(ui->targetsBox);
+    ui->targetsBox->clear();
+
+    auto targets = d->project->targets();
+    ui->targetsBox->addItems(targets);
+    ui->targetsBox->setCurrentIndex(targets.indexOf(d->project->activeTarget()));
+    ui->runButton->setEnabled(d->project->canActiveRunConfigurationRun());
+}
+
 tWindowTabberButton* RunConfigurationLeftPane::tabButton() {
     return d->tabButton;
 }
@@ -71,4 +84,12 @@ void RunConfigurationLeftPane::on_configureButton_clicked() {
 
 void RunConfigurationLeftPane::on_buildButton_clicked() {
     d->project->activeRunConfigurationBuild();
+}
+
+void RunConfigurationLeftPane::on_targetsBox_currentIndexChanged(int index) {
+    d->project->setActiveTarget(ui->targetsBox->itemText(index));
+}
+
+void RunConfigurationLeftPane::on_runButton_clicked() {
+    d->project->activeRunConfigurationRun();
 }

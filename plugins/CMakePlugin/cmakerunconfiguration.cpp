@@ -6,6 +6,9 @@
 #include "buildjobs/cmakebuildjob.h"
 #include "buildjobs/cmakeconfigurejob.h"
 
+#include "fileapiclient/replyindex.h"
+#include "project/presets/processrunjob.h"
+
 struct CmakeRunConfigurationPrivate {
         QWeakPointer<Project> project;
         CmakeBuildEngine* buildEngine;
@@ -42,21 +45,64 @@ bool CmakeRunConfiguration::haveConfigurationStep() {
 }
 
 BuildJobPtr CmakeRunConfiguration::configure() {
-    ProjectPtr project = d->project.toStrongRef();
+    auto project = d->project.toStrongRef();
     if (!project) return nullptr;
 
     if (!d->buildDirectory.exists()) d->buildDirectory.mkpath(".");
-    return BuildJobPtr(new CmakeConfigureJob(d->project, d->buildEngine, d->name, d->cmakeArgs, d->buildDirectory));
+    auto buildJob = BuildJobPtr(new CmakeConfigureJob(d->project, d->buildEngine, d->name, d->cmakeArgs, d->buildDirectory));
+    connect(buildJob.data(), &BuildJob::stateChanged, this, [=](BuildJob::State state) {
+        if (state == BuildJob::Successful || state == BuildJob::Failed) emit targetsChanged();
+    });
+    return buildJob;
+}
+
+QStringList CmakeRunConfiguration::targets() {
+    auto replyIndex = ReplyIndexPtr(new ReplyIndex(d->buildDirectory));
+    return replyIndex->codemodel()->targets();
+}
+
+QString CmakeRunConfiguration::recommendedTarget() {
+    auto replyIndex = ReplyIndexPtr(new ReplyIndex(d->buildDirectory));
+    auto codemodel = replyIndex->codemodel();
+    auto targets = codemodel->targets();
+
+    if (targets.isEmpty()) return "";
+    for (auto target : targets) {
+        if (codemodel->target(target)->type() == TargetObject::Executable) return target;
+    }
+    return targets.first();
 }
 
 bool CmakeRunConfiguration::haveBuildStep() {
     return true;
 }
 
-BuildJobPtr CmakeRunConfiguration::build() {
-    ProjectPtr project = d->project.toStrongRef();
+BuildJobPtr CmakeRunConfiguration::build(QString target) {
+    auto project = d->project.toStrongRef();
     if (!project) return nullptr;
 
+    if (target == "") target = this->recommendedTarget();
+
     if (!d->buildDirectory.exists()) d->buildDirectory.mkpath(".");
-    return BuildJobPtr(new CmakeBuildJob(d->project, d->buildEngine, d->name, d->buildDirectory));
+    return BuildJobPtr(new CmakeBuildJob(d->project, d->buildEngine, d->name, d->buildDirectory, target));
+}
+
+bool CmakeRunConfiguration::canRun(QString target) {
+    auto replyIndex = ReplyIndexPtr(new ReplyIndex(d->buildDirectory));
+    auto targetInfo = replyIndex->codemodel()->target(target);
+
+    if (!targetInfo) return false;
+    if (targetInfo->artifacts().isEmpty()) return false;
+
+    return true;
+}
+
+RunJobPtr CmakeRunConfiguration::run(QString target) {
+    auto replyIndex = ReplyIndexPtr(new ReplyIndex(d->buildDirectory));
+    auto codeModel = replyIndex->codemodel();
+    auto targetInfo = codeModel->target(target);
+    auto directoryInfo = codeModel->directoryForTarget(target);
+
+    auto* runJob = new ProcessRunJob(d->buildDirectory.absoluteFilePath(targetInfo->artifacts().first()), {}, d->buildDirectory.absoluteFilePath(directoryInfo->buildPath()));
+    return RunJobPtr(runJob);
 }

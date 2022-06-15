@@ -41,5 +41,7 @@ tWindowTabberButton* FileTreeLeftPane::tabButton() {
 }
 
 void FileTreeLeftPane::on_fileSystemView_clicked(const QModelIndex& index) {
-    emit requestFileOpen(QUrl::fromLocalFile(index.data(QFileSystemModel::FilePathRole).toString()));
+    auto filePath = index.data(QFileSystemModel::FilePathRole).toString();
+    if (QFileInfo(filePath).isDir()) return;
+    emit requestFileOpen(QUrl::fromLocalFile(filePath));
 }

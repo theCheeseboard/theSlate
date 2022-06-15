@@ -8,6 +8,7 @@ struct CmakeBuildJobPrivate {
         ProjectPtr project;
         QDir buildDirectory;
         QString name;
+        QString target;
         CmakeBuildEngine* buildEngine;
 
         static QRegularExpression cmakeOutputRegex;
@@ -15,15 +16,16 @@ struct CmakeBuildJobPrivate {
 
 auto CmakeBuildJobPrivate::cmakeOutputRegex = QRegularExpression("\\[(\\d+)/(\\d+)] (.+)");
 
-CmakeBuildJob::CmakeBuildJob(ProjectPtr project, CmakeBuildEngine* buildEngine, QString configurationName, QDir buildDirectory, QObject* parent) :
+CmakeBuildJob::CmakeBuildJob(ProjectPtr project, CmakeBuildEngine* buildEngine, QString configurationName, QDir buildDirectory, QString target, QObject* parent) :
     BuildJob{parent} {
     d = new CmakeBuildJobPrivate();
     d->project = project;
     d->buildEngine = buildEngine;
     d->buildDirectory = buildDirectory;
     d->name = configurationName;
+    d->target = target;
 
-    this->setTitle(tr("Build %1").arg(QLocale().quoteString(configurationName)));
+    this->setTitle(tr("Build %1 (%2)").arg(QLocale().quoteString(configurationName), target));
     this->setDescription(tr("Building Project..."));
 }
 
@@ -49,7 +51,9 @@ void CmakeBuildJob::processOutput(QString output) {
 void CmakeBuildJob::start() {
     QStringList args = {
         "--build",
-        d->buildDirectory.path()};
+        d->buildDirectory.path(),
+        "--target",
+        d->target};
 
     auto* cmakeProc = new QProcess();
     connect(cmakeProc, &QProcess::readyReadStandardOutput, this, [=] {

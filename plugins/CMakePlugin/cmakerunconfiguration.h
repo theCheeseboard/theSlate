@@ -18,15 +18,19 @@ class CmakeRunConfiguration : public RunConfiguration {
         CmakeRunConfigurationPrivate* d;
 
         // RunConfiguration interface
-public:
+    public:
         QString name();
 
         // RunConfiguration interface
-public:
+    public:
         bool haveConfigurationStep();
         BuildJobPtr configure();
+        QStringList targets();
+        QString recommendedTarget();
         bool haveBuildStep();
-        BuildJobPtr build();
+        BuildJobPtr build(QString target);
+        bool canRun(QString target);
+        RunJobPtr run(QString target);
 };
 
 #endif // CMAKERUNCONFIGURATION_H

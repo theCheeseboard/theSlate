@@ -10,6 +10,11 @@ set(SOURCES
 
         buildjobs/cmakeconfigurejob.cpp
         buildjobs/cmakebuildjob.cpp
+
+        fileapiclient/replyindex.cpp
+        fileapiclient/codemodelobject.cpp
+        fileapiclient/targetobject.cpp
+        fileapiclient/directoryobject.cpp
 )
 
 set(HEADERS
@@ -19,6 +24,11 @@ set(HEADERS
 
         buildjobs/cmakeconfigurejob.h
         buildjobs/cmakebuildjob.h
+
+        fileapiclient/replyindex.h
+        fileapiclient/codemodelobject.h
+        fileapiclient/targetobject.h
+        fileapiclient/directoryobject.h
 )
 
 add_library(plugin-cmake SHARED ${SOURCES} ${HEADERS})

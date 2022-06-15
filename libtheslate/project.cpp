@@ -8,6 +8,7 @@
 struct ProjectPrivate {
         QList<RunConfigurationPtr> runConfigurations;
         RunConfigurationPtr activeRunConfiguration;
+        QString activeTarget;
         QString projectDir;
 
         QList<BuildJobPtr> buildJobs;
@@ -21,6 +22,21 @@ Project::Project(QString projectDir, QObject* parent) :
     d->projectDir = projectDir;
 
     QTimer::singleShot(0, this, &Project::reloadProjectConfigurations);
+
+    connect(this, &Project::runConfigurationsUpdated, this, [=] {
+        emit targetsChanged();
+
+        if (!d->activeRunConfiguration) {
+            setActiveTarget("");
+            return;
+        }
+
+        auto targets = d->activeRunConfiguration->targets();
+        if (!targets.contains(d->activeTarget)) {
+            setActiveTarget(d->activeRunConfiguration->recommendedTarget());
+            return;
+        }
+    });
 }
 
 tPromise<void>* Project::runBeforeBuildEventHandlers() {
@@ -35,6 +51,16 @@ tPromise<void>* Project::runBeforeBuildEventHandlers() {
 
         res();
     });
+}
+
+BuildJobPtr Project::startBuildJob() {
+    auto buildJob = d->activeRunConfiguration->build(d->activeTarget);
+    if (!buildJob) return BuildJobPtr();
+    d->buildJobs.append(buildJob);
+    emit buildJobAdded(buildJob);
+
+    buildJob->start();
+    return buildJob;
 }
 
 Project::~Project() {
@@ -76,8 +102,28 @@ RunConfigurationPtr Project::activeRunConfiguration() {
 }
 
 void Project::setActiveRunConfiguration(RunConfigurationPtr runConfiguration) {
+    if (d->activeRunConfiguration) {
+        d->activeRunConfiguration->disconnect(this);
+    }
     d->activeRunConfiguration = runConfiguration;
+    if (d->activeRunConfiguration) {
+        connect(d->activeRunConfiguration.data(), &RunConfiguration::targetsChanged, this, &Project::targetsChanged);
+    }
     emit runConfigurationsUpdated();
+}
+
+QStringList Project::targets() {
+    if (!d->activeRunConfiguration) return {};
+    return d->activeRunConfiguration->targets();
+}
+
+QString Project::activeTarget() {
+    return d->activeTarget;
+}
+
+void Project::setActiveTarget(QString target) {
+    d->activeTarget = target;
+    emit currentTargetChanged(target);
 }
 
 bool Project::canActiveRunConfigurationConfigure() {
@@ -107,12 +153,27 @@ void Project::activeRunConfigurationBuild() {
     if (!d->activeRunConfiguration) return;
 
     this->runBeforeBuildEventHandlers()->then([=] {
-        auto buildJob = d->activeRunConfiguration->build();
-        if (!buildJob) return;
-        d->buildJobs.append(buildJob);
-        emit buildJobAdded(buildJob);
+        this->startBuildJob();
+    });
+}
 
-        buildJob->start();
+bool Project::canActiveRunConfigurationRun() {
+    if (!d->activeRunConfiguration) return false;
+    return d->activeRunConfiguration->canRun(d->activeTarget);
+}
+
+void Project::activeRunConfigurationRun() {
+    if (!d->activeRunConfiguration) return;
+
+    this->runBeforeBuildEventHandlers()->then([=] {
+        auto buildJob = this->startBuildJob();
+        connect(buildJob.data(), &BuildJob::stateChanged, this, [=](BuildJob::State state) {
+            if (state == BuildJob::Successful) {
+                // TODO: Register this run job so we can stop it, etc.
+                auto runJob = d->activeRunConfiguration->run(d->activeTarget);
+                runJob->start();
+            }
+        });
     });
 }
 
