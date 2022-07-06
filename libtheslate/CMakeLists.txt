@@ -54,7 +54,7 @@ set(PRIVATE_HEADERS
 )
 
 add_library(libtheslate SHARED ${SOURCES} ${HEADERS} ${PRIVATE_HEADERS})
-cntp_init(libtheslate 17)
+cntp_init(libtheslate 20)
 set_target_properties(libtheslate PROPERTIES
         OUTPUT_NAME theslate
         FRAMEWORK TRUE

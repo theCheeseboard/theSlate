@@ -16,7 +16,7 @@ set(HEADERS
 add_library(plugin-clang SHARED ${SOURCES} ${HEADERS})
 target_include_directories(plugin-clang PUBLIC ../../libtheslate/)
 
-cntp_init_plugin(theslate plugin-clang 17 plugin-clang)
+cntp_init_plugin(theslate plugin-clang 20 plugin-clang)
 cntp_translate(plugin-clang)
 
 set_target_properties(plugin-clang PROPERTIES

@@ -29,21 +29,21 @@ UnsavedChangesPopover::~UnsavedChangesPopover() {
     delete d;
 }
 
-void UnsavedChangesPopover::processNextFile() {
+QCoro::Task<> UnsavedChangesPopover::processNextFile() {
     if (d->unsavedPages.isEmpty()) {
         emit accepted();
-        return;
+        co_return;
     }
 
     AbstractPage* page = d->unsavedPages.at(0);
-    page->save()->then([=] {
-                    d->unsavedPages.removeOne(page);
-                    processNextFile();
-                })
-        ->error([=](QString error) {
-            updateState();
-            emit show();
-        });
+    try {
+        co_await page->save();
+        d->unsavedPages.removeOne(page);
+        processNextFile();
+    } catch (QException& ex) {
+        updateState();
+        emit show();
+    }
 }
 
 void UnsavedChangesPopover::on_titleLabel_backButtonClicked() {

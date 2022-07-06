@@ -13,7 +13,7 @@ struct ProjectPrivate {
 
         QList<BuildJobPtr> buildJobs;
 
-        QList<std::function<tPromise<void>*()>> beforeBuildEventHandlers;
+        QList<std::function<QCoro::Task<>()>> beforeBuildEventHandlers;
 };
 
 Project::Project(QString projectDir, QObject* parent) :
@@ -39,18 +39,10 @@ Project::Project(QString projectDir, QObject* parent) :
     });
 }
 
-tPromise<void>* Project::runBeforeBuildEventHandlers() {
-    return TPROMISE_CREATE_NEW_THREAD(void, {
-        for (auto handler : d->beforeBuildEventHandlers) {
-            auto results = handler()->await();
-            if (!results.error.isEmpty()) {
-                rej(results.error);
-                return;
-            }
-        }
-
-        res();
-    });
+QCoro::Task<> Project::runBeforeBuildEventHandlers() {
+    for (auto handler : d->beforeBuildEventHandlers) {
+        co_await handler();
+    }
 }
 
 BuildJobPtr Project::startBuildJob() {
@@ -131,17 +123,17 @@ bool Project::canActiveRunConfigurationConfigure() {
     return d->activeRunConfiguration->haveConfigurationStep();
 }
 
-void Project::activeRunConfigurationConfigure() {
-    if (!d->activeRunConfiguration) return;
+QCoro::Task<> Project::activeRunConfigurationConfigure() {
+    if (!d->activeRunConfiguration) co_return;
 
-    this->runBeforeBuildEventHandlers()->then([=] {
-        auto buildJob = d->activeRunConfiguration->configure();
-        if (!buildJob) return;
-        d->buildJobs.append(buildJob);
-        emit buildJobAdded(buildJob);
+    co_await this->runBeforeBuildEventHandlers();
 
-        buildJob->start();
-    });
+    auto buildJob = d->activeRunConfiguration->configure();
+    if (!buildJob) co_return;
+    d->buildJobs.append(buildJob);
+    emit buildJobAdded(buildJob);
+
+    buildJob->start();
 }
 
 bool Project::canActiveRunConfigurationBuild() {
@@ -149,12 +141,11 @@ bool Project::canActiveRunConfigurationBuild() {
     return d->activeRunConfiguration->haveBuildStep();
 }
 
-void Project::activeRunConfigurationBuild() {
-    if (!d->activeRunConfiguration) return;
+QCoro::Task<> Project::activeRunConfigurationBuild() {
+    if (!d->activeRunConfiguration) co_return;
 
-    this->runBeforeBuildEventHandlers()->then([=] {
-        this->startBuildJob();
-    });
+    co_await this->runBeforeBuildEventHandlers();
+    this->startBuildJob();
 }
 
 bool Project::canActiveRunConfigurationRun() {
@@ -162,18 +153,17 @@ bool Project::canActiveRunConfigurationRun() {
     return d->activeRunConfiguration->canRun(d->activeTarget);
 }
 
-void Project::activeRunConfigurationRun() {
-    if (!d->activeRunConfiguration) return;
+QCoro::Task<> Project::activeRunConfigurationRun() {
+    if (!d->activeRunConfiguration) co_return;
 
-    this->runBeforeBuildEventHandlers()->then([=] {
-        auto buildJob = this->startBuildJob();
-        connect(buildJob.data(), &BuildJob::stateChanged, this, [=](BuildJob::State state) {
-            if (state == BuildJob::Successful) {
-                // TODO: Register this run job so we can stop it, etc.
-                auto runJob = d->activeRunConfiguration->run(d->activeTarget);
-                runJob->start();
-            }
-        });
+    co_await this->runBeforeBuildEventHandlers();
+    auto buildJob = this->startBuildJob();
+    connect(buildJob.data(), &BuildJob::stateChanged, this, [=](BuildJob::State state) {
+        if (state == BuildJob::Successful) {
+            // TODO: Register this run job so we can stop it, etc.
+            auto runJob = d->activeRunConfiguration->run(d->activeTarget);
+            runJob->start();
+        }
     });
 }
 
@@ -202,6 +192,6 @@ QList<BuildJobPtr> Project::buildJobs() {
     return d->buildJobs;
 }
 
-void Project::addBeforeBuildEventHandler(std::function<tPromise<void>*()> eventHandler) {
+void Project::addBeforeBuildEventHandler(std::function<QCoro::Task<>()> eventHandler) {
     d->beforeBuildEventHandlers.append(eventHandler);
 }

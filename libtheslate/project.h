@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QEnableSharedFromThis>
 #include <QObject>
+#include <Task>
 #include <tpromise.h>
 
 struct ProjectPrivate;
@@ -35,16 +36,16 @@ class Project : public QObject,
         void setActiveTarget(QString target);
 
         bool canActiveRunConfigurationConfigure();
-        void activeRunConfigurationConfigure();
+        QCoro::Task<> activeRunConfigurationConfigure();
         bool canActiveRunConfigurationBuild();
-        void activeRunConfigurationBuild();
+        QCoro::Task<> activeRunConfigurationBuild();
         bool canActiveRunConfigurationRun();
-        void activeRunConfigurationRun();
+        QCoro::Task<> activeRunConfigurationRun();
         void reloadProjectConfigurations();
 
         QList<BuildJobPtr> buildJobs();
 
-        void addBeforeBuildEventHandler(std::function<tPromise<void>*()> eventHandler);
+        void addBeforeBuildEventHandler(std::function<QCoro::Task<>()> eventHandler);
 
     signals:
         void runConfigurationsUpdated();
@@ -56,7 +57,7 @@ class Project : public QObject,
         ProjectPrivate* d;
         explicit Project(QString projectDir, QObject* parent = nullptr);
 
-        tPromise<void>* runBeforeBuildEventHandlers();
+        QCoro::Task<> runBeforeBuildEventHandlers();
         BuildJobPtr startBuildJob();
 };
 

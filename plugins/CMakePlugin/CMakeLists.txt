@@ -34,7 +34,7 @@ set(HEADERS
 add_library(plugin-cmake SHARED ${SOURCES} ${HEADERS})
 target_include_directories(plugin-cmake PUBLIC ../../libtheslate/)
 
-cntp_init_plugin(theslate plugin-cmake 17 plugin-cmake)
+cntp_init_plugin(theslate plugin-cmake 20 plugin-cmake)
 cntp_translate(plugin-cmake)
 
 set_target_properties(plugin-cmake PROPERTIES

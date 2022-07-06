@@ -109,27 +109,23 @@ void ProjectPage::redo() {
     if (editor) editor->redo();
 }
 
-tPromise<void>* ProjectPage::save() {
-    return TPROMISE_CREATE_SAME_THREAD(void, {});
+QCoro::Task<> ProjectPage::save() {
+    co_return;
 }
 
-tPromise<void>* ProjectPage::saveAs() {
-    return TPROMISE_CREATE_SAME_THREAD(void, {});
+QCoro::Task<> ProjectPage::saveAs() {
+    co_return;
 }
 
-tPromise<void>* ProjectPage::saveAll() {
-    return TPROMISE_CREATE_NEW_THREAD(void, {
-        for (int i = 0; i < ui->stackedWidget->count(); i++) {
-            auto editor = qobject_cast<EditorPage*>(ui->stackedWidget->widget(i));
-            if (editor) editor->saveAll()->await();
-        }
-
-        res();
-    });
+QCoro::Task<> ProjectPage::saveAll() {
+    for (int i = 0; i < ui->stackedWidget->count(); i++) {
+        auto editor = qobject_cast<EditorPage*>(ui->stackedWidget->widget(i));
+        if (editor) co_await editor->saveAll();
+    }
 }
 
-tPromise<void>* ProjectPage::saveBeforeClose(bool silent) {
-    return TPROMISE_CREATE_SAME_THREAD(void, {});
+QCoro::Task<> ProjectPage::saveBeforeClose(bool silent) {
+    co_return;
 }
 
 bool ProjectPage::saveAndCloseShouldAskUserConfirmation() {

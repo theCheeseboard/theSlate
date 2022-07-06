@@ -29,10 +29,10 @@ class ProjectPage : public AbstractPage {
         tWindowTabberButton* tabButton();
         void undo();
         void redo();
-        tPromise<void>* save();
-        tPromise<void>* saveAs();
-        tPromise<void>* saveAll();
-        tPromise<void>* saveBeforeClose(bool silent);
+        QCoro::Task<> save();
+        QCoro::Task<> saveAs();
+        QCoro::Task<> saveAll();
+        QCoro::Task<> saveBeforeClose(bool silent);
         bool saveAndCloseShouldAskUserConfirmation();
 };
 

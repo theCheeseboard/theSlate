@@ -2,6 +2,7 @@
 #define UNSAVEDCHANGESPOPOVER_H
 
 #include <QWidget>
+#include <Task>
 
 namespace Ui {
     class UnsavedChangesPopover;
@@ -16,7 +17,7 @@ class UnsavedChangesPopover : public QWidget {
         explicit UnsavedChangesPopover(QList<AbstractPage*> unsavedPages, QWidget* parent = nullptr);
         ~UnsavedChangesPopover();
 
-        void processNextFile();
+        QCoro::Task<> processNextFile();
 
     signals:
         void accepted();

@@ -61,35 +61,27 @@ void PassthroughPage::redo() {
     if (d->passthrough) d->passthrough->redo();
 }
 
-tPromise<void>* PassthroughPage::save() {
+QCoro::Task<> PassthroughPage::save() {
     if (d->passthrough) {
-        return d->passthrough->save();
-    } else {
-        return TPROMISE_CREATE_SAME_THREAD(void, { res(); });
+        co_return co_await d->passthrough->save();
     }
 }
 
-tPromise<void>* PassthroughPage::saveAs() {
+QCoro::Task<> PassthroughPage::saveAs() {
     if (d->passthrough) {
-        return d->passthrough->saveAs();
-    } else {
-        return TPROMISE_CREATE_SAME_THREAD(void, { res(); });
+        co_return co_await d->passthrough->saveAs();
     }
 }
 
-tPromise<void>* PassthroughPage::saveAll() {
+QCoro::Task<> PassthroughPage::saveAll() {
     if (d->passthrough) {
-        return d->passthrough->saveAll();
-    } else {
-        return TPROMISE_CREATE_SAME_THREAD(void, { res(); });
+        co_return co_await d->passthrough->saveAll();
     }
 }
 
-tPromise<void>* PassthroughPage::saveBeforeClose(bool silent) {
+QCoro::Task<> PassthroughPage::saveBeforeClose(bool silent) {
     if (d->passthrough) {
-        return d->passthrough->saveBeforeClose(silent);
-    } else {
-        return TPROMISE_CREATE_SAME_THREAD(void, { res(); });
+        co_return co_await d->passthrough->saveBeforeClose(silent);
     }
 }
 

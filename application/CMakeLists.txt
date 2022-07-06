@@ -71,7 +71,7 @@ set_target_properties(theslate PROPERTIES
         WIN32_EXECUTABLE TRUE
         CNTP_DATA_SUBDIR theslate)
 
-cntp_init(theslate 17)
+cntp_init(theslate 20)
 cntp_translate(theslate)
 cntp_target_name(theslate "theSlate")
 cntp_app_icon(theslate

@@ -4,8 +4,11 @@ AbstractPage::AbstractPage(QWidget* parent) :
     QWidget{parent} {
 }
 
-void AbstractPage::saveAndClose(bool silent) {
-    this->saveBeforeClose(silent)->then([=] {
+QCoro::Task<> AbstractPage::saveAndClose(bool silent) {
+    try {
+        co_await this->saveBeforeClose(silent);
         emit done();
-    });
+    } catch (QException& ex) {
+        // Ignore
+    }
 }

@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <tpromise.h>
+#include <Task>
 
 namespace Ui {
     class MainWindow;
@@ -18,10 +18,10 @@ class MainWindow : public QMainWindow {
         explicit MainWindow(QWidget* parent = nullptr);
         ~MainWindow();
 
-        tPromise<void>* tryClose();
+        QCoro::Task<> tryClose();
 
     private slots:
-        void on_actionExit_triggered();
+        QCoro::Task<> on_actionExit_triggered();
 
         void on_actionEmpty_Text_File_triggered();
 

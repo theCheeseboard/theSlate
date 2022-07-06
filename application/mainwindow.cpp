@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QCloseEvent>
+#include <QCoroFuture>
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <editormanager.h>
@@ -77,72 +78,77 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-tPromise<void>* MainWindow::tryClose() {
-    return TPROMISE_CREATE_SAME_THREAD(void, {
-        QList<AbstractPage*> unsavedChangesPages;
-        for (int i = 0; i < ui->stackedWidget->count(); i++) {
-            AbstractPage* page = qobject_cast<AbstractPage*>(ui->stackedWidget->widget(i));
-            if (page->saveAndCloseShouldAskUserConfirmation()) unsavedChangesPages.append(page);
-        }
+QCoro::Task<> MainWindow::tryClose() {
+    QList<AbstractPage*> unsavedChangesPages;
+    for (int i = 0; i < ui->stackedWidget->count(); i++) {
+        AbstractPage* page = qobject_cast<AbstractPage*>(ui->stackedWidget->widget(i));
+        if (page->saveAndCloseShouldAskUserConfirmation()) unsavedChangesPages.append(page);
+    }
 
-        if (unsavedChangesPages.isEmpty()) {
-            d->forceClose = true;
-            this->close();
-            res();
-            return;
-        }
+    if (unsavedChangesPages.isEmpty()) {
+        d->forceClose = true;
+        this->close();
+        co_return;
+    }
 
-        UnsavedChangesPopover* jp = new UnsavedChangesPopover(unsavedChangesPages);
-        std::function<void()> showPopover = [=] {
-            tPopover* popover = new tPopover(jp);
-            popover->setPopoverWidth(SC_DPI_W(-200, this));
-            popover->setPopoverSide(tPopover::Bottom);
-            connect(jp, &UnsavedChangesPopover::accepted, popover, &tPopover::dismiss);
-            connect(jp, &UnsavedChangesPopover::rejected, popover, &tPopover::dismiss);
-            connect(jp, &UnsavedChangesPopover::hide, popover, &tPopover::dismiss);
-            connect(popover, &tPopover::dismissed, popover, [=] {
-                jp->setParent(nullptr);
-                popover->deleteLater();
-            });
-            popover->show(this->window());
-        };
-
-        connect(jp, &UnsavedChangesPopover::rejected, this, [=] {
-            rej("User cancelled");
-            jp->deleteLater();
+    UnsavedChangesPopover* jp = new UnsavedChangesPopover(unsavedChangesPages);
+    std::function<void()> showPopover = [=] {
+        tPopover* popover = new tPopover(jp);
+        popover->setPopoverWidth(SC_DPI_W(-200, this));
+        popover->setPopoverSide(tPopover::Bottom);
+        connect(jp, &UnsavedChangesPopover::accepted, popover, &tPopover::dismiss);
+        connect(jp, &UnsavedChangesPopover::rejected, popover, &tPopover::dismiss);
+        connect(jp, &UnsavedChangesPopover::hide, popover, &tPopover::dismiss);
+        connect(popover, &tPopover::dismissed, popover, [=] {
+            jp->setParent(nullptr);
+            popover->deleteLater();
         });
-        connect(jp, &UnsavedChangesPopover::accepted, this, [=] {
-            d->forceClose = true;
-            this->close();
-            res();
-            jp->deleteLater();
-        });
-        connect(jp, &UnsavedChangesPopover::show, this, showPopover);
+        popover->show(this->window());
+    };
 
-        showPopover();
+    QPromise<bool>* promise = new QPromise<bool>();
+
+    connect(jp, &UnsavedChangesPopover::rejected, this, [=] {
+        jp->deleteLater();
+        promise->start();
+        promise->addResult(false);
+        promise->finish();
+        delete promise;
     });
+    connect(jp, &UnsavedChangesPopover::accepted, this, [=] {
+        d->forceClose = true;
+        this->close();
+        promise->start();
+        promise->addResult(true);
+        promise->finish();
+        delete promise;
+    });
+    connect(jp, &UnsavedChangesPopover::show, this, showPopover);
+
+    showPopover();
+
+    auto success = co_await promise->future();
+    if (!success) throw QException();
 }
 
-void MainWindow::on_actionExit_triggered() {
+QCoro::Task<> MainWindow::on_actionExit_triggered() {
     QQueue<MainWindow*> mainWindows;
     for (auto widget : QApplication::topLevelWidgets()) {
         auto mw = qobject_cast<MainWindow*>(widget);
         if (mw) mainWindows.append(mw);
     }
 
-    std::function<void(QQueue<MainWindow*>)> closeNextWindow = [&closeNextWindow](QQueue<MainWindow*> mainWindows) {
-        // We've closed everything
-        if (mainWindows.isEmpty()) {
-            QApplication::exit();
-            return;
+    while (!mainWindows.isEmpty()) {
+        auto window = mainWindows.dequeue();
+        try {
+            co_await window->tryClose();
+        } catch (QException& ex) {
+            co_return;
         }
+    }
 
-        MainWindow* mw = mainWindows.dequeue();
-        mw->tryClose()->then([=] {
-            closeNextWindow(mainWindows);
-        });
-    };
-    closeNextWindow(mainWindows);
+    // We've closed everything
+    QApplication::exit();
 }
 
 void MainWindow::on_actionEmpty_Text_File_triggered() {
@@ -249,8 +255,8 @@ void MainWindow::on_actionClone_Repository_triggered() {
     popover->setPopoverSide(tPopover::Bottom);
     connect(jp, &CloneRepositoryPopover::done, popover, &tPopover::dismiss);
     connect(jp, &CloneRepositoryPopover::openRepository, this, [=](RepositoryPtr repository) {
-                auto* page = new RepositoryClonePage(repository);
-                this->addPage(page);
+        auto* page = new RepositoryClonePage(repository);
+        this->addPage(page);
     });
     connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
     connect(popover, &tPopover::dismissed, jp, &CloneRepositoryPopover::deleteLater);

@@ -1,6 +1,7 @@
 #include "editorpage.h"
 #include "ui_editorpage.h"
 
+#include <QCoroSignal>
 #include <QFile>
 #include <QFileDialog>
 #include <editormanager.h>
@@ -80,101 +81,80 @@ void EditorPage::saveToFile(QUrl url) {
     d->editor->setCurrentUrl(url);
 }
 
-tPromise<void>* EditorPage::save() {
-    return TPROMISE_CREATE_SAME_THREAD(void, {
-        if (d->editor->currentUrl().isEmpty()) {
-            this->saveAs()->then([=] {
-                              res();
-                          })
-                ->error([=](QString error) {
-                    rej(error);
-                });
-        } else {
-            this->saveToFile(d->editor->currentUrl());
-            res();
-        }
-    });
+QCoro::Task<> EditorPage::save() {
+    if (d->editor->currentUrl().isEmpty()) {
+        co_await this->saveAs();
+    } else {
+        this->saveToFile(d->editor->currentUrl());
+    }
 }
 
-tPromise<void>* EditorPage::saveAs() {
-    return TPROMISE_CREATE_SAME_THREAD(void, {
-        QFileDialog* fileDialog = new QFileDialog(this);
-        fileDialog->setAcceptMode(QFileDialog::AcceptSave);
-        fileDialog->setFileMode(QFileDialog::AnyFile);
-        fileDialog->setNameFilters(d->editor->nameFilters());
-        fileDialog->setDefaultSuffix(d->editor->defaultExtension());
-        connect(fileDialog, &QFileDialog::finished, this, [=](int result) {
-            if (result == QFileDialog::Accepted) {
-                this->saveToFile(QUrl::fromLocalFile(fileDialog->selectedFiles().first()));
-                res();
-            } else {
-                rej("User cancelled");
-            }
-        });
-        connect(fileDialog, &QFileDialog::finished, fileDialog, &QFileDialog::deleteLater);
-        fileDialog->open();
-    });
+QCoro::Task<> EditorPage::saveAs() {
+    QFileDialog* fileDialog = new QFileDialog(this);
+    fileDialog->setAcceptMode(QFileDialog::AcceptSave);
+    fileDialog->setFileMode(QFileDialog::AnyFile);
+    fileDialog->setNameFilters(d->editor->nameFilters());
+    fileDialog->setDefaultSuffix(d->editor->defaultExtension());
+    fileDialog->open();
+
+    auto result = co_await qCoro(fileDialog, &QFileDialog::finished);
+    fileDialog->deleteLater();
+    if (result == QFileDialog::Accepted) {
+        this->saveToFile(QUrl::fromLocalFile(fileDialog->selectedFiles().first()));
+    } else {
+        throw QException();
+    }
 }
 
-tPromise<void>* EditorPage::saveAll() {
-    return TPROMISE_CREATE_SAME_THREAD(void, {
-        if (!d->editor->currentUrl().isEmpty()) {
-            this->saveToFile(d->editor->currentUrl());
-            res();
-        } else {
-            rej("User cancelled");
-        }
-    });
+QCoro::Task<> EditorPage::saveAll() {
+    if (!d->editor->currentUrl().isEmpty()) {
+        this->saveToFile(d->editor->currentUrl());
+        co_return;
+    } else {
+        throw QException();
+    }
 }
 
-tPromise<void>* EditorPage::saveBeforeClose(bool silent) {
-    return TPROMISE_CREATE_SAME_THREAD(void, {
-        if (!d->editor) {
-            res();
-            return;
-        }
+QCoro::Task<> EditorPage::saveBeforeClose(bool silent) {
+    if (!d->editor) co_return;
 
-        if (!d->editor->haveUnsavedChanges()) {
-            res();
-            return;
-        }
+    if (!d->editor->haveUnsavedChanges()) co_return;
 
-        if (silent) {
-            if (d->editor->currentUrl().isEmpty()) {
-                // Discard these changes
-                res();
-                return;
-            } else {
-                this->save()->then(res)->error(rej);
-            }
-        }
-
-        tMessageBox* box = new tMessageBox(this->window());
+    if (silent) {
         if (d->editor->currentUrl().isEmpty()) {
-            box->setTitleBarText(tr("Save changes?"));
+            // Discard these changes
+            co_return;
         } else {
-            box->setTitleBarText(tr("Save changes to %1?").arg(d->editor->currentUrl().fileName()));
+            co_await this->save();
+            co_return;
         }
-        box->setMessageText(tr("Do you want to save the changes you made to this file?"));
-        box->setInformativeText(tr("If you don't save this document, any changes will be lost forever."));
+    }
 
-        tMessageBoxButton* saveButton;
-        if (d->editor->currentUrl().isEmpty()) {
-            saveButton = box->addButton(tr("Save As..."), QMessageBox::AcceptRole);
-        } else {
-            saveButton = box->addButton(tr("Save"), QMessageBox::AcceptRole);
-        }
-        connect(saveButton, &tMessageBoxButton::buttonPressed, this, [=] {
-            this->save()->then(res)->error(rej);
-        });
+    tMessageBox* box = new tMessageBox(this->window());
+    if (d->editor->currentUrl().isEmpty()) {
+        box->setTitleBarText(tr("Save changes?"));
+    } else {
+        box->setTitleBarText(tr("Save changes to %1?").arg(d->editor->currentUrl().fileName()));
+    }
+    box->setMessageText(tr("Do you want to save the changes you made to this file?"));
+    box->setInformativeText(tr("If you don't save this document, any changes will be lost forever."));
 
-        tMessageBoxButton* discardButton = box->addStandardButton(QMessageBox::Discard);
-        connect(discardButton, &tMessageBoxButton::buttonPressed, this, res);
+    tMessageBoxButton* saveButton;
+    if (d->editor->currentUrl().isEmpty()) {
+        saveButton = box->addButton(tr("Save As..."), QMessageBox::AcceptRole);
+    } else {
+        saveButton = box->addButton(tr("Save"), QMessageBox::AcceptRole);
+    }
+    tMessageBoxButton* discardButton = box->addStandardButton(QMessageBox::Discard);
+    tMessageBoxButton* cancelButton = box->addStandardButton(QMessageBox::Cancel);
+    box->show(true);
 
-        tMessageBoxButton* cancelButton = box->addStandardButton(QMessageBox::Cancel);
-        box->show(true);
-        return;
-    });
+    auto [button, checkboxChecked] = co_await qCoro(box, &tMessageBox::buttonPressed);
+    if (button == saveButton) {
+        co_await this->save();
+    } else if (button == cancelButton) {
+        throw QException();
+    }
 }
 
 bool EditorPage::saveAndCloseShouldAskUserConfirmation() {
