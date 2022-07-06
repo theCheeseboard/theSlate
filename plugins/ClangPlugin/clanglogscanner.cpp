@@ -6,7 +6,7 @@ struct ClangLogScannerPrivate {
         static QRegularExpression scanningRegex;
 };
 
-auto ClangLogScannerPrivate::scanningRegex = QRegularExpression("(.+):(\\d+):(\\d+): (.+?): (.+)");
+QRegularExpression ClangLogScannerPrivate::scanningRegex = QRegularExpression("(.+):(\\d+):(\\d+): (.+?): (.+)");
 
 ClangLogScanner::ClangLogScanner(QObject* parent) :
     LogScanner{parent} {

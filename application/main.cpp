@@ -11,7 +11,7 @@
 #include <statemanager.h>
 #include <theslateplugin.h>
 
-#include "libthebranch/libthebranch_global.h"
+#include "libthebranch_global.h"
 #include "widgetholder/widgetholdereditorfactory.h"
 
 #include "mainwindow.h"

@@ -4,6 +4,7 @@ project(theslate VERSION 1.0.0 LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(libcontemporary REQUIRED)
+cntp_find_pkgconfig(lgit libgit2 REQUIRED)
 find_package(libthebranch REQUIRED)
 
 set(SOURCES

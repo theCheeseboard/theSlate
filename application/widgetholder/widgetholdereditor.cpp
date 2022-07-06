@@ -7,7 +7,7 @@ struct WidgetHolderEditorPrivate {
         static QMap<QUuid, QWidget*> widgetUrls;
 };
 
-auto WidgetHolderEditorPrivate::widgetUrls = QMap<QUuid, QWidget*>();
+QMap<QUuid, QWidget*> WidgetHolderEditorPrivate::widgetUrls = QMap<QUuid, QWidget*>();
 
 WidgetHolderEditor::WidgetHolderEditor(QWidget* parent) :
     AbstractEditor(parent),

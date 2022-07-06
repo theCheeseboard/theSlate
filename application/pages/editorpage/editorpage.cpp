@@ -130,26 +130,25 @@ QCoro::Task<> EditorPage::saveBeforeClose(bool silent) {
         }
     }
 
-    tMessageBox* box = new tMessageBox(this->window());
+    tMessageBox box(this->window());
     if (d->editor->currentUrl().isEmpty()) {
-        box->setTitleBarText(tr("Save changes?"));
+        box.setTitleBarText(tr("Save changes?"));
     } else {
-        box->setTitleBarText(tr("Save changes to %1?").arg(d->editor->currentUrl().fileName()));
+        box.setTitleBarText(tr("Save changes to %1?").arg(d->editor->currentUrl().fileName()));
     }
-    box->setMessageText(tr("Do you want to save the changes you made to this file?"));
-    box->setInformativeText(tr("If you don't save this document, any changes will be lost forever."));
+    box.setMessageText(tr("Do you want to save the changes you made to this file?"));
+    box.setInformativeText(tr("If you don't save this document, any changes will be lost forever."));
 
     tMessageBoxButton* saveButton;
     if (d->editor->currentUrl().isEmpty()) {
-        saveButton = box->addButton(tr("Save As..."), QMessageBox::AcceptRole);
+        saveButton = box.addButton(tr("Save As..."), QMessageBox::AcceptRole);
     } else {
-        saveButton = box->addButton(tr("Save"), QMessageBox::AcceptRole);
+        saveButton = box.addButton(tr("Save"), QMessageBox::AcceptRole);
     }
-    tMessageBoxButton* discardButton = box->addStandardButton(QMessageBox::Discard);
-    tMessageBoxButton* cancelButton = box->addStandardButton(QMessageBox::Cancel);
-    box->show(true);
+    tMessageBoxButton* discardButton = box.addStandardButton(QMessageBox::Discard);
+    tMessageBoxButton* cancelButton = box.addStandardButton(QMessageBox::Cancel);
 
-    auto [button, checkboxChecked] = co_await qCoro(box, &tMessageBox::buttonPressed);
+    auto button = co_await box.presentAsync();
     if (button == saveButton) {
         co_await this->save();
     } else if (button == cancelButton) {

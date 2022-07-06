@@ -60,6 +60,8 @@ MainWindow::MainWindow(QWidget* parent) :
     menu->addAction(ui->actionSave_As);
     menu->addAction(ui->actionSave_All);
     menu->addSeparator();
+    menu->addAction(ui->actionClose_Tab);
+    menu->addSeparator();
     menu->addMenu(new tHelpMenu(this));
     menu->addAction(ui->actionExit);
 

@@ -14,7 +14,7 @@ struct CmakeBuildJobPrivate {
         static QRegularExpression cmakeOutputRegex;
 };
 
-auto CmakeBuildJobPrivate::cmakeOutputRegex = QRegularExpression("\\[(\\d+)/(\\d+)] (.+)");
+QRegularExpression CmakeBuildJobPrivate::cmakeOutputRegex = QRegularExpression("\\[(\\d+)/(\\d+)] (.+)");
 
 CmakeBuildJob::CmakeBuildJob(ProjectPtr project, CmakeBuildEngine* buildEngine, QString configurationName, QDir buildDirectory, QString target, QObject* parent) :
     BuildJob{parent} {
