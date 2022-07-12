@@ -3,10 +3,11 @@
 
 #include <QUrl>
 #include <QWidget>
+#include "libtheslate_global.h"
 
 class TextEditorColorScheme;
 struct AbstractEditorPrivate;
-class AbstractEditor : public QWidget {
+class LIBTHESLATE_EXPORT AbstractEditor : public QWidget {
         Q_OBJECT
     public:
         explicit AbstractEditor(QWidget* parent = nullptr);

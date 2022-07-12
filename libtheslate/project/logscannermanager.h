@@ -2,11 +2,12 @@
 #define LOGSCANNERMANAGER_H
 
 #include "buildjob.h"
+#include "libtheslate_global.h"
 #include <QObject>
 
 class LogScanner;
 struct LogScannerManagerPrivate;
-class LogScannerManager : public QObject {
+class LIBTHESLATE_EXPORT LogScannerManager : public QObject {
         Q_OBJECT
     public:
         explicit LogScannerManager(QObject* parent = nullptr);

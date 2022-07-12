@@ -2,13 +2,14 @@
 #define STATEMANAGER_H
 
 #include <QObject>
+#include "libtheslate_global.h"
 
 class EditorManager;
 class BuildEngineManager;
 class LogScannerManager;
 
 struct StateManagerPrivate;
-class StateManager : public QObject {
+class LIBTHESLATE_EXPORT StateManager : public QObject {
         Q_OBJECT
     public:
         ~StateManager();

@@ -3,11 +3,12 @@
 
 #include "project.h"
 #include "runconfiguration.h"
+#include "libtheslate_global.h"
 #include <QObject>
 
 class BuildEngine;
 struct BuildEngineManagerPrivate;
-class BuildEngineManager : public QObject {
+class LIBTHESLATE_EXPORT BuildEngineManager : public QObject {
         Q_OBJECT
     public:
         explicit BuildEngineManager(QObject* parent = nullptr);

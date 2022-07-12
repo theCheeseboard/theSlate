@@ -18,6 +18,11 @@ CmakeBuildEngine::CmakeBuildEngine(QObject* parent) :
     d = new CmakeBuildEnginePrivate();
 
     d->cmakePath = QStandardPaths::findExecutable("cmake");
+    if (d->cmakePath.isEmpty()) {
+#ifdef Q_OS_WIN
+        d->cmakePath = QStandardPaths::findExecutable("cmake.exe", {"C:\\Program Files\\CMake\\bin", "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin"});
+#endif
+    }
 }
 
 CmakeBuildEngine::~CmakeBuildEngine() {

@@ -3,9 +3,10 @@
 
 #include "buildjob.h"
 #include "runjob.h"
+#include "libtheslate_global.h"
 #include <QObject>
 
-class RunConfiguration : public QObject {
+class LIBTHESLATE_EXPORT RunConfiguration : public QObject {
         Q_OBJECT
     public:
         explicit RunConfiguration(QObject* parent = nullptr);

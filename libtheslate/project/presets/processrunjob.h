@@ -2,9 +2,10 @@
 #define PROCESSRUNJOB_H
 
 #include "../runjob.h"
+#include "libtheslate_global.h"
 
 struct ProcessRunJobPrivate;
-class ProcessRunJob : public RunJob {
+class LIBTHESLATE_EXPORT ProcessRunJob : public RunJob {
         Q_OBJECT
     public:
         explicit ProcessRunJob(QString process, QStringList args, QString cwd, QObject* parent = nullptr);

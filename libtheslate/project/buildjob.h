@@ -2,9 +2,10 @@
 #define BUILDJOB_H
 
 #include <QObject>
+#include "libtheslate_global.h"
 
 struct BuildJobPrivate;
-class BuildJob : public QObject {
+class LIBTHESLATE_EXPORT BuildJob : public QObject {
         Q_OBJECT
     public:
         explicit BuildJob(QObject* parent = nullptr);

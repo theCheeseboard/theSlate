@@ -2,11 +2,12 @@
 #define EDITORMANAGER_H
 
 #include <QObject>
+#include "libtheslate_global.h"
 
 class AbstractEditor;
 class AbstractEditorFactory;
 struct EditorManagerPrivate;
-class EditorManager : public QObject {
+class LIBTHESLATE_EXPORT EditorManager : public QObject {
         Q_OBJECT
     public:
         explicit EditorManager(QObject* parent = nullptr);

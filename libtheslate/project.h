@@ -8,9 +8,10 @@
 #include <QObject>
 #include <Task>
 #include <tpromise.h>
+#include "libtheslate_global.h"
 
 struct ProjectPrivate;
-class Project : public QObject,
+class LIBTHESLATE_EXPORT Project : public QObject,
                 public QEnableSharedFromThis<Project> {
         Q_OBJECT
     public:

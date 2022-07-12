@@ -2,8 +2,9 @@
 #define RUNJOB_H
 
 #include <QObject>
+#include "libtheslate_global.h"
 
-class RunJob : public QObject {
+class LIBTHESLATE_EXPORT RunJob : public QObject {
         Q_OBJECT
     public:
         explicit RunJob(QObject* parent = nullptr);

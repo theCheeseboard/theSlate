@@ -3,9 +3,10 @@
 
 #include "project.h"
 #include "runconfiguration.h"
+#include "libtheslate_global.h"
 #include <QObject>
 
-class BuildEngine : public QObject {
+class LIBTHESLATE_EXPORT BuildEngine : public QObject {
         Q_OBJECT
     public:
         explicit BuildEngine(QObject* parent = nullptr);

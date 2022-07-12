@@ -2,9 +2,10 @@
 #define ABSTRACTEDITORFACTORY_H
 
 #include <QObject>
+#include "libtheslate_global.h"
 
 class AbstractEditor;
-class AbstractEditorFactory : public QObject {
+class LIBTHESLATE_EXPORT AbstractEditorFactory : public QObject {
         Q_OBJECT
     public:
         explicit AbstractEditorFactory(QObject* parent = nullptr);
