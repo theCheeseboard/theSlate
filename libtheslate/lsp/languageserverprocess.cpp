@@ -161,7 +161,7 @@ QCoro::Task<> LanguageServerProcess::startLanguageServer(QJsonObject extraInitia
 QString LanguageServerProcess::serverTypeForFileName(QString fileName) {
     // TODO: Refactor into configuration file
     QFileInfo fileInfo(fileName);
-    if (fileInfo.suffix() == "cpp" || fileInfo.suffix() == "hpp") {
+    if (fileInfo.suffix() == "cpp" || fileInfo.suffix() == "hpp" || fileInfo.suffix() == "c" || fileInfo.suffix() == "h" || fileInfo.suffix() == "m" || fileInfo.suffix() == "mm" || fileInfo.suffix() == "cc") {
         return "clangd";
     }
     return "";
