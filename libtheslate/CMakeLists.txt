@@ -24,6 +24,9 @@ set(SOURCES
     project/logscannermanager.cpp
     project/runjob.cpp
     project/presets/processrunjob.cpp
+
+    lsp/languageserverprocess.cpp
+    lsp/languageserverexception.cpp
 )
 
 set(HEADERS
@@ -46,6 +49,9 @@ set(HEADERS
     project/runjob.h
 
     project/presets/processrunjob.h
+
+    lsp/languageserverprocess.h
+    lsp/languageserverexception.h
 )
 
 set(PRIVATE_HEADERS

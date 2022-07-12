@@ -13,6 +13,8 @@ struct ProjectPrivate {
 
         QList<BuildJobPtr> buildJobs;
 
+        QMap<QString, LanguageServerProcess*> languageServers;
+
         QList<std::function<QCoro::Task<>()>> beforeBuildEventHandlers;
 };
 
@@ -194,4 +196,15 @@ QList<BuildJobPtr> Project::buildJobs() {
 
 void Project::addBeforeBuildEventHandler(std::function<QCoro::Task<>()> eventHandler) {
     d->beforeBuildEventHandlers.append(eventHandler);
+}
+
+QCoro::Task<LanguageServerProcess*> Project::languageServerForServerName(QString languageServer)
+{
+    if (d->languageServers.contains(languageServer)) co_return d->languageServers.value(languageServer);
+
+    LanguageServerProcess* lsp = new LanguageServerProcess(this);
+    co_await lsp->startLanguageServer(languageServer);
+    lsp->addWorkspaceFolder(QUrl::fromLocalFile(this->projectDir().absolutePath()), "project");
+    d->languageServers.insert(languageServer, lsp);
+    co_return lsp;
 }

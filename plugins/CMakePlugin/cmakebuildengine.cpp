@@ -68,11 +68,11 @@ QList<RunConfigurationPtr> CmakeBuildEngine::discoverRunConfigurations(ProjectPt
     QJsonObject rootObject;
 
     QJsonObject debugObject;
-    debugObject.insert("cmake-args", QJsonArray({"-DCMAKE_BUILD_TYPE=Debug", "-GNinja"}));
+    debugObject.insert("cmake-args", QJsonArray({"-DCMAKE_BUILD_TYPE=Debug", "-DCMAKE_EXPORT_COMPILE_COMMANDS=1", "-GNinja"}));
     rootObject.insert("Debug", debugObject);
 
     QJsonObject releaseObject;
-    releaseObject.insert("cmake-args", QJsonArray({"-DCMAKE_BUILD_TYPE=Release", "-GNinja"}));
+    releaseObject.insert("cmake-args", QJsonArray({"-DCMAKE_BUILD_TYPE=Release", "-DCMAKE_EXPORT_COMPILE_COMMANDS=1", "-GNinja"}));
     rootObject.insert("Release", releaseObject);
 
     cmakeFile.open(QFile::WriteOnly);

@@ -6,8 +6,9 @@
 #include <QDir>
 #include <QEnableSharedFromThis>
 #include <QObject>
-#include <Task>
+#include <QCoroTask>
 #include <tpromise.h>
+#include "lsp/languageserverprocess.h"
 #include "libtheslate_global.h"
 
 struct ProjectPrivate;
@@ -47,6 +48,8 @@ class LIBTHESLATE_EXPORT Project : public QObject,
         QList<BuildJobPtr> buildJobs();
 
         void addBeforeBuildEventHandler(std::function<QCoro::Task<>()> eventHandler);
+
+        QCoro::Task<LanguageServerProcess*> languageServerForServerName(QString languageServer);
 
     signals:
         void runConfigurationsUpdated();
