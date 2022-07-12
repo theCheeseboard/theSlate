@@ -40,6 +40,10 @@ EditorPage::~EditorPage() {
     delete d;
 }
 
+void EditorPage::setProject(ProjectPtr project) {
+    if (d->editor) d->editor->setProject(project);
+}
+
 void EditorPage::discardContentsAndOpenFile(QUrl file) {
     if (!d->editor) return;
 

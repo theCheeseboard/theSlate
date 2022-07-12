@@ -2,7 +2,11 @@
 #define TTEXTEDITOREDITOR_H
 
 #include "../abstracteditor/abstracteditor.h"
+#include <QCoroTask>
 
+class LanguageServerProcess;
+
+struct TextDelta;
 struct TTextEditorEditorPrivate;
 class TTextEditorEditor : public AbstractEditor {
         Q_OBJECT
@@ -14,6 +18,10 @@ class TTextEditorEditor : public AbstractEditor {
 
     private:
         TTextEditorEditorPrivate* d;
+
+        QCoro::Task<LanguageServerProcess*> languageServer();
+        QCoro::Task<> textChanged(QList<TextDelta> deltas);
+        QCoro::Task<> updateDiagnostics();
 
         // AbstractEditor interface
     public:
@@ -27,7 +35,7 @@ class TTextEditorEditor : public AbstractEditor {
         void setChangesSaved();
 
         // AbstractEditor interface
-public:
+    public:
         QStringList nameFilters();
         QString defaultExtension();
 };

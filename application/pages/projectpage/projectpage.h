@@ -22,7 +22,7 @@ class ProjectPage : public AbstractPage {
         Ui::ProjectPage* ui;
         ProjectPagePrivate* d;
 
-        void openUrl(QUrl url);
+        QCoro::Task<> openUrl(QUrl url);
 
         // AbstractPage interface
     public:

@@ -6,6 +6,8 @@
 struct AbstractEditorPrivate {
         TextEditorColorScheme* colorScheme;
         QUrl currentUrl;
+
+        ProjectPtr project;
 };
 
 AbstractEditor::AbstractEditor(QWidget* parent) :
@@ -18,13 +20,21 @@ AbstractEditor::~AbstractEditor() {
     delete d;
 }
 
+void AbstractEditor::setProject(ProjectPtr project) {
+    d->project = project;
+    emit projectChanged(project);
+}
+
+ProjectPtr AbstractEditor::project() {
+    return d->project;
+}
+
 void AbstractEditor::setCurrentUrl(QUrl url) {
     d->currentUrl = url;
     emit currentFileChanged(url);
 }
 
-QUrl AbstractEditor::currentUrl()
-{
+QUrl AbstractEditor::currentUrl() {
     return d->currentUrl;
 }
 

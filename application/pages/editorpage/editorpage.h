@@ -7,6 +7,9 @@ namespace Ui {
     class EditorPage;
 }
 
+class Project;
+typedef QSharedPointer<Project> ProjectPtr;
+
 class AbstractEditor;
 struct EditorPagePrivate;
 class EditorPage : public AbstractPage {
@@ -15,6 +18,8 @@ class EditorPage : public AbstractPage {
     public:
         explicit EditorPage(QString editorType = "text", QWidget* parent = nullptr);
         ~EditorPage();
+
+        void setProject(ProjectPtr project);
 
         void discardContentsAndOpenFile(QUrl file);
 

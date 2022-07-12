@@ -3,6 +3,7 @@
 #include "project/buildenginemanager.h"
 #include "project/runconfiguration.h"
 #include "statemanager.h"
+#include <QCoroTimer>
 #include <QTimer>
 
 struct ProjectPrivate {
@@ -13,6 +14,7 @@ struct ProjectPrivate {
 
         QList<BuildJobPtr> buildJobs;
 
+        QMutex languageServerMutex;
         QMap<QString, LanguageServerProcess*> languageServers;
 
         QList<std::function<QCoro::Task<>()>> beforeBuildEventHandlers;
@@ -198,13 +200,36 @@ void Project::addBeforeBuildEventHandler(std::function<QCoro::Task<>()> eventHan
     d->beforeBuildEventHandlers.append(eventHandler);
 }
 
-QCoro::Task<LanguageServerProcess*> Project::languageServerForServerName(QString languageServer)
-{
+QList<LanguageServerProcess*> Project::languageServers() {
+    return d->languageServers.values();
+}
+
+QCoro::Task<LanguageServerProcess*> Project::languageServerForServerName(QString languageServer) {
     if (d->languageServers.contains(languageServer)) co_return d->languageServers.value(languageServer);
 
-    LanguageServerProcess* lsp = new LanguageServerProcess(this);
-    co_await lsp->startLanguageServer(languageServer);
+    while (!d->languageServerMutex.tryLock(0)) {
+        QTimer timer;
+        timer.setInterval(100);
+        timer.start();
+        co_await timer;
+    }
+
+    if (d->languageServers.contains(languageServer)) {
+        d->languageServerMutex.unlock();
+        co_return d->languageServers.value(languageServer);
+    }
+
+    LanguageServerProcess* lsp = new LanguageServerProcess(languageServer, this);
+    co_await lsp->startLanguageServer();
     lsp->addWorkspaceFolder(QUrl::fromLocalFile(this->projectDir().absolutePath()), "project");
     d->languageServers.insert(languageServer, lsp);
+
+    d->languageServerMutex.unlock();
     co_return lsp;
+}
+
+QCoro::Task<LanguageServerProcess*> Project::languageServerForFileName(QString fileName) {
+    QString recommendedServer = LanguageServerProcess::serverTypeForFileName(fileName);
+    if (recommendedServer == "") co_return nullptr;
+    co_return co_await languageServerForServerName(recommendedServer);
 }

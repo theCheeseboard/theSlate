@@ -1,9 +1,12 @@
 #ifndef ABSTRACTEDITOR_H
 #define ABSTRACTEDITOR_H
 
+#include "libtheslate_global.h"
 #include <QUrl>
 #include <QWidget>
-#include "libtheslate_global.h"
+
+class Project;
+typedef QSharedPointer<Project> ProjectPtr;
 
 class TextEditorColorScheme;
 struct AbstractEditorPrivate;
@@ -12,6 +15,9 @@ class LIBTHESLATE_EXPORT AbstractEditor : public QWidget {
     public:
         explicit AbstractEditor(QWidget* parent = nullptr);
         ~AbstractEditor();
+
+        void setProject(ProjectPtr project);
+        ProjectPtr project();
 
         virtual void undo() = 0;
         virtual void redo() = 0;
@@ -32,6 +38,7 @@ class LIBTHESLATE_EXPORT AbstractEditor : public QWidget {
     signals:
         void currentFileChanged(QUrl currentFile);
         void unsavedChangesChanged();
+        void projectChanged(ProjectPtr project);
 
     private:
         AbstractEditorPrivate* d;

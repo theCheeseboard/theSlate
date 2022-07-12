@@ -30,6 +30,16 @@ CmakeRunConfiguration::CmakeRunConfiguration(ProjectPtr project, CmakeBuildEngin
     for (auto arg : descriptor.value("cmake-args").toArray()) {
         d->cmakeArgs.append(arg.toString());
     }
+
+    connect(project.data(), &Project::runConfigurationsUpdated, this, [=]() -> QCoro::Task<> {
+        if (project->activeRunConfiguration() == this) {
+            // Restart clangd with this run configuration
+            auto lsp = co_await project->languageServerForServerName("clangd");
+            co_await lsp->startLanguageServer({
+                {"compilationDatabasePath", d->buildDirectory.absolutePath()}
+            });
+        }
+    });
 }
 
 CmakeRunConfiguration::~CmakeRunConfiguration() {

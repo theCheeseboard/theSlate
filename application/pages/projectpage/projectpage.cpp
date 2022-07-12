@@ -78,17 +78,19 @@ void ProjectPage::addLeftPaneItem(AbstractLeftPane* leftPane) {
     leftPane->tabButton()->syncWithStackedWidget(ui->leftPaneStack, leftPane);
 }
 
-void ProjectPage::openUrl(QUrl url) {
-    this->saveAll();
+QCoro::Task<> ProjectPage::openUrl(QUrl url) {
+    co_await this->saveAll();
 
     QUrl canonicalUrl = url.adjusted(QUrl::RemoveQuery);
 
     if (d->editors.contains(canonicalUrl)) {
         ui->stackedWidget->setCurrentWidget(d->editors.value(canonicalUrl));
+        co_return;
     }
 
     QString editorType = StateManager::editor()->editorTypeForUrl(url);
     auto* editor = new EditorPage(editorType);
+    editor->setProject(d->project);
     editor->discardContentsAndOpenFile(url);
     ui->stackedWidget->addWidget(editor);
     ui->stackedWidget->setCurrentWidget(editor);
