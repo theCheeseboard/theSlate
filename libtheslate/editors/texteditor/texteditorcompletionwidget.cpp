@@ -34,6 +34,7 @@ TextEditorCompletionWidget::TextEditorCompletionWidget(TextEditor* editor, Langu
     d->verticalScrollBar->show();
 
     connect(d->editor->verticalScrollBar(), &QScrollBar::valueChanged, this, &TextEditorCompletionWidget::updatePosition);
+    connect(d->editor->horizontalScrollBar(), &QScrollBar::valueChanged, this, &TextEditorCompletionWidget::updatePosition);
     d->editor->installEventFilter(this);
 
     this->setAutoFillBackground(true);
@@ -48,6 +49,10 @@ TextEditorCompletionWidget::~TextEditorCompletionWidget() {
 QCoro::Task<> TextEditorCompletionWidget::updateCompletions() {
     auto [isIncomplete, items] = co_await d->lsp->completion(d->editor->currentFile(), d->editor->caretAnchorStart(0));
     d->items = items;
+    if (d->items.isEmpty()) {
+        this->deleteLater();
+        co_return;
+    }
 
     d->currentSelection = 0;
     for (auto i = 0; i < d->items.length(); i++) {
@@ -90,6 +95,15 @@ int TextEditorCompletionWidget::itemHeight() {
     return this->fontMetrics().height() + SC_DPI_W(6, this);
 }
 
+void TextEditorCompletionWidget::ensureSelectedVisible() {
+    if ((d->currentSelection + 1) * this->itemHeight() - d->verticalScrollBar->value() > this->height()) {
+        d->verticalScrollBar->setValue((d->currentSelection + 1) * this->itemHeight());
+    }
+    if (d->currentSelection * this->itemHeight() - d->verticalScrollBar->value() < 0) {
+        d->verticalScrollBar->setValue(d->currentSelection * this->itemHeight() - this->height());
+    }
+}
+
 bool TextEditorCompletionWidget::editorKeyPress(QKeyEvent* event) {
     if (event->key() == Qt::Key_Escape) {
         this->deleteLater();
@@ -97,11 +111,13 @@ bool TextEditorCompletionWidget::editorKeyPress(QKeyEvent* event) {
     } else if (event->key() == Qt::Key_Up) {
         d->currentSelection--;
         if (d->currentSelection < 0) d->currentSelection = d->items.length() - 1;
+        this->ensureSelectedVisible();
         this->update();
         return true;
     } else if (event->key() == Qt::Key_Down) {
         d->currentSelection++;
         if (d->currentSelection >= d->items.length()) d->currentSelection = 0;
+        this->ensureSelectedVisible();
         this->update();
         return true;
     } else if (event->key() == Qt::Key_Backspace) {
@@ -127,6 +143,7 @@ void TextEditorCompletionWidget::paintEvent(QPaintEvent* event) {
 
     int yOffset = -d->verticalScrollBar->value();
     for (auto i = 0; i < d->items.length(); i++) {
+        painter.save();
         painter.setPen(this->palette().color(QPalette::WindowText));
 
         auto item = d->items.at(i);
@@ -138,9 +155,74 @@ void TextEditorCompletionWidget::paintEvent(QPaintEvent* event) {
         rect.moveTop(yOffset);
 
         if (d->currentSelection == i) {
-            painter.save();
             painter.fillRect(rect, this->palette().color(QPalette::Highlight));
             painter.setPen(this->palette().color(QPalette::HighlightedText));
+        }
+
+        QString iconName;
+        switch (item.kind) {
+            case LanguageServerProcess::CompletionItem::Kind::Text:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Method:
+            case LanguageServerProcess::CompletionItem::Kind::Function:
+                iconName = "code-function";
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Constructor:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Field:
+            case LanguageServerProcess::CompletionItem::Kind::Variable:
+            case LanguageServerProcess::CompletionItem::Kind::Property:
+                iconName = "code-variable";
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Class:
+            case LanguageServerProcess::CompletionItem::Kind::Interface:
+            case LanguageServerProcess::CompletionItem::Kind::Module:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Unit:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Value:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Enum:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Keyword:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Snippet:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Color:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::File:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Reference:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Folder:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::EnumMember:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Constant:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Struct:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Event:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::Operator:
+                break;
+            case LanguageServerProcess::CompletionItem::Kind::TypeParameter:
+                break;
+        }
+
+        QRect iconRect;
+        iconRect.setSize(SC_DPI_WT(QSize(16, 16), QSize, this));
+        iconRect.moveCenter(rect.center());
+        iconRect.moveRight(d->xOffset - SC_DPI_W(6, this));
+
+        auto iconImage = QIcon::fromTheme(iconName).pixmap(iconRect.size()).toImage();
+        libContemporaryCommon::tintImage(iconImage, painter.pen().color());
+        painter.drawImage(iconRect, iconImage);
+
+        if (item.tags.contains(LanguageServerProcess::CompletionItem::Tag::Deprecated)) {
+            QFont font = painter.font();
+            font.setStrikeOut(true);
+            painter.setFont(font);
         }
 
         QRect textRect;
@@ -163,11 +245,9 @@ void TextEditorCompletionWidget::paintEvent(QPaintEvent* event) {
         detailRect.setWidth(painter.fontMetrics().horizontalAdvance(item.detail));
         painter.drawText(detailRect, Qt::AlignLeft | Qt::AlignCenter, item.detail);
 
-        yOffset = rect.bottom();
+        yOffset = rect.bottom() + 1;
 
-        if (d->currentSelection == i) {
-            painter.restore();
-        }
+        painter.restore();
     }
 
     painter.setPen(libContemporaryCommon::lineColor(this->palette().color(QPalette::WindowText)));

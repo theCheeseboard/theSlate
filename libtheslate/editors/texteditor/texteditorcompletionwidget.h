@@ -23,6 +23,7 @@ class TextEditorCompletionWidget : public QWidget {
         void commitCompletion(int index);
 
         int itemHeight();
+        void ensureSelectedVisible();
 
         bool editorKeyPress(QKeyEvent* event);
 

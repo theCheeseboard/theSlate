@@ -36,7 +36,7 @@ QJsonObject LanguageServerProcessPrivate::clientCapabilities = {
                                                                             {"documentationFormat", QJsonArray({"plaintext", "markdown"})},
                                                                             {"deprecatedSupport", true},
                                                                             {"preselectSupport", true},
-                                                                            {"insertReplaceSupport", true},
+                                                                            {"tagSupport", QJsonArray({1})}, {"insertReplaceSupport", true},
                                                                             {"insertTextModeSupport", QJsonObject({{"valueSet", QJsonArray({2})}})}})},
                                             {"contextSupport", false},
                                             {"insertTextMode", 2}})}})}
@@ -327,11 +327,16 @@ QCoro::Task<std::tuple<bool, QList<LanguageServerProcess::CompletionItem>>> Lang
         auto itemObj = item.toObject();
         auto ci = CompletionItem();
         ci.label = itemObj.value("label").toString();
-        ci.kind = itemObj.value("kind").toInt();
+        ci.kind = static_cast<CompletionItem::Kind>(itemObj.value("kind").toInt());
         ci.detail = itemObj.value("detail").toString();
         ci.sortText = itemObj.value("sortText").toString();
         ci.filterText = itemObj.value("filterText").toString();
         ci.preselect = itemObj.value("preselect").toBool();
+
+        auto tags = itemObj.value("tags").toArray();
+        for (auto tag : tags) {
+            ci.tags.append(static_cast<CompletionItem::Tag>(tag.toInt()));
+        }
 
         auto edit = itemObj.value("textEdit").toObject();
         ci.acceptText = edit.value("newText").toString();

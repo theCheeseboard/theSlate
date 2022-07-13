@@ -7,6 +7,7 @@
 #include "texteditorcompletionwidget.h"
 #include <QBoxLayout>
 #include <QMouseEvent>
+#include <QShortcut>
 #include <QToolTip>
 #include <QUrl>
 #include <completetexteditor.h>
@@ -14,6 +15,9 @@
 
 struct TTextEditorEditorPrivate {
         CompleteTextEditor* editor;
+        QPointer<TextEditorCompletionWidget> completionWidget;
+
+        QShortcut* completionTrigger;
 
         int lspFileVersion = 0;
 
@@ -39,6 +43,27 @@ TTextEditorEditor::TTextEditorEditor(QWidget* parent) :
     d->hoverTrigger.setInterval(1000);
     d->hoverTrigger.setSingleShot(true);
     connect(&d->hoverTrigger, &QTimer::timeout, this, &TTextEditorEditor::showHover);
+
+    QKeySequence completionTrigger;
+#ifdef Q_OS_MAC
+    completionTrigger = QKeySequence(Qt::MetaModifier | Qt::Key_Space);
+#else
+    completionTrigger = QKeySequence(Qt::ControlModifier | Qt::Key_Space);
+#endif
+    d->completionTrigger = new QShortcut(completionTrigger, this, [this]() -> QCoro::Task<> {
+        if (d->completionWidget) co_return;
+        if (d->editor->editor()->numberOfCarets() != 1) co_return;
+
+        auto anchorStart = d->editor->editor()->caretAnchorStart(0);
+        auto anchorEnd = d->editor->editor()->caretAnchorEnd(0);
+        if (anchorStart != anchorEnd) co_return;
+
+        auto lsp = co_await this->languageServer();
+        if (!lsp) co_return;
+
+        d->completionWidget = new TextEditorCompletionWidget(d->editor->editor(), lsp, this);
+        d->completionWidget->setFont(d->editor->editor()->font());
+    });
 
     d->editor->editor()->pushRenderStep(new BreakpointRenderStep(d->editor->editor()));
 }
@@ -122,6 +147,7 @@ void TTextEditorEditor::editorLeave(QEvent* event) {
 }
 
 QCoro::Task<> TTextEditorEditor::editorKeyTyped(QString keyText) {
+    if (d->completionWidget) co_return;
     if (d->editor->editor()->numberOfCarets() != 1) co_return;
 
     auto anchorStart = d->editor->editor()->caretAnchorStart(0);
@@ -133,8 +159,8 @@ QCoro::Task<> TTextEditorEditor::editorKeyTyped(QString keyText) {
 
     if (!lsp->completionTriggerCharacters().contains(keyText.at(0))) co_return;
 
-    auto completionWidget = new TextEditorCompletionWidget(d->editor->editor(), lsp, this);
-    completionWidget->setFont(d->editor->editor()->font());
+    d->completionWidget = new TextEditorCompletionWidget(d->editor->editor(), lsp, this);
+    d->completionWidget->setFont(d->editor->editor()->font());
 }
 
 void TTextEditorEditor::undo() {
