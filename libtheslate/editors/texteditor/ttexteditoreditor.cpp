@@ -1,5 +1,6 @@
 #include "ttexteditoreditor.h"
 
+#include "breakpointrenderstep.h"
 #include "lsp/languageserverexception.h"
 #include "lsp/languageserverprocess.h"
 #include "project.h"
@@ -9,7 +10,6 @@
 #include <QUrl>
 #include <completetexteditor.h>
 #include <texteditor.h>
-#include "breakpointrenderstep.h"
 
 struct TTextEditorEditorPrivate {
         CompleteTextEditor* editor;
@@ -27,6 +27,7 @@ TTextEditorEditor::TTextEditorEditor(QWidget* parent) :
     connect(d->editor->editor(), &TextEditor::currentFileChanged, this, &TTextEditorEditor::currentFileChanged);
     connect(d->editor->editor(), &TextEditor::unsavedChangesChanged, this, &TTextEditorEditor::unsavedChangesChanged);
     connect(d->editor->editor(), &TextEditor::textChanged, this, &TTextEditorEditor::textChanged);
+    connect(d->editor->editor(), &TextEditor::keyTyped, this, &TTextEditorEditor::editorKeyTyped);
     d->editor->editor()->installEventFilter(this);
 
     QBoxLayout* layout = new QBoxLayout(QBoxLayout::LeftToRight);
@@ -119,6 +120,20 @@ void TTextEditorEditor::editorLeave(QEvent* event) {
     d->hoverTrigger.stop();
 }
 
+QCoro::Task<> TTextEditorEditor::editorKeyTyped(QString keyText) {
+    if (d->editor->editor()->numberOfCarets() != 1) co_return;
+
+    auto anchorStart = d->editor->editor()->caretAnchorStart(0);
+    auto anchorEnd = d->editor->editor()->caretAnchorEnd(0);
+    if (anchorStart != anchorEnd) co_return;
+
+    auto lsp = co_await this->languageServer();
+    if (!lsp) co_return;
+
+    if (!lsp->completionTriggerCharacters().contains(keyText.at(0))) co_return;
+    lsp->completion(d->editor->editor()->currentFile(), anchorStart);
+}
+
 void TTextEditorEditor::undo() {
     d->editor->editor()->undo();
 }
@@ -154,6 +169,10 @@ void TTextEditorEditor::setCurrentUrl(QUrl url) {
             if (dgUrl == url) this->updateDiagnostics();
         });
         this->updateDiagnostics();
+
+        lsp->call("textDocument/codeLens", QJsonObject({
+                                               {"textDocument", QJsonObject({{"uri", d->editor->editor()->currentFile().toString()}})}
+        }));
     });
 }
 

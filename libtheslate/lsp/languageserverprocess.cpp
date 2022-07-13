@@ -22,7 +22,7 @@ struct LanguageServerProcessPrivate {
 };
 
 QJsonObject LanguageServerProcessPrivate::clientCapabilities = {
-    {"workspace",    QJsonObject({{"workspaceFolders", true}})                                                                   },
+    {"workspace",    QJsonObject({{"workspaceFolders", true}})                            },
     {"textDocument", QJsonObject({{"synchronization", QJsonObject({{"dynamicRegistration", false},
                                                           {"willSave", false},
                                                           {"willSaveWaitUntil", false},
@@ -30,7 +30,16 @@ QJsonObject LanguageServerProcessPrivate::clientCapabilities = {
                          {"publishDiagnostics", QJsonObject({{"relatedInformation", false},
                                                     {"versionSupport", false},
                                                     {"dataSupport", false}})},
-                         {"hover", QJsonObject({{"contentFormat", QJsonArray({"plaintext", "markdown"})}})}})}
+                         {"hover", QJsonObject({{"contentFormat", QJsonArray({"plaintext", "markdown"})}})},
+                         {"completion", QJsonObject({{"completionItem", QJsonObject({{"snippetSupport", false},
+                                                                            {"commitCharactersSupport", false},
+                                                                            {"documentationFormat", QJsonArray({"plaintext", "markdown"})},
+                                                                            {"deprecatedSupport", true},
+                                                                            {"preselectSupport", true},
+                                                                            {"insertReplaceSupport", true},
+                                                                            {"insertTextModeSupport", QJsonObject({{"valueSet", QJsonArray({2})}})}})},
+                                            {"contextSupport", false},
+                                            {"insertTextMode", 2}})}})}
 };
 
 LanguageServerProcess::LanguageServerProcess(QString languageServerType, QObject* parent) :
@@ -230,9 +239,8 @@ void LanguageServerProcess::didOpen(QUrl documentUri, QString languageId, int ve
 
 void LanguageServerProcess::didChange(QUrl documentUri, int version, QString text) {
     this->notify("textDocument/didChange", QJsonObject({
-                                               {"textDocument",   QJsonObject({{"uri", documentUri.toString()},
-                                                                    {"version", version}})},
-                                               {"contentChanges", QJsonArray({QJsonObject({{"text", text}})})                                            }
+                                               {"textDocument", encodeVersionedTextDocumentIdentifier(documentUri, version)},
+                                               {"contentChanges",              QJsonArray({QJsonObject({{"text", text}})})                                               }
     }));
 }
 
@@ -258,24 +266,19 @@ void LanguageServerProcess::didChange(QUrl documentUri, int version, QList<TextD
     }
 
     this->notify("textDocument/didChange", QJsonObject({
-                                               {"textDocument",   QJsonObject({{"uri", documentUri.toString()},
-                                                                    {"version", version}})},
-                                               {"contentChanges", changes                                                                                }
+                                               {"textDocument", encodeVersionedTextDocumentIdentifier(documentUri, version)},
+                                               {"contentChanges",              changes                                               }
     }));
 }
 
 void LanguageServerProcess::didClose(QUrl documentUri) {
     this->notify("textDocument/didClose", QJsonObject({
-                                              {"textDocument", QJsonObject({{"uri", documentUri.toString()}})}
+                                              {"textDocument", encodeTextDocumentIdentifier(documentUri)}
     }));
 }
 
 QCoro::Task<LanguageServerProcess::HoverResponse> LanguageServerProcess::hover(QUrl documentUri, QPoint position) {
-    auto response = co_await this->call("textDocument/hover", QJsonObject({
-                                                                  {"textDocument", QJsonObject({{"uri", documentUri.toString()}})                                                             },
-                                                                  {"position",     QJsonObject({{"line", position.y()},
-                                                                                   {"character", position.x()}})}
-    }));
+    auto response = co_await this->call("textDocument/hover", joinObject({encodeTextDocumentPositionParams(documentUri, position)}));
 
     QJsonObject obj = response.toObject();
     QJsonValue contents = obj.value("contents");
@@ -301,6 +304,10 @@ QCoro::Task<LanguageServerProcess::HoverResponse> LanguageServerProcess::hover(Q
     }
 
     co_return resp;
+}
+
+QCoro::Task<> LanguageServerProcess::completion(QUrl documentUri, QPoint position) {
+    auto response = co_await this->call("textDocument/completion", joinObject({encodeTextDocumentPositionParams(documentUri, position)}));
 }
 
 QList<LanguageServerProcess::Diagnostic> LanguageServerProcess::diagnostics(QUrl url) {
@@ -338,9 +345,9 @@ void LanguageServerProcess::handleJsonRpcNotification(QJsonObject notification) 
             dg.message = diagnostic.value("message").toString().split("\n").first().trimmed();
             dg.severity = static_cast<Diagnostic::Severity>(diagnostic.value("severity").toInt());
 
-            auto range = diagnostic.value("range").toObject();
-            dg.start = QPoint(range.value("start").toObject().value("character").toInt(), range.value("start").toObject().value("line").toInt());
-            dg.end = QPoint(range.value("end").toObject().value("character").toInt(), range.value("end").toObject().value("line").toInt());
+            auto [start, end] = decodeRange(diagnostic.value("range").toObject());
+            dg.start = start;
+            dg.end = end;
             d->diagnostics.insert(url, dg);
         }
 
@@ -348,10 +355,52 @@ void LanguageServerProcess::handleJsonRpcNotification(QJsonObject notification) 
     }
 }
 
+QJsonObject LanguageServerProcess::joinObject(QList<QJsonObject> objects) {
+    if (objects.isEmpty()) return QJsonObject();
+    auto object = QJsonObject();
+    for (auto o : objects) {
+        for (auto key : o.keys()) {
+            object.insert(key, o.value(key));
+        }
+    }
+    return object;
+}
+
+QJsonObject LanguageServerProcess::encodeTextDocumentPositionParams(QUrl uri, QPoint position) {
+    return QJsonObject({
+        {"textDocument", encodeTextDocumentIdentifier(uri)},
+        {"position",     encodePosition(position)         }
+    });
+}
+
+QJsonObject LanguageServerProcess::encodeTextDocumentIdentifier(QUrl uri) {
+    return QJsonObject({
+        {"uri", uri.toString()}
+    });
+}
+
+QJsonObject LanguageServerProcess::encodeVersionedTextDocumentIdentifier(QUrl uri, int version) {
+    return joinObject({encodeTextDocumentIdentifier(uri), {{{"version", version}}}});
+}
+
 QPoint LanguageServerProcess::decodePosition(QJsonObject position) {
     return QPoint(position.value("character").toInt(), position.value("line").toInt());
 }
 
+QJsonObject LanguageServerProcess::encodePosition(QPoint position) {
+    return QJsonObject({
+        {"character", position.x()},
+        {"line",      position.y()}
+    });
+}
+
 std::tuple<QPoint, QPoint> LanguageServerProcess::decodeRange(QJsonObject range) {
     return {decodePosition(range.value("start").toObject()), decodePosition(range.value("end").toObject())};
+}
+
+QJsonObject LanguageServerProcess::encodeRange(QPoint start, QPoint end) {
+    return QJsonObject({
+        {"start", encodePosition(start)},
+        {"end",   encodePosition(end)  }
+    });
 }

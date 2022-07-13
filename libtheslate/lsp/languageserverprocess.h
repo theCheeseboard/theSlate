@@ -60,6 +60,7 @@ class LIBTHESLATE_EXPORT LanguageServerProcess : public QProcess {
         };
 
         QCoro::Task<HoverResponse> hover(QUrl documentUri, QPoint position);
+        QCoro::Task<> completion(QUrl documentUri, QPoint position);
 
         QList<Diagnostic> diagnostics(QUrl url);
 
@@ -75,8 +76,17 @@ class LIBTHESLATE_EXPORT LanguageServerProcess : public QProcess {
         void writeJsonRpc(QJsonObject object);
         void handleJsonRpcNotification(QJsonObject notification);
 
+        QJsonObject joinObject(QList<QJsonObject> objects);
+
+        QJsonObject encodeTextDocumentPositionParams(QUrl uri, QPoint position);
+        QJsonObject encodeTextDocumentIdentifier(QUrl uri);
+        QJsonObject encodeVersionedTextDocumentIdentifier(QUrl uri, int version);
+
         QPoint decodePosition(QJsonObject position);
+        QJsonObject encodePosition(QPoint position);
+
         std::tuple<QPoint, QPoint> decodeRange(QJsonObject range);
+        QJsonObject encodeRange(QPoint start, QPoint end);
 };
 
 #endif // LANGUAGESERVERPROCESS_H

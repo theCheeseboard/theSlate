@@ -21,11 +21,13 @@ class TTextEditorEditor : public AbstractEditor {
 
         QCoro::Task<LanguageServerProcess*> languageServer();
         QCoro::Task<> textChanged(QList<TextDelta> deltas);
+        QCoro::Task<> editorKeyTyped(QString keyText);
         QCoro::Task<> updateDiagnostics();
         QCoro::Task<> showHover();
 
         void editorMouseMove(QMouseEvent* event);
         void editorLeave(QEvent* event);
+
 
         // AbstractEditor interface
     public:
