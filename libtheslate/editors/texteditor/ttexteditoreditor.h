@@ -22,6 +22,10 @@ class TTextEditorEditor : public AbstractEditor {
         QCoro::Task<LanguageServerProcess*> languageServer();
         QCoro::Task<> textChanged(QList<TextDelta> deltas);
         QCoro::Task<> updateDiagnostics();
+        QCoro::Task<> showHover();
+
+        void editorMouseMove(QMouseEvent* event);
+        void editorLeave(QEvent* event);
 
         // AbstractEditor interface
     public:
@@ -38,6 +42,10 @@ class TTextEditorEditor : public AbstractEditor {
     public:
         QStringList nameFilters();
         QString defaultExtension();
+
+        // QObject interface
+    public:
+        bool eventFilter(QObject* watched, QEvent* event);
 };
 
 #endif // TTEXTEDITOREDITOR_H

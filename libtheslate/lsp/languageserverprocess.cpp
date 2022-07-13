@@ -22,14 +22,15 @@ struct LanguageServerProcessPrivate {
 };
 
 QJsonObject LanguageServerProcessPrivate::clientCapabilities = {
-    {"workspace",    QJsonObject({{"workspaceFolders", true}})                                     },
+    {"workspace",    QJsonObject({{"workspaceFolders", true}})                                                                   },
     {"textDocument", QJsonObject({{"synchronization", QJsonObject({{"dynamicRegistration", false},
                                                           {"willSave", false},
                                                           {"willSaveWaitUntil", false},
                                                           {"didSave", false}})},
                          {"publishDiagnostics", QJsonObject({{"relatedInformation", false},
                                                     {"versionSupport", false},
-                                                    {"dataSupport", false}})}})}
+                                                    {"dataSupport", false}})},
+                         {"hover", QJsonObject({{"contentFormat", QJsonArray({"plaintext", "markdown"})}})}})}
 };
 
 LanguageServerProcess::LanguageServerProcess(QString languageServerType, QObject* parent) :
@@ -163,6 +164,8 @@ QString LanguageServerProcess::serverTypeForFileName(QString fileName) {
     QFileInfo fileInfo(fileName);
     if (fileInfo.suffix() == "cpp" || fileInfo.suffix() == "hpp" || fileInfo.suffix() == "c" || fileInfo.suffix() == "h" || fileInfo.suffix() == "m" || fileInfo.suffix() == "mm" || fileInfo.suffix() == "cc") {
         return "clangd";
+    } else if (fileInfo.suffix() == "cs") {
+        return "omnisharp";
     }
     return "";
 }
@@ -267,6 +270,39 @@ void LanguageServerProcess::didClose(QUrl documentUri) {
     }));
 }
 
+QCoro::Task<LanguageServerProcess::HoverResponse> LanguageServerProcess::hover(QUrl documentUri, QPoint position) {
+    auto response = co_await this->call("textDocument/hover", QJsonObject({
+                                                                  {"textDocument", QJsonObject({{"uri", documentUri.toString()}})                                                             },
+                                                                  {"position",     QJsonObject({{"line", position.y()},
+                                                                                   {"character", position.x()}})}
+    }));
+
+    QJsonObject obj = response.toObject();
+    QJsonValue contents = obj.value("contents");
+    HoverResponse resp;
+
+    if (contents.isObject()) {
+        auto contentsObj = contents.toObject();
+        resp.text = contentsObj.value("value").toString();
+    } else if (contents.isArray()) {
+        QStringList parts;
+        for (auto part : contents.toArray()) {
+            parts.append(part.isString() ? part.toString() : part.toObject().value("value").toString());
+        }
+        resp.text = parts.join("\n");
+    } else if (contents.isString()) {
+        resp.text = contents.toString();
+    }
+
+    if (obj.contains("range")) {
+        auto [start, end] = decodeRange(obj.value("range").toObject());
+        resp.start = start;
+        resp.end = end;
+    }
+
+    co_return resp;
+}
+
 QList<LanguageServerProcess::Diagnostic> LanguageServerProcess::diagnostics(QUrl url) {
     return d->diagnostics.values(url);
 }
@@ -310,4 +346,12 @@ void LanguageServerProcess::handleJsonRpcNotification(QJsonObject notification) 
 
         emit publishDiagnostics(url);
     }
+}
+
+QPoint LanguageServerProcess::decodePosition(QJsonObject position) {
+    return QPoint(position.value("character").toInt(), position.value("line").toInt());
+}
+
+std::tuple<QPoint, QPoint> LanguageServerProcess::decodeRange(QJsonObject range) {
+    return {decodePosition(range.value("start").toObject()), decodePosition(range.value("end").toObject())};
 }

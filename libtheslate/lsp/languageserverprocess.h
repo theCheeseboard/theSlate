@@ -6,6 +6,7 @@
 #include <QJsonObject>
 #include <QPoint>
 #include <QProcess>
+#include <tuple>
 
 struct LanguageServerProcessPrivate;
 class LIBTHESLATE_EXPORT LanguageServerProcess : public QProcess {
@@ -52,6 +53,14 @@ class LIBTHESLATE_EXPORT LanguageServerProcess : public QProcess {
         void didChange(QUrl documentUri, int version, QList<TextDocumentContentChangeEvent> events);
         void didClose(QUrl documentUri);
 
+        struct HoverResponse {
+                QPoint start;
+                QPoint end;
+                QString text;
+        };
+
+        QCoro::Task<HoverResponse> hover(QUrl documentUri, QPoint position);
+
         QList<Diagnostic> diagnostics(QUrl url);
 
     signals:
@@ -65,6 +74,9 @@ class LIBTHESLATE_EXPORT LanguageServerProcess : public QProcess {
 
         void writeJsonRpc(QJsonObject object);
         void handleJsonRpcNotification(QJsonObject notification);
+
+        QPoint decodePosition(QJsonObject position);
+        std::tuple<QPoint, QPoint> decodeRange(QJsonObject range);
 };
 
 #endif // LANGUAGESERVERPROCESS_H

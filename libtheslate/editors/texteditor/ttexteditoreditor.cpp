@@ -4,6 +4,8 @@
 #include "lsp/languageserverprocess.h"
 #include "project.h"
 #include <QBoxLayout>
+#include <QMouseEvent>
+#include <QToolTip>
 #include <QUrl>
 #include <completetexteditor.h>
 #include <texteditor.h>
@@ -12,6 +14,8 @@ struct TTextEditorEditorPrivate {
         CompleteTextEditor* editor;
 
         int lspFileVersion = 0;
+
+        QTimer hoverTrigger;
 };
 
 TTextEditorEditor::TTextEditorEditor(QWidget* parent) :
@@ -22,11 +26,16 @@ TTextEditorEditor::TTextEditorEditor(QWidget* parent) :
     connect(d->editor->editor(), &TextEditor::currentFileChanged, this, &TTextEditorEditor::currentFileChanged);
     connect(d->editor->editor(), &TextEditor::unsavedChangesChanged, this, &TTextEditorEditor::unsavedChangesChanged);
     connect(d->editor->editor(), &TextEditor::textChanged, this, &TTextEditorEditor::textChanged);
+    d->editor->editor()->installEventFilter(this);
 
     QBoxLayout* layout = new QBoxLayout(QBoxLayout::LeftToRight);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(d->editor);
     this->setLayout(layout);
+
+    d->hoverTrigger.setInterval(1000);
+    d->hoverTrigger.setSingleShot(true);
+    connect(&d->hoverTrigger, &QTimer::timeout, this, &TTextEditorEditor::showHover);
 }
 
 TTextEditorEditor::~TTextEditorEditor() {
@@ -88,6 +97,25 @@ QCoro::Task<> TTextEditorEditor::updateDiagnostics() {
     }
 }
 
+QCoro::Task<> TTextEditorEditor::showHover() {
+    auto lsp = co_await this->languageServer();
+    if (!lsp) co_return;
+
+    auto hoverResponse = co_await lsp->hover(d->editor->editor()->currentFile(), d->editor->editor()->hitTest(d->editor->editor()->mapFromGlobal(QCursor::pos())));
+    QToolTip::showText(QCursor::pos(), hoverResponse.text, this);
+}
+
+void TTextEditorEditor::editorMouseMove(QMouseEvent* event) {
+    QToolTip::hideText();
+    d->hoverTrigger.stop();
+    d->hoverTrigger.start();
+}
+
+void TTextEditorEditor::editorLeave(QEvent* event) {
+    QToolTip::hideText();
+    d->hoverTrigger.stop();
+}
+
 void TTextEditorEditor::undo() {
     d->editor->editor()->undo();
 }
@@ -146,4 +174,15 @@ QStringList TTextEditorEditor::nameFilters() {
 
 QString TTextEditorEditor::defaultExtension() {
     return ".txt";
+}
+
+bool TTextEditorEditor::eventFilter(QObject* watched, QEvent* event) {
+    if (watched == d->editor->editor()) {
+        if (event->type() == QEvent::MouseMove) {
+            this->editorMouseMove(static_cast<QMouseEvent*>(event));
+        } else if (event->type() == QEvent::Leave) {
+            this->editorLeave(event);
+        }
+    }
+    return false;
 }
