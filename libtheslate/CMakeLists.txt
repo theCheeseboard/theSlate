@@ -15,6 +15,7 @@ set(SOURCES
     editors/texteditor/texteditorfactory.cpp
     editors/texteditor/ttexteditoreditor.cpp
     editors/texteditor/breakpointrenderstep.cpp
+    editors/texteditor/texteditorcompletionwidget.cpp
     project.cpp
 
     project/buildengine.cpp
@@ -59,6 +60,7 @@ set(PRIVATE_HEADERS
     editors/texteditor/texteditorfactory.h
     editors/texteditor/ttexteditoreditor.h
     editors/texteditor/breakpointrenderstep.h
+    editors/texteditor/texteditorcompletionwidget.h
 )
 
 add_library(libtheslate SHARED ${SOURCES} ${HEADERS} ${PRIVATE_HEADERS})

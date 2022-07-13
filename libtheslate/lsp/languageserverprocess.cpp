@@ -306,8 +306,43 @@ QCoro::Task<LanguageServerProcess::HoverResponse> LanguageServerProcess::hover(Q
     co_return resp;
 }
 
-QCoro::Task<> LanguageServerProcess::completion(QUrl documentUri, QPoint position) {
+QCoro::Task<std::tuple<bool, QList<LanguageServerProcess::CompletionItem>>> LanguageServerProcess::completion(QUrl documentUri, QPoint position) {
     auto response = co_await this->call("textDocument/completion", joinObject({encodeTextDocumentPositionParams(documentUri, position)}));
+
+    bool incomplete = false;
+    QJsonArray items;
+
+    if (response.isNull()) {
+        co_return {false, {}};
+    } else if (response.isObject()) {
+        auto object = response.toObject();
+        incomplete = object.value("isIncomplete").toBool();
+        items = object.value("items").toArray();
+    } else {
+        items = response.toArray();
+    }
+
+    QList<CompletionItem> completionItems;
+    for (auto item : items) {
+        auto itemObj = item.toObject();
+        auto ci = CompletionItem();
+        ci.label = itemObj.value("label").toString();
+        ci.kind = itemObj.value("kind").toInt();
+        ci.detail = itemObj.value("detail").toString();
+        ci.sortText = itemObj.value("sortText").toString();
+        ci.filterText = itemObj.value("filterText").toString();
+        ci.preselect = itemObj.value("preselect").toBool();
+
+        auto edit = itemObj.value("textEdit").toObject();
+        ci.acceptText = edit.value("newText").toString();
+
+        auto [start, end] = decodeRange(edit.value("range").toObject());
+        ci.acceptReplaceStart = start;
+        ci.acceptReplaceEnd = end;
+
+        completionItems.append(ci);
+    }
+    co_return {incomplete, completionItems};
 }
 
 QList<LanguageServerProcess::Diagnostic> LanguageServerProcess::diagnostics(QUrl url) {

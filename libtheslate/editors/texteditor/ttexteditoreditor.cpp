@@ -4,6 +4,7 @@
 #include "lsp/languageserverexception.h"
 #include "lsp/languageserverprocess.h"
 #include "project.h"
+#include "texteditorcompletionwidget.h"
 #include <QBoxLayout>
 #include <QMouseEvent>
 #include <QToolTip>
@@ -131,7 +132,9 @@ QCoro::Task<> TTextEditorEditor::editorKeyTyped(QString keyText) {
     if (!lsp) co_return;
 
     if (!lsp->completionTriggerCharacters().contains(keyText.at(0))) co_return;
-    lsp->completion(d->editor->editor()->currentFile(), anchorStart);
+
+    auto completionWidget = new TextEditorCompletionWidget(d->editor->editor(), lsp, this);
+    completionWidget->setFont(d->editor->editor()->font());
 }
 
 void TTextEditorEditor::undo() {

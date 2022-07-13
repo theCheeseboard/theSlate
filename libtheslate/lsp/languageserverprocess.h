@@ -59,8 +59,21 @@ class LIBTHESLATE_EXPORT LanguageServerProcess : public QProcess {
                 QString text;
         };
 
+        struct CompletionItem {
+                QString detail;
+                QString filterText;
+                int kind;
+                QString label;
+                QString sortText;
+                bool preselect;
+
+                QString acceptText;
+                QPoint acceptReplaceStart;
+                QPoint acceptReplaceEnd;
+        };
+
         QCoro::Task<HoverResponse> hover(QUrl documentUri, QPoint position);
-        QCoro::Task<> completion(QUrl documentUri, QPoint position);
+        QCoro::Task<std::tuple<bool, QList<CompletionItem>>> completion(QUrl documentUri, QPoint position);
 
         QList<Diagnostic> diagnostics(QUrl url);
 
