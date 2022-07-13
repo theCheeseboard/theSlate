@@ -3,6 +3,7 @@
 
 #include "project.h"
 #include "project/runconfiguration.h"
+#include <QCoroGenerator>
 
 class CmakeBuildEngine;
 struct CmakeRunConfigurationPrivate;
@@ -16,6 +17,8 @@ class CmakeRunConfiguration : public RunConfiguration {
 
     private:
         CmakeRunConfigurationPrivate* d;
+
+        QCoro::Generator<QDir> glob(QDir dir, QStringList possibilities);
 
         // RunConfiguration interface
     public:

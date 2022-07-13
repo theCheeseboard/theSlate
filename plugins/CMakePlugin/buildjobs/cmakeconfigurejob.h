@@ -9,7 +9,7 @@ struct CmakeConfigureJobPrivate;
 class CmakeConfigureJob : public BuildJob {
         Q_OBJECT
     public:
-        explicit CmakeConfigureJob(ProjectPtr project, CmakeBuildEngine* buildEngine, QString configurationName, QStringList cmakeArgs, QDir buildDirectory, QObject* parent = nullptr);
+        explicit CmakeConfigureJob(ProjectPtr project, CmakeBuildEngine* buildEngine, QString configurationName, QStringList cmakeArgs, QDir buildDirectory, QProcessEnvironment env, QObject* parent = nullptr);
         ~CmakeConfigureJob();
 
     signals:

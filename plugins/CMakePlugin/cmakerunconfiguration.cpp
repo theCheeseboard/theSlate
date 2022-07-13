@@ -16,6 +16,7 @@ struct CmakeRunConfigurationPrivate {
 
         QDir buildDirectory;
         QStringList cmakeArgs;
+        QProcessEnvironment cmakeEnv;
 };
 
 CmakeRunConfiguration::CmakeRunConfiguration(ProjectPtr project, CmakeBuildEngine* buildEngine, QString name, QJsonObject descriptor, QObject* parent) :
@@ -24,6 +25,7 @@ CmakeRunConfiguration::CmakeRunConfiguration(ProjectPtr project, CmakeBuildEngin
     d->project = project;
     d->name = name;
     d->buildEngine = buildEngine;
+    d->cmakeEnv = QProcessEnvironment::systemEnvironment();
 
     d->buildDirectory = project->projectDir(Project::BuildRootDirectory).absoluteFilePath(name.toLower().replace(" ", "_"));
 
@@ -40,10 +42,84 @@ CmakeRunConfiguration::CmakeRunConfiguration(ProjectPtr project, CmakeBuildEngin
             });
         }
     });
+
+#ifdef Q_OS_WIN
+    //Attempt to find MSVC, Ninja and the WinSDK and add it to the PATH
+    QDir root("C:/");
+    QStringList extraPaths;
+    QStringList extraLibs;
+
+    for (auto dir : this->glob(root, { "Program Files", "Program Files (x86)" })) {
+        //Find Visual Studio stuff
+        for (auto year : this->glob(dir.absoluteFilePath("Microsoft Visual Studio"), {"2022", "2019", "2017"})) {
+            for (auto edition : this->glob(year, { "Community", "Professional", "Enterprise" })) {
+                //Find MSVC
+                auto msvcRoot = QDir(edition.absoluteFilePath("VC/Tools/MSVC"));
+                if (msvcRoot.exists()) {
+                    for (auto version : msvcRoot.entryList()) {
+                        auto binDir = QDir(msvcRoot.absoluteFilePath(version));
+                        binDir = binDir.absoluteFilePath("bin");
+                        for (auto hostArch : this->glob(binDir, { "Hostx64", "Hostx86" })) {
+                            for (auto arch : this->glob(hostArch, { "x64", "x86", "arm64", "arm"})) {
+                                extraPaths.append(arch.absolutePath());
+                            }
+                        }
+
+                        auto libDir = QDir(msvcRoot.absoluteFilePath(version));
+                        libDir = libDir.absoluteFilePath("lib");
+                        libDir = libDir.absoluteFilePath("onecore");
+                        for (auto arch : this->glob(libDir, { "x64", "x86", "arm64", "arm" })) {
+                            extraLibs.append(arch.absolutePath());
+                        }
+                    }
+                }
+
+                //Find ninja
+                auto ninjaRoot = QDir(edition.absoluteFilePath("Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja"));
+                if (ninjaRoot.exists()) {
+                    extraPaths.append(ninjaRoot.absolutePath());
+                }
+            }
+        }
+
+        //Find Windows SDK
+        auto kitsBinDir = QDir(dir.absoluteFilePath("Windows Kits/10/bin"));
+        for (auto kit : kitsBinDir.entryList()) {
+            if (!kit.startsWith("10")) continue;
+            auto kitDir = QDir(kitsBinDir.absoluteFilePath(kit));
+            for (auto arch : this->glob(kitDir, { "x64", "x86", "arm64", "arm" })) {
+                extraPaths.append(arch.absolutePath());
+            }
+        }
+        auto kitsLibDir = QDir(dir.absoluteFilePath("Windows Kits/10/Lib"));
+        for (auto kit : kitsLibDir.entryList()) {
+            if (!kit.startsWith("10")) continue;
+            auto kitDir = QDir(kitsLibDir.absoluteFilePath(kit));
+            for (auto libDir : this->glob(kitDir, { "ucrt", "um" })) {
+                for (auto arch : this->glob(libDir, { "x64", "x86", "arm64", "arm" })) {
+                    extraLibs.append(arch.absolutePath());
+                }
+            }
+        }
+    }
+
+    extraPaths.append(d->cmakeEnv.value("Path").split(";"));
+    d->cmakeEnv.insert("Path", extraPaths.join(";"));
+    extraLibs.append(d->cmakeEnv.value("Lib").split(";"));
+    d->cmakeEnv.insert("Lib", extraLibs.join(";"));
+#endif
 }
 
 CmakeRunConfiguration::~CmakeRunConfiguration() {
     delete d;
+}
+
+QCoro::Generator<QDir> CmakeRunConfiguration::glob(QDir dir, QStringList possibilities)
+{
+    for (auto path : possibilities) {
+        QDir test = dir.absoluteFilePath(path);
+        if (test.exists()) co_yield test.absolutePath();
+    }
 }
 
 QString CmakeRunConfiguration::name() {
@@ -59,7 +135,7 @@ BuildJobPtr CmakeRunConfiguration::configure() {
     if (!project) return nullptr;
 
     if (!d->buildDirectory.exists()) d->buildDirectory.mkpath(".");
-    auto buildJob = BuildJobPtr(new CmakeConfigureJob(d->project, d->buildEngine, d->name, d->cmakeArgs, d->buildDirectory));
+    auto buildJob = BuildJobPtr(new CmakeConfigureJob(d->project, d->buildEngine, d->name, d->cmakeArgs, d->buildDirectory, d->cmakeEnv));
     connect(buildJob.data(), &BuildJob::stateChanged, this, [=](BuildJob::State state) {
         if (state == BuildJob::Successful || state == BuildJob::Failed) emit targetsChanged();
     });

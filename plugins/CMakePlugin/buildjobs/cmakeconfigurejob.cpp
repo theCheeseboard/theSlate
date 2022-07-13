@@ -9,9 +9,10 @@ struct CmakeConfigureJobPrivate {
         QDir buildDirectory;
         QString name;
         CmakeBuildEngine* buildEngine;
+        QProcessEnvironment env;
 };
 
-CmakeConfigureJob::CmakeConfigureJob(ProjectPtr project, CmakeBuildEngine* buildEngine, QString configurationName, QStringList cmakeArgs, QDir buildDirectory, QObject* parent) :
+CmakeConfigureJob::CmakeConfigureJob(ProjectPtr project, CmakeBuildEngine* buildEngine, QString configurationName, QStringList cmakeArgs, QDir buildDirectory, QProcessEnvironment env, QObject* parent) :
     BuildJob{parent} {
     d = new CmakeConfigureJobPrivate();
     d->project = project;
@@ -19,6 +20,7 @@ CmakeConfigureJob::CmakeConfigureJob(ProjectPtr project, CmakeBuildEngine* build
     d->cmakeArgs = cmakeArgs;
     d->buildDirectory = buildDirectory;
     d->name = configurationName;
+    d->env = env;
 
     this->setTitle(tr("Configure %1").arg(QLocale().quoteString(configurationName)));
     this->setDescription(tr("Configuring CMake..."));
@@ -47,6 +49,7 @@ void CmakeConfigureJob::start() {
     args.append(d->cmakeArgs);
 
     auto* cmakeProc = new QProcess();
+    cmakeProc->setProcessEnvironment(d->env);
     connect(cmakeProc, &QProcess::readyReadStandardOutput, this, [=] {
         QString output = cmakeProc->readAllStandardOutput();
         this->setDescription(output.trimmed().split("\n").last());
