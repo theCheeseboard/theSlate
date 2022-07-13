@@ -45,6 +45,8 @@ class LIBTHESLATE_EXPORT Project : public QObject,
         QCoro::Task<> activeRunConfigurationRun();
         void reloadProjectConfigurations();
 
+        void registerRunConfigurationReloadFile(QString file);
+
         QList<BuildJobPtr> buildJobs();
 
         void addBeforeBuildEventHandler(std::function<QCoro::Task<>()> eventHandler);

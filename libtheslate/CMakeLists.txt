@@ -14,6 +14,7 @@ set(SOURCES
     editors/abstracteditor/abstracteditorfactory.cpp
     editors/texteditor/texteditorfactory.cpp
     editors/texteditor/ttexteditoreditor.cpp
+    editors/texteditor/breakpointrenderstep.cpp
     project.cpp
 
     project/buildengine.cpp
@@ -57,6 +58,7 @@ set(HEADERS
 set(PRIVATE_HEADERS
     editors/texteditor/texteditorfactory.h
     editors/texteditor/ttexteditoreditor.h
+    editors/texteditor/breakpointrenderstep.h
 )
 
 add_library(libtheslate SHARED ${SOURCES} ${HEADERS} ${PRIVATE_HEADERS})

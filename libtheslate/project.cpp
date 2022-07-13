@@ -17,6 +17,8 @@ struct ProjectPrivate {
         QMutex languageServerMutex;
         QMap<QString, LanguageServerProcess*> languageServers;
 
+        QFileSystemWatcher watcher;
+
         QList<std::function<QCoro::Task<>()>> beforeBuildEventHandlers;
 };
 
@@ -41,6 +43,8 @@ Project::Project(QString projectDir, QObject* parent) :
             return;
         }
     });
+
+    connect(&d->watcher, &QFileSystemWatcher::fileChanged, this, &Project::reloadProjectConfigurations);
 }
 
 QCoro::Task<> Project::runBeforeBuildEventHandlers() {
@@ -190,6 +194,11 @@ void Project::reloadProjectConfigurations() {
     }
 
     emit runConfigurationsUpdated();
+}
+
+void Project::registerRunConfigurationReloadFile(QString file)
+{
+    d->watcher.addPath(file);
 }
 
 QList<BuildJobPtr> Project::buildJobs() {

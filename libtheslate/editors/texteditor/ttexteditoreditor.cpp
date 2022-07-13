@@ -9,6 +9,7 @@
 #include <QUrl>
 #include <completetexteditor.h>
 #include <texteditor.h>
+#include "breakpointrenderstep.h"
 
 struct TTextEditorEditorPrivate {
         CompleteTextEditor* editor;
@@ -36,6 +37,8 @@ TTextEditorEditor::TTextEditorEditor(QWidget* parent) :
     d->hoverTrigger.setInterval(1000);
     d->hoverTrigger.setSingleShot(true);
     connect(&d->hoverTrigger, &QTimer::timeout, this, &TTextEditorEditor::showHover);
+
+    d->editor->editor()->pushRenderStep(new BreakpointRenderStep(d->editor->editor()));
 }
 
 TTextEditorEditor::~TTextEditorEditor() {

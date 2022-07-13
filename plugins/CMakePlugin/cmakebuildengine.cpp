@@ -7,6 +7,7 @@
 #include <QJsonObject>
 #include <QSharedPointer>
 #include <QStandardPaths>
+#include <QFileSystemWatcher>
 #include <tlogger.h>
 
 struct CmakeBuildEnginePrivate {
@@ -48,7 +49,13 @@ QList<RunConfigurationPtr> CmakeBuildEngine::runConfigurationsFromConfigurationF
 
 QList<RunConfigurationPtr> CmakeBuildEngine::discoverRunConfigurations(ProjectPtr project) {
     QDir runConfigurationCache = project->projectDir(Project::RunConfigurationCache);
-    QFile cmakeFile(runConfigurationCache.absoluteFilePath("cmake.json"));
+    auto cmakeFilePath = runConfigurationCache.absoluteFilePath("cmake.json");
+    QFile cmakeFile(cmakeFilePath);
+
+    QScopeGuard watch([project, cmakeFilePath] {
+        project->registerRunConfigurationReloadFile(cmakeFilePath);
+    });
+
     if (runConfigurationCache.entryList().contains("cmake.json")) {
         // Read the CMake configuration file and create run configuration
         if (!cmakeFile.open(QFile::ReadOnly)) return {}; // Error reading CMake configuration file
