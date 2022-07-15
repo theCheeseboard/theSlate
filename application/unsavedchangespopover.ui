@@ -98,7 +98,8 @@
                <string>Save All</string>
               </property>
               <property name="icon">
-               <iconset theme="document-save"/>
+               <iconset theme="document-save">
+                <normaloff>.</normaloff>.</iconset>
               </property>
              </widget>
             </item>
@@ -110,7 +111,8 @@
              <string>Discard All</string>
             </property>
             <property name="icon">
-             <iconset theme="edit-delete"/>
+             <iconset theme="edit-delete">
+              <normaloff>.</normaloff>.</iconset>
             </property>
            </widget>
           </item>

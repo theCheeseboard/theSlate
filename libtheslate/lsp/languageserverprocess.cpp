@@ -36,7 +36,7 @@ QJsonObject LanguageServerProcessPrivate::clientCapabilities = {
                                                                             {"documentationFormat", QJsonArray({"plaintext", "markdown"})},
                                                                             {"deprecatedSupport", true},
                                                                             {"preselectSupport", true},
-                                                                            {"tagSupport", QJsonArray({1})}, {"insertReplaceSupport", true},
+                                                                            {"tagSupport", QJsonObject({{"valueSet", QJsonArray({1})}})}, {"insertReplaceSupport", true},
                                                                             {"insertTextModeSupport", QJsonObject({{"valueSet", QJsonArray({2})}})}})},
                                             {"contextSupport", false},
                                             {"insertTextMode", 2}})}})}
@@ -133,11 +133,17 @@ QCoro::Task<> LanguageServerProcess::startLanguageServer(QJsonObject extraInitia
         d = newD;
     }
 
-    if (d->languageServerType != "clangd") {
+    if (d->languageServerType == "clangd") {
+        this->start("clangd");
+    } else if (d->languageServerType == "typescript") {
+        this->start("typescript-language-server", {"--stdio"});
+    } else if (d->languageServerType == "bash") {
+        this->start("bash-language-server", {"start"});
+    } else if (d->languageServerType == "oasis") {
+        this->start("java", {"-jar", "/Users/victor/Documents/Git/oasis/build/libs/oasiskt-1.0-SNAPSHOT.jar", "--language-server"});
+    } else {
         throw LanguageServerException(-32098, "Unknown Language Server", QJsonValue());
     }
-
-    this->start("clangd");
 
     try {
         if (!co_await qCoro(this).waitForStarted()) {
@@ -173,8 +179,12 @@ QString LanguageServerProcess::serverTypeForFileName(QString fileName) {
     QFileInfo fileInfo(fileName);
     if (fileInfo.suffix() == "cpp" || fileInfo.suffix() == "hpp" || fileInfo.suffix() == "c" || fileInfo.suffix() == "h" || fileInfo.suffix() == "m" || fileInfo.suffix() == "mm" || fileInfo.suffix() == "cc") {
         return "clangd";
-    } else if (fileInfo.suffix() == "cs") {
-        return "omnisharp";
+    } else if (fileInfo.suffix() == "js" || fileInfo.suffix() == "ts") {
+        return "typescript";
+    } else if (fileInfo.suffix() == "sh") {
+        return "bash";
+    } else if (fileInfo.suffix() == "oa") {
+        return "oasis";
     }
     return "";
 }

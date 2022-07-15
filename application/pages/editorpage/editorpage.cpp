@@ -1,18 +1,25 @@
 #include "editorpage.h"
+#include "textmergepopover.h"
 #include "ui_editorpage.h"
 
 #include <QCoroSignal>
 #include <QFile>
 #include <QFileDialog>
+#include <QFileSystemWatcher>
 #include <editormanager.h>
 #include <editors/abstracteditor/abstracteditor.h>
 #include <statemanager.h>
 #include <tmessagebox.h>
+#include <tpopover.h>
 #include <twindowtabberbutton.h>
 
 struct EditorPagePrivate {
         tWindowTabberButton* tabButton;
+        QString editorType;
         AbstractEditor* editor = nullptr;
+
+        QFileSystemWatcher watcher;
+        bool haveSaveConflict = false;
 };
 
 EditorPage::EditorPage(QString editorType, QWidget* parent) :
@@ -23,6 +30,7 @@ EditorPage::EditorPage(QString editorType, QWidget* parent) :
     d = new EditorPagePrivate;
     d->tabButton = new tWindowTabberButton();
     d->tabButton->setText(tr("Empty Document"));
+    d->editorType = editorType;
 
     d->editor = StateManager::editor()->createEditor(editorType);
     if (d->editor) {
@@ -33,6 +41,8 @@ EditorPage::EditorPage(QString editorType, QWidget* parent) :
             d->tabButton->setText(currentFile.fileName());
         });
     }
+
+    connect(&d->watcher, &QFileSystemWatcher::fileChanged, this, &EditorPage::fileChanged);
 }
 
 EditorPage::~EditorPage() {
@@ -56,7 +66,7 @@ void EditorPage::discardContentsAndOpenFile(QUrl file) {
         f.close();
     }
 
-    d->editor->setCurrentUrl(file);
+    this->setEditorUrl(file);
 }
 
 void EditorPage::undo() {
@@ -75,21 +85,89 @@ AbstractEditor* EditorPage::editor() {
     return d->editor;
 }
 
-void EditorPage::saveToFile(QUrl url) {
+QCoro::Task<> EditorPage::saveToFile(QUrl url) {
+    if (d->haveSaveConflict && url == d->editor->currentUrl()) {
+        tMessageBox box(this->window());
+        box.setTitleBarText(tr("Save Conflict"));
+        box.setMessageText(tr("The file on disk has been changed. What would you like to do?"));
+        box.setInformativeText(tr("If you overwrite the file, the file on disk will be lost forever."));
+
+        tMessageBoxButton* mergeButton;
+        if (d->editorType == "text") mergeButton = box.addButton(tr("Merge Changes"), QMessageBox::AcceptRole);
+        tMessageBoxButton* overwriteButton = box.addButton(tr("Overwrite"), QMessageBox::DestructiveRole);
+        tMessageBoxButton* discardButton = box.addButton(tr("Discard Changes"), QMessageBox::DestructiveRole);
+        tMessageBoxButton* cancelButton = box.addStandardButton(QMessageBox::Cancel);
+
+        auto button = co_await box.presentAsync();
+        if (button == mergeButton) {
+            bool ok;
+            QString resolution;
+
+            QFile f(url.toLocalFile());
+            f.open(QFile::ReadOnly);
+
+            TextMergePopover* jp = new TextMergePopover(f.readAll(), d->editor->data());
+            f.close();
+
+            tPopover popover(jp);
+            popover.setPopoverWidth(SC_DPI_W(-200, this));
+            popover.setPopoverSide(tPopover::Bottom);
+            connect(jp, &TextMergePopover::finished, this, [&ok, &resolution, &popover](bool popoverOk, QString popoverResolution) {
+                ok = popoverOk;
+                resolution = popoverResolution;
+                popover.dismiss();
+            });
+            popover.show(this->window());
+
+            co_await qCoro(&popover, &tPopover::dismissed);
+
+            if (!ok) {
+                throw QException();
+            } else {
+                d->editor->setData(resolution.toUtf8());
+            }
+        } else if (button == discardButton) {
+            this->discardContentsAndOpenFile(url);
+            co_return;
+        } else if (button == cancelButton) {
+            throw QException();
+        }
+    }
+
     // TODO: Error handling
+    QSignalBlocker blocker(d->watcher);
     QFile file(url.toLocalFile());
     file.open(QFile::WriteOnly);
     file.write(d->editor->data());
     file.close();
 
+    this->setEditorUrl(url);
+
+    co_return;
+}
+
+void EditorPage::fileChanged() {
+    if (d->editor->haveUnsavedChanges()) {
+        // TODO: Show save conflict banner
+        d->haveSaveConflict = true;
+    } else {
+        this->discardContentsAndOpenFile(d->editor->currentUrl());
+    }
+}
+
+void EditorPage::setEditorUrl(QUrl url) {
+    // TODO: Remove save conflict banner if needed
     d->editor->setCurrentUrl(url);
+    d->haveSaveConflict = false;
+    d->watcher.removePaths(d->watcher.files());
+    d->watcher.addPath(url.toLocalFile());
 }
 
 QCoro::Task<> EditorPage::save() {
     if (d->editor->currentUrl().isEmpty()) {
         co_await this->saveAs();
     } else {
-        this->saveToFile(d->editor->currentUrl());
+        co_await this->saveToFile(d->editor->currentUrl());
     }
 }
 
@@ -112,8 +190,7 @@ QCoro::Task<> EditorPage::saveAs() {
 
 QCoro::Task<> EditorPage::saveAll() {
     if (!d->editor->currentUrl().isEmpty()) {
-        this->saveToFile(d->editor->currentUrl());
-        co_return;
+        co_await this->saveToFile(d->editor->currentUrl());
     } else {
         throw QException();
     }

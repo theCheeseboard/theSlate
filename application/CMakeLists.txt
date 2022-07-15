@@ -26,7 +26,8 @@ set(SOURCES
         pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationbuilditem.cpp pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationbuilditem.ui
         pages/projectpage/models/buildjobissuesmodel.cpp
         pages/repositoryclonepage/repositoryclonepage.cpp pages/repositoryclonepage/repositoryclonepage.ui
-         pages/passthroughpage/passthroughpage.cpp
+        pages/passthroughpage/passthroughpage.cpp
+        pages/editorpage/textmergepopover.cpp pages/editorpage/textmergepopover.ui
 )
 
 set(HEADERS
@@ -47,6 +48,7 @@ set(HEADERS
         pages/projectpage/models/buildjobissuesmodel.h
         pages/repositoryclonepage/repositoryclonepage.h
         pages/passthroughpage/passthroughpage.h
+        pages/editorpage/textmergepopover.h
 )
 
 # Find Apple lproj files

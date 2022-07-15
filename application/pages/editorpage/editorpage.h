@@ -33,7 +33,10 @@ class EditorPage : public AbstractPage {
         Ui::EditorPage* ui;
         EditorPagePrivate* d;
 
-        void saveToFile(QUrl url);
+        QCoro::Task<> saveToFile(QUrl url);
+
+        void fileChanged();
+        void setEditorUrl(QUrl url);
 
         // AbstractPage interface
     public:
