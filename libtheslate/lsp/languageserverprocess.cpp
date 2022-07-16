@@ -141,6 +141,8 @@ QCoro::Task<> LanguageServerProcess::startLanguageServer(QJsonObject extraInitia
         this->start("bash-language-server", {"start"});
     } else if (d->languageServerType == "oasis") {
         this->start("java", {"-jar", "/Users/victor/Documents/Git/oasis/build/libs/oasiskt-1.0-SNAPSHOT.jar", "--language-server"});
+    } else if (d->languageServerType == "omnisharp") {
+        this->start("OmniSharp", {"-lsp"});
     } else {
         throw LanguageServerException(-32098, "Unknown Language Server", QJsonValue());
     }
@@ -185,6 +187,8 @@ QString LanguageServerProcess::serverTypeForFileName(QString fileName) {
         return "bash";
     } else if (fileInfo.suffix() == "oa") {
         return "oasis";
+    } else if (fileInfo.suffix() == "cs") {
+        return "omnisharp";
     }
     return "";
 }
@@ -370,7 +374,7 @@ void LanguageServerProcess::writeJsonRpc(QJsonObject object) {
 
     QStringList headers = {
         QStringLiteral("Content-Length: %1").arg(data.size()),
-        QStringLiteral("application/vscode-jsonrpc; charset=utf-8"),
+        QStringLiteral("Content-Type: application/vscode-jsonrpc; charset=utf-8"),
         "", "" // Insert two empty "headers" for the two new lines
     };
 

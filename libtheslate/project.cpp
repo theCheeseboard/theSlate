@@ -229,6 +229,7 @@ QCoro::Task<LanguageServerProcess*> Project::languageServerForServerName(QString
     }
 
     LanguageServerProcess* lsp = new LanguageServerProcess(languageServer, this);
+    lsp->setWorkingDirectory(this->projectDir().absolutePath());
     co_await lsp->startLanguageServer();
     lsp->addWorkspaceFolder(QUrl::fromLocalFile(this->projectDir().absolutePath()), "project");
     d->languageServers.insert(languageServer, lsp);
