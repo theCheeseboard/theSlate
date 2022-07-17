@@ -18,6 +18,8 @@ set(SOURCES
         pages/projectpage/leftpanes/abstractleftpane/abstractleftpane.cpp
         pages/projectpage/leftpanes/filetreeleftpane/filetreeleftpane.cpp pages/projectpage/leftpanes/filetreeleftpane/filetreeleftpane.ui
         pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationleftpane.cpp pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationleftpane.ui
+        pages/projectpage/leftpanes/gitleftpane/gitleftpane.cpp pages/projectpage/leftpanes/gitleftpane/gitleftpane.ui
+        pages/projectpage/leftpanes/gitleftpane/gitroot.cpp pages/projectpage/leftpanes/gitleftpane/gitroot.ui
         pages/projectpage/buildtasks/buildtaskscontainer.cpp pages/projectpage/buildtasks/buildtaskscontainer.ui
         pages/projectpage/buildtasks/buildtaskprogressitem.cpp pages/projectpage/buildtasks/buildtaskprogressitem.ui
         widgetholder/widgetholdereditor.cpp widgetholder/widgetholdereditor.ui
@@ -40,6 +42,8 @@ set(HEADERS
         pages/projectpage/leftpanes/abstractleftpane/abstractleftpane.h
         pages/projectpage/leftpanes/filetreeleftpane/filetreeleftpane.h
         pages/projectpage/leftpanes/runconfigurationleftpane/runconfigurationleftpane.h
+        pages/projectpage/leftpanes/gitleftpane/gitleftpane.h
+        pages/projectpage/leftpanes/gitleftpane/gitroot.h
         pages/projectpage/buildtasks/buildtaskscontainer.h
         pages/projectpage/buildtasks/buildtaskprogressitem.h
         widgetholder/widgetholdereditor.h

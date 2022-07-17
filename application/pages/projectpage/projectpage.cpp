@@ -9,6 +9,7 @@
 
 #include "../editorpage/editorpage.h"
 #include "leftpanes/filetreeleftpane/filetreeleftpane.h"
+#include "leftpanes/gitleftpane/gitleftpane.h"
 #include "leftpanes/runconfigurationleftpane/runconfigurationleftpane.h"
 
 struct ProjectPagePrivate {
@@ -44,6 +45,10 @@ ProjectPage::ProjectPage(QString projectDirectory, QWidget* parent) :
     auto* runConfigLeftPane = new RunConfigurationLeftPane(d->project);
     connect(runConfigLeftPane, &RunConfigurationLeftPane::requestFileOpen, this, &ProjectPage::openUrl);
     addLeftPaneItem(runConfigLeftPane);
+
+    auto* gitLeftPane = new GitLeftPane(d->project);
+    connect(gitLeftPane, &GitLeftPane::requestFileOpen, this, &ProjectPage::openUrl);
+    addLeftPaneItem(gitLeftPane);
 
     auto* buildAction = new QAction(this);
     buildAction->setText(tr("Build"));
