@@ -199,9 +199,9 @@ void TTextEditorEditor::setCurrentUrl(QUrl url) {
         });
         this->updateDiagnostics();
 
-        lsp->call("textDocument/codeLens", QJsonObject({
-                                               {"textDocument", QJsonObject({{"uri", d->editor->editor()->currentFile().toString()}})}
-        }));
+        //        lsp->call("textDocument/codeLens", QJsonObject({
+        //                                               {"textDocument", QJsonObject({{"uri", d->editor->editor()->currentFile().toString()}})}
+        //        }));
     });
 }
 

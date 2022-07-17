@@ -89,6 +89,10 @@ LanguageServerProcess::LanguageServerProcess(QString languageServerType, QObject
             }
         }
     });
+    connect(this, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus exitStatus = NormalExit) {
+        tDebug("LanguageServerProcess") << "Language server exited with code " << exitCode;
+        tDebug("LanguageServerProcess") << QString(this->readAllStandardError());
+    });
 }
 
 LanguageServerProcess::~LanguageServerProcess() {
@@ -122,7 +126,7 @@ bool LanguageServerProcess::prefersIncrementalSync() {
 QCoro::Task<> LanguageServerProcess::startLanguageServer(QJsonObject extraInitialisationOptions) {
     // TODO: Make LSPs configurable
     if (this->state() != QProcess::NotRunning) {
-        this->kill();
+        this->terminate();
 
         co_await qCoro(this).waitForFinished();
 
@@ -292,7 +296,8 @@ void LanguageServerProcess::didClose(QUrl documentUri) {
 }
 
 QCoro::Task<LanguageServerProcess::HoverResponse> LanguageServerProcess::hover(QUrl documentUri, QPoint position) {
-    auto response = co_await this->call("textDocument/hover", joinObject({encodeTextDocumentPositionParams(documentUri, position)}));
+    QList<QJsonObject> args = {encodeTextDocumentPositionParams(documentUri, position)};
+    auto response = co_await this->call("textDocument/hover", joinObject(args));
 
     QJsonObject obj = response.toObject();
     QJsonValue contents = obj.value("contents");
@@ -321,7 +326,8 @@ QCoro::Task<LanguageServerProcess::HoverResponse> LanguageServerProcess::hover(Q
 }
 
 QCoro::Task<std::tuple<bool, QList<LanguageServerProcess::CompletionItem>>> LanguageServerProcess::completion(QUrl documentUri, QPoint position) {
-    auto response = co_await this->call("textDocument/completion", joinObject({encodeTextDocumentPositionParams(documentUri, position)}));
+    QList<QJsonObject> args = {encodeTextDocumentPositionParams(documentUri, position)};
+    auto response = co_await this->call("textDocument/completion", joinObject(args));
 
     bool incomplete = false;
     QJsonArray items;

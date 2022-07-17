@@ -15,6 +15,7 @@
 #include <tpopover.h>
 #include <twindowtabberbutton.h>
 
+#include "landingpage.h"
 #include "pages/editorpage/editorpage.h"
 #include "pages/projectpage/projectpage.h"
 #include "pages/repositoryclonepage/repositoryclonepage.h"
@@ -46,6 +47,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
     ui->jobButtonLayout->addWidget(tJobManager::makeJobButton());
 
+    this->setMinimumSize(SC_DPI_WT(QSize(700, 600), QSize, this));
     this->resize(SC_DPI_WT(this->size(), QSize, this));
 
 #ifdef Q_OS_MAC
@@ -69,6 +71,14 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->menuButton->setIconSize(SC_DPI_T(QSize(24, 24), QSize));
     ui->menuButton->setMenu(menu);
 #endif
+
+    ui->windowTabber->setUpdateWindowTitle(true);
+
+    auto landingPage = new LandingPage();
+    connect(landingPage, &LandingPage::createNewFile, this, &MainWindow::on_actionEmpty_Text_File_triggered);
+    connect(landingPage, &LandingPage::openDirectory, this, &MainWindow::on_actionOpenDirectory_triggered);
+    connect(landingPage, &LandingPage::cloneRepository, this, &MainWindow::on_actionClone_Repository_triggered);
+    ui->stackedWidget->setDefaultWidget(landingPage);
 
     ui->stackedWidget->setCurrentAnimation(tStackedWidget::SlideHorizontal);
     this->setWindowIcon(tApplication::applicationIcon());

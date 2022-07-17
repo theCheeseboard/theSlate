@@ -28,6 +28,7 @@ set(SOURCES
         pages/repositoryclonepage/repositoryclonepage.cpp pages/repositoryclonepage/repositoryclonepage.ui
         pages/passthroughpage/passthroughpage.cpp
         pages/editorpage/textmergepopover.cpp pages/editorpage/textmergepopover.ui
+        landingpage.cpp landingpage.ui
 )
 
 set(HEADERS
@@ -49,6 +50,7 @@ set(HEADERS
         pages/repositoryclonepage/repositoryclonepage.h
         pages/passthroughpage/passthroughpage.h
         pages/editorpage/textmergepopover.h
+        landingpage.h
 )
 
 # Find Apple lproj files
