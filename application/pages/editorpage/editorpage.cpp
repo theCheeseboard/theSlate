@@ -151,7 +151,22 @@ void EditorPage::fileChanged() {
         // TODO: Show save conflict banner
         d->haveSaveConflict = true;
     } else {
-        this->discardContentsAndOpenFile(d->editor->currentUrl());
+        auto file = d->editor->currentUrl().toLocalFile();
+        if (!d->watcher.files().contains(file)) {
+            if (QFile::exists(file)) {
+                this->discardContentsAndOpenFile(d->editor->currentUrl());
+                d->watcher.addPath(file);
+            } else {
+                QTimer::singleShot(1000, [=] {
+                    if (QFile::exists(file)) {
+                        this->discardContentsAndOpenFile(d->editor->currentUrl());
+                        d->watcher.addPath(file);
+                    }
+                });
+            }
+        } else {
+            this->discardContentsAndOpenFile(d->editor->currentUrl());
+        }
     }
 }
 

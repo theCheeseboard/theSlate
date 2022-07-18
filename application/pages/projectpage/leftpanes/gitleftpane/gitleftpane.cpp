@@ -29,6 +29,7 @@
 struct GitLeftPanePrivate {
         tWindowTabberButton* tabButton;
         ProjectPtr project;
+        ProjectPage* projectPage;
 
         QFileSystemWatcher* watcher;
 
@@ -36,7 +37,7 @@ struct GitLeftPanePrivate {
         RepositoryPtr repo;
 };
 
-GitLeftPane::GitLeftPane(ProjectPtr project, QWidget* parent) :
+GitLeftPane::GitLeftPane(ProjectPtr project, ProjectPage* projectPage, QWidget* parent) :
     AbstractLeftPane(parent),
     ui(new Ui::GitLeftPane) {
     ui->setupUi(this);
@@ -45,6 +46,7 @@ GitLeftPane::GitLeftPane(ProjectPtr project, QWidget* parent) :
     d->tabButton->setText(tr("Git"));
 
     d->project = project;
+    d->projectPage = projectPage;
 
     d->watcher = new QFileSystemWatcher();
     d->watcher->addPath(project->projectDir().absolutePath());
@@ -69,7 +71,7 @@ void GitLeftPane::reloadGitState() {
         if (d->repo) return;
 
         d->repo = repo;
-        d->gr = new GitRoot(repo, this);
+        d->gr = new GitRoot(repo, d->projectPage, this);
         ui->gitPageLayout->addWidget(d->gr);
         ui->stackedWidget->setCurrentWidget(ui->gitPage);
     } else {

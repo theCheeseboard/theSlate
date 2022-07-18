@@ -20,6 +20,7 @@
 #include "gitroot.h"
 #include "ui_gitroot.h"
 
+#include "pages/projectpage/projectpage.h"
 #include <popovers/snapinpopover.h>
 #include <popovers/snapins/commitsnapin.h>
 #include <popovers/snapins/pullsnapin.h>
@@ -27,20 +28,27 @@
 
 struct GitRootPrivate {
         RepositoryPtr repo;
+        ProjectPage* projectPage;
 };
 
-GitRoot::GitRoot(RepositoryPtr repo, QWidget* parent) :
+GitRoot::GitRoot(RepositoryPtr repo, ProjectPage* projectPage, QWidget* parent) :
     QWidget(parent),
     ui(new Ui::GitRoot) {
     ui->setupUi(this);
     d = new GitRootPrivate();
     d->repo = repo;
+    d->projectPage = projectPage;
 
     ui->commitButton->setIcon(QIcon::fromTheme("commit"));
     ui->pushButton->setIcon(QIcon::fromTheme("vcs-push"));
     ui->pullButton->setIcon(QIcon::fromTheme("vcs-pull"));
 
     ui->repositoryStatus->setRepository(repo);
+    ui->repositoryBrowser->setRepository(repo);
+
+    ui->repositoryBrowser->setBeforeActionPerformedHandler([projectPage]() -> QCoro::Task<> {
+        co_await projectPage->save();
+    });
 }
 
 GitRoot::~GitRoot() {

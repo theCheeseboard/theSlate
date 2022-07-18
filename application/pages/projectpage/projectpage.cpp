@@ -46,7 +46,7 @@ ProjectPage::ProjectPage(QString projectDirectory, QWidget* parent) :
     connect(runConfigLeftPane, &RunConfigurationLeftPane::requestFileOpen, this, &ProjectPage::openUrl);
     addLeftPaneItem(runConfigLeftPane);
 
-    auto* gitLeftPane = new GitLeftPane(d->project);
+    auto* gitLeftPane = new GitLeftPane(d->project, this);
     connect(gitLeftPane, &GitLeftPane::requestFileOpen, this, &ProjectPage::openUrl);
     addLeftPaneItem(gitLeftPane);
 
@@ -84,12 +84,14 @@ void ProjectPage::addLeftPaneItem(AbstractLeftPane* leftPane) {
 }
 
 QCoro::Task<> ProjectPage::openUrl(QUrl url) {
-    co_await this->saveAll();
+    co_await this->save();
 
     QUrl canonicalUrl = url.adjusted(QUrl::RemoveQuery);
 
     if (d->editors.contains(canonicalUrl)) {
-        ui->stackedWidget->setCurrentWidget(d->editors.value(canonicalUrl));
+        auto* editor = static_cast<EditorPage*>(d->editors.value(canonicalUrl));
+        editor->discardContentsAndOpenFile(url);
+        ui->stackedWidget->setCurrentWidget(editor);
         co_return;
     }
 
@@ -117,6 +119,8 @@ void ProjectPage::redo() {
 }
 
 QCoro::Task<> ProjectPage::save() {
+    auto* editor = static_cast<EditorPage*>(ui->stackedWidget->currentWidget());
+    if (editor) co_await editor->save();
     co_return;
 }
 

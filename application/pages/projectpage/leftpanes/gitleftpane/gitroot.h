@@ -27,12 +27,13 @@ namespace Ui {
     class GitRoot;
 }
 
+class ProjectPage;
 struct GitRootPrivate;
 class GitRoot : public QWidget {
         Q_OBJECT
 
     public:
-        explicit GitRoot(RepositoryPtr repo, QWidget* parent = nullptr);
+        explicit GitRoot(RepositoryPtr repo, ProjectPage* projectPage, QWidget* parent = nullptr);
         ~GitRoot();
 
     private slots:

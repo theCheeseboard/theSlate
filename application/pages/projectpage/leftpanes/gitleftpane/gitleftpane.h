@@ -28,12 +28,13 @@ namespace Ui {
     class GitLeftPane;
 }
 
+class ProjectPage;
 struct GitLeftPanePrivate;
 class GitLeftPane : public AbstractLeftPane {
         Q_OBJECT
 
     public:
-        explicit GitLeftPane(ProjectPtr project, QWidget* parent = nullptr);
+        explicit GitLeftPane(ProjectPtr project, ProjectPage* projectPage, QWidget* parent = nullptr);
         ~GitLeftPane();
 
     signals:
