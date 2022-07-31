@@ -45,6 +45,7 @@ GitRoot::GitRoot(RepositoryPtr repo, ProjectPage* projectPage, QWidget* parent) 
 
     ui->repositoryStatus->setRepository(repo);
     ui->repositoryBrowser->setRepository(repo);
+    connect(ui->repositoryBrowser, &RepositoryBrowserList::showWidget, this, &GitRoot::showWidget);
 
     ui->repositoryBrowser->setBeforeActionPerformedHandler([projectPage]() -> QCoro::Task<> {
         co_await projectPage->save();

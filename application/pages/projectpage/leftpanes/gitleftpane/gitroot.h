@@ -43,6 +43,9 @@ class GitRoot : public QWidget {
 
         void on_pullButton_clicked();
 
+    signals:
+        void showWidget(QWidget* widget);
+
     private:
         Ui::GitRoot* ui;
         GitRootPrivate* d;

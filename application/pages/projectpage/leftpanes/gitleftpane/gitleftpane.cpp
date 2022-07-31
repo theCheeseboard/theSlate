@@ -21,6 +21,7 @@
 #include "ui_gitleftpane.h"
 
 #include "gitroot.h"
+#include "widgetholder/widgetholdereditor.h"
 #include <QFileSystemWatcher>
 #include <twindowtabberbutton.h>
 
@@ -72,6 +73,9 @@ void GitLeftPane::reloadGitState() {
 
         d->repo = repo;
         d->gr = new GitRoot(repo, d->projectPage, this);
+        connect(d->gr, &GitRoot::showWidget, this, [this](QWidget* widget) {
+            emit requestFileOpen(WidgetHolderEditor::urlForWidget(widget));
+        });
         ui->gitPageLayout->addWidget(d->gr);
         ui->stackedWidget->setCurrentWidget(ui->gitPage);
     } else {
