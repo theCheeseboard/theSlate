@@ -18,13 +18,9 @@
 
 int main(int argc, char* argv[]) {
     tApplication a(argc, argv);
-
-    if (QDir(QStringLiteral("%1/share/theslate/").arg(SYSTEM_PREFIX_DIRECTORY)).exists()) {
-        a.setShareDir(QStringLiteral("%1/share/theslate/").arg(SYSTEM_PREFIX_DIRECTORY));
-    } else if (QDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theslate/")).exists()) {
-        a.setShareDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theslate/"));
-    }
+    a.setApplicationShareDir("theslate");
     a.installTranslators();
+    a.addLibraryTranslator(LIBTHEBRANCH_TRANSLATOR);
 
     a.setApplicationVersion("2.0");
     a.setGenericName(QApplication::translate("main", "Integrated Development Environment"));
