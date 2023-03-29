@@ -48,8 +48,8 @@ int main(int argc, char* argv[]) {
     });
     tStyleManager::setOverrideStyleForApplication(settings.value("theme/mode").toString() == "light" ? tStyleManager::ContemporaryLight : tStyleManager::ContemporaryDark);
 
-    tPluginManager<TheSlatePlugin> pluginManager;
-    pluginManager.load();
+    auto pluginManager = tPluginManager<TheSlatePlugin>::instance();
+    pluginManager->setLibraryDirectory("theslate");
 
     StateManager::editor()->registerFactory("widgetholder", new WidgetHolderEditorFactory());
 
