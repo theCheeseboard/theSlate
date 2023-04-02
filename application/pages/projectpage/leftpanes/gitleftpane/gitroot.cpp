@@ -23,8 +23,6 @@
 #include "pages/projectpage/projectpage.h"
 #include <popovers/snapinpopover.h>
 #include <popovers/snapins/commitsnapin.h>
-#include <popovers/snapins/pullsnapin.h>
-#include <popovers/snapins/pushsnapin.h>
 
 struct GitRootPrivate {
         RepositoryPtr repo;
@@ -62,9 +60,9 @@ void GitRoot::on_commitButton_clicked() {
 }
 
 void GitRoot::on_pushButton_clicked() {
-    SnapInPopover::showSnapInPopover(this, new PushSnapIn(d->repo));
+    SnapInPopover::showPushPopover(this, d->repo);
 }
 
 void GitRoot::on_pullButton_clicked() {
-    SnapInPopover::showSnapInPopover(this, new PullSnapIn(d->repo));
+    SnapInPopover::showPullPopover(this, d->repo);
 }
