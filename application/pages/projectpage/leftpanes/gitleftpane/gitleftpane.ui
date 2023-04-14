@@ -37,17 +37,9 @@
      <widget class="QWidget" name="noRepositoryPage">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLabel" name="label">
-         <property name="font">
-          <font>
-           <pointsize>50</pointsize>
-          </font>
-         </property>
+        <widget class="tSubtitleLabel" name="label">
          <property name="text">
-          <string>No Git Repo Initted</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
+          <string>Git</string>
          </property>
         </widget>
        </item>
@@ -55,6 +47,13 @@
         <widget class="QLabel" name="label_2">
          <property name="text">
           <string>Create a repository to track files in Git</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="initButton">
+         <property name="text">
+          <string>Create Git Repository</string>
          </property>
         </widget>
        </item>
@@ -105,6 +104,11 @@
    <slots>
     <signal>switchingFrame(int)</signal>
    </slots>
+  </customwidget>
+  <customwidget>
+   <class>tSubtitleLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">tsubtitlelabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

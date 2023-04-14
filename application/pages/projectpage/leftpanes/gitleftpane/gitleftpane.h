@@ -21,6 +21,7 @@
 #define GITLEFTPANE_H
 
 #include "../abstractleftpane/abstractleftpane.h"
+#include <QCoroTask>
 #include <QWidget>
 #include <project.h>
 
@@ -49,6 +50,8 @@ class GitLeftPane : public AbstractLeftPane {
         // AbstractLeftPane interface
     public:
         tWindowTabberButton* tabButton();
+    private slots:
+        QCoro::Task<> on_initButton_clicked();
 };
 
 #endif // GITLEFTPANE_H

@@ -23,6 +23,8 @@
 #include "gitroot.h"
 #include "widgetholder/widgetholdereditor.h"
 #include <QFileSystemWatcher>
+#include <repository.h>
+#include <tmessagebox.h>
 #include <twindowtabberbutton.h>
 
 #include <objects/repository.h>
@@ -90,4 +92,36 @@ void GitLeftPane::reloadGitState() {
 
 tWindowTabberButton* GitLeftPane::tabButton() {
     return d->tabButton;
+}
+
+QCoro::Task<> GitLeftPane::on_initButton_clicked() {
+    auto dir = d->project->projectDir();
+
+    tMessageBox box(this->window());
+    box.setTitleBarText(tr("Create Git Repository"));
+    box.setMessageText(tr("A Git repository will be created in %1, placing it under source control.").arg(QLocale().quoteString(dir.absolutePath())));
+    box.setIcon(QMessageBox::Question);
+    tMessageBoxButton* createButton = box.addButton(tr("Create Git Repository"), QMessageBox::AcceptRole);
+    tMessageBoxButton* cancelButton = box.addStandardButton(QMessageBox::Cancel);
+
+    auto clickedButton = co_await box.presentAsync();
+
+    if (clickedButton == cancelButton) {
+        throw QException();
+    }
+
+    // Create repository at that path
+    auto repo = Repository::repositoryForInit(dir.absolutePath());
+    if (!repo) {
+        ErrorResponse err = ErrorResponse::fromCurrentGitError();
+
+        tMessageBox box(this->window());
+        box.setTitleBarText(tr("Could not create Git repository"));
+        box.setMessageText(err.description());
+        box.setIcon(QMessageBox::Critical);
+        co_await box.presentAsync();
+        throw QException();
+    }
+
+    this->reloadGitState();
 }

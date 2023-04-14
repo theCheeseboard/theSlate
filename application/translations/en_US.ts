@@ -150,18 +150,31 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pages/projectpage/leftpanes/gitleftpane/gitleftpane.ui" line="47"/>
-        <source>No Git Repo Initted</source>
+        <location filename="../pages/projectpage/leftpanes/gitleftpane/gitleftpane.ui" line="56"/>
+        <location filename="../pages/projectpage/leftpanes/gitleftpane/gitleftpane.cpp" line="101"/>
+        <location filename="../pages/projectpage/leftpanes/gitleftpane/gitleftpane.cpp" line="104"/>
+        <source>Create Git Repository</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pages/projectpage/leftpanes/gitleftpane/gitleftpane.ui" line="57"/>
+        <location filename="../pages/projectpage/leftpanes/gitleftpane/gitleftpane.ui" line="49"/>
         <source>Create a repository to track files in Git</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../pages/projectpage/leftpanes/gitleftpane/gitleftpane.cpp" line="47"/>
+        <location filename="../pages/projectpage/leftpanes/gitleftpane/gitleftpane.ui" line="42"/>
+        <location filename="../pages/projectpage/leftpanes/gitleftpane/gitleftpane.cpp" line="49"/>
         <source>Git</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pages/projectpage/leftpanes/gitleftpane/gitleftpane.cpp" line="102"/>
+        <source>A Git repository will be created in %1, placing it under source control.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pages/projectpage/leftpanes/gitleftpane/gitleftpane.cpp" line="119"/>
+        <source>Could not create Git repository</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

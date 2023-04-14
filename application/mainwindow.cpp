@@ -22,7 +22,8 @@
 #include "unsavedchangespopover.h"
 
 #include <objects/repository.h>
-#include <popovers/clonerepositorypopover.h>
+#include <popovers/snapinpopover.h>
+#include <popovers/snapins/clonerepositorysnapin.h>
 
 struct MainWindowPrivate {
         tCsdTools csd;
@@ -261,16 +262,10 @@ void MainWindow::on_actionOpenDirectory_triggered() {
 }
 
 void MainWindow::on_actionClone_Repository_triggered() {
-    auto* jp = new CloneRepositoryPopover();
-    auto* popover = new tPopover(jp);
-    popover->setPopoverWidth(SC_DPI_W(-200, this));
-    popover->setPopoverSide(tPopover::Bottom);
-    connect(jp, &CloneRepositoryPopover::done, popover, &tPopover::dismiss);
-    connect(jp, &CloneRepositoryPopover::openRepository, this, [=](RepositoryPtr repository) {
+    CloneRepositorySnapIn* jp = new CloneRepositorySnapIn();
+    connect(jp, &CloneRepositorySnapIn::openRepository, this, [=](RepositoryPtr repository) {
         auto* page = new RepositoryClonePage(repository);
         this->addPage(page);
     });
-    connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
-    connect(popover, &tPopover::dismissed, jp, &CloneRepositoryPopover::deleteLater);
-    popover->show(this->window());
+    SnapInPopover::showSnapInPopover(this, jp);
 }
