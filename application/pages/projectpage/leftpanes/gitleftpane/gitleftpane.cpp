@@ -23,7 +23,7 @@
 #include "gitroot.h"
 #include "widgetholder/widgetholdereditor.h"
 #include <QFileSystemWatcher>
-#include <repository.h>
+#include <objects/repository.h>
 #include <tmessagebox.h>
 #include <twindowtabberbutton.h>
 

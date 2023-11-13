@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.4.0)
+cmake_minimum_required(VERSION 3.21.0)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets DBus)
 find_package(libcontemporary)

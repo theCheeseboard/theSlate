@@ -205,49 +205,49 @@
     <name>LandingPage</name>
     <message>
         <location filename="../landingpage.ui" line="14"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_landingpage.h" line="146"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_landingpage.h" line="146"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../landingpage.ui" line="125"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_landingpage.h" line="147"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_landingpage.h" line="147"/>
         <source>Get Started</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../landingpage.ui" line="149"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_landingpage.h" line="148"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_landingpage.h" line="148"/>
         <source>New File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../landingpage.ui" line="152"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_landingpage.h" line="149"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_landingpage.h" line="149"/>
         <source>Start writing in a new empty text file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../landingpage.ui" line="159"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_landingpage.h" line="150"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_landingpage.h" line="150"/>
         <source>Open Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../landingpage.ui" line="162"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_landingpage.h" line="151"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_landingpage.h" line="151"/>
         <source>Open a project within a directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../landingpage.ui" line="169"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_landingpage.h" line="152"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_landingpage.h" line="152"/>
         <source>Clone Repository</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../landingpage.ui" line="172"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_landingpage.h" line="153"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_landingpage.h" line="153"/>
         <source>Retrieve a project from source control</source>
         <translation type="unfinished"></translation>
     </message>
@@ -256,145 +256,145 @@
     <name>MainWindow</name>
     <message>
         <location filename="../mainwindow.ui" line="14"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="256"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="256"/>
         <source>MainWindow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="116"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="293"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="293"/>
         <source>File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="120"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="294"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="294"/>
         <source>New</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="126"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="295"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="295"/>
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="149"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="296"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="296"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="163"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="257"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="257"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="166"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="259"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="259"/>
         <source>Ctrl+Q</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="175"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="261"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="261"/>
         <source>Empty Text File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="178"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="263"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="263"/>
         <source>Ctrl+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="187"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="265"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="265"/>
         <source>Undo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="190"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="267"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="267"/>
         <source>Ctrl+Z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="199"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="269"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="269"/>
         <source>Redo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="202"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="271"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="271"/>
         <source>Ctrl+Shift+Z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="207"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="273"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="273"/>
         <source>File...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="210"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="275"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="275"/>
         <source>Ctrl+O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="219"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="277"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="277"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="222"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="279"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="279"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="231"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="281"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="281"/>
         <source>Save As...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="234"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="283"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="283"/>
         <source>Ctrl+Shift+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="243"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="285"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="285"/>
         <source>Save All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="252"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="286"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="286"/>
         <source>Close Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="255"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="288"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="288"/>
         <source>Ctrl+W</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="260"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="290"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="290"/>
         <source>Directory...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="265"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="291"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_mainwindow.h" line="291"/>
         <source>Clone Repository</source>
         <translation type="unfinished"></translation>
     </message>
@@ -514,31 +514,31 @@
     <name>UnsavedChangesPopover</name>
     <message>
         <location filename="../unsavedchangespopover.ui" line="14"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_unsavedchangespopover.h" line="136"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_unsavedchangespopover.h" line="136"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../unsavedchangespopover.ui" line="54"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_unsavedchangespopover.h" line="137"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_unsavedchangespopover.h" line="137"/>
         <source>Unsaved Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../unsavedchangespopover.ui" line="91"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_unsavedchangespopover.h" line="138"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_unsavedchangespopover.h" line="138"/>
         <source>Review Changes Individually</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../unsavedchangespopover.ui" line="98"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_unsavedchangespopover.h" line="139"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_unsavedchangespopover.h" line="139"/>
         <source>Save All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../unsavedchangespopover.ui" line="111"/>
-        <location filename="../../../build-theSlate-Desktop_ARM-Debug/application/theslate_autogen/include/ui_unsavedchangespopover.h" line="140"/>
+        <location filename="../../../build-theslate-Chroot_6-Debug/application/theslate_autogen/include/ui_unsavedchangespopover.h" line="140"/>
         <source>Discard All</source>
         <translation type="unfinished"></translation>
     </message>

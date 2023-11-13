@@ -1,2 +1,3 @@
 add_subdirectory(CMakePlugin)
 add_subdirectory(ClangPlugin)
+add_subdirectory(DotNetPlugin)
