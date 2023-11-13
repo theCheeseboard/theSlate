@@ -5,3 +5,6 @@
 /.vs
 /out
 /CMakeSettings.json
+
+obj
+bin
